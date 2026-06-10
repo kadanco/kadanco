@@ -1,0 +1,363 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const groups = [
+  {
+    label: 'Demand & pipeline',
+    items: [
+      ['ABM & outbound', 'Warm paths to the accounts you actually want.'],
+      ['Paid ads', 'Google, LinkedIn and Meta, aimed with ABM precision.'],
+      ['Events & founder dinners', 'Rooms worth being in — built, filled, followed up.'],
+    ],
+  },
+  {
+    label: 'Brand & content',
+    items: [
+      ['Brand & website', 'Identity, design and build that look category-leading.'],
+      ['Ghostwriting & content', "Your founder's voice, published on a steady cadence."],
+      ['Creative & sales collateral', "Decks, one-pagers and video your sales team will use."],
+    ],
+  },
+  {
+    label: 'Strategy & positioning',
+    items: [
+      ['Messaging & positioning', 'Sharper words. A category you can own.'],
+      ['Growth strategy', 'GTM and quarterly plans you can act on Monday.'],
+      ['Partnership marketing', 'Co-marketing, integrations and channels that compound.'],
+    ],
+  },
+  {
+    label: 'Engine & optimisation',
+    items: [
+      ['SEO & GEO', 'Rank when you publish — and get cited by AI search.'],
+      ['Conversion rate optimisation', 'Find the leaks. Run the experiments. Lift the rate.'],
+      ['RevOps & automation', 'CRM, lifecycle and attribution that finally agree.'],
+    ],
+  },
+];
+---
+<Layout
+  title="Kadanco — your entire marketing function, run by senior operators"
+  description="Kadanco is two senior operators in Berlin who run your whole CMO function — strategy and hands-on execution — for B2B companies scaling across DACH and Benelux, in German, Dutch and English."
+>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <!-- LOGO PLACEHOLDER: replace the square + wordmark with your final asset -->
+      <a class="brandmark" href="#top" aria-label="Kadanco — home">
+        <span class="sq" aria-hidden="true"></span>
+        <span>Kadanco</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#approach">Approach</a>
+        <a class="navlink" href="#founders">Who we are</a>
+        <button class="btn btn-primary" data-open-modal>Let's talk</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="section hero">
+      <div class="container">
+        <span class="eyebrow">The full CMO function · Berlin</span>
+        <div class="hero-head">
+          <h1>Your entire marketing function, run by two senior operators who <span class="mark">do the work</span>.</h1>
+          <svg class="bars" width="68" height="42" viewBox="0 0 68 42" aria-hidden="true">
+            <rect x="0" y="23" width="12" height="19" rx="3" fill="#0b253a" />
+            <rect x="19" y="15" width="12" height="27" rx="3" fill="#0b253a" />
+            <rect x="38" y="8" width="12" height="34" rx="3" fill="#0b253a" />
+            <rect x="57" y="0" width="12" height="42" rx="3" fill="#00d26a" />
+          </svg>
+        </div>
+        <p class="lead">
+          Strategy and hands-on execution for B2B companies scaling across DACH and Benelux —
+          in German, Dutch and English. No agency bloat. No junior hand-offs. No project-management tax.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-accent btn-lg" data-open-modal>Let's talk</button>
+          <a class="btn btn-outline btn-lg" href="#services">See what we do</a>
+        </div>
+        <div class="factrow">
+          <span class="tag">15+ years each</span>
+          <span class="tag">Built by the founders of hubsell</span>
+          <span class="tag">DE · NL · EN</span>
+          <span class="tag">Berlin</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section section-tight">
+      <div class="container">
+        <span class="eyebrow">Sound familiar?</span>
+        <h2>The marketing trap at €2–5M.</h2>
+        <p class="lead" style="max-width:62ch;margin-top:14px">
+          You're past the scrappy stage and trying to grow across Europe. The usual options all leak somewhere.
+        </p>
+        <div class="grid cols-2" style="margin-top:36px">
+          <div class="card pain">
+            <h3>Agencies that sell you the seniors — then staff you with juniors.</h3>
+            <p>You pay partner rates for work the interns are learning on.</p>
+          </div>
+          <div class="card pain">
+            <h3>A fractional CMO with a beautiful plan and no one to run it.</h3>
+            <p>Strategy lands in a deck and sits there. Advice doesn't execute itself.</p>
+          </div>
+          <div class="card pain">
+            <h3>Campaigns built for the US, pointed at Europe.</h3>
+            <p>DACH and Benelux don't buy — or read — like San Francisco. Generic playbooks stall here.</p>
+          </div>
+          <div class="card pain">
+            <h3>Twelve tools, five freelancers, and no one connecting them.</h3>
+            <p>Everyone owns a slice; nobody owns the funnel. The numbers never quite add up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPROACH / WEDGE -->
+    <section id="approach" class="section">
+      <div class="container">
+        <span class="eyebrow">What Kadanco is</span>
+        <h2>Senior people. Hands on the keyboard.</h2>
+        <p class="lead" style="max-width:64ch;margin-top:16px">
+          Two operators with fifteen-plus years each, who set the strategy and do the work themselves.
+          We built a B2B software company together. Now we do it for a handful of clients at a time.
+        </p>
+        <div class="grid cols-3" style="margin-top:38px">
+          <div class="card">
+            <span class="tag">vs. an agency</span>
+            <h3 style="margin:14px 0 8px">The people who pitched you do the work.</h3>
+            <p>No account managers, no markup on juniors, no project-management tax.</p>
+          </div>
+          <div class="card">
+            <span class="tag">vs. a fractional CMO</span>
+            <h3 style="margin:14px 0 8px">Strategy that comes with hands.</h3>
+            <p>We don't just write the plan — we ship it, week after week.</p>
+          </div>
+          <div class="card">
+            <span class="tag">vs. hiring in-house</span>
+            <h3 style="margin:14px 0 8px">A whole function from day one.</h3>
+            <p>Three languages, no recruiting cycle, no ramp, no headcount risk.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <span class="eyebrow">The whole CMO function</span>
+        <h2>One team. The entire stack.</h2>
+        <p class="lead" style="max-width:64ch;margin-top:16px">
+          Twelve capabilities, run as one connected function — not twelve disconnected vendors.
+          We focus on the few moves that matter most for you, and execute them ourselves.
+        </p>
+        <div class="grid cols-2" style="margin-top:38px">
+          {groups.map((g) => (
+            <div class="card">
+              <span class="tag">{g.label}</span>
+              <ul class="svc-list">
+                {g.items.map(([name, desc]) => (
+                  <li><strong>{name}</strong><span>{desc}</span></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">How we work</span>
+        <h2>From kickoff to shipped, in weeks.</h2>
+        <div class="grid cols-3" style="margin-top:38px">
+          <div class="card step">
+            <span class="step-no">01</span>
+            <h3>Map</h3>
+            <p>We learn your market, your ICP, your funnel and your numbers — then agree on the few moves that change your pipeline the most.</p>
+          </div>
+          <div class="card step">
+            <span class="step-no">02</span>
+            <h3>Build</h3>
+            <p>We do the work ourselves: the brand, the site, the campaigns, the content, the systems. No briefs thrown over a wall.</p>
+          </div>
+          <div class="card step">
+            <span class="step-no">03</span>
+            <h3>Ship &amp; compound</h3>
+            <p>Real work in weeks, not quarters. Then we keep shipping, and the engine gets stronger every month.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDERS -->
+    <section id="founders" class="section">
+      <div class="container">
+        <span class="eyebrow">Who we are</span>
+        <h2>Two operators. One origin story.</h2>
+        <p class="lead" style="max-width:66ch;margin-top:16px">
+          Kadanco is two senior operators in Berlin who built a B2B software company together.
+          Mia ran product and design; Karan founded it. Now they do for a handful of clients what
+          they did for their own — brand, website, positioning, demand, and pipeline. Hands on the work.
+        </p>
+        <div class="grid cols-2" style="margin-top:38px">
+          <div class="card founder">
+            <!-- PHOTO PLACEHOLDER: swap the avatar for a headshot -->
+            <div class="avatar" aria-hidden="true">M</div>
+            <div>
+              <h3>Mia Richter</h3>
+              <span class="role">Brand, website &amp; systems</span>
+              <p>
+                Fifteen years turning complex B2B software into things people actually want to use.
+                As Head of Product at hubsell she led the SaaS redesign and built the brand, identity
+                and design system behind it; before that she designed for Opel, Mercedes-Benz, Toyota
+                and Postbank, and ran banking and trading UX at Consorsbank. She's also trained 700+
+                product professionals. Thoughtful, systematic, and the reason everything ends up coherent.
+              </p>
+              <span class="tag">German · English</span>
+            </div>
+          </div>
+          <div class="card founder">
+            <div class="avatar" aria-hidden="true">K</div>
+            <div>
+              <h3>Karan Sharma</h3>
+              <span class="role">Growth, GTM &amp; positioning</span>
+              <p>
+                Eleven years as founder of hubsell, the B2B GTM platform — built from MVP to a system
+                that replaces a company's sales-intelligence, engagement and outreach stack, every hat
+                worn from CEO to CSO to product. Alongside it, he's advised dozens of companies on
+                positioning, demand generation and content. He came up through marketing at Rocket
+                Internet, advocacy in the NGO sector, and content marketing at ContentBird. Explorative,
+                direct, and built to ship.
+              </p>
+              <span class="tag">Dutch · English</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="section">
+      <div class="container">
+        <div class="on-dark cta-panel">
+          <span class="eyebrow">Let's talk</span>
+          <h2>Tell us where you're trying to grow.</h2>
+          <p>We'll tell you the few moves we'd make — and then we'll make them. Reply within 24 hours.</p>
+          <button class="btn btn-accent btn-lg" data-open-modal>Start a conversation</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="brandmark"><span class="sq" aria-hidden="true"></span><span>Kadanco</span></div>
+      <p class="muted">The CMO function for B2B companies scaling across Europe. Berlin, Germany.</p>
+      <div class="footer-links">
+        <a href="mailto:hello@kadanco.com">hello@kadanco.com</a>
+        <a href="#" aria-label="Kadanco on LinkedIn">LinkedIn</a>
+      </div>
+      <p class="muted small">© 2026 Kadanco</p>
+    </div>
+  </footer>
+
+  <!-- CONTACT MODAL -->
+  <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="modal">
+      <button class="x" data-close-modal aria-label="Close dialog">✕</button>
+      <div id="form-body">
+        <span class="eyebrow">Let's talk</span>
+        <h3 id="contact-title">Start a conversation</h3>
+        <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reply within 24 hours.</p>
+        <!-- NOTE: wire this form to your endpoint (Formspree, your CRM, hubsell, etc.) -->
+        <form id="contact-form" novalidate>
+          <!-- Honeypot: hidden from people, catches bots. Leave empty. -->
+          <div class="hp" aria-hidden="true">
+            <label for="f-hp">Leave this field empty</label>
+            <input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="f-website">Website <span class="muted">(optional)</span></label><input id="f-website" name="website" /></div>
+          <div class="field"><label for="f-goal">What are you trying to grow?</label><textarea id="f-goal" name="goal"></textarea></div>
+          <p class="form-error" id="form-error" role="alert" style="display:none"></p>
+          <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+      </div>
+      <div id="form-success" class="success" style="display:none">
+        <div class="check" aria-hidden="true">✓</div>
+        <h3>Thanks — talk soon.</h3>
+        <p class="muted" style="margin-top:6px">We'll be in touch within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var overlay = document.getElementById('contact');
+      var lastFocus = null;
+      function openModal() {
+        lastFocus = document.activeElement;
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        var first = overlay.querySelector('input, button');
+        if (first) first.focus();
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+      document.querySelectorAll('[data-open-modal]').forEach(function (b) {
+        b.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+      });
+      document.querySelectorAll('[data-close-modal]').forEach(function (b) {
+        b.addEventListener('click', closeModal);
+      });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+      var form = document.getElementById('contact-form');
+      var errEl = document.getElementById('form-error');
+      function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var btn = form.querySelector('button[type="submit"]');
+        var label = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…';
+        errEl.style.display = 'none';
+        fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            name: val('f-name'), email: val('f-email'), company: val('f-company'),
+            website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp')
+          })
+        }).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (out) {
+            if (res.ok && out.ok) {
+              document.getElementById('form-body').style.display = 'none';
+              document.getElementById('form-success').style.display = 'block';
+            } else {
+              throw new Error((out && out.error) || 'Something went wrong.');
+            }
+          });
+        }).catch(function (err) {
+          errEl.textContent = err.message + ' You can also email hello@kadanco.com.';
+          errEl.style.display = 'block';
+          btn.disabled = false; btn.textContent = label;
+        });
+      });
+    })();
+  </script>
+</Layout>
