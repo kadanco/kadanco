@@ -60,8 +60,9 @@ export async function onRequestPost(context) {
     });
 
     if (!res.ok) {
-      // If Plunk still fails, show a clean error message
-      return json({ ok: false, error: 'We could not deliver your message just now. Please try again.' }, 400);
+      // DEBUG: Show the exact Plunk rejection reason
+      const errText = await res.text();
+      return json({ ok: false, error: `Plunk Error ${res.status}: ${errText}` }, 400);
     }
 
     return json({ ok: true });
