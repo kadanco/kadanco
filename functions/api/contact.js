@@ -40,7 +40,6 @@ export async function onRequestPost(context) {
     const plunkPayload = {
       event: 'contact-form-submitted',
       email: email,
-      subscribed: true,
       data: {
         name: name,
         company: company,
@@ -49,8 +48,8 @@ export async function onRequestPost(context) {
       }
     };
 
-    // 6. Send the lead to Plunk
-    const res = await fetch('https://api.useplunk.com/v1/track', {
+    // 6. Send the lead to Plunk's NEW v2 API server
+    const res = await fetch('https://next-api.useplunk.com/v1/track', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +59,6 @@ export async function onRequestPost(context) {
     });
 
     if (!res.ok) {
-      // DEBUG: Show the exact Plunk rejection reason
       const errText = await res.text();
       return json({ ok: false, error: `Plunk Error ${res.status}: ${errText}` }, 400);
     }
