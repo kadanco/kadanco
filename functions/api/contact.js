@@ -32,7 +32,7 @@ export async function onRequestPost(context) {
 
     // 4. Ensure API Key exists
     if (!env.PLUNK_API_KEY) {
-      return json({ ok: false, error: 'Newsletter service is not configured yet.' }, 500);
+      return json({ ok: false, error: 'Newsletter service is not configured yet.' }, 400);
     }
 
     // 5. Construct the Plunk Track Payload
@@ -59,7 +59,8 @@ export async function onRequestPost(context) {
     });
 
     if (!res.ok) {
-      return json({ ok: false, error: 'We could not deliver your message just now.' }, 502);
+      const errText = await res.text();
+      return json({ ok: false, error: `Plunk Error ${res.status}: ${errText}` }, 400);
     }
 
     return json({ ok: true });
