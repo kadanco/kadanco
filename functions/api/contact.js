@@ -59,8 +59,8 @@ export async function onRequestPost(context) {
     });
 
     if (!res.ok) {
-      const errText = await res.text();
-      return json({ ok: false, error: `Plunk Error ${res.status}: ${errText}` }, 400);
+      // Show clean error message instead of raw JSON
+      return json({ ok: false, error: 'We could not deliver your message just now. Please try again.' }, 400);
     }
 
     return json({ ok: true });
