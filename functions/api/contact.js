@@ -1,4 +1,3 @@
-// functions/api/contact.js
 export async function onRequestPost(context) {
   const { request, env } = context;
 
@@ -60,7 +59,9 @@ export async function onRequestPost(context) {
 
     if (!res.ok) {
       const errText = await res.text();
-      return json({ ok: false, error: `Plunk Error ${res.status}: ${errText}` }, 400);
+      // DEBUG: Grab the first 5 characters of the key Cloudflare is actually using
+      const keyPrefix = env.PLUNK_API_KEY ? env.PLUNK_API_KEY.substring(0, 5) : 'Empty';
+      return json({ ok: false, error: `Plunk Error ${res.status}. Debug -> CF is passing a key that starts with: "${keyPrefix}..." | Plunk says: ${errText}` }, 400);
     }
 
     return json({ ok: true });
