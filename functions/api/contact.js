@@ -29,8 +29,10 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: 'Please add your name and a valid email.' }, 422);
     }
 
-    // 4. Ensure API Key exists
-    if (!env.PLUNK_API_KEY) {
+    // 4. Ensure API Key exists and strip hidden spaces/newlines
+    const apiKey = env.PLUNK_API_KEY ? String(env.PLUNK_API_KEY).trim() : '';
+    
+    if (!apiKey) {
       return json({ ok: false, error: 'Newsletter service is not configured yet.' }, 400);
     }
 
@@ -52,16 +54,14 @@ export async function onRequestPost(context) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${env.PLUNK_API_KEY}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify(plunkPayload)
     });
 
     if (!res.ok) {
-      const errText = await res.text();
-      // DEBUG: Grab the first 5 characters of the key Cloudflare is actually using
-      const keyPrefix = env.PLUNK_API_KEY ? env.PLUNK_API_KEY.substring(0, 5) : 'Empty';
-      return json({ ok: false, error: `Plunk Error ${res.status}. Debug -> CF is passing a key that starts with: "${keyPrefix}..." | Plunk says: ${errText}` }, 400);
+      // If Plunk still fails, show a clean error message
+      return json({ ok: false, error: 'We could not deliver your message just now. Please try again.' }, 400);
     }
 
     return json({ ok: true });
