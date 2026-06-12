@@ -1,89 +1,67 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const groups = [
-  {
-    label: 'Demand & pipeline',
-    items: [
-      ['ABM & outbound', 'Warm paths to the accounts you actually want.'],
-      ['Paid ads', 'Google, LinkedIn and Meta, aimed with ABM precision.'],
-      ['Events & founder dinners', 'Rooms worth being in — built, filled, followed up.'],
-    ],
-  },
-  {
-    label: 'Brand & content',
-    items: [
-      ['Brand & website', 'Identity, design and build that look category-leading.'],
-      ['Ghostwriting & content', "Your founder's voice, published on a steady cadence."],
-      ['Creative & sales collateral', "Decks, one-pagers and video your sales team will use."],
-    ],
-  },
-  {
-    label: 'Strategy & positioning',
-    items: [
-      ['Messaging & positioning', 'Sharper words. A category you can own.'],
-      ['Growth strategy', 'GTM and quarterly plans you can act on Monday.'],
-      ['Partnership marketing', 'Co-marketing, integrations and channels that compound.'],
-    ],
-  },
-  {
-    label: 'Engine & optimisation',
-    items: [
-      ['SEO & GEO', 'Rank when you publish — and get cited by AI search.'],
-      ['Conversion rate optimisation', 'Find the leaks. Run the experiments. Lift the rate.'],
-      ['RevOps & automation', 'CRM, lifecycle and attribution that finally agree.'],
-    ],
-  },
-];
 ---
 <Layout
-  title="Kadanco — your entire marketing function, run by senior operators"
-  description="Kadanco is two senior operators in Berlin who run your whole CMO function — strategy and hands-on execution — for B2B companies scaling across DACH and Benelux, in German, Dutch and English."
+  title="Kadanco. Your marketing function, owned and executed."
+  description="Kadanco is a senior, full-stack marketing function for B2B companies. Two operators own the strategy and run the execution. €100M+ in pipeline generated, 12+ vendors replaced per client, results in 2 weeks. No agency overhead, no juniors, no freelancer juggling."
 >
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
-      <!-- LOGO PLACEHOLDER: replace the square + wordmark with your final asset -->
-      <a class="brandmark" href="#top" aria-label="Kadanco — home">
-        <span class="sq" aria-hidden="true"></span>
-        <span>Kadanco</span>
-      </a>
+      <!-- LOGO PLACEHOLDER: replace the wordmark with your final asset -->
+      <a class="brandmark" href="#top" aria-label="Kadanco — home">Kadanco</a>
       <nav class="nav-links" aria-label="Primary">
-        <a class="navlink" href="#services">Services</a>
         <a class="navlink" href="#approach">Approach</a>
+        <a class="navlink" href="#capabilities">Capabilities</a>
+        <a class="navlink" href="#use-cases">Use cases</a>
         <a class="navlink" href="#founders">Who we are</a>
-        <button class="btn btn-primary" data-open-modal>Let's talk</button>
+        <button class="btn btn-accent" data-open-modal>Let's talk</button>
       </nav>
     </div>
   </header>
 
   <main id="top">
+
     <!-- HERO -->
     <section class="section hero">
       <div class="container">
-        <span class="eyebrow">The full CMO function · Berlin</span>
+        <span class="eyebrow">A senior marketing function for B2B companies</span>
         <div class="hero-head">
-          <h1>Your entire marketing function, run by two senior operators who <span class="mark">do the work</span>.</h1>
-          <svg class="bars" width="68" height="42" viewBox="0 0 68 42" aria-hidden="true">
-            <rect x="0" y="23" width="12" height="19" rx="3" fill="#0b253a" />
-            <rect x="19" y="15" width="12" height="27" rx="3" fill="#0b253a" />
-            <rect x="38" y="8" width="12" height="34" rx="3" fill="#0b253a" />
-            <rect x="57" y="0" width="12" height="42" rx="3" fill="#00d26a" />
+          <h1>Your marketing function. <span class="hl">Owned and executed.</span></h1>
+          <svg class="bars" width="76" height="48" viewBox="0 0 76 48" aria-hidden="true">
+            <rect x="0" y="27" width="13" height="21" rx="3" fill="#1A8B8B" />
+            <rect x="21" y="18" width="13" height="30" rx="3" fill="#A6B00F" />
+            <rect x="42" y="9" width="13" height="39" rx="3" fill="#E96225" />
+            <rect x="63" y="0" width="13" height="48" rx="3" fill="#050A30" />
           </svg>
         </div>
         <p class="lead">
-          Strategy and hands-on execution for B2B companies scaling across DACH and Benelux —
-          in German, Dutch and English. No agency bloat. No junior hand-offs. No project-management tax.
+          Kadanco is a complete marketing function for B2B companies. Two senior operators take
+          ownership of the strategy and run the execution themselves. One team, one system of action,
+          one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.
         </p>
         <div class="hero-cta">
-          <button class="btn btn-accent btn-lg" data-open-modal>Let's talk</button>
-          <a class="btn btn-outline btn-lg" href="#services">See what we do</a>
+          <button class="btn btn-primary btn-lg" data-open-modal>Let's talk</button>
+          <a class="btn btn-outline btn-lg" href="#capabilities">See the system</a>
         </div>
-        <div class="factrow">
-          <span class="tag">15+ years each</span>
-          <span class="tag">Built by the founders of hubsell</span>
-          <span class="tag">DE · NL · EN</span>
-          <span class="tag">Berlin</span>
+
+        <!-- facts strip -->
+        <p class="eyebrow" style="margin-top:42px;margin-bottom:0">What the founders have delivered</p>
+        <div class="stats">
+          <div class="stat stat-1"><div class="stat-num">€100M+</div><div class="stat-label">pipeline generated for clients</div></div>
+          <div class="stat stat-2"><div class="stat-num">12+</div><div class="stat-label">vendors replaced per client</div></div>
+          <div class="stat stat-3"><div class="stat-num">2 weeks</div><div class="stat-label">to first results</div></div>
+          <div class="stat stat-4"><div class="stat-num">15+ yrs</div><div class="stat-label">operating experience each</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAPABILITY STRIP -->
+    <section class="section-tight">
+      <div class="container">
+        <span class="eyebrow e-teal">The whole stack, one team</span>
+        <div class="cap-strip">
+          Positioning &middot; ABM &amp; outbound &middot; Demand gen &middot; Content &amp; ghostwriting &middot; SEO &amp; GEO &middot; Paid &middot; Brand &amp; web &middot; Events &middot; CRO &middot; RevOps &amp; automation &middot; Partnerships &middot; Lifecycle
         </div>
       </div>
     </section>
@@ -91,135 +69,193 @@ const groups = [
     <!-- PROBLEM -->
     <section class="section section-tight">
       <div class="container">
-        <span class="eyebrow">Sound familiar?</span>
-        <h2>The marketing trap at €2–5M.</h2>
-        <p class="lead" style="max-width:62ch;margin-top:14px">
-          You're past the scrappy stage and trying to grow across Europe. The usual options all leak somewhere.
+        <span class="eyebrow e-orange">The overhead problem</span>
+        <h2>Most marketing spend buys management, not execution.</h2>
+        <p class="lead" style="max-width:64ch;margin-top:14px">
+          At EUR 2 to 5M you need a full marketing function. Every standard way of getting one taxes
+          you somewhere: in overhead, in ownership, or in time.
         </p>
         <div class="grid cols-2" style="margin-top:36px">
-          <div class="card pain">
-            <h3>Agencies that sell you the seniors — then staff you with juniors.</h3>
-            <p>You pay partner rates for work the interns are learning on.</p>
+          <div class="card pain pain-teal">
+            <h3>Agencies sell senior, staff junior.</h3>
+            <p>You pay partner rates and get work the interns are learning on, wrapped in an account-management layer that adds cost and removes ownership.</p>
           </div>
-          <div class="card pain">
-            <h3>A fractional CMO with a beautiful plan and no one to run it.</h3>
-            <p>Strategy lands in a deck and sits there. Advice doesn't execute itself.</p>
+          <div class="card pain pain-orange">
+            <h3>A fractional CMO writes the plan, then leaves you to run it.</h3>
+            <p>Strategy without execution is a slide deck. Someone still has to do the work, and that someone is you.</p>
           </div>
-          <div class="card pain">
-            <h3>Campaigns built for the US, pointed at Europe.</h3>
-            <p>DACH and Benelux don't buy — or read — like San Francisco. Generic playbooks stall here.</p>
+          <div class="card pain pain-citron">
+            <h3>Imported playbooks stall.</h3>
+            <p>Tactics that worked elsewhere get run unchanged and underperform. The market, the language and the channels get treated as an afterthought.</p>
           </div>
-          <div class="card pain">
-            <h3>Twelve tools, five freelancers, and no one connecting them.</h3>
-            <p>Everyone owns a slice; nobody owns the funnel. The numbers never quite add up.</p>
+          <div class="card pain pain-navy">
+            <h3>Twelve tools and five freelancers, no owner.</h3>
+            <p>Everyone runs a slice, nobody owns the funnel, and the coordination overhead lands on your desk. The numbers never reconcile.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- APPROACH / WEDGE -->
+    <!-- APPROACH -->
     <section id="approach" class="section">
       <div class="container">
-        <span class="eyebrow">What Kadanco is</span>
-        <h2>Senior people. Hands on the keyboard.</h2>
+        <span class="eyebrow e-teal">How we operate</span>
+        <h2>We don't advise the work. We own it and execute it.</h2>
         <p class="lead" style="max-width:64ch;margin-top:16px">
-          Two operators with fifteen-plus years each, who set the strategy and do the work themselves.
-          We built a B2B software company together. Now we do it for a handful of clients at a time.
+          Kadanco operates as your marketing function, not a vendor attached to it. The two people who
+          scope the work are the two people who do it. We take ownership of the outcome, run the motions
+          ourselves, and keep the whole system pointed at pipeline. Four clients at a time, so every
+          account gets senior execution.
         </p>
         <div class="grid cols-3" style="margin-top:38px">
-          <div class="card">
-            <span class="tag">vs. an agency</span>
-            <h3 style="margin:14px 0 8px">The people who pitched you do the work.</h3>
-            <p>No account managers, no markup on juniors, no project-management tax.</p>
+          <div class="card edge-teal">
+            <span class="tag tag-teal">One owner</span>
+            <h3 style="margin:14px 0 8px">One team, accountable for everything.</h3>
+            <p>A single team owns the whole function and one number, not a roster of specialists you have to coordinate.</p>
           </div>
-          <div class="card">
-            <span class="tag">vs. a fractional CMO</span>
-            <h3 style="margin:14px 0 8px">Strategy that comes with hands.</h3>
-            <p>We don't just write the plan — we ship it, week after week.</p>
+          <div class="card edge-orange">
+            <span class="tag tag-orange">Senior execution</span>
+            <h3 style="margin:14px 0 8px">The strategists do the work.</h3>
+            <p>The operators who set the direction do the hands-on work. No junior delivery, no account layer, no markup.</p>
           </div>
-          <div class="card">
-            <span class="tag">vs. hiring in-house</span>
-            <h3 style="margin:14px 0 8px">A whole function from day one.</h3>
-            <p>Three languages, no recruiting cycle, no ramp, no headcount risk.</p>
+          <div class="card edge-citron">
+            <span class="tag tag-citron">One system of action</span>
+            <h3 style="margin:14px 0 8px">Twelve motions, one engine.</h3>
+            <p>Every motion runs as part of one connected system, so the whole stack compounds instead of leaking between vendors.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="section">
+    <!-- CAPABILITIES -->
+    <section id="capabilities" class="section">
       <div class="container">
-        <span class="eyebrow">The whole CMO function</span>
-        <h2>One team. The entire stack.</h2>
+        <span class="eyebrow">The system</span>
+        <h2>One function. The whole stack.</h2>
         <p class="lead" style="max-width:64ch;margin-top:16px">
-          Twelve capabilities, run as one connected function — not twelve disconnected vendors.
-          We focus on the few moves that matter most for you, and execute them ourselves.
+          Twelve capabilities, run as one connected system of action. We don't sell them a la carte.
+          We take ownership of the function and deploy whichever motions move your pipeline.
         </p>
         <div class="grid cols-2" style="margin-top:38px">
-          {groups.map((g) => (
-            <div class="card">
-              <span class="tag">{g.label}</span>
-              <ul class="svc-list">
-                {g.items.map(([name, desc]) => (
-                  <li><strong>{name}</strong><span>{desc}</span></li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div class="card edge-teal">
+            <span class="tag tag-teal">Pipeline &amp; demand</span>
+            <ul class="svc-list">
+              <li><strong>ABM &amp; outbound</strong><span>Targeted account motion into the buyers you actually want.</span></li>
+              <li><strong>Paid</strong><span>Google, LinkedIn and Meta, run with ABM-level targeting.</span></li>
+              <li><strong>Events</strong><span>Rooms worth being in: scored, built, filled, and worked for pipeline.</span></li>
+            </ul>
+          </div>
+          <div class="card edge-orange">
+            <span class="tag tag-orange">Brand &amp; content</span>
+            <ul class="svc-list">
+              <li><strong>Brand &amp; website</strong><span>Identity, design and build that read as the category leader.</span></li>
+              <li><strong>Content &amp; ghostwriting</strong><span>A consistent publishing motion in your team's voice.</span></li>
+              <li><strong>Creative &amp; sales collateral</strong><span>Decks, one-pagers and video the sales team actually uses.</span></li>
+            </ul>
+          </div>
+          <div class="card edge-citron">
+            <span class="tag tag-citron">Positioning &amp; strategy</span>
+            <ul class="svc-list">
+              <li><strong>Messaging &amp; positioning</strong><span>Sharper words and a category you can own.</span></li>
+              <li><strong>Growth strategy</strong><span>GTM and quarterly operating plans you can act on Monday.</span></li>
+              <li><strong>Partnerships</strong><span>Co-marketing, integrations and channel that compound.</span></li>
+            </ul>
+          </div>
+          <div class="card edge-navy">
+            <span class="tag">Engine &amp; ops</span>
+            <ul class="svc-list">
+              <li><strong>SEO &amp; GEO</strong><span>Rank on publish, and get cited by AI search.</span></li>
+              <li><strong>CRO</strong><span>Find the leaks, run the experiments, lift the rate.</span></li>
+              <li><strong>RevOps &amp; automation</strong><span>CRM, lifecycle and attribution that finally reconcile.</span></li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- PROCESS -->
-    <section class="section">
+    <!-- USE CASES -->
+    <section id="use-cases" class="section band-pink">
       <div class="container">
-        <span class="eyebrow">How we work</span>
-        <h2>From kickoff to shipped, in weeks.</h2>
+        <span class="eyebrow e-navy">Use cases</span>
+        <h2>What the function delivers.</h2>
+        <p class="lead" style="max-width:64ch;margin-top:16px">
+          A few of the outcomes teams hire us for, and the bundle of motions behind each. This is how
+          the engine runs, not a menu.
+        </p>
+        <div class="grid cols-2" style="margin-top:38px">
+          <div class="card edge-teal">
+            <span class="tag tag-teal">Founder-led content &amp; pipeline</span>
+            <p style="margin-top:14px"><strong>Situation.</strong> The founder's insight is the company's best asset and it is trapped in their head.</p>
+            <p><strong>The bundle.</strong> Messaging &amp; positioning, ghostwriting &amp; content, SEO &amp; GEO, outbound warmed by the content, and RevOps to track what converts.</p>
+            <p><strong>What you own.</strong> A consistent publishing motion in the founder's voice, feeding measurable pipeline instead of vanity engagement.</p>
+          </div>
+          <div class="card edge-orange">
+            <span class="tag tag-orange">Rebuild that lifts conversion</span>
+            <p style="margin-top:14px"><strong>Situation.</strong> The product moved on, the brand and site didn't, and the funnel leaks.</p>
+            <p><strong>The bundle.</strong> Positioning, brand &amp; website rebuild, sales collateral, CRO, and lifecycle &amp; automation.</p>
+            <p><strong>What you own.</strong> A site and message that match where the company actually is, plus an instrumented funnel you keep improving.</p>
+          </div>
+          <div class="card edge-citron">
+            <span class="tag tag-citron">DACH market entry</span>
+            <p style="margin-top:14px"><strong>Situation.</strong> You have product and traction, but no one owns the German-speaking market in its own language.</p>
+            <p><strong>The bundle.</strong> Localised positioning, a German content engine, LinkedIn for the team, an event motion, and distribution.</p>
+            <p><strong>What you own.</strong> A German-language presence that compounds weekly, existing assets finally working in-market, and a pipeline motion your salespeople don't run themselves.</p>
+          </div>
+          <div class="card edge-navy">
+            <span class="tag">Event pipeline engineering</span>
+            <p style="margin-top:14px"><strong>Situation.</strong> Trade shows and conferences eat budget and team time, but the pipeline never gets attributed.</p>
+            <p><strong>The bundle.</strong> Events scored by ICP overlap and persona density, LinkedIn and Meta ABM from four weeks out with calendar holds, hosted dinners and roundtables where deals close, plus same-day enrichment, CRM sync and follow-up sequenced by lead type.</p>
+            <p><strong>What you own.</strong> Attendees who recognise you before they walk in, meetings booked into a held calendar, and a CFO-grade ROI report inside 30 days with every meeting tagged.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPERATING MODEL -->
+    <section id="how" class="section">
+      <div class="container">
+        <span class="eyebrow e-teal">How we work</span>
+        <h2>Kickoff to live execution in 14 days.</h2>
         <div class="grid cols-3" style="margin-top:38px">
           <div class="card step">
-            <span class="step-no">01</span>
+            <span class="step-no no-teal">01</span>
             <h3>Map</h3>
-            <p>We learn your market, your ICP, your funnel and your numbers — then agree on the few moves that change your pipeline the most.</p>
+            <p>We learn the market, the ICP, the funnel and the numbers, then agree the few motions that move pipeline most.</p>
           </div>
           <div class="card step">
-            <span class="step-no">02</span>
-            <h3>Build</h3>
-            <p>We do the work ourselves: the brand, the site, the campaigns, the content, the systems. No briefs thrown over a wall.</p>
+            <span class="step-no no-citron">02</span>
+            <h3>Own</h3>
+            <p>We take the work off your team and run it ourselves: brand, site, campaigns, content, systems. No briefs over a wall.</p>
           </div>
           <div class="card step">
-            <span class="step-no">03</span>
-            <h3>Ship &amp; compound</h3>
-            <p>Real work in weeks, not quarters. Then we keep shipping, and the engine gets stronger every month.</p>
+            <span class="step-no no-orange">03</span>
+            <h3>Compound</h3>
+            <p>First execution live inside two weeks. Then we run in quarterly cycles (plan, ship, review) and the system compounds.</p>
           </div>
         </div>
+        <p class="principles">Single point of contact &middot; Monthly prioritisation &middot; One blended rate &middot; Transparent reporting &middot; Results over activity.</p>
       </div>
     </section>
 
-    <!-- FOUNDERS -->
+    <!-- WHO WE ARE -->
     <section id="founders" class="section">
       <div class="container">
-        <span class="eyebrow">Who we are</span>
-        <h2>Two operators. One origin story.</h2>
+        <span class="eyebrow e-navy">Who we are</span>
+        <h2>Two operators. One owner for the whole function.</h2>
         <p class="lead" style="max-width:66ch;margin-top:16px">
-          Kadanco is two senior operators in Berlin who built a B2B software company together.
-          Mia ran product and design; Karan founded it. Now they do for a handful of clients what
-          they did for their own — brand, website, positioning, demand, and pipeline. Hands on the work.
+          Kadanco is two senior operators in Berlin, fifteen-plus years each. The people who own your
+          account are the people doing the work.
         </p>
         <div class="grid cols-2" style="margin-top:38px">
           <div class="card founder">
-            <!-- PHOTO PLACEHOLDER: swap the avatar for a headshot -->
+            <!-- PHOTO: LinkedIn CDN links expire. Replace src with a self-hosted /public image. -->
             <img src="https://media.licdn.com/dms/image/v2/D4D03AQEnZ21QpKUzyw/profile-displayphoto-scale_200_200/B4DZq25JOKIEAY-/0/1764005028381?e=1782950400&v=beta&t=dBKuzYs_ZuP9XVARuZB6RXydEXDFbKp1jJWpM9I1D58" alt="Maria" class="avatar" />
             <div>
               <h3>Maria</h3>
               <span class="role">Brand, website &amp; systems</span>
-              <p>
-                Fifteen years turning complex B2B software into things people actually want to use.
-                As Head of Product at hubsell she led the SaaS redesign and built the brand, identity
-                and design system behind it; before that she designed for Opel, Mercedes-Benz, Toyota
-                and Postbank, and ran banking and trading UX at Consorsbank. She's also trained 700+
-                product professionals.
-              </p>
-              <span class="tag">German · English</span>
+              <p>Product, brand and design systems for B2B software; earlier, design for Opel, Mercedes-Benz, Toyota and Postbank. German, English.</p>
+              <!-- TODO: replace # with Maria's LinkedIn URL -->
+              <a class="tag tag-teal" href="#" target="_blank" rel="noopener">View profile on LinkedIn</a>
             </div>
           </div>
           <div class="card founder">
@@ -227,13 +263,8 @@ const groups = [
             <div>
               <h3>Karan</h3>
               <span class="role">Growth, GTM &amp; positioning</span>
-              <p>
-                Eleven years as founder of hubsell, the B2B GTM platform — built from MVP to a system
-                that replaces a company's sales-intelligence, engagement and outreach stack, every hat
-                worn from CEO to CSO to product. Alongside it, he's advised dozens of companies on
-                positioning, demand generation and content.
-              </p>
-              <span class="tag">Dutch · English</span>
+              <p>Founder of hubsell; advisor to dozens of B2B companies on positioning, demand and content. Dutch, English.</p>
+              <a class="tag tag-orange" href="https://www.linkedin.com/in/krnshrm/" target="_blank" rel="noopener">View profile on LinkedIn</a>
             </div>
           </div>
         </div>
@@ -244,29 +275,36 @@ const groups = [
     <section class="section">
       <div class="container">
         <div class="on-dark cta-panel">
-          <span class="eyebrow">Let's talk</span>
-          <h2>Tell us where you're trying to grow.</h2>
-          <p>We'll tell you the few moves we'd make — and then we'll make them. Reply within 24 hours.</p>
+          <span class="eyebrow e-pink">Let's talk</span>
+          <h2>Tell us what you need to move.</h2>
+          <p>We'll tell you the motions we'd run and what we'd own. Quarterly engagements, four client slots, senior execution from week one. Reply within 24 hours.</p>
           <button class="btn btn-accent btn-lg" data-open-modal>Start a conversation</button>
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div class="brandmark"><span class="sq" aria-hidden="true"></span><span>Kadanco</span></div>
-      <p class="muted">The CMO function for B2B companies scaling across Europe. Berlin, Germany.</p>
+      <span class="brandmark">Kadanco</span>
+      <p>Your marketing function, owned and executed. Berlin, Germany.</p>
       <div class="footer-links">
         <a href="mailto:hello@kadanco.com">hello@kadanco.com</a>
         <a href="#" aria-label="Kadanco on LinkedIn">LinkedIn</a>
+        <a href="/imprint/">Imprint &amp; Privacy</a>
       </div>
-      <p class="muted small">© 2026 Kadanco</p>
+      <p class="small">© 2026 Kadanco UG</p>
     </div>
   </footer>
 
-  <!-- CONTACT MODAL -->
+  <!-- ============================================================
+       PLUNK: contact modal + script.
+       This posts to /api/contact, where your Plunk Cloudflare function lives.
+       If your live form is wired differently (different endpoint or fields),
+       REPLACE THIS WHOLE BLOCK (modal + script) with your current one.
+       ============================================================ -->
   <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
     <div class="modal">
       <button class="x" data-close-modal aria-label="Close dialog">✕</button>
@@ -274,7 +312,6 @@ const groups = [
         <span class="eyebrow">Let's talk</span>
         <h3 id="contact-title">Start a conversation</h3>
         <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reply within 24 hours.</p>
-        <!-- NOTE: wire this form to your endpoint (Formspree, your CRM, hubsell, etc.) -->
         <form id="contact-form" novalidate>
           <!-- Honeypot: hidden from people, catches bots. Leave empty. -->
           <div class="hp" aria-hidden="true">
