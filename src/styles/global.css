@@ -325,7 +325,7 @@ a.tag:hover { filter: brightness(0.96); text-decoration: underline; }
 
 /* ---- Active-section nav highlight ---- */
 .nav-links .navlink { position: relative; }
-.nav-links .navlink.active { color: var(--navy); font-weight: 600; }
+.nav-links .navlink.active { color: fff; font-weight: 600; }
 .nav-links .navlink.active::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
   height: 2px; border-radius: 2px; background: var(--citron);
