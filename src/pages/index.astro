@@ -388,4 +388,58 @@ import Layout from '../layouts/Layout.astro';
       });
     })();
   </script>
+  /* ============================================================
+   Kadanco motion layer. APPEND to the END of src/styles/global.css.
+   Additive + reversible. Everything here is progressive enhancement
+   and fully disabled under prefers-reduced-motion.
+   ============================================================ */
+
+/* ---- Card / tile hover lift ---- */
+.card, .stat {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.card:hover, .stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px -12px rgba(5, 10, 48, 0.20);
+}
+/* branded glow for the colored-edge cards */
+.card.edge-teal:hover   { box-shadow: 0 16px 34px -12px rgba(26, 139, 139, 0.40); }
+.card.edge-orange:hover { box-shadow: 0 16px 34px -12px rgba(233, 98, 37, 0.40); }
+.card.edge-citron:hover { box-shadow: 0 16px 34px -12px rgba(166, 176, 15, 0.45); }
+.card.edge-navy:hover   { box-shadow: 0 16px 34px -12px rgba(5, 10, 48, 0.30); }
+
+/* ---- Scroll-reveal entrances (classes are added by the script) ---- */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ---- Capability strip marquee ---- */
+.cap-strip { overflow: hidden; white-space: nowrap; }
+.cap-marquee { display: inline-block; will-change: transform; animation: cap-scroll 38s linear infinite; }
+.cap-strip:hover .cap-marquee { animation-play-state: paused; }
+@keyframes cap-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---- Scroll progress bar (element is created by the script) ---- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px;
+  transform: scaleX(0); transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--teal), var(--citron), var(--orange));
+  z-index: 999; pointer-events: none;
+}
+
+/* ---- Active-section nav highlight ---- */
+.nav-links .navlink { position: relative; }
+.nav-links .navlink.active { color: var(--navy); font-weight: 600; }
+.nav-links .navlink.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
+  height: 2px; border-radius: 2px; background: var(--citron);
+}
+
+/* ---- Reduced motion: switch all of it off ---- */
+@media (prefers-reduced-motion: reduce) {
+  .card, .stat { transition: none; }
+  .card:hover, .stat:hover { transform: none; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .cap-marquee { animation: none !important; }
+  .scroll-progress { display: none !important; }
+}
 </Layout>
