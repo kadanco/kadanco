@@ -85,6 +85,9 @@ p { margin: 0 0 1rem; }
 .hero .eyebrow { background: var(--periwinkle); color: var(--indigo-deep); }
 .hero h1 { color: #fff; max-width: none; margin: 0 auto; }
 .hero .lead { color: rgba(255,255,255,0.88); max-width: 50ch; margin: 26px auto 0; font-size: clamp(1.2rem, 2vw, 1.6rem); }
+.hero-cta { margin-top: 34px; }
+.hero-cta-note { margin-top: 14px; font-size: 0.92rem; color: rgba(255,255,255,0.6); }
+.logos-note { max-width: 60ch; margin: 22px auto 0; text-align: center; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
 
 /* ---------- bands ---------- */
 .band-lime { background: var(--lime); color: var(--ink); }
@@ -97,7 +100,7 @@ p { margin: 0 0 1rem; }
 .band-deep .lead { color: rgba(255,255,255,0.8); }
 .band-paper { background: var(--paper); }
 
-/* Final CTA — bookends the hero's indigo radial, glow rising from the bottom */
+/* Final CTA: bookends the hero's indigo radial, glow rising from the bottom */
 .cta-band { background: radial-gradient(125% 120% at 50% 115%, #4F4CF5 0%, #322FC8 58%, #2A27AE 100%); color: #fff; }
 .cta-band h2 { color: #fff; }
 .cta-band .lead { color: rgba(255,255,255,0.85); max-width: 56ch; }
