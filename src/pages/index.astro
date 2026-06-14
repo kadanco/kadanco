@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ComparisonMatrix from '../components/ComparisonMatrix.astro';
 ---
 <Layout
   title="Kadanco. Senior marketing operators for B2B companies."
@@ -66,8 +67,19 @@ import Layout from '../layouts/Layout.astro';
     <section id="services" class="section band-ink" data-theme="dark">
       <div class="container">
         <div class="split">
-          <!-- EMBED: drop your problem visual here (iframe / video / lottie / svg) -->
-          <div class="embed-slot">Visual embed</div>
+          <!-- EMBED: routes-vs-needs matrix -->
+          <ComparisonMatrix
+            label="The standard routes"
+            theme="dark"
+            caption="No single route is the whole function. <b>Execution is where they all leak.</b>"
+            columns={[{ name: "Strategy" }, { name: "Execution", pulse: true }, { name: "Ownership" }]}
+            rows={[
+              { route: "Agency", reason: "Partner rates for work the juniors are learning on.", marks: ["part", "gap", "part"] },
+              { route: "Fractional CMO", reason: "Writes the plan, then leaves you to run it.", marks: ["has", "gap", "gap"] },
+              { route: "Freelancers + tools", reason: "Everyone runs a slice; nobody owns the funnel.", marks: ["gap", "part", "gap"] },
+              { route: "In-house hire", reason: "One or two hires deep; slow to ramp, the rest neglected.", marks: ["part", "part", "has"] },
+            ]}
+          />
           <div class="content">
             <span class="eyebrow">The Overhead Problem</span>
             <h2>Most Marketing Spend<br>Buys Management<br><span class="hl-peri">And No Execution.</span></h2>

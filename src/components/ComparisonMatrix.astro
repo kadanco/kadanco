@@ -1,0 +1,125 @@
+---
+interface Column { name: string; pulse?: boolean; }
+interface Row { route: string; reason: string; marks: ('has' | 'part' | 'gap')[]; }
+interface Props {
+  label: string;
+  columns: Column[];
+  rows: Row[];
+  caption: string;
+  theme?: 'dark' | 'lime';
+}
+const { label, columns, rows, caption, theme = 'dark' } = Astro.props;
+const glyph: Record<string, string> = {
+  has: '<path d="M3 8.5 L6.5 12 L13 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+  part: '<path d="M3 8 q2.5 -3.5 5 0 q2.5 3.5 5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+  gap: '<path d="M4 8 L12 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+};
+---
+<div class:list={["cmx", `cmx--${theme}`]} data-cmx>
+  <div class="cmx-label">{label}</div>
+  <div class="cmx-head">
+    <span class="cmx-sp"></span>
+    {columns.map((c) => <span class:list={["cmx-colh", c.pulse && "cmx-pulse"]}>{c.name}</span>)}
+  </div>
+  <div class="cmx-rule"></div>
+  {rows.map((row, ri) => (
+    <>
+      {ri > 0 && <div class="cmx-rule"></div>}
+      <div class="cmx-row" data-reason={row.reason}>
+        <span class="cmx-route">{row.route}</span>
+        {row.marks.map((m) => (
+          <span class="cmx-cell"><span class:list={["cmx-mk", `cmx-${m}`]}><svg width="16" height="16" viewBox="0 0 16 16" set:html={glyph[m]} /></span></span>
+        ))}
+      </div>
+    </>
+  ))}
+  <div class="cmx-legend">
+    <span class="cmx-lg"><span class="cmx-dot cmx-has"></span>Covered</span>
+    <span class="cmx-lg"><span class="cmx-dot cmx-part"></span>Partial</span>
+    <span class="cmx-lg"><span class="cmx-dot cmx-gap"></span>Gap</span>
+  </div>
+  <p class="cmx-cap" set:html={caption}></p>
+</div>
+
+<style>
+  .cmx { max-width: 520px; }
+  .cmx-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; }
+  .cmx-head { display: flex; align-items: flex-end; padding-bottom: 14px; }
+  .cmx-sp { flex: 1; }
+  .cmx-colh { width: 58px; text-align: center; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .cmx-rule { height: 1px; }
+  .cmx-row { display: flex; align-items: center; border-radius: 8px; cursor: default; transition: opacity 0.5s ease, transform 0.5s ease, background 0.15s ease; }
+  .cmx.cmx-armed .cmx-row:not(.cmx-in) { opacity: 0; transform: translateY(8px); }
+  .cmx.cmx-armed .cmx-row:not(.cmx-in) .cmx-mk { opacity: 0; transform: scale(0.4); }
+  .cmx-route { flex: 1; font-size: 1.02rem; font-weight: 500; padding: 17px 10px 17px 8px; transition: color 0.15s ease; }
+  .cmx-cell { width: 58px; display: flex; justify-content: center; padding: 17px 0; }
+  .cmx-mk { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+  .cmx-row.cmx-in .cmx-mk { animation: cmx-pop 0.45s cubic-bezier(.2,.9,.3,1.35) both; }
+  .cmx-row.cmx-in .cmx-mk.cmx-has { animation: cmx-pop-has 0.5s cubic-bezier(.2,.9,.3,1.35) both; }
+  .cmx-legend { display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
+  .cmx-lg { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; }
+  .cmx-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .cmx-cap { margin-top: 18px; font-size: 0.95rem; line-height: 1.5; min-height: 2.8em; transition: opacity 0.2s ease; }
+
+  /* dark theme — on the near-black band */
+  .cmx--dark .cmx-label { color: var(--periwinkle); }
+  .cmx--dark .cmx-colh { color: #9C9BB8; }
+  .cmx--dark .cmx-colh.cmx-pulse { animation: cmx-glow 3s ease-in-out infinite; }
+  .cmx--dark .cmx-rule { background: rgba(255,255,255,0.09); }
+  .cmx--dark .cmx-route { color: #fff; }
+  .cmx--dark .cmx-row:hover { background: rgba(255,255,255,0.045); }
+  .cmx--dark .cmx-row:hover .cmx-route { color: var(--periwinkle); }
+  .cmx--dark .cmx-mk.cmx-has { background: var(--lime); color: #201E1F; }
+  .cmx--dark .cmx-mk.cmx-part { background: var(--periwinkle); color: #201E1F; }
+  .cmx--dark .cmx-mk.cmx-gap { background: #322F3B; color: #8A899C; }
+  .cmx--dark .cmx-dot.cmx-has { background: var(--lime); }
+  .cmx--dark .cmx-dot.cmx-part { background: var(--periwinkle); }
+  .cmx--dark .cmx-dot.cmx-gap { background: #322F3B; }
+  .cmx--dark .cmx-lg { color: #8E8DA0; }
+  .cmx--dark .cmx-cap { color: #A9A8BC; }
+  .cmx--dark .cmx-cap :global(b) { color: var(--periwinkle); font-weight: 600; }
+
+  @keyframes cmx-pop { 0% { opacity: 0; transform: scale(0.4); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes cmx-pop-has { 0% { opacity: 0; transform: scale(0.4); } 68% { transform: scale(1.18); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes cmx-glow { 0%, 100% { color: #9C9BB8; } 50% { color: var(--periwinkle); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cmx-colh.cmx-pulse { animation: none; }
+    .cmx.cmx-armed .cmx-row:not(.cmx-in) { opacity: 1; transform: none; }
+    .cmx.cmx-armed .cmx-row:not(.cmx-in) .cmx-mk { opacity: 1; transform: none; }
+    .cmx-row.cmx-in .cmx-mk { animation: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.__cmxInit) return;
+    window.__cmxInit = true;
+    function init() {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-cmx]').forEach(function (cmx) {
+        var cap = cmx.querySelector('.cmx-cap');
+        var DEF = cap ? cap.innerHTML : '';
+        var rows = Array.prototype.slice.call(cmx.querySelectorAll('.cmx-row'));
+        rows.forEach(function (r) {
+          var why = r.getAttribute('data-reason');
+          r.addEventListener('mouseenter', function () { if (!cap) return; cap.style.opacity = 0; setTimeout(function () { cap.textContent = why; cap.style.opacity = 1; }, 130); });
+          r.addEventListener('mouseleave', function () { if (!cap) return; cap.style.opacity = 0; setTimeout(function () { cap.innerHTML = DEF; cap.style.opacity = 1; }, 130); });
+        });
+        if (reduce || !('IntersectionObserver' in window)) return;
+        cmx.classList.add('cmx-armed');
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              rows.forEach(function (r, i) { setTimeout(function () { r.classList.add('cmx-in'); }, i * 130); });
+              io.disconnect();
+            }
+          });
+        }, { threshold: 0.35 });
+        io.observe(cmx);
+      });
+    }
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init);
+  })();
+</script>
