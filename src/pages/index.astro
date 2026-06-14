@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ComparisonMatrix from '../components/ComparisonMatrix.astro';
+import UseCaseSpotlight from '../components/UseCaseSpotlight.astro';
 ---
 <Layout
   title="Kadanco. Senior marketing operators for B2B companies."
@@ -104,8 +105,16 @@ import ComparisonMatrix from '../components/ComparisonMatrix.astro';
               the engine runs, not a menu.
             </p>
           </div>
-          <!-- EMBED: drop your use-cases visual here (iframe / video / lottie / svg) -->
-          <div class="embed-slot">Visual embed</div>
+          <!-- EMBED: use-case spotlight (auto-advancing, shuffle to details) -->
+          <UseCaseSpotlight
+            interval={3000}
+            items={[
+              { eyebrow: "Market entry", name: "DACH market entry", summary: "A German-language presence that compounds, run end to end.", bundle: ["Localised positioning", "A German content engine", "LinkedIn for the team", "An event motion", "Distribution that compounds"], own: "A German-language presence that compounds weekly, your existing assets finally working in-market, and a pipeline motion your salespeople don't have to run themselves." },
+              { eyebrow: "Founder content", name: "Founder-led content & pipeline", summary: "A publishing motion in the founder's voice, feeding measurable pipeline.", bundle: ["Messaging & positioning", "Ghostwriting & content", "SEO & GEO", "Outbound warmed by the content", "RevOps to track what converts"], own: "A consistent publishing motion in the founder's voice, feeding measurable pipeline instead of vanity engagement." },
+              { eyebrow: "Conversion", name: "Rebuild that lifts conversion", summary: "A site and message that match where the company actually is now.", bundle: ["Repositioning around where you are now", "Brand & website rebuild", "Sales collateral", "Conversion-rate optimisation", "Lifecycle & automation"], own: "A site and story that match the company today, plus an instrumented funnel you can keep improving." },
+              { eyebrow: "Events", name: "Event pipeline engineering", summary: "Scored events, pre-event ABM, and CFO-grade ROI in 30 days.", bundle: ["Events scored by ICP overlap and persona density", "LinkedIn & Meta ABM from four weeks out, with calendar holds", "Hosted dinners and roundtables where deals close", "Same-day enrichment, CRM sync and sequenced follow-up"], own: "Attendees who recognise you before they walk in, meetings booked into a held calendar, and a CFO-grade ROI report inside 30 days with every meeting tagged." },
+            ]}
+          />
         </div>
       </div>
     </section>

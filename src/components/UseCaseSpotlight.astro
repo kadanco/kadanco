@@ -1,0 +1,116 @@
+---
+interface Item { eyebrow: string; name: string; summary: string; bundle: string[]; own: string; }
+interface Props { items: Item[]; interval?: number; }
+const { items, interval = 3000 } = Astro.props;
+---
+<div class="ucs" data-ucs data-interval={interval}>
+  <div class="ucs-stage">
+    {items.map((it, i) => (
+      <article class:list={["ucs-card", i === 0 && "is-active"]} data-i={i}>
+        <div class="ucs-face ucs-front">
+          <span class="ucs-eyebrow">{it.eyebrow}</span>
+          <h3 class="ucs-title">{it.name}</h3>
+          <p class="ucs-summary">{it.summary}</p>
+          <button class="ucs-flip" type="button" data-flip>Details <span aria-hidden="true">&#8594;</span></button>
+        </div>
+        <div class="ucs-face ucs-back">
+          <span class="ucs-back-h">The bundle</span>
+          <ul class="ucs-list">
+            {it.bundle.map((b) => <li>{b}</li>)}
+          </ul>
+          <p class="ucs-own"><strong>What you own.</strong> {it.own}</p>
+          <button class="ucs-flip ucs-flip--back" type="button" data-flip><span aria-hidden="true">&#8592;</span> Back</button>
+        </div>
+      </article>
+    ))}
+  </div>
+  <div class="ucs-dots" aria-label="Use cases">
+    {items.map((it, i) => <button class="ucs-dot" type="button" data-dot={i} aria-label={it.name}></button>)}
+  </div>
+</div>
+
+<style>
+  .ucs { max-width: 540px; }
+  /* every card + face shares one grid cell, so they all size to the tallest -> uniform */
+  .ucs-stage { display: grid; }
+  .ucs-card { grid-area: 1 / 1; display: grid; opacity: 0; transform: translateY(16px) scale(0.985); transition: opacity 0.45s ease, transform 0.45s ease; pointer-events: none; cursor: pointer; }
+  .ucs-card.is-active { opacity: 1; transform: none; pointer-events: auto; }
+
+  .ucs-face { grid-area: 1 / 1; display: flex; flex-direction: column; border-radius: var(--radius); padding: 28px 30px; transition: opacity 0.4s ease, transform 0.4s ease; }
+  .ucs-front { background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--indigo); opacity: 1; transform: none; }
+  .ucs-back { background: var(--indigo-deep); border-top: 3px solid var(--lime); opacity: 0; transform: translateY(12px) scale(0.985); pointer-events: none; }
+  /* the shuffle: front lifts away, back deals up from beneath */
+  .ucs-card.is-flipped .ucs-front { opacity: 0; transform: translateY(-12px) scale(0.985); pointer-events: none; }
+  .ucs-card.is-flipped .ucs-back { opacity: 1; transform: none; pointer-events: auto; }
+
+  .ucs-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--indigo); }
+  .ucs-title { margin: 14px 0 0; font-size: 1.5rem; font-weight: 600; line-height: 1.16; color: var(--ink); }
+  .ucs-summary { margin: 12px 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
+
+  .ucs-back-h { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--periwinkle); }
+  .ucs-list { margin: 13px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .ucs-list li { position: relative; padding-left: 18px; font-size: 0.92rem; line-height: 1.4; color: rgba(255,255,255,0.92); }
+  .ucs-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
+  .ucs-own { margin: 15px 0 0; font-size: 0.9rem; line-height: 1.5; color: rgba(255,255,255,0.78); }
+  .ucs-own strong { color: var(--periwinkle); font-weight: 600; }
+
+  .ucs-flip { margin-top: auto; padding-top: 20px; align-self: flex-start; background: none; border: none; font: inherit; font-size: 0.86rem; font-weight: 600; color: var(--indigo); cursor: pointer; }
+  .ucs-flip--back { color: var(--periwinkle); }
+  .ucs-flip span { display: inline-block; transition: transform 0.2s ease; }
+  .ucs-card:hover .ucs-front .ucs-flip span { transform: translateX(3px); }
+  .ucs-card:hover .ucs-back .ucs-flip span { transform: translateX(-3px); }
+
+  .ucs-dots { display: flex; gap: 10px; justify-content: center; margin-top: 24px; }
+  .ucs-dot { width: 9px; height: 9px; padding: 0; border-radius: 50%; border: none; background: rgba(32,30,31,0.22); cursor: pointer; transition: background 0.2s ease, transform 0.2s ease; }
+  .ucs-dot.is-on { background: var(--indigo); transform: scale(1.25); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ucs-stage { display: block; }
+    .ucs-card { display: block; opacity: 1; transform: none; pointer-events: auto; cursor: default; margin-bottom: 16px; }
+    .ucs-face { opacity: 1 !important; transform: none !important; }
+    .ucs-back { margin-top: 14px; }
+    .ucs-dots, .ucs-flip { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.__ucsInit) return;
+    window.__ucsInit = true;
+    function init() {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-ucs]').forEach(function (ucs) {
+        if (reduce) return;
+        var cards = Array.prototype.slice.call(ucs.querySelectorAll('.ucs-card'));
+        var dots = Array.prototype.slice.call(ucs.querySelectorAll('[data-dot]'));
+        var interval = parseInt(ucs.getAttribute('data-interval'), 10) || 3000;
+        var idx = 0, hoverPaused = false;
+
+        function flipPaused() { return !!ucs.querySelector('.ucs-card.is-flipped'); }
+        function show(n) {
+          idx = (n + cards.length) % cards.length;
+          cards.forEach(function (c, i) {
+            c.classList.toggle('is-active', i === idx);
+            if (i !== idx) c.classList.remove('is-flipped');
+          });
+          dots.forEach(function (d, i) { d.classList.toggle('is-on', i === idx); });
+        }
+        function next() { show(idx + 1); }
+
+        cards.forEach(function (c) {
+          c.addEventListener('click', function () { c.classList.toggle('is-flipped'); });
+        });
+        dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); }); });
+        ucs.addEventListener('mouseenter', function () { hoverPaused = true; });
+        ucs.addEventListener('mouseleave', function () { hoverPaused = false; });
+        ucs.addEventListener('focusin', function () { hoverPaused = true; });
+        ucs.addEventListener('focusout', function () { hoverPaused = false; });
+
+        show(0);
+        setInterval(function () { if (!hoverPaused && !flipPaused()) next(); }, interval);
+      });
+    }
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init);
+  })();
+</script>
