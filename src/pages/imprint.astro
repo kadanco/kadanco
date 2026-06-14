@@ -5,28 +5,36 @@ import Layout from '../layouts/Layout.astro';
   title="Imprint & Privacy | Kadanco"
   description="Legal notice (Impressum) and privacy policy for Kadanco UG (haftungsbeschränkt), Berlin."
 >
-  <!-- NAV (links point back to the homepage sections; Let's talk links home) -->
-  <header class="nav">
+  <!-- ===================== NAV (same as homepage; links point home) ===================== -->
+  <header class="nav nav--dark">
     <div class="container nav-inner">
-      <a class="brandmark" href="/" aria-label="Kadanco — home">Kadanco</a>
+      <a class="brand" href="/" aria-label="Kadanco — home">
+        <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
+        <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
+      </a>
       <nav class="nav-links" aria-label="Primary">
-        <a class="navlink" href="/#approach">Approach</a>
-        <a class="navlink" href="/#capabilities">Capabilities</a>
-        <a class="navlink" href="/#use-cases">Use cases</a>
-        <a class="navlink" href="/#founders">Who we are</a>
-        <a class="btn btn-accent" href="/#top">Let's talk</a>
+        <a class="navlink" href="/#services">Services</a>
+        <a class="navlink" href="/#use-cases">Use Cases</a>
+        <a class="navlink" href="/#founders">Who We Are</a>
+        <a class="navlink" href="/#faq">FAQ</a>
+        <button class="btn btn-primary" data-open-modal>Lets Talk</button>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="section">
+    <!-- branded header band so the nav sits on dark, then switches over the light body -->
+    <section class="legal-hero band-deep" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow">Legal</span>
+        <h1>Imprint &amp; Privacy</h1>
+        <p class="updated">Last updated: June 2026</p>
+      </div>
+    </section>
+
+    <section class="legal-body" data-theme="light">
       <div class="container">
         <div class="legal">
-          <span class="eyebrow e-navy">Legal</span>
-          <h1>Imprint &amp; Privacy</h1>
-          <p class="updated">Last updated: June 2026</p>
-
           <h2>Imprint</h2>
 
           <h3>Information pursuant to &sect; 5 DDG</h3>
@@ -181,34 +189,116 @@ import Layout from '../layouts/Layout.astro';
             We store personal data only for as long as necessary for the stated purpose or as required by
             statutory retention periods, after which it is routinely deleted.
           </p>
+
+          <p style="margin-top:32px"><a href="/">&larr; Back to homepage</a></p>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- ===================== FOOTER (same as homepage) ===================== -->
+  <footer class="footer" data-theme="light">
     <div class="container footer-inner">
-      <span class="brandmark">Kadanco</span>
-      <p>Your marketing function, owned and executed. Berlin, Germany.</p>
+      <a class="brand" href="/" aria-label="Kadanco — home"><img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" /></a>
+      <p class="small">© 2026 Kadanco UG</p>
       <div class="footer-links">
         <a href="mailto:hello@kadanco.com">hello@kadanco.com</a>
         <a href="#" aria-label="Kadanco on LinkedIn">LinkedIn</a>
         <a href="/imprint/">Imprint &amp; Privacy</a>
       </div>
-      <p class="small">© 2026 Kadanco UG</p>
     </div>
   </footer>
 
+  <!-- ===================== PLUNK modal (same as homepage) ===================== -->
+  <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+    <div class="modal">
+      <button class="x" data-close-modal aria-label="Close dialog">✕</button>
+      <div id="form-body">
+        <span class="eyebrow indigo">Lets Talk</span>
+        <h3 id="contact-title">Start a conversation</h3>
+        <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reply within 24 hours.</p>
+        <form id="contact-form" novalidate>
+          <div class="hp" aria-hidden="true">
+            <label for="f-hp">Leave this field empty</label>
+            <input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="f-website">Website <span class="muted">(optional)</span></label><input id="f-website" name="website" /></div>
+          <div class="field"><label for="f-goal">What are you trying to grow?</label><textarea id="f-goal" name="goal"></textarea></div>
+          <p class="form-error" id="form-error" role="alert" style="display:none"></p>
+          <button class="btn btn-primary btn-block" type="submit">Send</button>
+        </form>
+      </div>
+      <div id="form-success" class="success" style="display:none">
+        <div class="check" aria-hidden="true">✓</div>
+        <h3>Thanks — talk soon.</h3>
+        <p class="muted" style="margin-top:6px">We'll be in touch within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var overlay = document.getElementById('contact');
+      var lastFocus = null;
+      function openModal() { lastFocus = document.activeElement; overlay.classList.add('open'); document.body.style.overflow = 'hidden'; var f = overlay.querySelector('input, button'); if (f) f.focus(); }
+      function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+      document.querySelectorAll('[data-open-modal]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); openModal(); }); });
+      document.querySelectorAll('[data-close-modal]').forEach(function (b) { b.addEventListener('click', closeModal); });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+      var form = document.getElementById('contact-form');
+      var errEl = document.getElementById('form-error');
+      function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…'; errEl.style.display = 'none';
+        fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ name: val('f-name'), email: val('f-email'), company: val('f-company'), website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp') }) })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) {
+          if (res.ok && out.ok) { document.getElementById('form-body').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
+          else { throw new Error((out && out.error) || 'Something went wrong.'); } }); })
+        .catch(function (err) { errEl.textContent = err.message + ' You can also email hello@kadanco.com.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = label; });
+      });
+    })();
+  </script>
+
+  <!-- nav colour-switch (white over the dark header, ink over the light body) -->
+  <script is:inline>
+    (function () {
+      var nav = document.querySelector('.nav');
+      var themed = Array.prototype.slice.call(document.querySelectorAll('[data-theme]'));
+      function navTheme() {
+        var probe = 40, theme = 'dark';
+        for (var i = 0; i < themed.length; i++) {
+          var r = themed[i].getBoundingClientRect();
+          if (r.top <= probe && r.bottom > probe) { theme = themed[i].getAttribute('data-theme'); break; }
+        }
+        nav.classList.toggle('nav--light', theme === 'light');
+        nav.classList.toggle('nav--dark', theme !== 'light');
+      }
+      window.addEventListener('scroll', navTheme, { passive: true });
+      window.addEventListener('resize', navTheme);
+      navTheme();
+    })();
+  </script>
+
   <style>
-    .legal { max-width: 760px; margin: 0 auto; }
-    .legal h1 { margin-bottom: 6px; }
-    .legal .updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 8px; }
-    .legal h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin: 46px 0 6px; padding-bottom: 10px; border-bottom: 2px solid var(--pink); }
-    .legal h3 { font-size: 1.05rem; margin: 26px 0 8px; }
-    .legal p { margin-bottom: 14px; line-height: 1.7; }
-    .legal address { font-style: normal; line-height: 1.7; margin-bottom: 14px; color: var(--ink); }
-    .legal a { color: var(--navy); text-decoration: underline; }
-    .legal a:hover { color: var(--teal); }
+    .legal-hero { padding: 140px 0 64px; }
+    .legal-hero h1 { color: #fff; margin-bottom: 8px; }
+    .legal-hero .updated { color: rgba(255,255,255,0.72); font-size: 0.95rem; margin: 0; }
+    .legal-body { padding: 64px 0 104px; background: #fff; }
+    .legal { max-width: 800px; margin: 0 auto; }
+    .legal h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin: 52px 0 10px; padding-bottom: 12px; border-bottom: 2px solid var(--periwinkle); }
+    .legal h2:first-of-type { margin-top: 0; }
+    .legal h3 { font-size: 1.12rem; font-weight: 600; margin: 28px 0 8px; color: var(--indigo-deep); }
+    .legal p, .legal address { margin-bottom: 14px; line-height: 1.7; }
+    .legal address { font-style: normal; color: var(--ink); }
+    .legal a { color: var(--indigo); text-decoration: underline; }
+    .legal a:hover { color: var(--indigo-deep); }
   </style>
 </Layout>
