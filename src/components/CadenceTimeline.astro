@@ -1,0 +1,80 @@
+---
+interface Step { n: string; title: string; amp?: string; body: string; loop?: string; }
+interface Props { steps: Step[]; }
+const { steps } = Astro.props;
+---
+<div class="cad" data-cad>
+  <div class="cad-track" aria-hidden="true"><span class="cad-fill"></span></div>
+  <ol class="cad-steps">
+    {steps.map((s) => (
+      <li class="cad-step">
+        <span class="cad-node">{s.n}</span>
+        <div class="cad-body">
+          <h3 class="cad-title">{s.title}{s.amp && (<span class="cad-amp"> {s.amp}</span>)}</h3>
+          <p class="cad-text">{s.body}</p>
+          {s.loop && (
+            <span class="cad-loop">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+              {s.loop}
+            </span>
+          )}
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .cad { position: relative; max-width: 480px; }
+  .cad-track { position: absolute; left: 18px; top: 19px; bottom: 38px; width: 2px; background: rgba(178,177,255,0.22); border-radius: 2px; overflow: hidden; }
+  .cad-fill { display: block; width: 100%; height: 100%; background: var(--lime); transform: scaleY(0); transform-origin: top; transition: transform 1.7s cubic-bezier(.4,0,.2,1) 0.1s; }
+  .cad.is-playing .cad-fill { transform: scaleY(1); }
+
+  .cad-steps { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+  .cad-step { display: flex; gap: 18px; align-items: flex-start; --d: 0s; opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease var(--d), transform 0.5s ease var(--d); }
+  .cad-step:nth-child(1) { --d: 0.15s; }
+  .cad-step:nth-child(2) { --d: 0.7s; }
+  .cad-step:nth-child(3) { --d: 1.25s; }
+  .cad.is-playing .cad-step { opacity: 1; transform: none; }
+
+  .cad-node { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-weight: 600; color: var(--periwinkle); background: var(--indigo-deep); border: 1.5px solid rgba(178,177,255,0.45); transition: background 0.4s ease var(--d), color 0.4s ease var(--d), border-color 0.4s ease var(--d); }
+  .cad.is-playing .cad-node { background: var(--lime); color: var(--indigo-deep); border-color: var(--lime); }
+
+  .cad-body { padding-bottom: 2px; }
+  .cad-title { margin: 6px 0 0; font-size: 1.35rem; font-weight: 600; line-height: 1.12; color: #fff; }
+  .cad-amp { color: var(--periwinkle); font-weight: 500; }
+  .cad-text { margin: 9px 0 0; font-size: 0.96rem; line-height: 1.5; color: rgba(255,255,255,0.72); }
+
+  .cad-loop { display: inline-flex; align-items: center; gap: 7px; margin-top: 13px; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--lime); }
+  .cad-loop svg { width: 14px; height: 14px; }
+  .cad.is-playing .cad-loop { animation: cadPulse 2.4s ease-in-out 1.9s infinite; }
+  @keyframes cadPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cad-fill { transform: scaleY(1); transition: none; }
+    .cad-step { opacity: 1; transform: none; transition: none; }
+    .cad-node { background: var(--lime); color: var(--indigo-deep); border-color: var(--lime); transition: none; }
+    .cad-loop { animation: none; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    if (window.__cadInit) return;
+    window.__cadInit = true;
+    function init() {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('[data-cad]').forEach(function (cad) {
+        if (reduce || !('IntersectionObserver' in window)) { cad.classList.add('is-playing'); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { cad.classList.add('is-playing'); io.unobserve(cad); }
+          });
+        }, { threshold: 0.4 });
+        io.observe(cad);
+      });
+    }
+    if (document.readyState !== 'loading') init();
+    else document.addEventListener('DOMContentLoaded', init);
+  })();
+</script>
