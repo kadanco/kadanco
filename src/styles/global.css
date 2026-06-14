@@ -97,6 +97,13 @@ p { margin: 0 0 1rem; }
 .band-deep .lead { color: rgba(255,255,255,0.8); }
 .band-paper { background: var(--paper); }
 
+/* Final CTA — bookends the hero's indigo radial, glow rising from the bottom */
+.cta-band { background: radial-gradient(125% 120% at 50% 115%, #4F4CF5 0%, #322FC8 58%, #2A27AE 100%); color: #fff; }
+.cta-band h2 { color: #fff; }
+.cta-band .lead { color: rgba(255,255,255,0.85); max-width: 56ch; }
+.cta-actions { margin-top: 36px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+.cta-note { margin-top: 18px; font-size: 0.9rem; color: rgba(255,255,255,0.62); }
+
 /* ---------- logo strip (286px band, centered, infinite, edge-fade) ---------- */
 .logos { min-height: 286px; display: flex; flex-direction: column; justify-content: center; padding: 32px 0; }
 .logos-head { text-align: center; margin-bottom: 34px; }
