@@ -2,311 +2,278 @@
 import Layout from '../layouts/Layout.astro';
 ---
 <Layout
-  title="Kadanco. Your marketing function, owned and executed."
-  description="Kadanco is a senior, full-stack marketing function for B2B companies. Two operators own the strategy and run the execution. €100M+ in pipeline generated, 12+ vendors replaced per client, results in 2 weeks. No agency overhead, no juniors, no freelancer juggling."
+  title="Kadanco. Senior marketing operators for B2B companies."
+  description="Kadanco is a senior, full-stack marketing function for B2B companies. Two operators own the strategy and run the execution themselves. Owned and executed."
 >
-  <!-- NAV -->
-  <header class="nav">
+  <!-- ===================== NAV ===================== -->
+  <header class="nav nav--dark">
     <div class="container nav-inner">
-      <!-- LOGO PLACEHOLDER: replace the wordmark with your final asset -->
-      <a class="brandmark" href="#top" aria-label="Kadanco — home">Kadanco</a>
+      <a class="brand" href="#top" aria-label="Kadanco — home">
+        <img class="brand-logo brand-logo--dark" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20158%2030%22%3E%3Crect%20x%3D%220%22%20y%3D%223%22%20width%3D%2237%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%23FFFFFF%22%2F%3E%3Ctext%20x%3D%2218.5%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23201E1F%22%20text-anchor%3D%22middle%22%3EKA%3C%2Ftext%3E%3Ctext%20x%3D%2243%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23FFFFFF%22%3EDANCO%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Kadanco" />
+        <img class="brand-logo brand-logo--light" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20158%2030%22%3E%3Crect%20x%3D%220%22%20y%3D%223%22%20width%3D%2237%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%23201E1F%22%2F%3E%3Ctext%20x%3D%2218.5%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EKA%3C%2Ftext%3E%3Ctext%20x%3D%2243%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23201E1F%22%3EDANCO%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Kadanco" />
+      </a>
       <nav class="nav-links" aria-label="Primary">
-        <a class="navlink" href="#approach">Approach</a>
-        <a class="navlink" href="#capabilities">Capabilities</a>
-        <a class="navlink" href="#use-cases">Use cases</a>
-        <a class="navlink" href="#founders">Who we are</a>
-        <button class="btn btn-accent" data-open-modal>Let's talk</button>
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#use-cases">Use Cases</a>
+        <a class="navlink" href="#founders">Who We Are</a>
+        <a class="navlink" href="#faq">FAQ</a>
+        <button class="btn btn-primary" data-open-modal>Lets Talk</button>
       </nav>
     </div>
   </header>
 
   <main id="top">
 
-    <!-- HERO -->
-    <section class="section hero">
+    <!-- ===================== HERO (centered, 2-line H1, no buttons) ===================== -->
+    <section class="hero" data-theme="dark">
       <div class="container">
-        <span class="eyebrow">A senior marketing function for B2B companies</span>
-        <div class="hero-head">
-          <h1>Your marketing function. <span class="hl">Owned and executed.</span></h1>
-        </div>
-        <p class="lead">
-          Kadanco is a complete marketing function for B2B companies. Two senior operators take
-          ownership of the strategy and run the execution themselves. One team, one system of action,
-          one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.
-        </p>
-        <div class="hero-cta">
-          <button class="btn btn-primary btn-lg" data-open-modal>Let's talk</button>
-          <a class="btn btn-outline btn-lg" href="#capabilities">See the system</a>
-        </div>
-
-        <!-- facts strip -->
-        <p class="eyebrow" style="margin-top:42px;margin-bottom:0">What the founders have delivered</p>
-        <div class="stats">
-          <div class="stat stat-1"><div class="stat-num">€100M+</div><div class="stat-label">pipeline generated for clients</div></div>
-          <div class="stat stat-2"><div class="stat-num">12+</div><div class="stat-label">vendors replaced per client</div></div>
-          <div class="stat stat-3"><div class="stat-num">2 weeks</div><div class="stat-label">to first results</div></div>
-          <div class="stat stat-4"><div class="stat-num">15+ yrs</div><div class="stat-label">operating experience each</div></div>
-        </div>
+        <span class="eyebrow">40+ Years Experience</span>
+        <h1>Senior Marketing Operators<br><span class="hl">For B2B Companies</span></h1>
+        <p class="lead">Your Marketing Function. Owned And Executed.</p>
       </div>
     </section>
 
-    <!-- CAPABILITY STRIP -->
-    <section class="section-tight">
+    <!-- ===================== CLIENT LOGOS (286px band, centered, infinite) ===================== -->
+    <section class="logos" data-theme="light">
       <div class="container">
-        <span class="eyebrow e-teal">The whole stack, one team</span>
-        <div class="cap-strip">
-          Positioning &middot; ABM &amp; outbound &middot; Demand gen &middot; Content &amp; ghostwriting &middot; SEO &amp; GEO &middot; Paid &middot; Brand &amp; web &middot; Events &middot; CRO &middot; RevOps &amp; automation &middot; Partnerships &middot; Lifecycle
-        </div>
-      </div>
-    </section>
-
-    <!-- PROBLEM -->
-    <section class="section section-tight">
-      <div class="container">
-        <span class="eyebrow e-orange">The overhead problem</span>
-        <h2>Most marketing spend buys management, not execution.</h2>
-        <p class="lead" style="max-width:64ch;margin-top:14px">
-          At EUR 2 to 5M you need a full marketing function. Every standard way of getting one taxes
-          you somewhere: in overhead, in ownership, or in time.
-        </p>
-        <div class="grid cols-2" style="margin-top:36px">
-          <div class="card pain pain-teal">
-            <h3>Agencies sell senior, staff junior.</h3>
-            <p>You pay partner rates and get work the interns are learning on, wrapped in an account-management layer that adds cost and removes ownership.</p>
-          </div>
-          <div class="card pain pain-orange">
-            <h3>A fractional CMO writes the plan, then leaves you to run it.</h3>
-            <p>Strategy without execution is a slide deck. Someone still has to do the work, and that someone is you.</p>
-          </div>
-          <div class="card pain pain-citron">
-            <h3>Imported playbooks stall.</h3>
-            <p>Tactics that worked elsewhere get run unchanged and underperform. The market, the language and the channels get treated as an afterthought.</p>
-          </div>
-          <div class="card pain pain-navy">
-            <h3>Twelve tools and five freelancers, no owner.</h3>
-            <p>Everyone runs a slice, nobody owns the funnel, and the coordination overhead lands on your desk. The numbers never reconcile.</p>
+        <div class="logos-head"><span class="eyebrow dark">Global B2B + B2C Clients</span></div>
+        <div class="logo-marquee">
+          <div class="logo-track">
+            <!-- SET 1 — replace src/alt with your real files in /public/logos/ -->
+            <img src="/logos/mercedes-benz.svg" alt="Mercedes-Benz" class="logo" />
+            <img src="/logos/opel.svg" alt="Opel" class="logo" />
+            <img src="/logos/toyota.svg" alt="Toyota" class="logo" />
+            <img src="/logos/merck.svg" alt="Merck" class="logo" />
+            <img src="/logos/oracle.svg" alt="Oracle" class="logo" />
+            <img src="/logos/consorsbank.svg" alt="Consorsbank" class="logo" />
+            <img src="/logos/dkb.svg" alt="DKB" class="logo" />
+            <img src="/logos/sparkasse.svg" alt="Sparkasse" class="logo" />
+            <!-- SET 2 — decorative duplicate for the seamless loop -->
+            <img src="/logos/mercedes-benz.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/opel.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/toyota.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/merck.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/oracle.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/consorsbank.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/dkb.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
+            <img src="/logos/sparkasse.svg" alt="" aria-hidden="true" class="logo logo--dupe" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- APPROACH -->
-    <section id="approach" class="section">
+    <!-- ===================== PROBLEM (dark band, visual LEFT) ===================== -->
+    <section id="services" class="section band-ink" data-theme="dark">
       <div class="container">
-        <span class="eyebrow e-teal">How we operate</span>
-        <h2>We don't advise the work. We own it and execute it.</h2>
-        <p class="lead" style="max-width:64ch;margin-top:16px">
-          Kadanco operates as your marketing function, not a vendor attached to it. The two people who
-          scope the work are the two people who do it. We take ownership of the outcome, run the motions
-          ourselves, and keep the whole system pointed at pipeline. Four clients at a time, so every
-          account gets senior execution.
-        </p>
-        <div class="grid cols-3" style="margin-top:38px">
-          <div class="card edge-teal">
-            <span class="tag tag-teal">One owner</span>
-            <h3 style="margin:14px 0 8px">One team, accountable for everything.</h3>
-            <p>A single team owns the whole function and one number, not a roster of specialists you have to coordinate.</p>
-          </div>
-          <div class="card edge-orange">
-            <span class="tag tag-orange">Senior execution</span>
-            <h3 style="margin:14px 0 8px">The strategists do the work.</h3>
-            <p>The operators who set the direction do the hands-on work. No junior delivery, no account layer, no markup.</p>
-          </div>
-          <div class="card edge-citron">
-            <span class="tag tag-citron">One system of action</span>
-            <h3 style="margin:14px 0 8px">Twelve motions, one engine.</h3>
-            <p>Every motion runs as part of one connected system, so the whole stack compounds instead of leaking between vendors.</p>
+        <div class="split">
+          <!-- EMBED: drop your problem visual here (iframe / video / lottie / svg) -->
+          <div class="embed-slot">Visual embed</div>
+          <div class="content">
+            <span class="eyebrow">The Overhead Problem</span>
+            <h2>Most Marketing Spend<br>Buys Management<br><span class="hl-peri">And No Execution.</span></h2>
+            <p class="lead" style="margin-top:20px">
+              At EUR 2 to 5M you need a full marketing function. Every standard way of getting one taxes
+              you somewhere: in overhead, in ownership, or in time.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CAPABILITIES -->
-    <section id="capabilities" class="section">
+    <!-- ===================== USE CASES (lime band, visual RIGHT) ===================== -->
+    <section id="use-cases" class="section band-lime" data-theme="light">
       <div class="container">
-        <span class="eyebrow">The system</span>
-        <h2>One function. The whole stack.</h2>
-        <p class="lead" style="max-width:64ch;margin-top:16px">
-          Twelve capabilities, run as one connected system of action. We don't sell them a la carte.
-          We take ownership of the function and deploy whichever motions move your pipeline.
-        </p>
-        <div class="grid cols-2" style="margin-top:38px">
-          <div class="card edge-teal">
-            <span class="tag tag-teal">Pipeline &amp; demand</span>
-            <ul class="svc-list">
-              <li><strong>ABM &amp; outbound</strong><span>Targeted account motion into the buyers you actually want.</span></li>
-              <li><strong>Paid</strong><span>Google, LinkedIn and Meta, run with ABM-level targeting.</span></li>
-              <li><strong>Events</strong><span>Rooms worth being in: scored, built, filled, and worked for pipeline.</span></li>
-            </ul>
+        <div class="split">
+          <div class="content">
+            <span class="eyebrow indigo">Use Cases</span>
+            <h2>What The Function <span class="hl-indigo">Delivers.</span></h2>
+            <p class="lead" style="margin-top:20px">
+              A few of the outcomes teams hire us for, and the bundle of motions behind each. This is how
+              the engine runs, not a menu.
+            </p>
           </div>
-          <div class="card edge-orange">
-            <span class="tag tag-orange">Brand &amp; content</span>
-            <ul class="svc-list">
-              <li><strong>Brand &amp; website</strong><span>Identity, design and build that read as the category leader.</span></li>
-              <li><strong>Content &amp; ghostwriting</strong><span>A consistent publishing motion in your team's voice.</span></li>
-              <li><strong>Creative &amp; sales collateral</strong><span>Decks, one-pagers and video the sales team actually uses.</span></li>
-            </ul>
-          </div>
-          <div class="card edge-citron">
-            <span class="tag tag-citron">Positioning &amp; strategy</span>
-            <ul class="svc-list">
-              <li><strong>Messaging &amp; positioning</strong><span>Sharper words and a category you can own.</span></li>
-              <li><strong>Growth strategy</strong><span>GTM and quarterly operating plans you can act on Monday.</span></li>
-              <li><strong>Partnerships</strong><span>Co-marketing, integrations and channel that compound.</span></li>
-            </ul>
-          </div>
-          <div class="card edge-navy">
-            <span class="tag">Engine &amp; ops</span>
-            <ul class="svc-list">
-              <li><strong>SEO &amp; GEO</strong><span>Rank on publish, and get cited by AI search.</span></li>
-              <li><strong>CRO</strong><span>Find the leaks, run the experiments, lift the rate.</span></li>
-              <li><strong>RevOps &amp; automation</strong><span>CRM, lifecycle and attribution that finally reconcile.</span></li>
-            </ul>
-          </div>
+          <!-- EMBED: drop your use-cases visual here (iframe / video / lottie / svg) -->
+          <div class="embed-slot">Visual embed</div>
         </div>
       </div>
     </section>
 
-    <!-- USE CASES -->
-    <section id="use-cases" class="section band-pink">
+    <!-- ===================== WHO WE ARE ===================== -->
+    <section id="founders" class="section band-paper" data-theme="light">
       <div class="container">
-        <span class="eyebrow e-navy">Use cases</span>
-        <h2>What the function delivers.</h2>
-        <p class="lead" style="max-width:64ch;margin-top:16px">
-          A few of the outcomes teams hire us for, and the bundle of motions behind each. This is how
-          the engine runs, not a menu.
-        </p>
-        <div class="grid cols-2" style="margin-top:38px">
-          <div class="card edge-teal">
-            <span class="tag tag-teal">Founder-led content &amp; pipeline</span>
-            <p style="margin-top:14px"><strong>Situation.</strong> The founder's insight is the company's best asset and it is trapped in their head.</p>
-            <p><strong>The bundle.</strong> Messaging &amp; positioning, ghostwriting &amp; content, SEO &amp; GEO, outbound warmed by the content, and RevOps to track what converts.</p>
-            <p><strong>What you own.</strong> A consistent publishing motion in the founder's voice, feeding measurable pipeline instead of vanity engagement.</p>
+        <div class="who-top">
+          <div>
+            <span class="eyebrow indigo">Who We Are</span>
+            <h2>Two Senior Operators <span class="hl-indigo">That Take Ownership.</span></h2>
           </div>
-          <div class="card edge-orange">
-            <span class="tag tag-orange">Rebuild that lifts conversion</span>
-            <p style="margin-top:14px"><strong>Situation.</strong> The product moved on, the brand and site didn't, and the funnel leaks.</p>
-            <p><strong>The bundle.</strong> Positioning, brand &amp; website rebuild, sales collateral, CRO, and lifecycle &amp; automation.</p>
-            <p><strong>What you own.</strong> A site and message that match where the company actually is, plus an instrumented funnel you keep improving.</p>
-          </div>
-          <div class="card edge-citron">
-            <span class="tag tag-citron">DACH market entry</span>
-            <p style="margin-top:14px"><strong>Situation.</strong> You have product and traction, but no one owns the German-speaking market in its own language.</p>
-            <p><strong>The bundle.</strong> Localised positioning, a German content engine, LinkedIn for the team, an event motion, and distribution.</p>
-            <p><strong>What you own.</strong> A German-language presence that compounds weekly, existing assets finally working in-market, and a pipeline motion your salespeople don't run themselves.</p>
-          </div>
-          <div class="card edge-navy">
-            <span class="tag">Event pipeline engineering</span>
-            <p style="margin-top:14px"><strong>Situation.</strong> Trade shows and conferences eat budget and team time, but the pipeline never gets attributed.</p>
-            <p><strong>The bundle.</strong> Events scored by ICP overlap and persona density, LinkedIn and Meta ABM from four weeks out with calendar holds, hosted dinners and roundtables where deals close, plus same-day enrichment, CRM sync and follow-up sequenced by lead type.</p>
-            <p><strong>What you own.</strong> Attendees who recognise you before they walk in, meetings booked into a held calendar, and a CFO-grade ROI report inside 30 days with every meeting tagged.</p>
+          <div class="bubble">
+            <strong>KADANCO</strong> is a complete marketing function for B2B companies. Two senior operators
+            take ownership of the strategy and run the execution themselves. One team, one system of action,
+            one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- OPERATING MODEL -->
-    <section id="how" class="section">
-      <div class="container">
-        <span class="eyebrow e-teal">How we work</span>
-        <h2>Kickoff to live execution in 14 days.</h2>
-        <div class="grid cols-3" style="margin-top:38px">
-          <div class="card step">
-            <span class="step-no no-teal">01</span>
-            <h3>Map</h3>
-            <p>We learn the market, the ICP, the funnel and the numbers, then agree the few motions that move pipeline most.</p>
-          </div>
-          <div class="card step">
-            <span class="step-no no-citron">02</span>
-            <h3>Own</h3>
-            <p>We take the work off your team and run it ourselves: brand, site, campaigns, content, systems. No briefs over a wall.</p>
-          </div>
-          <div class="card step">
-            <span class="step-no no-orange">03</span>
-            <h3>Compound</h3>
-            <p>First execution live inside two weeks. Then we run in quarterly cycles (plan, ship, review) and the system compounds.</p>
-          </div>
-        </div>
-        <p class="principles">Single point of contact &middot; Monthly prioritisation &middot; One blended rate &middot; Transparent reporting &middot; Results over activity.</p>
-      </div>
-    </section>
-
-    <!-- WHO WE ARE -->
-    <section id="founders" class="section">
-      <div class="container">
-        <span class="eyebrow e-navy">Who we are</span>
-        <h2>Two operators. One owner for the whole function.</h2>
-        <p class="lead" style="max-width:66ch;margin-top:16px">
-          Kadanco is two senior operators in Berlin, fifteen-plus years each. The people who own your
-          account are the people doing the work.
-        </p>
-        <div class="grid cols-2" style="margin-top:38px">
+        <div class="founders-grid">
           <div class="card founder">
-            <!-- PHOTO: LinkedIn CDN links expire. Replace src with a self-hosted /public image. -->
             <img src="https://media.licdn.com/dms/image/v2/D4D03AQEnZ21QpKUzyw/profile-displayphoto-scale_200_200/B4DZq25JOKIEAY-/0/1764005028381?e=1782950400&v=beta&t=dBKuzYs_ZuP9XVARuZB6RXydEXDFbKp1jJWpM9I1D58" alt="Maria" class="avatar" />
-            <div>
-              <h3>Maria</h3>
-              <span class="role">Brand, website &amp; systems</span>
-              <p>Product, brand and design systems for B2B software; worked for Opel, Mercedes-Benz, Toyota, and Postbank.</p>
-              <a class="tag tag-teal" href="https://www.linkedin.com/in/miarichter/" target="_blank" rel="noopener">View profile on LinkedIn</a>
-            </div>
+            <h3>Maria</h3>
+            <span class="role">Founder &amp; Product Manager</span>
+            <p>20+ Product Experience Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing</p>
+            <a class="btn btn-indigo btn-block" href="https://www.linkedin.com/in/miarichter/" target="_blank" rel="noopener">View LinkedIn Profile</a>
           </div>
           <div class="card founder">
             <img src="https://media.licdn.com/dms/image/v2/D4D03AQH2pg2p6SkR8g/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1728300291304?e=1782950400&v=beta&t=if1GJMJbGKpWBggZTHHHOi-qne7HElqPs1fCxLDiSaI" alt="Karan" class="avatar" />
-            <div>
-              <h3>Karan</h3>
-              <span class="role">Growth, GTM &amp; positioning</span>
-              <p>Founder of hubsell; advisor to B2B companies on positioning, demand and content.</p>
-              <a class="tag tag-orange" href="https://www.linkedin.com/in/krnshrm/" target="_blank" rel="noopener">View profile on LinkedIn</a>
-            </div>
+            <h3>Karan</h3>
+            <span class="role">Founder &amp; Growth Manager</span>
+            <p>Replace your GTM stack with one platform | Founder @ hubsell</p>
+            <a class="btn btn-indigo btn-block" href="https://www.linkedin.com/in/krnshrm/" target="_blank" rel="noopener">View LinkedIn Profile</a>
+          </div>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Product Development</span>
+          <span class="tag">Product Management</span>
+          <span class="tag">Product Design</span>
+          <span class="tag">Product Marketing</span>
+          <span class="tag">Lead Generation</span>
+          <span class="tag">Demand Generation</span>
+          <span class="tag">Growth Marketing</span>
+          <span class="tag">Email Marketing</span>
+          <span class="tag">Marketing Consulting</span>
+          <span class="tag">Marketing Strategy</span>
+          <span class="tag">Copywriting</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OUR APPROACH (white+outline cards, hover fills deep-indigo) ===================== -->
+    <section class="section center" data-theme="light">
+      <div class="container">
+        <span class="eyebrow indigo">Our Approach</span>
+        <h2>One Function. <span class="hl-indigo">The Whole Stack.</span></h2>
+        <div class="grid cols-3" style="margin-top:48px;text-align:left">
+          <div class="card card--approach">
+            <span class="lab">One Owner</span>
+            <h3><span class="t1">One Team, Accountable</span> <span class="t2">For Everything.</span></h3>
+            <p style="margin-top:12px">A single team owns the whole function and one number, not a roster of specialists you have to coordinate.</p>
+          </div>
+          <div class="card card--approach">
+            <span class="lab">Senior Execution</span>
+            <h3><span class="t1">The Strategists That Do The Work</span> <span class="t2">For Your Teams.</span></h3>
+            <p style="margin-top:12px">The operators who set the direction do the hands-on work. No junior delivery, no account layer, no markup.</p>
+          </div>
+          <div class="card card--approach">
+            <span class="lab">One System Of Action</span>
+            <h3><span class="t1">Twelve Motions,</span> <span class="t2">One Engine.</span></h3>
+            <p style="margin-top:12px">Every motion runs as part of one connected system, so the whole stack compounds instead of leaking between vendors.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CTA BAND -->
-    <section class="section">
+    <!-- ===================== HOW WE OPERATE (Problem-style split + visual) ===================== -->
+    <section class="section band-deep" data-theme="dark">
       <div class="container">
-        <div class="on-dark cta-panel">
-          <span class="eyebrow e-pink">Let's talk</span>
-          <h2>Tell us what you need to move.</h2>
-          <p>We'll tell you the motions we'd run and what we'd own. Quarterly engagements, four client slots, senior execution from week one. Reply within 24 hours.</p>
-          <button class="btn btn-accent btn-lg" data-open-modal>Start a conversation</button>
+        <div class="split">
+          <!-- EMBED: drop your how-we-operate visual here (iframe / video / lottie / svg) -->
+          <div class="embed-slot">Visual embed</div>
+          <div class="content">
+            <span class="eyebrow">How We Operate</span>
+            <h2>We Don't Advise The Work.<br><span class="hl">We Own It And Execute It.</span></h2>
+            <p class="lead" style="margin-top:20px">
+              KADANCO operates as your marketing function, not a vendor attached to it. The two people who
+              scope the work are the two people who do it. We take ownership of the outcome, run the motions
+              ourselves, and keep the whole system pointed at pipeline. Four clients at a time, so every
+              account gets senior execution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FAQ (centered, 3-col card grid) ===================== -->
+    <section id="faq" class="section band-paper center" data-theme="light">
+      <div class="container">
+        <span class="eyebrow indigo">FAQ</span>
+        <h2>Questions, <span class="hl-indigo">Answered.</span></h2>
+        <div class="grid cols-3" style="margin-top:48px">
+          <div class="card faq-card">
+            <h3>How do you work with us?</h3>
+            <p>We run as your marketing function on a quarterly engagement: map the market, ICP and funnel, agree the motions that move pipeline most, then execute them ourselves. Four clients at a time.</p>
+          </div>
+          <div class="card faq-card">
+            <h3>How fast do we see results?</h3>
+            <p>First execution is live inside two weeks of kickoff. From there we run in quarterly cycles, plan, ship, review, and the engine compounds.</p>
+          </div>
+          <div class="card faq-card">
+            <h3>Who does the work?</h3>
+            <p>The two operators who scope your work are the two who do it. No account-management layer, no junior delivery, no markup.</p>
+          </div>
+          <div class="card faq-card">
+            <h3>What does it cost?</h3>
+            <p>We scope each engagement to what your pipeline needs, with a predictable floor and a ceiling you control. The fastest way to a number is a short conversation.</p>
+          </div>
+          <div class="card faq-card">
+            <h3>Only companies entering Germany?</h3>
+            <p>No. We run the full marketing function for B2B companies generally. DACH market entry is one use case we do well in native German, not the whole offer.</p>
+          </div>
+          <div class="card faq-card">
+            <h3>What's included in the function?</h3>
+            <p>The whole stack: positioning, brand and website, content and ghostwriting, ABM and demand, paid, events, SEO and GEO, CRO, and RevOps. We deploy whichever motions move your pipeline.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COMPLIANCE ===================== -->
+    <section class="section band-lime center" data-theme="light">
+      <div class="container">
+        <span class="eyebrow dark">Compliance</span>
+        <div class="compliance-row">
+          <!-- PLACEHOLDER badges — replace each <svg> with your real badge image (e.g. /badges/gdpr.svg) -->
+          <svg class="badge" viewBox="0 0 100 100" role="img" aria-label="GDPR compliant" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#201E1F" stroke-width="3"/>
+            <g fill="#201E1F"><circle cx="50" cy="9" r="2.6"/><circle cx="71" cy="15" r="2.6"/><circle cx="86" cy="30" r="2.6"/><circle cx="91" cy="50" r="2.6"/><circle cx="86" cy="70" r="2.6"/><circle cx="71" cy="85" r="2.6"/><circle cx="50" cy="91" r="2.6"/><circle cx="29" cy="85" r="2.6"/><circle cx="14" cy="70" r="2.6"/><circle cx="9" cy="50" r="2.6"/><circle cx="14" cy="30" r="2.6"/><circle cx="29" cy="15" r="2.6"/></g>
+            <text x="50" y="56" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="20" font-weight="700" fill="#201E1F">GDPR</text>
+          </svg>
+          <svg class="badge" viewBox="0 0 100 100" role="img" aria-label="EU" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" fill="#201E1F"/>
+            <g fill="#DAFF02"><circle cx="50" cy="16" r="2.6"/><circle cx="67" cy="20" r="2.6"/><circle cx="80" cy="33" r="2.6"/><circle cx="84" cy="50" r="2.6"/><circle cx="80" cy="67" r="2.6"/><circle cx="67" cy="80" r="2.6"/><circle cx="50" cy="84" r="2.6"/><circle cx="33" cy="80" r="2.6"/><circle cx="20" cy="67" r="2.6"/><circle cx="16" cy="50" r="2.6"/><circle cx="20" cy="33" r="2.6"/><circle cx="33" cy="20" r="2.6"/></g>
+            <text x="50" y="58" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="22" font-weight="700" fill="#fff">EU</text>
+          </svg>
+          <svg class="badge" viewBox="0 0 100 100" role="img" aria-label="Made in Germany" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" fill="none" stroke="#201E1F" stroke-width="3"/>
+            <text x="50" y="46" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="13" font-weight="700" fill="#201E1F">MADE IN</text>
+            <text x="50" y="64" text-anchor="middle" font-family="Fira Sans, sans-serif" font-size="13" font-weight="700" fill="#201E1F">GERMANY</text>
+          </svg>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" data-theme="light">
     <div class="container footer-inner">
-      <span class="brandmark">Kadanco</span>
-      <p>Your marketing function, owned and executed. Berlin, Germany.</p>
+      <a class="brand" href="#top" aria-label="Kadanco — home"><img class="brand-logo" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20158%2030%22%3E%3Crect%20x%3D%220%22%20y%3D%223%22%20width%3D%2237%22%20height%3D%2224%22%20rx%3D%226%22%20fill%3D%22%23201E1F%22%2F%3E%3Ctext%20x%3D%2218.5%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EKA%3C%2Ftext%3E%3Ctext%20x%3D%2243%22%20y%3D%2220.5%22%20font-family%3D%22sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2216%22%20fill%3D%22%23201E1F%22%3EDANCO%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Kadanco" /></a>
+      <p class="small">© 2026 Kadanco UG</p>
       <div class="footer-links">
         <a href="mailto:hello@kadanco.com">hello@kadanco.com</a>
         <a href="#" aria-label="Kadanco on LinkedIn">LinkedIn</a>
         <a href="/imprint/">Imprint &amp; Privacy</a>
       </div>
-      <p class="small">© 2026 Kadanco UG</p>
     </div>
   </footer>
 
-  <!-- ============================================================
-       PLUNK: contact modal + script.
-       This posts to /api/contact, where your Plunk Cloudflare function lives.
-       If your live form is wired differently (different endpoint or fields),
-       REPLACE THIS WHOLE BLOCK (modal + script) with your current one.
-       ============================================================ -->
+  <!-- ===================== PLUNK modal (unchanged) ===================== -->
   <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
     <div class="modal">
       <button class="x" data-close-modal aria-label="Close dialog">✕</button>
       <div id="form-body">
-        <span class="eyebrow">Let's talk</span>
+        <span class="eyebrow indigo">Lets Talk</span>
         <h3 id="contact-title">Start a conversation</h3>
         <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reply within 24 hours.</p>
         <form id="contact-form" novalidate>
-          <!-- Honeypot: hidden from people, catches bots. Leave empty. -->
           <div class="hp" aria-hidden="true">
             <label for="f-hp">Leave this field empty</label>
             <input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off" />
@@ -317,7 +284,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="field"><label for="f-website">Website <span class="muted">(optional)</span></label><input id="f-website" name="website" /></div>
           <div class="field"><label for="f-goal">What are you trying to grow?</label><textarea id="f-goal" name="goal"></textarea></div>
           <p class="form-error" id="form-error" role="alert" style="display:none"></p>
-          <button class="btn btn-primary" type="submit">Send</button>
+          <button class="btn btn-primary btn-block" type="submit">Send</button>
         </form>
       </div>
       <div id="form-success" class="success" style="display:none">
@@ -332,147 +299,70 @@ import Layout from '../layouts/Layout.astro';
     (function () {
       var overlay = document.getElementById('contact');
       var lastFocus = null;
-      function openModal() {
-        lastFocus = document.activeElement;
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        var first = overlay.querySelector('input, button');
-        if (first) first.focus();
-      }
-      function closeModal() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-        if (lastFocus && lastFocus.focus) lastFocus.focus();
-      }
-      document.querySelectorAll('[data-open-modal]').forEach(function (b) {
-        b.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
-      });
-      document.querySelectorAll('[data-close-modal]').forEach(function (b) {
-        b.addEventListener('click', closeModal);
-      });
+      function openModal() { lastFocus = document.activeElement; overlay.classList.add('open'); document.body.style.overflow = 'hidden'; var f = overlay.querySelector('input, button'); if (f) f.focus(); }
+      function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+      document.querySelectorAll('[data-open-modal]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); openModal(); }); });
+      document.querySelectorAll('[data-close-modal]').forEach(function (b) { b.addEventListener('click', closeModal); });
       overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
       var form = document.getElementById('contact-form');
       var errEl = document.getElementById('form-error');
       function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         if (!form.checkValidity()) { form.reportValidity(); return; }
-        var btn = form.querySelector('button[type="submit"]');
-        var label = btn.textContent;
-        btn.disabled = true; btn.textContent = 'Sending…';
-        errEl.style.display = 'none';
-        fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({
-            name: val('f-name'), email: val('f-email'), company: val('f-company'),
-            website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp')
-          })
-        }).then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (out) {
-            if (res.ok && out.ok) {
-              document.getElementById('form-body').style.display = 'none';
-              document.getElementById('form-success').style.display = 'block';
-            } else {
-              throw new Error((out && out.error) || 'Something went wrong.');
-            }
-          });
-        }).catch(function (err) {
-          errEl.textContent = err.message + ' You can also email hello@kadanco.com.';
-          errEl.style.display = 'block';
-          btn.disabled = false; btn.textContent = label;
-        });
+        var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…'; errEl.style.display = 'none';
+        fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ name: val('f-name'), email: val('f-email'), company: val('f-company'), website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp') }) })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) {
+          if (res.ok && out.ok) { document.getElementById('form-body').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
+          else { throw new Error((out && out.error) || 'Something went wrong.'); } }); })
+        .catch(function (err) { errEl.textContent = err.message + ' You can also email hello@kadanco.com.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = label; });
       });
     })();
   </script>
 
-  <!-- ============================================================
-       MOTION: hover lift, scroll reveal, capability marquee,
-       scroll progress, active-nav. Pairs with the motion CSS at
-       the end of global.css. Reduced-motion safe.
-       ============================================================ -->
   <script is:inline>
     (function () {
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!reduce) {
-        var bar = document.createElement('div');
-        bar.className = 'scroll-progress';
-        document.body.appendChild(bar);
-        var update = function () {
-          var d = document.documentElement;
-          var max = d.scrollHeight - d.clientHeight;
-          bar.style.transform = 'scaleX(' + (max > 0 ? d.scrollTop / max : 0) + ')';
-        };
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update);
-        update();
-      }
-
-      if (!reduce) {
-        var strip = document.querySelector('.cap-strip');
-        if (strip) {
-          var text = strip.textContent.replace(/\s+/g, ' ').trim();
-          var half = text + '\u00A0\u00A0\u00B7\u00A0\u00A0';
-          var track = document.createElement('span');
-          track.className = 'cap-marquee';
-          track.textContent = half + half;
-          strip.textContent = '';
-          strip.appendChild(track);
+      var nav = document.querySelector('.nav');
+      var themed = Array.prototype.slice.call(document.querySelectorAll('[data-theme]'));
+      function navTheme() {
+        var probe = 40, theme = 'dark';
+        for (var i = 0; i < themed.length; i++) {
+          var r = themed[i].getBoundingClientRect();
+          if (r.top <= probe && r.bottom > probe) { theme = themed[i].getAttribute('data-theme'); break; }
         }
+        nav.classList.toggle('nav--light', theme === 'light');
+        nav.classList.toggle('nav--dark', theme !== 'light');
       }
+      window.addEventListener('scroll', navTheme, { passive: true });
+      window.addEventListener('resize', navTheme);
+      navTheme();
 
+      if (!reduce) {
+        var bar = document.createElement('div'); bar.className = 'scroll-progress'; document.body.appendChild(bar);
+        var update = function () { var d = document.documentElement; var max = d.scrollHeight - d.clientHeight; bar.style.transform = 'scaleX(' + (max > 0 ? d.scrollTop / max : 0) + ')'; };
+        window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update();
+      }
       if (!reduce && 'IntersectionObserver' in window) {
         var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            var el = entry.target;
-            el.classList.add('is-visible');
-            io.unobserve(el);
-            el.addEventListener('transitionend', function te() {
-              el.classList.remove('reveal');
-              el.classList.remove('is-visible');
-              el.style.transitionDelay = '';
-              el.removeEventListener('transitionend', te);
-            });
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-        var hide = function (el, delay) {
-          if (!el) return;
+          entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        var sel = '.section .eyebrow, .section h2, .section .lead, .section .grid, .section .who-top, .section .embed-slot, .section .tags, .section .founders-grid, .section .compliance-row';
+        document.querySelectorAll(sel).forEach(function (el) {
           if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
-          if (delay) el.style.transitionDelay = delay.toFixed(2) + 's';
-          el.classList.add('reveal');
-          io.observe(el);
-        };
-
-        document.querySelectorAll('.section > .container > .eyebrow, .section > .container > h2, .section > .container > .lead, .section > .container > .on-dark').forEach(function (el) {
-          hide(el, 0);
-        });
-        document.querySelectorAll('.grid, .stats').forEach(function (group) {
-          var kids = group.children;
-          for (var i = 0; i < kids.length; i++) hide(kids[i], (i % 4) * 0.06);
+          el.classList.add('reveal'); io.observe(el);
         });
       }
-
       if ('IntersectionObserver' in window) {
         var map = {};
-        document.querySelectorAll('.nav-links .navlink').forEach(function (a) {
-          var href = a.getAttribute('href') || '';
-          var h = href.indexOf('#');
-          if (h >= 0) { var id = href.slice(h + 1); if (id) map[id] = a; }
-        });
+        document.querySelectorAll('.nav-links .navlink').forEach(function (a) { var href = a.getAttribute('href') || ''; var h = href.indexOf('#'); if (h >= 0) { var id = href.slice(h + 1); if (id) map[id] = a; } });
         var ids = Object.keys(map);
         if (ids.length) {
           var spy = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-              if (!entry.isIntersecting) return;
-              ids.forEach(function (id) { map[id].classList.remove('active'); });
-              if (map[entry.target.id]) map[entry.target.id].classList.add('active');
-            });
+            entries.forEach(function (entry) { if (!entry.isIntersecting) return; ids.forEach(function (id) { map[id].classList.remove('active'); }); if (map[entry.target.id]) map[entry.target.id].classList.add('active'); });
           }, { rootMargin: '-45% 0px -50% 0px' });
           ids.forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
         }
