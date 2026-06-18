@@ -2078,5 +2078,1713 @@
       "sales-operations",
       "pipeline-review"
     ]
+  },
+  {
+    "slug": "go-to-market-strategy",
+    "term": "Go-to-Market Strategy",
+    "aliases": [
+      "GTM Strategy",
+      "GTM"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The plan for how you reach a specific market and turn it into revenue: who you sell to, what you say, and through which channels.",
+    "whyItMatters": "A go-to-market strategy is the difference between activity and traction. It forces the decisions most teams avoid: which segment to win first, what the wedge is, which channels actually reach the buyer, and what has to be true for the motion to pay back. Without it, marketing and sales optimise different things and budget gets sprayed across everything at once.",
+    "benchmark": "A useful GTM names one primary segment, a clear wedge, two or three channels to test first, and the economics that make it work, target acquisition cost, payback, and win rate. If it tries to serve everyone through every channel, it is a wish list, not a strategy.",
+    "operatorTake": "Most early GTM failures are not execution problems, they are focus problems. The team picks a market that is too broad, runs five channels at twenty percent effort each, and reads the flat results as a demand problem. The fix is sequencing: pick the narrowest segment where you can win decisively, concentrate spend on the one or two channels that reach it, and expand only once the motion repays itself. A GTM is a set of bets with a payback assumption attached, not a calendar of tactics. Revisit it when the economics move, not every quarter out of habit.",
+    "euNote": "In Europe a single GTM rarely survives contact with the continent. Buying norms, languages, procurement rules, and data expectations differ enough between the DACH region, the Benelux, the Nordics, and Southern Europe that a motion tuned for one can stall in the next. Treat expansion as a sequence of country wedges rather than one EMEA launch, and budget for localisation and compliance from the start.",
+    "related": [
+      "product-market-fit",
+      "icp",
+      "beachhead-market",
+      "wedge-strategy",
+      "positioning",
+      "total-addressable-market"
+    ]
+  },
+  {
+    "slug": "product-market-fit",
+    "term": "Product-Market Fit",
+    "aliases": [
+      "PMF",
+      "Product/Market Fit"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The point where a product satisfies a real, repeatable demand well enough that the market starts pulling it from you.",
+    "whyItMatters": "Product-market fit is the line that separates pushing and pulling. Before it, growth comes from heroics: founder selling, heavy discounting, one-off deals. After it, retention holds, word of mouth starts, and the same motion works on the next customer without reinvention. Spending hard on demand generation before fit usually just buys you a faster way to churn.",
+    "benchmark": "Signals of fit include retention that flattens rather than decaying to zero, a shortening sales cycle, organic referrals, and customers who would be genuinely annoyed if the product disappeared. A common rule of thumb: at least forty percent of users saying they would be very disappointed without it.",
+    "operatorTake": "Fit is not a moment you cross once, it is specific to a segment and a motion, and you can lose it by moving up or down market. The trap we see most is scaling spend on the strength of a few marquee logos that were really sold by the founder, not the product. Before pouring money into acquisition, prove that a non-founder can close the same buyer with the same story, and that those customers stay. If retention is leaking, fix the leak first, because acquisition spend on a leaky product is the most expensive mistake in the playbook.",
+    "euNote": "Fit in one European market does not transfer automatically to the next. A product that fits mid-market German manufacturers may need different proof, pricing, and onboarding for Dutch or Nordic buyers. Re-test the disappointment signal per market before assuming the same motion will pull.",
+    "related": [
+      "go-to-market-strategy",
+      "icp",
+      "beachhead-market",
+      "churn-rate",
+      "value-proposition",
+      "founder-led-growth"
+    ]
+  },
+  {
+    "slug": "embedded-marketing-function",
+    "term": "Embedded Marketing Function",
+    "aliases": [
+      "Embedded Marketing",
+      "Embedded Marketing Team"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A senior, hands-on marketing function that operates inside your business and owns outcomes, rather than an agency that delivers projects from the outside.",
+    "whyItMatters": "Most post-fit companies are stuck between two bad options: hire a full in-house team they cannot yet justify, or brief an agency that runs campaigns without owning the number. An embedded function sits inside the company, learns the product and the buyer, and is accountable for pipeline and revenue, not deliverables. It gives a small team senior operating capacity without the cost and lead time of building a department.",
+    "benchmark": "The test is ownership. An embedded function holds a number, sits in your planning and sales conversations, and makes decisions with you. If the relationship is scoped as a list of assets to produce, that is an agency, however good the work is.",
+    "operatorTake": "The reason this model works for companies in the few-million-revenue range is that their problem is rarely a missing campaign, it is a missing operating system: no clear ICP, no positioning, no instrumented funnel, no honest read on what payback looks like. Those are not project work, they are the foundations a function builds and then runs. Judge any embedded arrangement by whether it leaves you with a system that compounds, not a folder of assets that goes stale the moment the engagement ends. The honest version of this model also tells you when you have outgrown it and should hire in-house.",
+    "euNote": "For companies expanding across European markets, an embedded function that already understands DACH and Benelux buying norms, languages, and data rules removes a layer of risk that a generalist agency cannot. It is the difference between someone who localises a campaign and someone who knows why a German procurement process stalls.",
+    "related": [
+      "fractional-cmo",
+      "marketing-as-a-service",
+      "outsourced-marketing",
+      "go-to-market-strategy",
+      "founder-led-growth",
+      "positioning"
+    ]
+  },
+  {
+    "slug": "marketing-as-a-service",
+    "term": "Marketing as a Service",
+    "aliases": [
+      "MaaS"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A subscription-style arrangement where an external team provides ongoing marketing capacity and accountability instead of one-off projects.",
+    "whyItMatters": "It gives companies predictable senior capacity without the fixed cost of headcount. The value is continuity: the same team builds context over time, so work compounds rather than restarting with every brief. It suits businesses that need a function but cannot yet justify a department.",
+    "benchmark": "Look for a defined scope tied to outcomes, a senior operator who stays on the account, and a clear path to either scaling up or transitioning in-house. Beware arrangements that are really a retainer for ad-hoc tasks dressed up as strategy.",
+    "operatorTake": "The label matters less than the accountability. The useful version owns a number and a system, the weak version sells hours. Ask what you are left with if the engagement ends tomorrow: a working operating model and instrumented funnel, or a dependency. The first is worth paying for, the second quietly traps you.",
+    "related": [
+      "embedded-marketing-function",
+      "fractional-cmo",
+      "outsourced-marketing",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "fractional-cmo",
+    "term": "Fractional CMO",
+    "aliases": [
+      "Part-Time CMO",
+      "Interim CMO"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A senior marketing leader who runs your marketing strategy part-time, giving you executive judgement without a full-time executive salary.",
+    "whyItMatters": "Many companies need senior marketing judgement long before they can justify a full-time CMO. A fractional CMO sets direction, builds the operating model, and holds the team accountable, then hands over or scales as the company grows. It buys decision quality at the top without the cost and commitment of a permanent hire.",
+    "benchmark": "A fractional CMO should own strategy, priorities, and the number, not just advise. Expect them to be in your leadership and pipeline conversations. If they only produce decks and never make calls, you have hired a consultant, not a leader.",
+    "operatorTake": "The risk with fractional leadership is strategy with no hands to execute it: a smart plan that sits in a deck because there is no team to run it. The version that works pairs senior direction with enough execution capacity to actually move the number, whether that is a small embedded team or a clear handoff to yours. Hire for the operating system they will leave behind, and agree up front on what triggers a move to full-time.",
+    "related": [
+      "embedded-marketing-function",
+      "marketing-as-a-service",
+      "outsourced-marketing",
+      "go-to-market-strategy",
+      "founder-led-growth"
+    ]
+  },
+  {
+    "slug": "outsourced-marketing",
+    "term": "Outsourced Marketing",
+    "aliases": [
+      "Marketing Outsourcing"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "Handing some or all of your marketing to an external team rather than building it in-house.",
+    "whyItMatters": "Outsourcing lets a small company access skills and capacity it cannot hire for yet. Done well, it covers the gap between founder-led marketing and a real internal team. Done badly, it creates distance between the people who know the product and the people who tell its story.",
+    "benchmark": "The arrangement works when the external team owns outcomes and builds lasting context, and fails when it becomes an order-taker disconnected from the business. Continuity of people matters more than the size of the firm.",
+    "operatorTake": "There is a spectrum here, from a freelancer doing tasks to a senior function that runs the whole motion. The mistake is outsourcing strategy to people who never get close enough to the product or the buyer to have a real point of view. Keep the thinking close, and outsource execution to people who are accountable for what it produces, not just for delivering it.",
+    "related": [
+      "embedded-marketing-function",
+      "marketing-as-a-service",
+      "fractional-cmo",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "founder-led-growth",
+    "term": "Founder-Led Growth",
+    "aliases": [
+      "Founder-Led Sales",
+      "Founder Selling"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The early stage where the founder personally drives sales, marketing, and customer relationships because no one else can yet.",
+    "whyItMatters": "Founder-led growth is how almost every company finds its first customers and its real positioning. The founder hears every objection, sees what resonates, and adjusts in real time. The problem is that it does not scale, and the knowledge usually lives only in the founder's head.",
+    "benchmark": "The healthy transition begins when the founder can articulate why customers buy clearly enough that someone else can repeat it and win. If every deal still needs the founder in the room, the motion is not yet transferable.",
+    "operatorTake": "The hardest and most valuable thing to extract from a founder is not their time, it is their instinct: the messaging, the qualifying questions, the way they frame the problem. That is the raw material for positioning and an ICP, and capturing it is the first job of any function you bring in. Companies that scale cleanly turn founder intuition into a documented system early, the ones that stall keep the founder as a permanent dependency in every deal.",
+    "related": [
+      "product-market-fit",
+      "embedded-marketing-function",
+      "icp",
+      "positioning",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "total-addressable-market",
+    "term": "Total Addressable Market",
+    "aliases": [
+      "TAM"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The total revenue available if every possible customer for your product bought it.",
+    "whyItMatters": "TAM frames the ceiling of an opportunity and is a standard input for investors and planning. It is most useful as a sanity check, big enough to be worth pursuing, but it says nothing about who you can actually win first.",
+    "formula": "TAM = total number of potential customers x average annual revenue per customer",
+    "benchmark": "TAM figures are easy to inflate. A credible TAM is built bottom-up from real customer counts and pricing, not top-down from a headline industry number that includes buyers who will never qualify.",
+    "operatorTake": "TAM is a fundraising number, not an operating one. Founders quote a huge TAM, then run marketing as if every one of those buyers is reachable today, which is how spend gets spread thin. The number that should drive your week is the serviceable, winnable slice in front of you, not the theoretical total. Use TAM to decide whether the market is worth entering, then ignore it and go win the beachhead.",
+    "related": [
+      "serviceable-addressable-market",
+      "beachhead-market",
+      "icp",
+      "go-to-market-strategy",
+      "market-segmentation"
+    ]
+  },
+  {
+    "slug": "serviceable-addressable-market",
+    "term": "Serviceable Addressable Market",
+    "aliases": [
+      "SAM",
+      "Serviceable Available Market"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The portion of the total market you can realistically reach and serve with your current product, model, and geography.",
+    "whyItMatters": "SAM narrows the theoretical total to the buyers your business can actually sell to today, given your product, pricing, and where you operate. It is a more honest planning number than TAM because it strips out the customers you have no path to win.",
+    "benchmark": "A good SAM reflects real constraints: the languages you support, the regions you sell in, the segment your product fits, and the deals your motion can close. If your SAM looks almost as large as your TAM, you have probably not been honest about the constraints.",
+    "operatorTake": "SAM is where strategy gets real, because it makes you admit what you cannot serve yet. For a company selling into Europe, geography and language alone can cut the reachable market sharply, which is useful, it tells you where to concentrate. Define SAM tightly, then carve the beachhead out of it. Vague SAMs lead to vague targeting.",
+    "related": [
+      "total-addressable-market",
+      "beachhead-market",
+      "icp",
+      "market-segmentation",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "beachhead-market",
+    "term": "Beachhead Market",
+    "aliases": [
+      "Beachhead",
+      "Bowling Pin Strategy"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The narrow, winnable segment you target first to establish a foothold before expanding to adjacent markets.",
+    "whyItMatters": "A beachhead concentrates limited resources where you can win decisively, then uses that win as a base to expand. It is the antidote to the spread-thin approach of chasing every segment at once. Dominating a small market builds the references, case studies, and product depth that make the next market easier.",
+    "benchmark": "A good beachhead is small enough to dominate, homogeneous enough that one message and one motion work across it, and connected to adjacent segments you can expand into. If winning it teaches you nothing about the next market, it is the wrong beachhead.",
+    "operatorTake": "The instinct to keep the market broad, just in case, is exactly what kills early traction. A tightly defined beachhead lets you build a message, a motion, and a set of proof points that actually land, instead of generic ones that land nowhere. We would rather a company own one vertical or region completely than be a forgettable option in ten. Win the beachhead, bank the references, then expand to the pin next to it.",
+    "related": [
+      "go-to-market-strategy",
+      "product-market-fit",
+      "wedge-strategy",
+      "land-and-expand",
+      "icp",
+      "serviceable-addressable-market"
+    ]
+  },
+  {
+    "slug": "category-creation",
+    "term": "Category Creation",
+    "aliases": [
+      "Creating a Category"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "Defining and naming a new market category so that you are the obvious leader of it, rather than competing inside an existing one.",
+    "whyItMatters": "When you create a category, you frame the problem in a way that makes your approach the natural answer and competitors look like the old way. It can be enormously valuable, but it is expensive and slow: you have to teach the market a new problem exists before you can sell the solution.",
+    "benchmark": "Category creation is justified when existing categories genuinely misframe the buyer's problem and you have the resources and patience to educate the market over years. For most companies, winning a clear position inside an existing category is faster and safer.",
+    "operatorTake": "Category creation is one of the most over-prescribed strategies in B2B. It works spectacularly for a handful of companies and quietly drains the rest, because educating a market is a multi-year, capital-heavy effort most teams cannot sustain. If buyers already know they have the problem and are comparing solutions, do not invent a category, just win the comparison with sharp positioning. Save category creation for when the existing language actively works against you.",
+    "related": [
+      "category-design",
+      "category-narrative",
+      "positioning",
+      "differentiation",
+      "point-of-view-marketing"
+    ]
+  },
+  {
+    "slug": "category-design",
+    "term": "Category Design",
+    "aliases": [
+      "Category Strategy"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "The deliberate work of shaping how a market thinks about a problem and its solutions, so the category itself favours you.",
+    "whyItMatters": "Category design is the discipline behind category creation and category leadership. It defines the problem frame, the language, and the criteria buyers should use, and then builds the narrative and proof to make that frame stick. Whoever sets the criteria the market evaluates by has a structural advantage.",
+    "benchmark": "Effective category design produces a problem frame buyers adopt in their own words, evaluation criteria that map to your strengths, and a narrative that makes the status quo feel like a cost. If the market keeps describing the problem in a competitor's terms, the design has not landed.",
+    "operatorTake": "You do not need to invent a category to do category design, you need a point of view about what matters and the discipline to repeat it everywhere. The lever is the buyer's evaluation criteria: shape those, and you shape every deal before it starts. This is slower than a feature war but far more durable, because criteria outlast any single product comparison.",
+    "related": [
+      "category-creation",
+      "category-narrative",
+      "positioning",
+      "point-of-view-marketing",
+      "differentiation"
+    ]
+  },
+  {
+    "slug": "wedge-strategy",
+    "term": "Wedge Strategy",
+    "aliases": [
+      "Wedge",
+      "Entry Wedge"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "Entering a market through one sharp, specific use case or buyer, then expanding outward once you have a foothold.",
+    "whyItMatters": "A wedge gives you a way in against incumbents and inertia: one narrow problem you solve better than anyone, for one specific buyer. It is easier to win attention and a first deal with a precise wedge than with a broad platform pitch. The wedge earns the right to expand.",
+    "benchmark": "A strong wedge is specific enough to win quickly, painful enough that buyers act, and connected to a larger expansion once you are in. A wedge that does not lead anywhere is just a niche.",
+    "operatorTake": "Founders resist the wedge because it feels like underselling the vision, the product does so much more. But buyers do not adopt visions, they adopt solutions to a problem they have today. Lead with the sharpest wedge, win on it, then expand the relationship from a position of trust. The platform story is what you grow into, not how you get in the door.",
+    "related": [
+      "beachhead-market",
+      "land-and-expand",
+      "go-to-market-strategy",
+      "positioning",
+      "differentiation"
+    ]
+  },
+  {
+    "slug": "land-and-expand",
+    "term": "Land and Expand",
+    "aliases": [
+      "Land-and-Expand"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "Winning a small initial deal inside an account, then growing it over time into more teams, seats, or use cases.",
+    "whyItMatters": "Land and expand lowers the barrier to a first purchase by starting small, then grows revenue from proven value rather than promises. It suits products that spread naturally across a company and businesses where a small win can demonstrate value quickly. Expansion revenue is usually cheaper to win than new logos.",
+    "benchmark": "Healthy land-and-expand shows net revenue retention above one hundred percent, meaning existing accounts grow faster than churn shrinks them. If accounts land and stay flat, the expansion engine is not working.",
+    "operatorTake": "The land is a marketing and sales problem, the expand is a product and success problem, and teams that treat the whole thing as a sales motion under-invest in the second half. The first deal has to deliver a visible win fast enough that the next team wants in. Design the initial use case to prove value quickly and create an obvious next step, otherwise you have landed a customer who never grows.",
+    "related": [
+      "wedge-strategy",
+      "beachhead-market",
+      "product-led-growth",
+      "account-based-marketing",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "product-led-growth",
+    "term": "Product-Led Growth",
+    "aliases": [
+      "PLG"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A motion where the product itself drives acquisition, conversion, and expansion, usually through a free trial or freemium tier.",
+    "whyItMatters": "In product-led growth the product does the selling: users try it, get value, and convert without heavy sales involvement. It can lower acquisition cost and scale efficiently for products that deliver value quickly to an individual user. It also reshapes marketing's job toward activation and usage, not just lead handoff.",
+    "benchmark": "PLG works when a user can reach a clear value moment quickly and largely on their own. Key metrics are activation rate, time to value, and free-to-paid conversion. If users need a demo and onboarding to see value, a pure PLG motion will struggle.",
+    "operatorTake": "PLG is not a universal upgrade, it is a fit question. It works when the buyer can self-serve to value and the price point supports low-touch selling, and it breaks for complex, high-consideration products where the real buyer is a committee. Many B2B companies run a hybrid: product-led for the individual user, sales-led for the expansion into a contract. Pick the motion the buyer's behaviour actually supports, not the one that is fashionable.",
+    "related": [
+      "sales-led-growth",
+      "bottoms-up-gtm",
+      "land-and-expand",
+      "product-market-fit",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "sales-led-growth",
+    "term": "Sales-Led Growth",
+    "aliases": [
+      "SLG",
+      "Sales-Led"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A motion where a sales team drives revenue through direct outreach, demos, and negotiated deals.",
+    "whyItMatters": "Sales-led growth fits products that are complex, expensive, or sold to committees, where buyers need guidance, customisation, and trust before committing. Marketing's job is to generate and nurture pipeline that sales converts. It is the default motion for most considered B2B purchases.",
+    "benchmark": "Sales-led economics hinge on pipeline coverage, win rate, sales cycle length, and the ratio of acquisition cost to contract value. The motion is healthy when marketing-sourced pipeline reliably feeds quota and the cost to acquire pays back in a sensible window.",
+    "operatorTake": "The classic sales-led failure is marketing and sales optimising different things: marketing counts leads, sales complains about quality, and no one owns the number in between. The fix is a shared definition of a qualified opportunity and one funnel both teams read. In a sales-led motion, marketing is not a lead factory, it is the team that makes the buyer ready to buy before the rep ever calls.",
+    "related": [
+      "product-led-growth",
+      "top-down-gtm",
+      "account-based-marketing",
+      "go-to-market-strategy",
+      "buying-committee"
+    ]
+  },
+  {
+    "slug": "bottoms-up-gtm",
+    "term": "Bottoms-Up GTM",
+    "aliases": [
+      "Bottom-Up GTM",
+      "Bottom-Up Adoption"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A go-to-market motion that starts with individual users or small teams adopting the product, then grows into a company-wide purchase.",
+    "whyItMatters": "Bottoms-up reaches the people who feel the problem directly, lets them adopt without a procurement battle, and uses their advocacy to reach the budget holder later. It lowers the cost of a first foothold and builds internal champions before a contract conversation. It pairs naturally with product-led growth.",
+    "benchmark": "The motion works when an individual can adopt and get value without sign-off, and when that usage spreads visibly inside the account. Watch seat growth within accounts and the rate at which team adoption converts to a paid contract.",
+    "operatorTake": "Bottoms-up gets you in the door cheaply, but the deal that pays the bills still gets signed top-down, by someone who has never used the product. Teams that win this motion arm their internal champion with the business case the executive needs, security, consolidation, cost, not just a usage chart. Treat the end user as the entry point and the executive as the buyer, and build for both.",
+    "related": [
+      "top-down-gtm",
+      "product-led-growth",
+      "land-and-expand",
+      "buying-committee",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "top-down-gtm",
+    "term": "Top-Down GTM",
+    "aliases": [
+      "Top-Down Selling",
+      "Executive-Led GTM"
+    ],
+    "category": "Strategy & GTM",
+    "oneLiner": "A go-to-market motion that sells to senior decision-makers first, securing budget and mandate before rollout to users.",
+    "whyItMatters": "Top-down targets the people who control budget and strategy, which suits large, strategic purchases where an executive sponsor is essential. It can land bigger deals faster than waiting for grassroots adoption, but it demands a business case framed in executive terms. Marketing's job is to reach and influence those decision-makers.",
+    "benchmark": "Top-down motions live or die on access to senior buyers and the strength of the business case. Track meetings with economic buyers, deal size, and how reliably executive sponsorship converts to signed contracts and successful rollout.",
+    "operatorTake": "The risk in top-down is buying the executive and losing the users: a deal signed at the top that never gets adopted, then churns at renewal. The durable version pairs the executive business case with a real plan for user adoption, so the rollout actually sticks. Sell the outcome to the executive and the experience to the users, because a deal that lands but does not get used is a refund waiting to happen.",
+    "related": [
+      "bottoms-up-gtm",
+      "sales-led-growth",
+      "account-based-marketing",
+      "buying-committee",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "positioning",
+    "term": "Positioning",
+    "aliases": [
+      "Market Positioning",
+      "Strategic Positioning"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "The deliberate choice of how your product is understood: what it is, who it is for, and why it is the obvious choice for them.",
+    "whyItMatters": "Positioning is the foundation everything else sits on. It decides the context buyers judge you in, the competitors they compare you against, and the criteria they use. Get it right and the rest of marketing gets easier, because the message writes itself. Get it wrong and no amount of campaign spend fixes a product the market cannot place.",
+    "benchmark": "Strong positioning is specific and contested, it makes a clear claim about who you are for and who you are not. If your positioning could be lifted onto a competitor's site without anyone noticing, you do not have positioning, you have description.",
+    "operatorTake": "Positioning is the single highest-leverage and most neglected piece of B2B marketing. Teams jump to tactics, more content, more ads, while the underlying problem is that buyers cannot tell what the product is or why it beats the alternative they already know. The work is choosing: a frame of reference, a clear set of buyers, and one or two differentiators that genuinely matter to them, then having the discipline to say no to everyone else. Weak positioning tries to be a fit for everybody and ends up the obvious choice for nobody. We treat it as the first deliverable, because it changes how every later euro of spend performs.",
+    "euNote": "Positioning often has to flex across European markets without fracturing. The core of who you are should hold, but the proof points, references, and emphasis that persuade a German buyer may differ from what moves a Dutch or French one. Localise the evidence and the framing, keep the position itself consistent, so you build one brand across markets rather than a different story in each.",
+    "related": [
+      "value-proposition",
+      "differentiation",
+      "positioning-statement",
+      "competitive-positioning",
+      "messaging-framework",
+      "icp"
+    ]
+  },
+  {
+    "slug": "repositioning",
+    "term": "Repositioning",
+    "aliases": [
+      "Brand Repositioning"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "Changing how the market understands your product, usually because the current positioning no longer fits the market, buyer, or strategy.",
+    "whyItMatters": "Companies outgrow their positioning. The market shifts, the product matures, you move up-market, or a category emerges, and the old frame starts working against you. Repositioning realigns how buyers see you with where the business is actually going. It is high-leverage but disruptive, because it touches everything downstream.",
+    "benchmark": "Repositioning is warranted when the current frame consistently attracts the wrong buyers, loses to the wrong competitors, or undersells what the product now does. It should be deliberate and evidence-led, not a reaction to one lost deal.",
+    "operatorTake": "The hardest part of repositioning is internal: the founder is attached to the original story, and sales is fluent in the old pitch. Changing the words is easy, changing what the organisation actually believes and repeats is the work. Do it decisively and align everyone, sales, site, content, on the new frame at once, because a half-finished reposition where some channels say the old thing is worse than either position alone.",
+    "related": [
+      "positioning",
+      "value-proposition",
+      "category-design",
+      "differentiation",
+      "messaging-framework"
+    ]
+  },
+  {
+    "slug": "positioning-statement",
+    "term": "Positioning Statement",
+    "aliases": [
+      "Positioning Stmt"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "A short internal statement that captures who your product is for, what category it is in, and why it is different.",
+    "whyItMatters": "A positioning statement is the reference document that keeps everyone telling the same story. It is usually written for internal alignment, not for the website, and it forces clarity on the target buyer, the frame of reference, and the key differentiator. When it is sharp, every downstream message inherits the discipline.",
+    "benchmark": "A classic format names the target customer, the need, the category, the key benefit, and the reason to believe. The test is whether two people on different teams, given the statement, would describe the product the same way.",
+    "operatorTake": "The positioning statement is a tool, not a trophy, and the value is in the arguments it forces, not the paragraph it produces. Most teams either skip it or write a vague one nobody uses. Write it tightly enough that it actually rules things out, then use it to settle the small daily disputes about what to say, because that is what it is for.",
+    "related": [
+      "positioning",
+      "value-proposition",
+      "messaging-framework",
+      "differentiation",
+      "icp"
+    ]
+  },
+  {
+    "slug": "value-proposition",
+    "term": "Value Proposition",
+    "aliases": [
+      "Value Prop",
+      "UVP",
+      "Unique Value Proposition"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "A clear statement of the specific value you deliver, to whom, and why it beats the alternatives they are considering.",
+    "whyItMatters": "The value proposition is what answers the buyer's only real question: why should I choose this, over the other options and over doing nothing? It connects the product's capabilities to outcomes the buyer cares about. A weak value proposition lists features, a strong one names a result and makes it credible.",
+    "benchmark": "A good value proposition is specific, outcome-led, and differentiated, and it survives the so-what test: every claim should answer why the buyer should care. If it could describe half your category, it is positioning as wallpaper.",
+    "operatorTake": "The most common failure is a value proposition written from the inside out, in the language of the product and its features, instead of the language of the buyer and their outcomes. Buyers do not care what the product does, they care what changes for them, less risk, less cost, faster results, fewer headaches. The work is translation: take each capability and answer so what until you reach something the buyer actually feels. And it is rarely one statement, the value proposition shifts by audience, because the same product solves a different problem for the user, the manager, and the executive.",
+    "euNote": "Value propositions usually need re-proving, not rewriting, per European market. The outcome that lands may be the same, but the evidence that makes it credible, local references, regional case studies, compliance and data assurances, differs by country. A German buyer often wants proof and specificity, the underlying value can hold while the proof gets localised.",
+    "related": [
+      "positioning",
+      "differentiation",
+      "unique-selling-proposition",
+      "value-messaging",
+      "proof-points",
+      "icp"
+    ]
+  },
+  {
+    "slug": "unique-selling-proposition",
+    "term": "Unique Selling Proposition",
+    "aliases": [
+      "USP",
+      "Unique Selling Point"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "The one thing you do that competitors do not, framed as the single reason a buyer should choose you.",
+    "whyItMatters": "A USP forces a company to name its sharpest point of difference rather than hiding behind a long list of features. It is most useful as a focusing device: if you had to win on one thing, what would it be? That clarity makes messaging and sales conversations easier.",
+    "benchmark": "A real USP is both true and hard for competitors to claim. If every competitor could say the same thing, it is a table-stakes feature, not a selling proposition.",
+    "operatorTake": "The USP concept is old and a little blunt, most modern B2B products win on a combination of things, not one magic feature. But the discipline behind it is sound: if you cannot name the thing you are clearly best at, neither can your buyer. Use it to find your edge, then let your fuller value proposition carry the rest. The danger is inventing a USP that is clever but not actually differentiating in the buyer's eyes.",
+    "related": [
+      "value-proposition",
+      "differentiation",
+      "positioning",
+      "competitive-positioning",
+      "proof-points"
+    ]
+  },
+  {
+    "slug": "messaging-framework",
+    "term": "Messaging Framework",
+    "aliases": [
+      "Message House",
+      "Messaging Architecture"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "A structured document that translates positioning into the core messages, proof points, and language the whole company uses.",
+    "whyItMatters": "A messaging framework is the bridge between strategy and execution. It takes the positioning and turns it into the consistent things you say: the core message, the supporting pillars, the proof for each, and the language to use and avoid. It keeps a growing team and its agencies on-message without constant oversight.",
+    "benchmark": "A working framework gives anyone, a new hire, a writer, a salesperson, enough to produce on-brand, on-message work without reinventing it. If every team writes from scratch and the story drifts channel to channel, the framework is missing or ignored.",
+    "operatorTake": "A messaging framework is only worth building if people actually use it, and the failure mode is a beautiful document that lives in a drive and is never opened. Build it tight, socialise it hard, and treat it as the source of truth that sales decks, the website, and content all inherit from. When it works, consistency stops being a policing problem and becomes the default.",
+    "related": [
+      "positioning",
+      "messaging-hierarchy",
+      "value-messaging",
+      "value-proposition",
+      "proof-points",
+      "narrative-design"
+    ]
+  },
+  {
+    "slug": "messaging-hierarchy",
+    "term": "Messaging Hierarchy",
+    "aliases": [
+      "Message Hierarchy"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "The ordered structure of your messages, from the single most important thing down to supporting details.",
+    "whyItMatters": "Not every message carries equal weight. A hierarchy decides what the buyer must take away first, what supports it, and what is detail for later. It keeps communication focused under the constant pressure to say everything at once, which says nothing.",
+    "benchmark": "A clear hierarchy has one primary message, a small number of supporting pillars, and proof beneath each. If your homepage leads with five equally weighted points, there is no hierarchy and the buyer remembers none of them.",
+    "operatorTake": "Most messaging problems are really prioritisation problems: the team knows all the true things to say and refuses to rank them. The discipline is deciding what to lead with and what to cut from the top, which always feels like losing something. Lead with the one message that matters most to the buyer, let everything else support it, and trust the detail to land later in the journey.",
+    "related": [
+      "messaging-framework",
+      "positioning",
+      "value-messaging",
+      "value-proposition",
+      "narrative-design"
+    ]
+  },
+  {
+    "slug": "value-messaging",
+    "term": "Value Messaging",
+    "aliases": [
+      "Benefit Messaging"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "Messaging that leads with the outcomes and value a buyer gets, rather than the features that produce them.",
+    "whyItMatters": "Value messaging speaks to what the buyer is actually trying to achieve, which is how decisions get made and budget gets justified. It connects features to results the buyer cares about and to the language they use internally. Feature messaging informs, value messaging persuades.",
+    "benchmark": "Good value messaging passes the so-what test on every line and uses the buyer's outcomes, less risk, lower cost, faster time to result, not the product's mechanics. If your headlines describe what the product has rather than what it changes, it is feature messaging.",
+    "operatorTake": "The reflex to lead with features is strongest in technical and founder-led companies, because the team is proud of what they built and assumes the value is self-evident. It rarely is. The work is connecting every capability to a consequence the buyer feels, and then leading with the consequence. Keep the features, they are the proof, but make the outcome the headline.",
+    "related": [
+      "value-proposition",
+      "messaging-framework",
+      "messaging-hierarchy",
+      "proof-points",
+      "positioning"
+    ]
+  },
+  {
+    "slug": "differentiation",
+    "term": "Differentiation",
+    "aliases": [
+      "Competitive Differentiation"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "What makes your product meaningfully different from the alternatives, in ways the buyer actually cares about.",
+    "whyItMatters": "Differentiation is what gives a buyer a reason to choose you over the option they already know. Without it, you compete on price and lose to incumbents and inertia. Real differentiation is both true and relevant, a difference that matters to the decision, not just a difference.",
+    "benchmark": "Test differentiation two ways: is it true, and does the buyer care? A point that is unique but irrelevant wins nothing, and a point that matters but everyone shares is table stakes. The sweet spot is true, relevant, and hard to copy.",
+    "operatorTake": "Most companies are less differentiated than they think, and saying it louder does not help. The honest move is to find the buyers for whom your real differences are decisive and concentrate there, rather than claim a universal edge you do not have. Sometimes the strongest differentiation is not the product at all, it is the depth of your focus on a specific buyer or market that generalists cannot match.",
+    "related": [
+      "positioning",
+      "value-proposition",
+      "competitive-positioning",
+      "unique-selling-proposition",
+      "category-design"
+    ]
+  },
+  {
+    "slug": "point-of-view-marketing",
+    "term": "Point of View Marketing",
+    "aliases": [
+      "POV Marketing",
+      "Thought Leadership Positioning"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "Marketing built around a clear, opinionated stance on the problem your category should be solving and how.",
+    "whyItMatters": "A strong point of view earns attention and trust in a market full of safe, similar messaging. It frames the problem on your terms, attracts buyers who share the belief, and makes the company memorable. It is also the engine behind category design and credible thought leadership.",
+    "benchmark": "A real point of view takes a position someone could disagree with. If your stance is something no one in the market would argue against, it is a platitude, not a point of view.",
+    "operatorTake": "The fear of alienating part of the market pushes companies toward bland, agreeable messaging that no one remembers. A sharp point of view does the opposite: it repels the wrong buyers and magnetises the right ones, which is exactly what you want. The hard part is that it has to be genuinely held and consistently defended, a manufactured opinion reads as hollow within a post or two. Find what you actually believe about the problem, then say it everywhere.",
+    "related": [
+      "category-design",
+      "category-narrative",
+      "narrative-design",
+      "differentiation",
+      "positioning"
+    ]
+  },
+  {
+    "slug": "narrative-design",
+    "term": "Narrative Design",
+    "aliases": [
+      "Strategic Narrative",
+      "Company Narrative"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "Building the overarching story that connects your company, product, and the change happening in the market into one coherent argument.",
+    "whyItMatters": "A strategic narrative gives buyers, employees, and investors a single story that explains why the company exists and why now. It is bigger than messaging: it frames the shift in the world that makes your solution inevitable. A compelling narrative makes everything else, the pitch, the content, the vision, hang together.",
+    "benchmark": "A strong narrative names a change in the world, the stakes of that change, and how your approach is the answer to it. If your story is only about your product and not about the shift that makes it matter, it is a pitch, not a narrative.",
+    "operatorTake": "Narrative is where positioning becomes persuasion. The best B2B narratives are not about the company at all at first, they are about a change the buyer already senses, which earns the right to introduce the solution. Companies that nail this get pulled into the conversation, the ones that lead with themselves get tuned out. Build the story around the buyer's world and the shift in it, then place yourself as the answer.",
+    "related": [
+      "category-narrative",
+      "point-of-view-marketing",
+      "positioning",
+      "messaging-framework",
+      "category-design"
+    ]
+  },
+  {
+    "slug": "category-narrative",
+    "term": "Category Narrative",
+    "aliases": [
+      "Category Story"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "The story that defines a market category, frames the problem it solves, and positions your company as its leader.",
+    "whyItMatters": "A category narrative sets the terms a whole market thinks in: the problem, the old way, the new way, and why the shift is happening now. Own the narrative and you shape the criteria buyers use and the company they associate with the solution. It is the storytelling layer of category design.",
+    "benchmark": "A working category narrative gets repeated by analysts, buyers, and even competitors in your language. If the market keeps framing the problem in someone else's terms, your narrative has not taken hold.",
+    "operatorTake": "A category narrative is a long game, and most companies are not resourced to win one, which is fine, you do not always need to. But even without category ambitions, articulating the old way versus the new way is a powerful framing for any buyer stuck in the status quo. Borrow the structure, name the shift and the cost of staying put, without committing to the multi-year campaign that full category leadership demands.",
+    "related": [
+      "category-design",
+      "category-creation",
+      "narrative-design",
+      "point-of-view-marketing",
+      "positioning"
+    ]
+  },
+  {
+    "slug": "proof-points",
+    "term": "Proof Points",
+    "aliases": [
+      "Reasons to Believe",
+      "RTBs"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "The concrete evidence, results, references, data, that makes your claims credible to a sceptical buyer.",
+    "whyItMatters": "Claims without proof are just assertions, and B2B buyers are trained to discount them. Proof points, customer results, named references, third-party validation, hard numbers, turn a claim into something a buyer can defend internally. They are what move a message from marketing copy to a business case.",
+    "benchmark": "Strong proof is specific and verifiable: a named customer, a real metric, a concrete outcome. Vague proof, leading companies trust us, best in class, adds nothing because everyone says it.",
+    "operatorTake": "Proof points are the most underrated asset in B2B, because the buyer's real job is to defend the purchase to other people, and proof is what they take into that room. Early companies that lack logos and big numbers should lean on depth instead, a detailed result from one customer often beats a wall of unconvincing logos. Build a system to capture outcomes as they happen, because the best proof comes from your own customers and most teams forget to collect it.",
+    "related": [
+      "value-proposition",
+      "value-messaging",
+      "differentiation",
+      "case-study",
+      "competitive-positioning"
+    ]
+  },
+  {
+    "slug": "competitive-positioning",
+    "term": "Competitive Positioning",
+    "aliases": [
+      "Competitive Strategy",
+      "Competitive Differentiation"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "How you position your product relative to specific competitors and alternatives the buyer is actively considering.",
+    "whyItMatters": "Buyers rarely evaluate you in isolation, they compare you to named competitors and to doing nothing. Competitive positioning decides how you want to be understood in that comparison: what you concede, what you contest, and where you reframe the criteria. Handled well, it shapes the deal before sales is even involved.",
+    "benchmark": "Good competitive positioning is honest about where rivals are genuinely strong and sharp about where you win, and it tries to shift the buyer's criteria toward your strengths. Pretending to beat competitors on everything reads as untrustworthy and usually backfires.",
+    "operatorTake": "The strongest competitive move is rarely a feature-by-feature teardown, it is changing what the buyer evaluates on. If you win on depth in a niche, make depth in that niche the criterion that matters, rather than fighting a broad platform on breadth. Concede what you cannot win and contest only where you are strong. And know that the most common competitor in B2B is not another vendor, it is the status quo, so position against inertia as deliberately as against rivals.",
+    "related": [
+      "positioning",
+      "differentiation",
+      "value-proposition",
+      "unique-selling-proposition",
+      "category-design"
+    ]
+  },
+  {
+    "slug": "tagline",
+    "term": "Tagline",
+    "aliases": [
+      "Slogan",
+      "Strapline"
+    ],
+    "category": "Positioning & Messaging",
+    "oneLiner": "A short, memorable phrase that captures the essence of your brand or positioning.",
+    "whyItMatters": "A tagline is the compressed expression of your positioning, the line that travels on the homepage, the deck, and the booth. A good one makes the promise instantly graspable and sticks in memory. It is the tip of the messaging iceberg, only as good as the positioning underneath it.",
+    "benchmark": "A strong tagline is short, clear, and specific to you. If it could sit under any competitor's logo, it is decoration. Clever but meaningless beats nothing, but clear and ownable beats clever.",
+    "operatorTake": "Founders spend disproportionate energy on the tagline because it feels like the brand, but it is the last five percent, not the foundation. A sharp tagline on top of muddy positioning still leaves buyers confused. Get the positioning and value proposition right first, then the tagline becomes easy, because you are just compressing something that is already clear. Do not let it become a substitute for the harder work underneath.",
+    "related": [
+      "positioning",
+      "value-proposition",
+      "messaging-framework",
+      "brand-strategy",
+      "differentiation"
+    ]
+  },
+  {
+    "slug": "icp",
+    "term": "Ideal Customer Profile",
+    "aliases": [
+      "ICP",
+      "Ideal Customer Profile"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "A precise description of the type of company that gets the most value from your product and is the best fit to sell to.",
+    "whyItMatters": "The ICP is the decision that makes every other marketing and sales decision easier or harder. It defines who you target, what you say, which channels you use, and who you deliberately ignore. A sharp ICP concentrates limited resources on the accounts most likely to buy, stay, and expand. A vague one scatters them.",
+    "benchmark": "A useful ICP is specific and exclusionary: it names firmographics, the triggering problem, and the signals of a good fit, and it is narrow enough to rule most companies out. If your ICP describes most of your market, it is not doing its job.",
+    "operatorTake": "The ICP is the most common missing foundation in the companies we work with, and almost every downstream problem, weak messaging, expensive leads, slow sales, traces back to its absence. The instinct is to keep it broad to avoid missing opportunities, but a broad ICP makes everything generic and nothing land. The sharpest input is usually your own data: look at the customers who closed fastest, stayed longest, and expanded, and find what they share. Build the profile from that pattern, then point everything, content, targeting, outreach, at it, and let the rest of the market go. Saying no to the wrong accounts is what makes the right ones cheaper to win.",
+    "euNote": "In Europe the ICP often needs a market dimension on top of the usual firmographics, because the same company profile can behave very differently in Germany, the Netherlands, or the Nordics. Buying process, language, and data expectations vary enough that fit is partly a function of geography. Build the profile per target market rather than assuming one EMEA-wide ICP holds.",
+    "related": [
+      "buyer-persona",
+      "buying-committee",
+      "firmographics",
+      "market-segmentation",
+      "positioning",
+      "go-to-market-strategy"
+    ]
+  },
+  {
+    "slug": "buyer-persona",
+    "term": "Buyer Persona",
+    "aliases": [
+      "Persona",
+      "Marketing Persona"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "A profile of an individual buyer type, their role, goals, pains, and how they make decisions, within a target account.",
+    "whyItMatters": "Where the ICP defines the right company, the persona defines the right person inside it. B2B purchases involve several people with different priorities, and personas keep messaging relevant to each. They help marketing and sales speak to what a given role actually cares about rather than a generic average.",
+    "benchmark": "Useful personas are grounded in real conversations with buyers and focus on goals, pains, and decision criteria, not demographic trivia. A persona you cannot act on, that does not change what you say or where you reach them, is decoration.",
+    "operatorTake": "Personas earned a bad name because so many are fictional, padded with invented hobbies and stock photos that change nothing. The useful version is lean and behavioural: what this role is measured on, what they fear, what would get them fired, and what would make them a hero. Build them from actual buyer interviews, not workshops, and only as many as genuinely buy differently. Two real personas beat six imagined ones.",
+    "related": [
+      "icp",
+      "buying-committee",
+      "value-proposition",
+      "messaging-framework",
+      "market-segmentation"
+    ]
+  },
+  {
+    "slug": "buying-committee",
+    "term": "Buying Committee",
+    "aliases": [
+      "Buying Group",
+      "Decision-Making Unit",
+      "DMU"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "The group of people inside an account who collectively influence and decide on a purchase.",
+    "whyItMatters": "Most B2B deals are not made by one person, they are made by a committee with different roles: the user, the champion, the economic buyer, the technical evaluator, and the blockers. Marketing that speaks to only one of them stalls when the others raise objections. Recognising the full committee is essential to moving a deal.",
+    "benchmark": "Research consistently shows enterprise deals involve many stakeholders, often six to ten. The practical benchmark is whether your marketing and sales motion addresses each key role's concerns, or only the champion's.",
+    "operatorTake": "The deal does not die with the champion who loves you, it dies with the finance leader or security reviewer you never spoke to. Strong motions map the committee early and arm the champion to sell internally, because most of the buying happens in rooms you are not in. Give your champion the business case, the security answers, and the cost justification the others will demand. Marketing's quiet job here is to make the absent stakeholders comfortable before they ever object.",
+    "related": [
+      "icp",
+      "buyer-persona",
+      "top-down-gtm",
+      "sales-led-growth",
+      "proof-points"
+    ]
+  },
+  {
+    "slug": "market-segmentation",
+    "term": "Market Segmentation",
+    "aliases": [
+      "Segmentation",
+      "Customer Segmentation"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "Dividing a market into distinct groups of buyers with shared characteristics so you can target and message each effectively.",
+    "whyItMatters": "Segmentation lets you stop treating a market as one undifferentiated mass and start prioritising the groups worth pursuing. It is the basis for choosing a beachhead, tailoring messaging, and allocating budget. Good segmentation reveals where you can win, not just how the market is shaped.",
+    "benchmark": "Useful segments are distinct, reachable, and large enough to matter, and they behave differently enough to justify different treatment. Segmenting for its own sake, slicing the market into groups you then address identically, adds complexity without value.",
+    "operatorTake": "The point of segmentation is to decide where to concentrate, not to produce a tidy chart. Many teams segment elaborately and then market to everyone the same way, which wastes the whole exercise. Pick the one or two segments where you have the right to win, go deep, and consciously deprioritise the rest. Segmentation without prioritisation is just description.",
+    "related": [
+      "icp",
+      "beachhead-market",
+      "firmographics",
+      "account-tiering",
+      "serviceable-addressable-market",
+      "positioning"
+    ]
+  },
+  {
+    "slug": "firmographics",
+    "term": "Firmographics",
+    "aliases": [
+      "Firmographic Data"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "The company-level attributes, industry, size, revenue, location, used to define and target business buyers.",
+    "whyItMatters": "Firmographics are to companies what demographics are to people: the basic descriptors that define a B2B segment. They are the backbone of an ICP and the filters behind most account targeting and list building. They tell you which companies fit before you look at behaviour.",
+    "benchmark": "The right firmographics are the ones that actually predict fit and value for your product, often industry, employee count, and revenue band, plus geography. Collecting attributes that do not change your targeting just adds noise.",
+    "operatorTake": "Firmographics are necessary but not sufficient, they tell you a company looks like a fit, not that it has the problem right now. The strongest targeting layers firmographics with a trigger or intent signal, so you reach the right company at the right moment. Start with the firmographic filter to define the universe, then use behaviour to prioritise within it. Fit times timing beats fit alone.",
+    "related": [
+      "icp",
+      "technographics",
+      "market-segmentation",
+      "account-tiering",
+      "target-account-list",
+      "intent-data"
+    ]
+  },
+  {
+    "slug": "technographics",
+    "term": "Technographics",
+    "aliases": [
+      "Technographic Data",
+      "Tech Stack Data"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "Data about the technologies a company uses, used to qualify and target accounts based on their stack.",
+    "whyItMatters": "For many products, the tools a company already runs are a strong signal of fit. Technographics reveal whether an account uses complementary tools, a competitor you can displace, or a stack that implies the problem you solve. They sharpen targeting beyond size and industry.",
+    "benchmark": "Technographic data is valuable when a specific technology genuinely predicts need or fit for your product. If the tools a company uses do not change whether they are a good prospect, the data is interesting but not actionable.",
+    "operatorTake": "Technographics shine for integration and replacement plays: knowing an account runs a specific platform tells you exactly which problem to lead with. The caveat is data quality, technographic sources can be stale or wrong, so treat a signal as a strong hypothesis to confirm, not a fact. Used well, it lets you walk into a conversation already knowing the buyer's context. Used blindly, it sends you after accounts whose stack changed a year ago.",
+    "related": [
+      "firmographics",
+      "icp",
+      "data-enrichment",
+      "target-account-list",
+      "intent-data"
+    ]
+  },
+  {
+    "slug": "account-tiering",
+    "term": "Account Tiering",
+    "aliases": [
+      "Account Tiers",
+      "Tiered Accounts"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "Ranking target accounts into tiers by fit and value so you can match effort and investment to opportunity.",
+    "whyItMatters": "Not all target accounts deserve equal effort. Tiering sorts them, typically into a small set of high-value accounts that warrant bespoke attention and larger groups that get lighter, more scalable treatment. It is how account-based programmes allocate finite resources sensibly.",
+    "benchmark": "A common structure is a tightly chosen tier one for one-to-one effort, a tier two for one-to-few, and a tier three for one-to-many. The tiers should reflect both fit and potential value, and the highest tier should be small enough to actually personalise.",
+    "operatorTake": "Tiering only works if the tiers genuinely get different treatment, otherwise it is a spreadsheet that flatters you. The discipline is reserving real, bespoke effort for the handful of accounts that justify it and resisting the urge to make tier one too big. Be honest about capacity: ten accounts you can truly personalise beat a hundred you treat identically while calling them strategic.",
+    "related": [
+      "target-account-list",
+      "account-based-marketing",
+      "icp",
+      "firmographics",
+      "market-segmentation"
+    ]
+  },
+  {
+    "slug": "target-account-list",
+    "term": "Target Account List",
+    "aliases": [
+      "TAL",
+      "Named Account List"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "The defined list of specific companies your marketing and sales teams are focused on winning.",
+    "whyItMatters": "A target account list turns an abstract ICP into a concrete set of named companies everyone is working to win. It aligns marketing and sales on the same targets, focuses spend, and makes account-based programmes possible. The list is where strategy becomes a to-do.",
+    "benchmark": "A good list is built from the ICP, sized to your team's capacity, and agreed jointly by marketing and sales. A list nobody maintains, or one sales quietly ignores in favour of their own pipeline, is worse than none.",
+    "operatorTake": "The value of a target account list is the shared focus it creates, but only if marketing and sales actually commit to it together. The usual failure is marketing building a list in isolation that sales never adopts. Build it jointly, keep it living, and make sure both teams are measured against the same names. The list is a commitment, not a wish list.",
+    "euNote": "Building target lists in Europe means sourcing company and contact data under the GDPR, so the legal basis for processing and how you obtained the data matter from the start. Reach business contacts on a defensible basis, usually legitimate interest with a clear path to opt out, and keep records of where data came from. A list assembled without regard for this becomes a liability the moment you act on it.",
+    "related": [
+      "account-tiering",
+      "account-based-marketing",
+      "icp",
+      "firmographics",
+      "lawful-basis-for-processing",
+      "data-enrichment"
+    ]
+  },
+  {
+    "slug": "lookalike-targeting",
+    "term": "Lookalike Targeting",
+    "aliases": [
+      "Lookalike Audiences",
+      "Similar Audiences"
+    ],
+    "category": "ICP & Segmentation",
+    "oneLiner": "Targeting new prospects who resemble your best existing customers, based on shared characteristics or behaviour.",
+    "whyItMatters": "Lookalike targeting scales success by finding more of what already works: you give a platform or model your best customers, and it finds others like them. It can extend reach efficiently when your seed data genuinely reflects high-value accounts. It is common in paid media and increasingly in account selection.",
+    "benchmark": "Lookalikes are only as good as the seed list behind them. A seed of your highest-value, best-fit customers produces useful lookalikes, a seed of all customers, including the bad-fit ones, produces noise. Quality of input governs quality of output.",
+    "operatorTake": "Lookalike modelling is a multiplier, and it multiplies whatever you feed it, including your mistakes. The discipline is curating the seed: feed it the accounts that closed fast, stayed, and expanded, not your whole customer base. Treat the output as a hypothesis to validate against your ICP, not a finished list. And in Europe, be deliberate about the data and consent behind audience building, because privacy rules and platform changes have made some lookalike methods less reliable than they once were.",
+    "euNote": "Lookalike and similar-audience features face real constraints under European privacy law and consent rules, and the data that powers them is increasingly restricted. Confirm the legal basis for any audience built on customer or behavioural data, and expect platform-based lookalikes to be less precise in the EU than vendors imply. Often a manually built ICP-driven list is both more compliant and more accurate.",
+    "related": [
+      "icp",
+      "audience-targeting",
+      "target-account-list",
+      "firmographics",
+      "cookie-consent"
+    ]
+  },
+  {
+    "slug": "demand-generation",
+    "term": "Demand Generation",
+    "aliases": [
+      "Demand Gen",
+      "Demandgen"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "The work of creating awareness and interest in a problem and your solution, so future buyers come to you already primed.",
+    "whyItMatters": "Demand generation builds the market's awareness and intent ahead of the sale, rather than just harvesting people who are already looking. It is the difference between a pipeline that depends on buyers happening to search and one you actively create. Done well, it lowers acquisition cost over time because more buyers arrive already convinced.",
+    "benchmark": "Healthy demand gen shows up as rising branded search, direct traffic, and inbound that references your point of view, not just more form fills. If every lead needs to be convinced from scratch, you are capturing demand, not generating it.",
+    "operatorTake": "Most of what gets called demand generation is actually demand capture: paid search, retargeting, and gated content that collect people who already have the problem in mind. That is necessary, but it is fishing in a pond someone else filled. Real demand generation is the slower work of shaping how a market thinks, through a point of view, content, and presence, so buyers arrive warm and ask for you by name. The trap is that capture shows results this quarter and generation pays off over several, so teams under pressure starve the thing that actually lowers cost long term. The right mix runs both: capture to hit the number now, generation to make next year cheaper.",
+    "euNote": "Demand generation in Europe runs into consent and privacy limits that change the toolkit: tracking, retargeting, and cold outreach are more constrained than in the US, and they vary by country. Branded, point-of-view-led demand that earns attention rather than buying it travels better across the DACH region and Benelux, and it sidesteps the consent friction. Plan for language and local credibility too, a German market warms to different proof than a Dutch or Nordic one.",
+    "related": [
+      "demand-capture",
+      "pipeline-velocity",
+      "inbound",
+      "lead-generation",
+      "point-of-view-marketing",
+      "marketing-sourced-pipeline"
+    ]
+  },
+  {
+    "slug": "demand-capture",
+    "term": "Demand Capture",
+    "aliases": [
+      "Capturing Demand"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Converting buyers who already have the problem and are actively looking into leads and pipeline.",
+    "whyItMatters": "Demand capture targets people already in-market: searching, comparing, ready to act. It is usually the highest-converting, fastest-paying spend you have, because the intent is already there. The limit is that it only harvests existing demand, it does not grow the market.",
+    "benchmark": "Capture channels, branded and high-intent search, comparison pages, retargeting, should show strong conversion and short payback. If capture is your only motion, growth is capped by how many people already know they need you.",
+    "operatorTake": "Capture is the easiest win and the easiest crutch. Teams lean on it because the numbers look great, then wonder why growth stalls once they have harvested everyone already looking. Run capture hard, it pays the bills, but fund demand generation alongside it so there is a growing pool to capture from. Capture without generation eventually runs dry.",
+    "related": [
+      "demand-generation",
+      "inbound",
+      "lead-generation",
+      "intent-data",
+      "conversion-rate"
+    ]
+  },
+  {
+    "slug": "lead-generation",
+    "term": "Lead Generation",
+    "aliases": [
+      "Lead Gen"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "The process of attracting and converting strangers into identified prospects you can follow up with.",
+    "whyItMatters": "Lead generation is the top-of-funnel work that turns anonymous interest into named contacts marketing and sales can engage. It feeds the rest of the funnel. The risk is optimising for lead volume regardless of quality, which floods sales with contacts that never convert.",
+    "benchmark": "The metric that matters is not leads but qualified leads that turn into pipeline and revenue. A high lead count with low downstream conversion usually means the targeting or the offer is attracting the wrong people.",
+    "operatorTake": "Lead generation goes wrong when it is measured by quantity, because it is easy to generate worthless leads, a free giveaway will get you thousands who will never buy. The honest measure is how many leads become real opportunities and revenue. Tie lead gen to pipeline, not to form fills, and you stop rewarding the activity that produces busywork for sales.",
+    "related": [
+      "demand-capture",
+      "demand-generation",
+      "lead-scoring",
+      "mql",
+      "conversion-rate",
+      "marketing-sourced-pipeline"
+    ]
+  },
+  {
+    "slug": "pipeline-velocity",
+    "term": "Pipeline Velocity",
+    "aliases": [
+      "Sales Velocity"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "How fast revenue moves through your pipeline, combining deal count, value, win rate, and cycle length into one measure of throughput.",
+    "whyItMatters": "Pipeline velocity captures the speed of your revenue engine in a single number, and it shows that revenue can be accelerated four ways: more opportunities, bigger deals, higher win rate, or shorter cycles. It is more useful than any single metric because it exposes the trade-offs between them. Improving velocity is often faster than just adding more leads.",
+    "formula": "Pipeline Velocity = (number of opportunities x win rate x average deal value) / sales cycle length",
+    "benchmark": "There is no universal target, velocity is most useful tracked over time and by segment. A rising number means the engine is getting more efficient, a falling one means deals are stalling, shrinking, or harder to win even if lead volume looks fine.",
+    "operatorTake": "The reason velocity matters is that most teams reach for the wrong lever, they assume slow revenue means they need more leads, when often the real drag is a win rate problem or a sales cycle that has quietly lengthened. Break velocity into its four parts and you can see where the engine is actually losing speed, then fix that instead of pouring more leads into a funnel that converts slowly. Shortening the cycle and lifting win rate usually beat raising volume, because they compound across every deal, not just the new ones. We treat velocity as a diagnostic: when it drops, the components tell you whether the problem is demand, qualification, or sales execution.",
+    "euNote": "European sales cycles often run longer and involve more consensus than US equivalents, which shows up directly as lower velocity, and that is not necessarily a problem to fix, it is a market characteristic to plan for. Procurement steps, multiple stakeholders, and in some countries a slower trust-building norm all lengthen the cycle. Measure velocity per market rather than blended, so a structurally longer German enterprise cycle does not look like a performance failure next to a faster motion elsewhere.",
+    "related": [
+      "pipeline-coverage",
+      "win-rate",
+      "sales-cycle-length",
+      "average-deal-size",
+      "marketing-sourced-pipeline",
+      "demand-generation"
+    ]
+  },
+  {
+    "slug": "pipeline-coverage",
+    "term": "Pipeline Coverage",
+    "aliases": [
+      "Pipeline Coverage Ratio",
+      "Coverage Ratio"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "The ratio of open pipeline value to your revenue target, showing whether you have enough in play to hit the number.",
+    "whyItMatters": "Coverage tells you, before the quarter ends, whether there is enough pipeline to plausibly make target given your win rate. It is a forward-looking check that prevents nasty surprises. Too little coverage means a likely miss, too much may mean inflated or unqualified pipeline.",
+    "formula": "Pipeline Coverage = total open pipeline value / revenue target for the period",
+    "benchmark": "A common rule of thumb is roughly 3x to 4x coverage, but the right number is dictated by your actual win rate: a 25 percent win rate needs about 4x, a 50 percent win rate about 2x. Using a generic 3x without checking your win rate is how teams miss while looking covered.",
+    "operatorTake": "Coverage is only as honest as the pipeline behind it, and the classic failure is hitting the coverage ratio with deals that were never real. Inflated pipeline gives false comfort, then converts at half the assumed rate. Tie your required coverage to your real, segment-level win rate, and keep the pipeline clean, because 4x of junk is worse than 2x of qualified deals you actually understand.",
+    "related": [
+      "pipeline-velocity",
+      "win-rate",
+      "marketing-sourced-pipeline",
+      "sales-qualified-lead",
+      "demand-generation"
+    ]
+  },
+  {
+    "slug": "sales-qualified-lead",
+    "term": "Sales Qualified Lead",
+    "aliases": [
+      "SQL"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "A lead that sales has reviewed and accepted as worth actively pursuing, a step beyond a marketing qualified lead.",
+    "whyItMatters": "An SQL marks the handoff where sales agrees a lead is real and takes ownership. It is a critical alignment point: the conversion from MQL to SQL shows whether marketing and sales agree on what a good lead looks like. A low MQL-to-SQL rate is usually a definition problem between the two teams.",
+    "benchmark": "The MQL-to-SQL acceptance rate is the signal to watch. A healthy rate means marketing is sending leads sales believes in, a low one means the bar or the definition is misaligned and needs a shared rewrite.",
+    "operatorTake": "The SQL is where marketing-sales friction shows up as a number. When sales rejects most MQLs, the instinct is to blame lead quality, but the real fix is usually a jointly agreed definition of what qualifies, with feedback flowing back so marketing learns. Treat the MQL-to-SQL conversion as a shared scoreboard, not a stick to beat marketing with, and the handoff stops being a fight.",
+    "related": [
+      "mql",
+      "product-qualified-lead",
+      "lead-scoring",
+      "marketing-sourced-pipeline",
+      "pipeline-coverage"
+    ]
+  },
+  {
+    "slug": "product-qualified-lead",
+    "term": "Product Qualified Lead",
+    "aliases": [
+      "PQL"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "A lead that has used your product, often via a free trial or freemium tier, and shown buying-signal behaviour through that usage.",
+    "whyItMatters": "PQLs are central to product-led growth: instead of qualifying on stated interest, you qualify on actual product usage, which is a far stronger signal. Someone who has hit a value moment in the product is more likely to buy than someone who downloaded a guide. It reframes qualification around behaviour, not forms.",
+    "benchmark": "Good PQL definitions are built on the usage patterns that actually predict conversion, key actions taken, value moments reached, not vanity activity like a single login. The test is whether your PQL signal correlates with real purchases.",
+    "operatorTake": "PQLs only work if you have instrumented the product to see the behaviour that predicts buying, and most teams either lack the tracking or score on activity that does not correlate with revenue. Find the two or three in-product actions that separate buyers from tyre-kickers, and score on those. A PQL based on real value-moment behaviour beats a marketing qualified lead every time, because the buyer has already experienced the thing you are selling.",
+    "related": [
+      "mql",
+      "sales-qualified-lead",
+      "product-led-growth",
+      "lead-scoring",
+      "bottoms-up-gtm"
+    ]
+  },
+  {
+    "slug": "lead-scoring",
+    "term": "Lead Scoring",
+    "aliases": [
+      "Lead Score"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Ranking leads by their likelihood to buy, using fit and behaviour signals, so sales focuses on the best ones first.",
+    "whyItMatters": "Lead scoring helps a team prioritise when there are more leads than sales capacity. It combines who the lead is (fit) with what they have done (behaviour) into a single priority. Done well, it gets sales to the right leads faster, done badly, it sends them chasing noise.",
+    "benchmark": "A useful score blends fit (matches the ICP) and engagement (meaningful actions), and it is validated against whether high scores actually convert. A model nobody has checked against outcomes is just a guess with a number attached.",
+    "operatorTake": "Lead scoring models tend to start arbitrary, points assigned by gut, and then never get validated against who actually buys. The discipline is to build the model from your own conversion data and revisit it, because the behaviours that predicted buying last year may not this year. Keep it simple and grounded in outcomes, an over-engineered score that does not correlate with revenue just adds confidence to bad prioritisation.",
+    "euNote": "Scoring leads on behavioural data in Europe means processing personal data, so it needs a lawful basis under the GDPR and care about what you track and retain. Behavioural tracking that powers scoring is exactly the kind of processing privacy rules govern. Make sure the data feeding your model is collected on a defensible basis, not just whatever the tools happen to capture.",
+    "related": [
+      "mql",
+      "sales-qualified-lead",
+      "lead-nurturing",
+      "lawful-basis-for-processing",
+      "marketing-automation"
+    ]
+  },
+  {
+    "slug": "lead-nurturing",
+    "term": "Lead Nurturing",
+    "aliases": [
+      "Nurture",
+      "Nurture Sequence"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Building a relationship with leads who are not yet ready to buy, through relevant, timed communication, until they are.",
+    "whyItMatters": "Most leads are not ready to buy when you first reach them, and nurturing keeps you present and useful until their timing is right. It captures value from the large share of leads that would otherwise go cold. Good nurturing educates and builds trust rather than just nagging for a meeting.",
+    "benchmark": "Effective nurturing moves leads forward, measured by progression to sales-readiness and eventual conversion, not by email opens alone. If a nurture track never produces opportunities, it is noise the recipient learns to ignore.",
+    "operatorTake": "Nurturing fails when it becomes a drip of self-serving content that pesters the lead toward a demo they are not ready for. The version that works is genuinely helpful, it advances the buyer's understanding, so that when timing aligns, you are the obvious call. Map nurture content to where the buyer actually is, and be willing to let people sit in a slow track, pushing too hard just trains them to tune you out.",
+    "euNote": "Nurture programmes in Europe run on email and tracking governed by the GDPR and ePrivacy rules, so consent and a clear opt-out are not optional. Adding someone to a nurture sequence without a lawful basis is a compliance risk, not just bad manners. Build nurture lists on contacts who opted in or have a defensible basis, and honour unsubscribes immediately.",
+    "related": [
+      "lead-scoring",
+      "mql",
+      "demand-generation",
+      "lawful-basis-for-processing",
+      "marketing-automation"
+    ]
+  },
+  {
+    "slug": "intent-data",
+    "term": "Intent Data",
+    "aliases": [
+      "Buyer Intent Data",
+      "Intent Signals"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Signals that an account is actively researching a problem or category, used to reach buyers while they are in-market.",
+    "whyItMatters": "Intent data tries to answer the timing question: which accounts are looking right now? It lets you focus outreach on companies showing research activity rather than cold lists. Reaching a buyer during active research is far more effective than reaching them at random.",
+    "benchmark": "Intent data is valuable when the signals genuinely predict in-market behaviour and you can act on them quickly. Stale or noisy intent, or signals you cannot act on within days, adds little. Quality and freshness of the source matter most.",
+    "operatorTake": "Intent data is oversold, vendors promise to tell you exactly who is buying, and the reality is noisier and more probabilistic than the pitch. Used as one prioritisation signal among several, it sharpens timing, used as gospel, it sends you chasing accounts that were idly browsing. Treat a signal as a reason to look closer, not proof of intent, and combine it with fit before acting.",
+    "euNote": "Intent data is patchier and more constrained in Europe than in the US, because the third-party tracking that powers much of it runs into privacy and cookie-consent limits. Expect lower coverage and accuracy for EU accounts, and be careful about the provenance and lawful basis of any intent signals you buy. First-party signals from your own channels are often more reliable and more defensible.",
+    "related": [
+      "signal-based-selling",
+      "demand-capture",
+      "account-based-marketing",
+      "firmographics",
+      "cookie-consent"
+    ]
+  },
+  {
+    "slug": "signal-based-selling",
+    "term": "Signal-Based Selling",
+    "aliases": [
+      "Signal Selling",
+      "Signals-Led GTM"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Triggering outreach off specific, timely signals, a funding round, a new hire, a tech change, rather than working static lists.",
+    "whyItMatters": "Signal-based selling reaches buyers at the moment something changes that makes your solution relevant. A relevant, well-timed reason to reach out beats generic outreach by a wide margin. It turns scattered prospecting into timely, contextual conversations.",
+    "benchmark": "The signals worth acting on are the ones that genuinely correlate with a buying window for your product, leadership changes, funding, expansion, stack changes. A signal that does not change the buyer's need is just trivia to mention in an opener.",
+    "operatorTake": "The power of signal-based selling is relevance, you reach out because something real just happened, not because a contact sat on a list. The discipline is choosing signals that actually map to your buying trigger and building a fast path from signal to outreach, because the value decays quickly. A funding announcement acted on in two days lands, the same one acted on in two months is noise. Pick few signals, act fast, and make the outreach reference the signal credibly.",
+    "related": [
+      "intent-data",
+      "account-based-marketing",
+      "outbound",
+      "data-enrichment",
+      "demand-capture"
+    ]
+  },
+  {
+    "slug": "marketing-sourced-pipeline",
+    "term": "Marketing-Sourced Pipeline",
+    "aliases": [
+      "Marketing-Sourced"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Pipeline from opportunities that marketing originated, where the first touch came from a marketing channel or program.",
+    "whyItMatters": "Marketing-sourced pipeline is the clearest way to show marketing's direct contribution to revenue: deals that would not exist without a marketing-originated first touch. It is a core accountability metric for a marketing function. It also reveals which programs actually start deals.",
+    "benchmark": "What share of pipeline marketing sources varies by motion, but the trend and the quality matter more than a fixed percentage. The honest version requires consistent attribution rules both teams agree on, otherwise the number is gamed.",
+    "operatorTake": "Sourced pipeline is a fair scoreboard for marketing only if the attribution rules are agreed and stable, otherwise it becomes a credit war with sales. It also undercounts marketing's role in deals sales originated but marketing helped advance, which is why it should sit next to influenced pipeline, not replace it. Use sourced to show what marketing starts, but do not let it become the only thing marketing is judged on, or it will optimise for claiming credit over creating revenue.",
+    "related": [
+      "marketing-influenced-pipeline",
+      "attribution",
+      "pipeline-coverage",
+      "pipeline-velocity",
+      "demand-generation"
+    ]
+  },
+  {
+    "slug": "marketing-influenced-pipeline",
+    "term": "Marketing-Influenced Pipeline",
+    "aliases": [
+      "Marketing-Influenced"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Pipeline from deals that marketing touched at any point, even if sales originated them, capturing marketing's wider role.",
+    "whyItMatters": "Influenced pipeline credits marketing for the many deals it helped move, content the buyer read, events they attended, even when sales made the first contact. It captures the assist, not just the goal. It gives a fuller picture of marketing's contribution than sourced alone.",
+    "benchmark": "Because almost any touch can count as influence, the metric is only meaningful with a sensible definition of what qualifies. Counting every faint touch inflates it to the point of uselessness, define influence as a meaningful interaction.",
+    "operatorTake": "Influenced pipeline is easy to inflate, set the bar low enough and marketing influenced everything, which is exactly why finance distrusts it. The credible version requires a meaningful interaction, not a single anonymous page view, to count. Use sourced and influenced together: sourced shows what marketing started, influenced shows what it helped close, and the honest story is usually in both.",
+    "related": [
+      "marketing-sourced-pipeline",
+      "attribution",
+      "multi-touch-attribution",
+      "pipeline-velocity",
+      "demand-generation"
+    ]
+  },
+  {
+    "slug": "inbound",
+    "term": "Inbound",
+    "aliases": [
+      "Inbound Marketing"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Attracting buyers to you through valuable content and presence, so they initiate contact, rather than reaching out to them.",
+    "whyItMatters": "Inbound earns attention by being useful and findable, so buyers come to you already interested. It tends to produce higher-intent, lower-cost leads over time and compounds as content accumulates. The trade-off is that it is slower to build than outbound.",
+    "benchmark": "Inbound health shows in organic traffic, branded search, and inbound leads that convert well. It is a compounding asset: results build slowly then accelerate, so judging it on early months understates it.",
+    "operatorTake": "Inbound is patient money, it takes quarters to build and then pays off durably, which is exactly why teams under short-term pressure abandon it too early. The mistake at the other extreme is treating inbound as content volume, churning out posts nobody searches for. Build inbound around the questions your buyers actually ask and the point of view that differentiates you, then give it time, the compounding is real but not immediate.",
+    "related": [
+      "outbound",
+      "demand-generation",
+      "demand-capture",
+      "search-engine-optimization",
+      "lead-generation"
+    ]
+  },
+  {
+    "slug": "outbound",
+    "term": "Outbound",
+    "aliases": [
+      "Outbound Marketing",
+      "Outbound Sales"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "Proactively reaching out to target buyers through email, calls, or ads, rather than waiting for them to find you.",
+    "whyItMatters": "Outbound lets you reach specific, named accounts on your timeline instead of waiting for inbound demand. It is essential when your buyers are not actively searching or when you target a defined account list. The risk is that poorly targeted outbound is interruptive and ignored.",
+    "benchmark": "Good outbound is targeted and relevant, measured by reply and meeting rates from the right accounts, not raw send volume. High volume with low response usually means the targeting or the message is wrong, not that you need to send more.",
+    "operatorTake": "Outbound at scale tempts teams into spray-and-pray, blasting generic messages and measuring sends, which trains the market to ignore them and burns the domain. The version that works is precise: a tight target list, a relevant reason to reach out, and a message that earns a reply. Fewer, better-targeted touches beat volume, especially as inboxes get more defensive. Pair it with signals so the timing is right, not just the list.",
+    "euNote": "Outbound in Europe is tightly governed: under the GDPR and ePrivacy rules, cold email and calling business contacts require a lawful basis and a clear opt-out, and the rules differ by country. What is acceptable B2B outreach in one market can breach the rules in another. Build outbound on a defensible basis, keep it relevant and low-volume, and treat compliance as part of the targeting, not an afterthought.",
+    "related": [
+      "inbound",
+      "cold-email",
+      "signal-based-selling",
+      "account-based-marketing",
+      "lawful-basis-for-processing"
+    ]
+  },
+  {
+    "slug": "demand-waterfall",
+    "term": "Demand Waterfall",
+    "aliases": [
+      "Demand Funnel",
+      "Lead Lifecycle Stages"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "A staged model of how demand progresses from first awareness through to closed revenue, with defined conversion points between stages.",
+    "whyItMatters": "The demand waterfall gives marketing and sales a shared map of the funnel stages, inquiry, MQL, SQL, opportunity, won, and the conversion rates between them. It makes leaks visible and forecasting possible. It is the backbone of a measurable demand engine.",
+    "benchmark": "A working waterfall has clearly defined stages both teams agree on and tracked conversion between each. The value is in spotting the stage where the funnel leaks most, which is where the highest-leverage fix usually is.",
+    "operatorTake": "The demand waterfall is most useful not as a reporting artifact but as a diagnostic: when revenue is short, the stage conversions tell you whether the problem is top-of-funnel volume, qualification, or sales execution. Most teams either lack defined stages or define them differently in marketing and sales, so the numbers never reconcile. Agree the stages once, instrument them, and read the waterfall to find the leak, fixing the worst-converting stage usually beats adding more leads at the top.",
+    "related": [
+      "mql",
+      "sales-qualified-lead",
+      "conversion-rate",
+      "pipeline-velocity",
+      "marketing-sourced-pipeline"
+    ]
+  },
+  {
+    "slug": "customer-acquisition-cost",
+    "term": "Customer Acquisition Cost",
+    "aliases": [
+      "CAC"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "The total sales and marketing cost to acquire one new customer, the price you pay to win each account.",
+    "whyItMatters": "CAC is the foundation of marketing economics: if you do not know what a customer costs to acquire, you cannot know whether growth is profitable. It anchors decisions about channels, pricing, and how hard to spend. Paired with lifetime value, it tells you whether the business model works.",
+    "formula": "CAC = total sales and marketing spend in a period / number of new customers acquired in that period",
+    "benchmark": "There is no universal target, CAC only makes sense relative to what a customer is worth (see LTV:CAC) and how fast it pays back. The same CAC can be excellent for a high-value contract and ruinous for a low one.",
+    "operatorTake": "The number teams quote is usually a flattering one, because they leave costs out: only ad spend, not the salaries, tools, and overhead that actually go into acquisition. A fully loaded CAC is higher and more honest, and it is the one that should drive decisions. The deeper point is that CAC is meaningless in isolation, a high CAC is fine if customers are worth a lot and stay, and a low CAC is bad if they churn in three months. Always read CAC against value and payback, not as a target to minimise. And watch blended versus channel-level CAC, the blended number hides which channels are efficient and which are quietly losing money.",
+    "euNote": "CAC in Europe is shaped by fragmentation: smaller per-country markets, multiple languages, and localisation costs can push acquisition costs above a comparable US motion, and they vary sharply by market. A blended European CAC hides the reality that one country may be efficient while another is not yet at scale. Measure CAC per market as you enter, and expect early-market CAC to be high until you build local presence and references.",
+    "related": [
+      "lifetime-value",
+      "ltv-cac-ratio",
+      "cac-payback-period",
+      "blended-cac",
+      "fully-loaded-cac",
+      "marketing-efficiency-ratio"
+    ]
+  },
+  {
+    "slug": "lifetime-value",
+    "term": "Lifetime Value",
+    "aliases": [
+      "LTV",
+      "Customer Lifetime Value",
+      "CLV",
+      "CLTV"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "The total revenue or profit you expect from a customer over the entire relationship, before they churn.",
+    "whyItMatters": "Lifetime value tells you what a customer is actually worth, which sets the ceiling on what you can sensibly spend to acquire and keep them. It shifts focus from one-off acquisition to the full economics of the relationship. Without it, you are flying blind on whether your acquisition spend pays back.",
+    "formula": "LTV = average revenue per customer per period x gross margin x average customer lifespan (or average gross-margin revenue / churn rate)",
+    "benchmark": "LTV is most meaningful as a ratio to CAC and is best calculated on gross profit, not revenue, so it reflects real economics. Beware inflated LTV from optimistic lifespan or churn assumptions, small changes in churn swing it dramatically.",
+    "operatorTake": "LTV is the most abused number in unit economics, because it depends on assumptions, churn rate and customer lifespan, that teams set optimistically to make the model look good. Calculate it on gross margin, not headline revenue, or you are valuing customers at money you never keep. The most important lever inside LTV is retention: because lifespan is roughly the inverse of churn, a small reduction in churn lifts LTV far more than most acquisition wins. That is why, before scaling acquisition spend against an LTV number, it is worth checking the number is built on real retention data, not hope. Improve retention and the whole acquisition equation gets easier.",
+    "euNote": "European customers can behave differently on the two inputs that drive LTV: contracts and procurement norms in markets like Germany often mean longer, stickier relationships once you are in, which can lift lifespan, while pricing pressure varies by country. Build LTV on per-market retention rather than a blended figure, because a sticky DACH cohort and a higher-churn cohort elsewhere average into a number that describes neither.",
+    "related": [
+      "customer-acquisition-cost",
+      "ltv-cac-ratio",
+      "churn-rate",
+      "net-revenue-retention",
+      "expansion-revenue",
+      "gross-margin"
+    ]
+  },
+  {
+    "slug": "ltv-cac-ratio",
+    "term": "LTV:CAC Ratio",
+    "aliases": [
+      "LTV to CAC",
+      "LTV/CAC"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "The ratio of a customer's lifetime value to the cost of acquiring them, the headline test of whether your growth is economically sound.",
+    "whyItMatters": "LTV:CAC answers the central question of a subscription business: are customers worth more than they cost to acquire, and by how much? It is the single clearest signal of unit-economic health. Investors and operators use it to judge whether growth is creating or destroying value.",
+    "formula": "LTV:CAC = lifetime value of a customer / cost to acquire that customer",
+    "benchmark": "A ratio around 3:1 is the common rule of thumb for a healthy SaaS business: below it suggests acquisition is too expensive or value too low, far above it (5:1 or more) may mean you are under-investing in growth and leaving the market to competitors. The right number depends on your stage and margins.",
+    "operatorTake": "The ratio is only as trustworthy as its two inputs, and both are routinely flattered, LTV inflated by optimistic churn, CAC understated by leaving out salaries and overhead. So the first move with any LTV:CAC number is to interrogate the inputs: fully loaded CAC and gross-margin LTV, or the ratio is fiction. A counter-intuitive point: a very high ratio is not always good news, it often means you could profitably spend more to grow faster and are ceding ground by being too conservative. Use the ratio as a health check and a spending guide, not a trophy, and recompute it by segment, because a healthy blended ratio can hide a channel or market that is underwater.",
+    "euNote": "Because both CAC and LTV vary by European market, a blended LTV:CAC can mask wide differences, an efficient home market subsidising an early-stage one that is not yet viable. Compute the ratio per market as you expand, so you can tell the difference between a market that needs more time and one that does not work. A 3:1 blend made of a 5:1 and a 1:1 is two very different stories.",
+    "related": [
+      "customer-acquisition-cost",
+      "lifetime-value",
+      "cac-payback-period",
+      "rule-of-40",
+      "marketing-efficiency-ratio",
+      "gross-margin"
+    ]
+  },
+  {
+    "slug": "cac-payback-period",
+    "term": "CAC Payback Period",
+    "aliases": [
+      "Payback Period",
+      "Months to Recover CAC"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "How long it takes for a customer's gross-margin revenue to repay the cost of acquiring them.",
+    "whyItMatters": "Payback measures how fast you get your acquisition money back, which drives cash flow and how quickly you can reinvest in growth. A short payback means acquisition self-funds quickly, a long one ties up cash and raises risk. It complements LTV:CAC by adding the dimension of time.",
+    "formula": "CAC Payback (months) = CAC / (average monthly revenue per customer x gross margin)",
+    "benchmark": "Many SaaS businesses target payback under 12 months, with under 18 often acceptable for larger contracts. The longer the payback, the more cash you must front and the more a churn surprise hurts.",
+    "operatorTake": "Payback is the cash-flow companion to LTV:CAC, and it is the one that bites first, a great lifetime ratio is cold comfort if it takes two years to get your money back and you run out of runway before then. Calculate it on gross margin, not revenue, and watch it by cohort. Shortening payback, through pricing, faster onboarding, or upfront billing, can matter more for a cash-constrained company than squeezing the lifetime ratio.",
+    "related": [
+      "customer-acquisition-cost",
+      "ltv-cac-ratio",
+      "gross-margin",
+      "magic-number",
+      "marketing-efficiency-ratio"
+    ]
+  },
+  {
+    "slug": "gross-margin",
+    "term": "Gross Margin",
+    "aliases": [
+      "Gross Profit Margin"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "The percentage of revenue left after the direct costs of delivering your product or service.",
+    "whyItMatters": "Gross margin shows how much of each euro of revenue is actually available to fund growth, operations, and profit. It is fundamental to every other unit-economic metric, real LTV and payback are calculated on margin, not revenue. High-margin businesses can afford to spend more to grow.",
+    "formula": "Gross Margin = (revenue - cost of goods sold) / revenue x 100",
+    "benchmark": "Software businesses often run gross margins of 70 to 85 percent or higher, services businesses much lower. The figure matters most for what it tells you about how much room you have to invest in acquisition.",
+    "operatorTake": "Margin is the quiet foundation under all the acquisition math, and metrics calculated on revenue instead of margin systematically overstate the health of the business. Know your true gross margin, including the support, hosting, and delivery costs people leave out, and run LTV and payback on that number. A business with thin margins simply cannot spend on acquisition the way a high-margin one can, and pretending otherwise is how unit economics quietly break.",
+    "related": [
+      "contribution-margin",
+      "lifetime-value",
+      "cac-payback-period",
+      "rule-of-40",
+      "ltv-cac-ratio"
+    ]
+  },
+  {
+    "slug": "contribution-margin",
+    "term": "Contribution Margin",
+    "aliases": [
+      "Contribution Profit"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "Revenue left after all variable costs of a product or customer, showing what each contributes toward fixed costs and profit.",
+    "whyItMatters": "Contribution margin goes a step beyond gross margin by accounting for all variable costs, giving a clearer view of what a product or customer truly contributes. It helps decide which products, segments, or customers are actually profitable to serve. It informs pricing and where to focus.",
+    "benchmark": "A positive and healthy contribution margin per customer means each one helps cover fixed costs and move toward profit. Negative contribution margin means you lose money on every customer served, which growth only makes worse.",
+    "operatorTake": "Contribution margin is where you discover that some customers or segments cost more to serve than they are worth, even when the top-line looks fine. The lesson is that not all revenue is good revenue, a low-price, high-support segment can have negative contribution and drag the whole business. Use it to decide who to serve and how to price, and be willing to walk away from revenue that does not contribute.",
+    "related": [
+      "gross-margin",
+      "lifetime-value",
+      "average-revenue-per-account",
+      "customer-acquisition-cost"
+    ]
+  },
+  {
+    "slug": "magic-number",
+    "term": "Magic Number",
+    "aliases": [
+      "SaaS Magic Number"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "A measure of sales and marketing efficiency: how much new recurring revenue each euro of sales and marketing spend generates.",
+    "whyItMatters": "The magic number tells you how efficiently your go-to-market spend converts into new recurring revenue, a key input for deciding whether to spend more or fix efficiency first. It is widely used by investors to gauge whether growth spending is paying off. A higher number means more efficient growth.",
+    "formula": "Magic Number = (net new ARR in a quarter, annualised) / sales and marketing spend in the prior quarter",
+    "benchmark": "A magic number above roughly 0.75 is often read as efficient enough to invest more aggressively, below about 0.5 suggests fixing efficiency before scaling spend. It is a directional gauge, not a precise verdict.",
+    "operatorTake": "The magic number is a useful gut-check on whether to pour fuel on the fire or fix the engine first, but it is blunt and easy to misread quarter to quarter, especially with lumpy enterprise deals or a lag between spend and revenue. Use it as a trend and a sanity check alongside payback and LTV:CAC, not as a single verdict. A low magic number is a signal to diagnose where efficiency is leaking, not an instruction to cut spend blindly.",
+    "related": [
+      "marketing-efficiency-ratio",
+      "cac-payback-period",
+      "ltv-cac-ratio",
+      "rule-of-40",
+      "annual-recurring-revenue"
+    ]
+  },
+  {
+    "slug": "burn-multiple",
+    "term": "Burn Multiple",
+    "aliases": [
+      "Net Burn Multiple"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "How much cash a company burns to generate each euro of new recurring revenue, a measure of growth efficiency.",
+    "whyItMatters": "The burn multiple captures capital efficiency in one number: how much you are burning relative to the new revenue you are adding. It became a key metric as efficient growth replaced growth-at-all-costs. A lower multiple means you are building revenue without torching cash.",
+    "formula": "Burn Multiple = net cash burned in a period / net new ARR added in that period",
+    "benchmark": "Lower is better: a burn multiple under 1 is excellent, 1 to 2 is reasonable, and above 2 signals you are spending heavily for each unit of growth. The acceptable range tightens when capital is expensive.",
+    "operatorTake": "The burn multiple cuts through growth-rate vanity by asking what that growth actually cost in cash, which is the question that matters when funding is tight. A company growing fast with a burn multiple of 3 is buying revenue expensively, and that math catches up. Watch it as the headline efficiency metric in a lean environment, and treat a rising multiple as a prompt to find where cash is going without producing revenue.",
+    "related": [
+      "magic-number",
+      "rule-of-40",
+      "marketing-efficiency-ratio",
+      "cac-payback-period",
+      "annual-recurring-revenue"
+    ]
+  },
+  {
+    "slug": "rule-of-40",
+    "term": "Rule of 40",
+    "aliases": [
+      "Rule of Forty"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "A health check for software businesses: revenue growth rate plus profit margin should add up to at least 40 percent.",
+    "whyItMatters": "The Rule of 40 balances growth against profitability in a single test, recognising that a business can be healthy by growing fast, by being profitable, or by a mix. It is widely used to judge whether a SaaS company is managing that trade-off well. Falling below 40 suggests the balance is off.",
+    "formula": "Rule of 40 = revenue growth rate (percent) + profit margin (percent); target is 40 or above",
+    "benchmark": "Hitting 40 or more is the bar: a company growing 30 percent with a 10 percent margin passes, as does one growing 10 percent at 30 percent margin. Which mix is right depends on stage, early companies lean on growth, mature ones on margin.",
+    "operatorTake": "The Rule of 40 is useful precisely because it refuses to let you treat growth and profitability as separate conversations, they trade off, and the rule forces you to own the trade. It is a high-level board metric, not an operating dial, so do not over-engineer it. Use it to sense-check whether your growth is worth what it costs in margin, and let your stage dictate which side of the equation you lean on.",
+    "related": [
+      "burn-multiple",
+      "magic-number",
+      "gross-margin",
+      "annual-recurring-revenue",
+      "net-revenue-retention"
+    ]
+  },
+  {
+    "slug": "marketing-efficiency-ratio",
+    "term": "Marketing Efficiency Ratio",
+    "aliases": [
+      "MER",
+      "Blended ROAS"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "Total revenue divided by total marketing spend, a blended view of how efficiently marketing as a whole drives revenue.",
+    "whyItMatters": "MER looks at marketing efficiency holistically, all revenue over all marketing spend, rather than channel by channel. It sidesteps the attribution problem by judging the whole engine at once. It is increasingly used as tracking-based, channel-level measurement gets harder.",
+    "formula": "Marketing Efficiency Ratio = total revenue / total marketing spend",
+    "benchmark": "There is no universal target, MER is most useful tracked over time and as a top-line check on whether scaling spend is still producing proportional revenue. A falling MER as spend rises signals diminishing returns.",
+    "operatorTake": "MER has gained favour because per-channel attribution has become unreliable, and a blended efficiency number is harder to fool than a stack of channel ROAS figures that each claim the same conversion. The trade-off is that it cannot tell you which channel is working, so use it for the top-line spend decision and use experiments, not attribution claims, to allocate within. As tracking degrades, blended measures like MER and holdout tests beat the false precision of last-click.",
+    "related": [
+      "magic-number",
+      "return-on-ad-spend",
+      "customer-acquisition-cost",
+      "cac-payback-period",
+      "attribution"
+    ]
+  },
+  {
+    "slug": "blended-cac",
+    "term": "Blended CAC",
+    "aliases": [
+      "Blended Customer Acquisition Cost"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "Customer acquisition cost averaged across all channels and customers, including those acquired organically.",
+    "whyItMatters": "Blended CAC gives the all-in average cost to acquire a customer across every channel, paid and organic. It is the honest top-line number for overall efficiency. But it hides the wide variation between channels, which is where the real decisions are.",
+    "formula": "Blended CAC = total sales and marketing spend / total new customers from all sources",
+    "benchmark": "Blended CAC is best read alongside paid or channel-level CAC. A flattering blended number propped up by free organic acquisition can hide paid channels that are deeply unprofitable.",
+    "operatorTake": "Blended CAC is the number founders quote because it looks good, organic customers drag the average down, but it is the wrong number for allocation decisions. To decide where to spend, you need channel-level and paid CAC, which reveal which channels actually pay back. Use blended for the board-level efficiency story and channel-level for every spending decision, optimising on the blended number is how you keep funding a losing channel.",
+    "related": [
+      "customer-acquisition-cost",
+      "fully-loaded-cac",
+      "marketing-efficiency-ratio",
+      "ltv-cac-ratio",
+      "cost-per-acquisition"
+    ]
+  },
+  {
+    "slug": "fully-loaded-cac",
+    "term": "Fully Loaded CAC",
+    "aliases": [
+      "Fully-Loaded CAC",
+      "True CAC"
+    ],
+    "category": "Unit Economics",
+    "oneLiner": "Customer acquisition cost that includes all costs of acquisition, salaries, tools, and overhead, not just ad spend.",
+    "whyItMatters": "Fully loaded CAC counts everything that goes into winning a customer: team salaries, software, agency fees, and overhead, not only media spend. It is the honest figure for whether acquisition is profitable. The leaner version most teams quote systematically understates the real cost.",
+    "benchmark": "Fully loaded CAC is always higher than ad-spend-only CAC, often substantially. The gap between the two is a measure of how much you were flattering yourself, and the loaded number is the one to plan against.",
+    "operatorTake": "Almost every CAC problem starts here: the team counts media spend, ignores the salaries and tools that do most of the work, and convinces itself acquisition is cheaper than it is. Fully loaded CAC is uncomfortable because it is bigger, but it is the only version that should drive pricing, channel, and spend decisions. Calculate it honestly, then run your LTV:CAC and payback on it, the loaded number is reality, the ad-only number is marketing to yourself.",
+    "related": [
+      "customer-acquisition-cost",
+      "blended-cac",
+      "ltv-cac-ratio",
+      "cac-payback-period",
+      "contribution-margin"
+    ]
+  },
+  {
+    "slug": "annual-recurring-revenue",
+    "term": "Annual Recurring Revenue",
+    "aliases": [
+      "ARR"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The total predictable, recurring revenue from subscriptions normalised to a yearly figure.",
+    "whyItMatters": "ARR is the headline measure of a subscription business's scale and the foundation for most growth and valuation conversations. It captures only recurring revenue, stripping out one-off fees, so it reflects the durable base. Its growth rate is what investors and operators watch most.",
+    "formula": "ARR = sum of the annualised value of all active recurring subscriptions",
+    "benchmark": "ARR itself is a scale number, the growth rate and the quality (net of churn, see NRR) matter more. Be careful to exclude one-time and non-recurring revenue, or ARR overstates the durable base.",
+    "operatorTake": "ARR is clean in theory and fudged in practice, teams slip one-off services, usage spikes, or non-recurring fees into it to make the number bigger. Keep ARR strictly recurring, because its whole value is predictability, and read it together with net revenue retention, which tells you whether that base is growing or quietly leaking. A big ARR with weak retention is a bucket with a hole.",
+    "related": [
+      "monthly-recurring-revenue",
+      "net-revenue-retention",
+      "churn-rate",
+      "expansion-revenue",
+      "rule-of-40"
+    ]
+  },
+  {
+    "slug": "monthly-recurring-revenue",
+    "term": "Monthly Recurring Revenue",
+    "aliases": [
+      "MRR"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The predictable recurring subscription revenue a business earns each month.",
+    "whyItMatters": "MRR is the monthly heartbeat of a subscription business, granular enough to see changes quickly. Broken into new, expansion, contraction, and churned MRR, it shows exactly what is driving growth or decline. It is the operational counterpart to the higher-level ARR.",
+    "formula": "MRR = sum of monthly recurring fees from all active subscriptions; ARR = MRR x 12",
+    "benchmark": "The components matter more than the total: healthy MRR growth comes from new and expansion outpacing contraction and churn. Watching the breakdown tells you whether growth is acquisition-led or retention-led.",
+    "operatorTake": "The value of MRR is in its parts, not the headline, because new, expansion, contraction, and churned MRR each point to a different lever. Two companies with the same MRR growth can be in completely different health if one grows on new logos and the other on expanding happy customers. Track the movement, not just the level, and you can see problems, like rising contraction, months before they show in the annual number.",
+    "related": [
+      "annual-recurring-revenue",
+      "expansion-revenue",
+      "churn-rate",
+      "net-revenue-retention",
+      "average-revenue-per-account"
+    ]
+  },
+  {
+    "slug": "churn-rate",
+    "term": "Churn Rate",
+    "aliases": [
+      "Customer Churn",
+      "Revenue Churn"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The rate at which customers or revenue leave over a period, the leak in your growth engine.",
+    "whyItMatters": "Churn is the single most important number for a subscription business's long-term health, because it sets the ceiling on growth, you cannot fill a bucket faster than it drains. It directly drives lifetime value and the efficiency of every acquisition euro. Small differences in churn compound into very different outcomes.",
+    "formula": "Customer churn = customers lost in a period / customers at the start; revenue churn uses lost recurring revenue instead",
+    "benchmark": "Acceptable churn varies by segment, low single-digit annual churn is strong for enterprise, higher is normal for SMB and self-serve. Distinguish customer churn from revenue churn, losing small accounts hurts less than losing large ones.",
+    "operatorTake": "Churn is where growth quietly dies, and most teams under-invest in it because acquisition is more visible and exciting. But reducing churn lifts lifetime value and makes every acquisition euro pay back better, often a faster path to growth than buying more leads. Look at revenue churn, not just logo churn, and diagnose why customers leave, churn is usually a symptom of a fit, onboarding, or value problem that no amount of new acquisition will outrun. Fix the leak before scaling the inflow.",
+    "related": [
+      "net-revenue-retention",
+      "gross-revenue-retention",
+      "lifetime-value",
+      "logo-retention",
+      "expansion-revenue"
+    ]
+  },
+  {
+    "slug": "net-revenue-retention",
+    "term": "Net Revenue Retention",
+    "aliases": [
+      "NRR",
+      "Net Dollar Retention",
+      "NDR"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The percentage of recurring revenue retained from existing customers over a year, including expansion and after churn.",
+    "whyItMatters": "NRR shows whether your existing customer base grows or shrinks on its own, before any new sales. Above 100 percent means expansion outpaces churn and the base grows by itself, a powerful, efficient form of growth. It is one of the strongest signals of product value and a top driver of valuation.",
+    "formula": "NRR = (starting recurring revenue + expansion - contraction - churn) / starting recurring revenue x 100",
+    "benchmark": "Above 100 percent is the goal, best-in-class B2B SaaS often reaches 110 to 130 percent. Below 100 means the base is shrinking and new sales must first replace lost revenue before adding growth.",
+    "operatorTake": "NRR is the metric that separates durable businesses from treadmills, because above 100 percent your revenue compounds even if you stop acquiring, and below it you are running just to stand still. It is also where land-and-expand either proves out or does not. Drive it by making the initial sale land real value and building genuine reasons to expand, not by pricing tricks. High NRR is the clearest evidence that customers find ongoing value, which is why investors weight it so heavily.",
+    "euNote": "Expansion that drives NRR can move differently in Europe, where budget cycles and procurement in markets like the DACH region can make upsell more deliberate and process-bound than in faster-moving markets. The path to expansion may be slower but stickier once established. Track NRR per market so a methodical expansion motion is not mistaken for a weak one.",
+    "related": [
+      "gross-revenue-retention",
+      "churn-rate",
+      "expansion-revenue",
+      "annual-recurring-revenue",
+      "land-and-expand"
+    ]
+  },
+  {
+    "slug": "gross-revenue-retention",
+    "term": "Gross Revenue Retention",
+    "aliases": [
+      "GRR",
+      "Gross Dollar Retention"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The percentage of recurring revenue retained from existing customers before any expansion, a pure measure of leakage.",
+    "whyItMatters": "GRR strips out expansion to show how much revenue you keep from churn and contraction alone, it can never exceed 100 percent. It is a cleaner read on retention than NRR, which expansion can flatter. Together they show whether a healthy NRR is built on real stickiness or on upsell masking churn.",
+    "formula": "GRR = (starting recurring revenue - contraction - churn) / starting recurring revenue x 100",
+    "benchmark": "Strong GRR is high, often 90 percent or above for enterprise SaaS. A big gap between a high NRR and a low GRR is a warning: expansion is hiding significant underlying churn.",
+    "operatorTake": "GRR is the honesty check on NRR, because a company can post a great net retention number while quietly bleeding customers, with expansion from a few accounts papering over the losses. Always read the two together: NRR shows the net story, GRR shows whether the base is actually sticky underneath. A high NRR built on a weak GRR is fragile, the expansion can stop, the churn will not.",
+    "related": [
+      "net-revenue-retention",
+      "churn-rate",
+      "logo-retention",
+      "expansion-revenue",
+      "lifetime-value"
+    ]
+  },
+  {
+    "slug": "average-contract-value",
+    "term": "Average Contract Value",
+    "aliases": [
+      "ACV"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The average annualised value of a customer contract, a measure of how much each deal is typically worth.",
+    "whyItMatters": "ACV indicates the typical size of your deals, which shapes the sales motion you can afford, low-touch self-serve versus high-touch enterprise sales. It informs how much you can spend to acquire and how to structure the team. Rising ACV often signals a move up-market.",
+    "formula": "ACV = total annualised contract value / number of contracts (excluding one-time fees)",
+    "benchmark": "ACV is most useful for matching motion to economics: a small ACV cannot support an expensive sales process, a large one can. Track it by segment, a blended ACV across very different deal sizes hides the real picture.",
+    "operatorTake": "ACV's main use is sanity-checking that your go-to-market motion fits your deal size, because the most common structural mistake is running an expensive, high-touch sales motion on contracts too small to pay for it. If ACV is low, the economics demand a lower-touch, more product-led motion, if high, you can invest in sales. Watch ACV trend as a signal of whether you are moving up-market, and segment it rather than trusting the blend.",
+    "related": [
+      "average-deal-size",
+      "average-revenue-per-account",
+      "customer-acquisition-cost",
+      "sales-cycle-length",
+      "annual-recurring-revenue"
+    ]
+  },
+  {
+    "slug": "average-revenue-per-account",
+    "term": "Average Revenue Per Account",
+    "aliases": [
+      "ARPA",
+      "ARPU",
+      "Average Revenue Per User"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The average recurring revenue generated per customer account over a period.",
+    "whyItMatters": "ARPA shows how much revenue each account contributes on average and is a lever for growth independent of adding new logos, raising ARPA grows revenue from the customers you already have. It reflects pricing, packaging, and expansion success. Rising ARPA is a sign of effective upsell or a move up-market.",
+    "formula": "ARPA = total recurring revenue in a period / number of accounts in that period",
+    "benchmark": "ARPA trends matter more than the absolute figure: rising ARPA suggests successful expansion or premium positioning, falling ARPA may signal discounting or down-market drift. Compare cohorts to see whether expansion is real.",
+    "operatorTake": "ARPA is a reminder that growth has two engines, more accounts and more revenue per account, and teams fixated on logo count often neglect the second, which is usually cheaper to grow. Lifting ARPA through better packaging, pricing, and expansion can move revenue without a single new customer. Watch it alongside contribution margin, though, because not all ARPA growth is profitable if it comes from high-cost-to-serve accounts.",
+    "related": [
+      "average-contract-value",
+      "expansion-revenue",
+      "net-revenue-retention",
+      "contribution-margin",
+      "monthly-recurring-revenue"
+    ]
+  },
+  {
+    "slug": "win-rate",
+    "term": "Win Rate",
+    "aliases": [
+      "Close Rate"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The percentage of qualified opportunities that result in closed-won deals.",
+    "whyItMatters": "Win rate measures how effectively you convert real opportunities into customers, a direct read on sales effectiveness, qualification quality, and competitive strength. It is a core lever in pipeline velocity. A change in win rate ripples through forecasting and the whole demand engine.",
+    "formula": "Win Rate = deals won / total closed deals (won + lost) in a period x 100",
+    "benchmark": "Win rates vary widely by motion and segment, what matters is the trend and the comparison across sources and segments. A falling win rate signals a qualification, positioning, or competitive problem worth diagnosing.",
+    "operatorTake": "Win rate is a mirror that reflects more than sales skill, it reflects whether you are qualifying well, positioned clearly, and competing where you can win. A low win rate often traces back to chasing poorly qualified or poorly fit deals, which is a marketing and targeting problem as much as a sales one. Segment win rate by source and ICP fit, and you usually find that tightening who you pursue lifts the rate more than coaching the pitch.",
+    "related": [
+      "pipeline-velocity",
+      "sales-cycle-length",
+      "sales-qualified-lead",
+      "competitive-positioning",
+      "icp"
+    ]
+  },
+  {
+    "slug": "sales-cycle-length",
+    "term": "Sales Cycle Length",
+    "aliases": [
+      "Sales Cycle",
+      "Time to Close"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The average time from first qualified contact to a closed deal.",
+    "whyItMatters": "Cycle length determines how quickly revenue materialises and how much cash you tie up while deals progress. Shortening it accelerates pipeline velocity and improves cash flow without any new leads. It also shapes forecasting and how much pipeline you need in flight.",
+    "formula": "Sales Cycle Length = average number of days from opportunity creation to closed-won across deals",
+    "benchmark": "Cycle length depends heavily on deal size and segment, enterprise cycles run months, self-serve runs days. Track it by segment and watch for creep, a lengthening cycle quietly drags down velocity and cash flow.",
+    "operatorTake": "Sales cycle length is an underused lever, because shortening it improves velocity and cash without adding a single lead, yet teams obsess over volume instead. Much of a long cycle is friction you can remove: slow qualification, missing proof points, a buyer who has to build the internal case alone. Marketing can shorten cycles by arming the buyer with what they need to sell internally. Diagnose where deals actually stall, then attack that stage.",
+    "euNote": "European sales cycles, especially in the DACH region and for enterprise procurement, often run structurally longer than US equivalents because of consensus buying, procurement processes, and a more deliberate trust-building norm. That is a market characteristic, not a failure, and it should shape pipeline coverage and cash planning. Benchmark cycle length per market so a naturally longer German cycle is not read as a stalled motion.",
+    "related": [
+      "pipeline-velocity",
+      "win-rate",
+      "buying-committee",
+      "sales-qualified-lead",
+      "average-deal-size"
+    ]
+  },
+  {
+    "slug": "average-deal-size",
+    "term": "Average Deal Size",
+    "aliases": [
+      "Average Selling Price",
+      "ASP"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The average value of a closed deal, including any one-time and first-year amounts.",
+    "whyItMatters": "Average deal size shapes how much you can spend to acquire, how long a sales cycle you can afford, and the team you need. It is closely related to ACV but can include one-time fees. Growing deal size is one of the cleaner ways to scale revenue efficiently.",
+    "formula": "Average Deal Size = total value of closed-won deals / number of deals in a period",
+    "benchmark": "What matters is the fit between deal size and acquisition cost: bigger deals justify more acquisition investment and longer cycles. Watch the trend and the distribution, an average pulled up by a few large deals can mislead.",
+    "operatorTake": "Average deal size is a lever most teams under-pull, because moving up-market or improving packaging to raise it can be more efficient than winning more small deals at the same cost to acquire. But chase bigger deals only if your product, proof, and motion can actually support them, reaching up-market without the references or the sales capability lengthens cycles and lowers win rates. Look at the distribution, not just the average, a couple of whales can flatter the mean.",
+    "related": [
+      "average-contract-value",
+      "win-rate",
+      "sales-cycle-length",
+      "customer-acquisition-cost",
+      "ltv-cac-ratio"
+    ]
+  },
+  {
+    "slug": "expansion-revenue",
+    "term": "Expansion Revenue",
+    "aliases": [
+      "Upsell Revenue",
+      "Net Expansion"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "Additional recurring revenue from existing customers through upsells, cross-sells, and seat or usage growth.",
+    "whyItMatters": "Expansion revenue is usually the most efficient growth you have, it comes from customers who already trust you, at a fraction of the cost of new acquisition. It is the engine behind net revenue retention above 100 percent. A strong expansion motion makes the whole business more capital-efficient.",
+    "benchmark": "Healthy businesses generate a meaningful and growing share of new revenue from expansion, which shows up as NRR above 100 percent. If almost all growth comes from new logos, you are leaving efficient revenue on the table.",
+    "operatorTake": "Expansion is the cheapest revenue in the building and the most neglected, because it lacks the dopamine of a new logo and often has no clear owner between sales and success. Build a deliberate expansion motion, the triggers, the timing, the owner, rather than hoping accounts grow on their own. The foundation is a first sale that delivers real value and a product that earns the next purchase, expansion pulled by value is durable, expansion pushed by quota is not.",
+    "related": [
+      "net-revenue-retention",
+      "land-and-expand",
+      "average-revenue-per-account",
+      "monthly-recurring-revenue",
+      "churn-rate"
+    ]
+  },
+  {
+    "slug": "logo-retention",
+    "term": "Logo Retention",
+    "aliases": [
+      "Customer Retention Rate",
+      "Logo Churn"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The percentage of customers, by count rather than revenue, retained over a period, regardless of how much they spend.",
+    "whyItMatters": "Logo retention counts customers kept rather than revenue kept, which matters because losing many small accounts can signal a product or fit problem even if revenue looks stable. It is a different lens from revenue retention. Together they show whether you are keeping customers and revenue, or trading one for the other.",
+    "formula": "Logo Retention = customers retained at end of period / customers at start x 100",
+    "benchmark": "Read logo retention against revenue retention: high revenue retention with low logo retention means you are losing small accounts while large ones expand, which may be fine or may be an early warning. The interpretation depends on which logos are leaving.",
+    "operatorTake": "Logo retention catches problems revenue retention can hide, a steady stream of small-account churn that a few expanding whales mask in the revenue numbers. Whether that matters depends on strategy: if those small accounts are the wrong fit, losing them is healthy pruning, if they are your future mid-market, it is a leak. Look at which logos churn and why, the pattern usually points to a fit or onboarding problem worth fixing before it reaches bigger accounts.",
+    "related": [
+      "churn-rate",
+      "gross-revenue-retention",
+      "net-revenue-retention",
+      "lifetime-value",
+      "icp"
+    ]
+  },
+  {
+    "slug": "quota-attainment",
+    "term": "Quota Attainment",
+    "aliases": [
+      "Quota Achievement"
+    ],
+    "category": "Revenue Metrics",
+    "oneLiner": "The percentage of their sales target that reps achieve, a measure of sales performance and quota realism.",
+    "whyItMatters": "Quota attainment shows how the sales team is performing against targets and whether quotas are set realistically. Consistently low attainment across the team usually points to a quota, pipeline, or enablement problem, not just individual performance. It connects marketing's pipeline contribution to whether sales can actually hit the number.",
+    "benchmark": "A common healthy pattern is the majority of reps attaining quota, with a spread rather than everyone clustered at zero or one hundred. If most reps miss, the issue is usually systemic, quota, pipeline quality, or support, not the reps.",
+    "operatorTake": "Quota attainment is often read as a pure sales metric, but when most of the team misses, the cause is frequently upstream, not enough qualified pipeline, poor fit leads, or weak enablement, which makes it a marketing and RevOps issue too. Marketing's job is to ensure reps have enough quality pipeline to make quota attainable. Look at attainment across the whole team, not the stars, the distribution tells you whether the problem is people or the system feeding them.",
+    "related": [
+      "pipeline-coverage",
+      "win-rate",
+      "marketing-sourced-pipeline",
+      "sales-cycle-length",
+      "pipeline-velocity"
+    ]
+  },
+  {
+    "slug": "mql",
+    "term": "Marketing Qualified Lead",
+    "aliases": [
+      "MQL"
+    ],
+    "category": "Demand & Pipeline",
+    "oneLiner": "A lead that marketing judges ready to pass to sales, based on fit and engagement signals.",
+    "whyItMatters": "The MQL is the handoff point between marketing and sales, the moment marketing says a lead is worth a salesperson's time. It is one of the most important and most fought-over definitions in B2B, because it determines what sales receives and how marketing is judged. A shared, accurate MQL definition keeps the two teams aligned, a vague one starts turf wars.",
+    "benchmark": "A good MQL definition is one sales trusts, validated by a healthy MQL-to-SQL acceptance rate and, ultimately, conversion to pipeline. If sales rejects most MQLs, the definition is wrong, not the leads.",
+    "operatorTake": "The MQL is where most marketing-sales friction lives, because marketing optimises to hit an MQL number and sales complains the leads are junk, and both are right when the definition was set by marketing alone. The fix is to define the MQL jointly from data on which leads actually become customers, and to treat the MQL-to-SQL conversion as the shared scoreboard. Better still, judge marketing on pipeline and revenue, not raw MQL volume, the moment MQLs become a target in themselves, they get gamed. An MQL is a promise to sales, and it is only worth making if sales believes it.",
+    "related": [
+      "sales-qualified-lead",
+      "product-qualified-lead",
+      "lead-scoring",
+      "lead-handoff",
+      "demand-waterfall",
+      "marketing-sourced-pipeline"
+    ]
   }
 ]
