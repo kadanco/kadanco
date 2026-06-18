@@ -56,6 +56,11 @@
     transition: opacity 0.16s ease, transform 0.16s ease;
     z-index: 90;
   }
+  /* Invisible bridge across the gap so the menu stays open while the pointer */
+  /* travels from the trigger down to the menu (fixes the finicky hover). */
+  .nav-resources-menu::before {
+    content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px;
+  }
   .nav-resources:hover .nav-resources-menu,
   .nav-resources:focus-within .nav-resources-menu,
   .nav-resources.open .nav-resources-menu {
