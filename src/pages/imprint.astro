@@ -5,23 +5,6 @@ import Layout from '../layouts/Layout.astro';
   title="Imprint & Privacy | Kadanco"
   description="Legal notice (Impressum) and privacy policy for Kadanco UG (haftungsbeschränkt), Berlin."
 >
-  <!-- ===================== NAV (same as homepage; links point home) ===================== -->
-  <header class="nav nav--dark">
-    <div class="container nav-inner">
-      <a class="brand" href="/" aria-label="Kadanco — home">
-        <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
-        <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
-      </a>
-      <nav class="nav-links" aria-label="Primary">
-        <a class="navlink" href="/#services">Services</a>
-        <a class="navlink" href="/#use-cases">Use Cases</a>
-        <a class="navlink" href="/#founders">Who We Are</a>
-        <a class="navlink" href="/#faq">FAQ</a>
-        <button class="btn btn-primary" data-open-modal>Lets Talk</button>
-      </nav>
-    </div>
-  </header>
-
   <main>
     <!-- branded header band so the nav sits on dark, then switches over the light body -->
     <section class="legal-hero band-deep" data-theme="dark">
@@ -195,97 +178,6 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
   </main>
-
-  <!-- ===================== FOOTER (same as homepage) ===================== -->
-  <footer class="footer" data-theme="light">
-    <div class="container footer-inner">
-      <a class="brand" href="/" aria-label="Kadanco — home"><img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" /></a>
-      <p class="small">© 2026 Kadanco UG</p>
-      <div class="footer-links">
-        <a href="mailto:hello@kadanco.com">hello@kadanco.com</a>
-        <a href="#" aria-label="Kadanco on LinkedIn">LinkedIn</a>
-        <a href="/imprint/">Imprint &amp; Privacy</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ===================== PLUNK modal (same as homepage) ===================== -->
-  <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
-    <div class="modal">
-      <button class="x" data-close-modal aria-label="Close dialog">✕</button>
-      <div id="form-body">
-        <span class="eyebrow indigo">Lets Talk</span>
-        <h3 id="contact-title">Start a conversation</h3>
-        <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reply within 24 hours.</p>
-        <form id="contact-form" novalidate>
-          <div class="hp" aria-hidden="true">
-            <label for="f-hp">Leave this field empty</label>
-            <input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off" />
-          </div>
-          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
-          <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" /></div>
-          <div class="field"><label for="f-website">Website <span class="muted">(optional)</span></label><input id="f-website" name="website" /></div>
-          <div class="field"><label for="f-goal">What are you trying to grow?</label><textarea id="f-goal" name="goal"></textarea></div>
-          <p class="form-error" id="form-error" role="alert" style="display:none"></p>
-          <button class="btn btn-primary btn-block" type="submit">Send</button>
-        </form>
-      </div>
-      <div id="form-success" class="success" style="display:none">
-        <div class="check" aria-hidden="true">✓</div>
-        <h3>Thanks — talk soon.</h3>
-        <p class="muted" style="margin-top:6px">We'll be in touch within 24 hours.</p>
-      </div>
-    </div>
-  </div>
-
-  <script is:inline>
-    (function () {
-      var overlay = document.getElementById('contact');
-      var lastFocus = null;
-      function openModal() { lastFocus = document.activeElement; overlay.classList.add('open'); document.body.style.overflow = 'hidden'; var f = overlay.querySelector('input, button'); if (f) f.focus(); }
-      function closeModal() { overlay.classList.remove('open'); document.body.style.overflow = ''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
-      document.querySelectorAll('[data-open-modal]').forEach(function (b) { b.addEventListener('click', function (e) { e.preventDefault(); openModal(); }); });
-      document.querySelectorAll('[data-close-modal]').forEach(function (b) { b.addEventListener('click', closeModal); });
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
-      var form = document.getElementById('contact-form');
-      var errEl = document.getElementById('form-error');
-      function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!form.checkValidity()) { form.reportValidity(); return; }
-        var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
-        btn.disabled = true; btn.textContent = 'Sending…'; errEl.style.display = 'none';
-        fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ name: val('f-name'), email: val('f-email'), company: val('f-company'), website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp') }) })
-        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) {
-          if (res.ok && out.ok) { document.getElementById('form-body').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
-          else { throw new Error((out && out.error) || 'Something went wrong.'); } }); })
-        .catch(function (err) { errEl.textContent = err.message + ' You can also email hello@kadanco.com.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = label; });
-      });
-    })();
-  </script>
-
-  <!-- nav colour-switch (white over the dark header, ink over the light body) -->
-  <script is:inline>
-    (function () {
-      var nav = document.querySelector('.nav');
-      var themed = Array.prototype.slice.call(document.querySelectorAll('[data-theme]'));
-      function navTheme() {
-        var probe = 40, theme = 'dark';
-        for (var i = 0; i < themed.length; i++) {
-          var r = themed[i].getBoundingClientRect();
-          if (r.top <= probe && r.bottom > probe) { theme = themed[i].getAttribute('data-theme'); break; }
-        }
-        nav.classList.toggle('nav--light', theme === 'light');
-        nav.classList.toggle('nav--dark', theme !== 'light');
-      }
-      window.addEventListener('scroll', navTheme, { passive: true });
-      window.addEventListener('resize', navTheme);
-      navTheme();
-    })();
-  </script>
 
   <style>
     .legal-hero { padding: 140px 0 64px; }
