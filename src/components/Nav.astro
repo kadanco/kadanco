@@ -1,0 +1,22 @@
+---
+// src/components/Nav.astro
+// Shared site navigation. Rendered once by Layout.astro, so it is no longer
+// hard-coded per page. Section links point to the homepage (/#id) so they work
+// from sub-pages (glossary, imprint) too, not just the homepage.
+// Colour-aware behaviour is driven by the global script in Layout.astro.
+---
+<header class="nav nav--dark">
+  <div class="container nav-inner">
+    <a class="brand" href="/" aria-label="Kadanco, home">
+      <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
+      <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="navlink" href="/#services">Services</a>
+      <a class="navlink" href="/#use-cases">Use Cases</a>
+      <a class="navlink" href="/#founders">Who We Are</a>
+      <a class="navlink" href="/#faq">FAQ</a>
+      <button class="btn btn-primary" data-open-modal>Lets Talk</button>
+    </nav>
+  </div>
+</header>
