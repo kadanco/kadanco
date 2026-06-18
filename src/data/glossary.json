@@ -1352,5 +1352,731 @@
       "account-intelligence",
       "intent-data"
     ]
+  },
+  {
+    "slug": "marketing-funnel",
+    "term": "Marketing Funnel",
+    "aliases": "Sales Funnel",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The model of how prospects move from first awareness to becoming a customer, used to map where people enter, progress, and drop off.",
+    "whyItMatters": "The funnel is a shared language for diagnosing where your pipeline is won or lost. Mapping it shows which stage is leaking, so you fix the real bottleneck instead of guessing.",
+    "benchmark": "A useful funnel reflects how your buyers actually move (not a generic template), has clear stage definitions both marketing and sales agree on, and is measured stage to stage.",
+    "operatorTake": "The funnel is a diagnostic tool, not a literal description: real B2B buying is messy, non-linear, and committee-driven, so do not over-engineer the stages. Use it to find the single biggest drop-off and fix that, rather than optimizing every stage at once. And make sure marketing and sales define the stages the same way, or your numbers will not reconcile.",
+    "related": [
+      "conversion-rate",
+      "funnel-leakage",
+      "demand-generation",
+      "pipeline-velocity"
+    ]
+  },
+  {
+    "slug": "conversion-rate",
+    "term": "Conversion Rate",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The percentage of people who take a desired action out of those who had the chance, the basic unit for measuring how well any step of the funnel performs.",
+    "whyItMatters": "Conversion rate tells you how efficiently each step turns potential into progress. Tracking it stage by stage pinpoints where the funnel is strong and where it leaks.",
+    "formula": "Conversion rate = (number who took the action / number who had the opportunity) x 100.",
+    "benchmark": "A meaningful conversion rate is measured per step against your own baseline and trend; absolute benchmarks vary so widely by context that comparing to your own past is more useful than to an industry average.",
+    "operatorTake": "The trap is obsessing over a single top-line conversion rate while ignoring which step is actually losing people. Break it down stage by stage to find the leak, and be wary of vanity conversions (a newsletter signup) that do not lead to revenue. Improving the worst step usually beats polishing one that already works.",
+    "related": [
+      "conversion-rate-optimization",
+      "funnel-leakage",
+      "form-conversion",
+      "micro-conversion"
+    ]
+  },
+  {
+    "slug": "conversion-rate-optimization",
+    "term": "Conversion Rate Optimization (CRO)",
+    "aliases": "CRO",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The practice of systematically increasing the share of visitors who take a desired action, through testing and removing friction, rather than just buying more traffic.",
+    "whyItMatters": "Improving conversion makes every other channel more efficient: the same traffic yields more pipeline. It is often cheaper to convert more of the visitors you have than to acquire more.",
+    "benchmark": "Mature CRO is hypothesis-driven: it identifies where the funnel leaks, tests specific changes, and measures lift against a control, rather than redesigning on opinion.",
+    "operatorTake": "The common mistake is treating CRO as a pile of generic best practices (a green button, more urgency) instead of diagnosing where your funnel actually loses people. Start by finding the biggest leak, form, handoff, or page, form a hypothesis, test it against a control, and keep what wins. With low B2B traffic you often cannot run clean A/B tests, so lean on qualitative evidence and obvious friction removal over statistical testing.",
+    "related": [
+      "conversion-rate",
+      "landing-page",
+      "form-conversion",
+      "a-b-testing"
+    ]
+  },
+  {
+    "slug": "landing-page",
+    "term": "Landing Page",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "A standalone page built around a single goal and audience, where you send traffic from a campaign so the message and the call to action match what brought them.",
+    "whyItMatters": "Sending paid or campaign traffic to a generic homepage wastes intent; a focused landing page that matches the ad and asks for one action converts far better.",
+    "benchmark": "A strong landing page has one clear goal, a message that matches the source that drove the click, minimal distraction, and a single obvious call to action.",
+    "operatorTake": "The biggest, most common waste is pointing campaign traffic at the homepage and hoping. Match the page to the promise that earned the click, strip out competing links and navigation, and ask for one thing. And keep the form as short as the goal allows, since every extra field costs you conversions.",
+    "related": [
+      "conversion-rate",
+      "call-to-action",
+      "above-the-fold",
+      "form-conversion"
+    ]
+  },
+  {
+    "slug": "above-the-fold",
+    "term": "Above the Fold",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The part of a page visible without scrolling, the first thing every visitor sees, where the core message and primary action have to land.",
+    "whyItMatters": "Most visitors decide in seconds whether to stay, and many never scroll, so what is above the fold disproportionately determines whether the page works.",
+    "benchmark": "Done well, the above-the-fold area makes the offer and its relevance instantly clear and presents the primary action, without requiring a scroll to understand what this is and who it is for.",
+    "operatorTake": "The fold is not dead, attention is just front-loaded, so the space deserves your sharpest message, not a generic hero. Make it pass the five-second test: a stranger should know what you do, who it is for, and what to do next. Burying the value proposition below the fold is a quiet conversion killer.",
+    "related": [
+      "landing-page",
+      "call-to-action",
+      "conversion-rate",
+      "message-market-match"
+    ]
+  },
+  {
+    "slug": "call-to-action",
+    "term": "Call to Action (CTA)",
+    "aliases": "CTA",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The prompt that tells a visitor exactly what to do next, the button or link that turns a reader into a lead or a customer.",
+    "whyItMatters": "A page without a clear, single next step leaks people who were ready to act. The CTA is where intent converts into a measurable action.",
+    "benchmark": "A good CTA is specific, visible, and singular: one primary action per page, worded as the value the person gets, not a vague verb.",
+    "operatorTake": "Two failure modes dominate: too many competing CTAs, which paralyzes, and vague wording (submit, learn more) that does not convey value. Pick one primary action per page and make it unmissable, and word it as the benefit (get the audit, see pricing) rather than the mechanic. Clarity and singularity beat clever copy.",
+    "related": [
+      "landing-page",
+      "conversion-rate",
+      "above-the-fold",
+      "form-conversion"
+    ]
+  },
+  {
+    "slug": "form-conversion",
+    "term": "Form Conversion",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The rate at which people who reach a form actually complete and submit it, a step where intent is often lost to friction.",
+    "whyItMatters": "Forms are where a lot of otherwise-interested prospects drop off, so form conversion is one of the highest-leverage things to improve, and one of the easiest to quietly get wrong.",
+    "formula": "Form conversion = (form submissions / form views or starts) x 100.",
+    "benchmark": "Strong form conversion comes from asking only for what you genuinely need, clear field labels, minimal required fields, and no surprise friction; fewer fields almost always converts better.",
+    "operatorTake": "Every field you add costs completions, so the discipline is to ask why you truly need each one before including it, which conveniently is also the data-minimization-friendly choice. Cut optional fields, defer questions you can ask later, and watch where people abandon. A shorter form you follow up on usually beats a long one that scares people off.",
+    "related": [
+      "conversion-rate",
+      "landing-page",
+      "call-to-action",
+      "data-minimization"
+    ]
+  },
+  {
+    "slug": "funnel-leakage",
+    "term": "Funnel Leakage",
+    "aliases": "Funnel Drop-off",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The points in your funnel where prospects fall out, the gaps between stages where intent is lost and pipeline quietly disappears.",
+    "whyItMatters": "Finding and fixing the biggest leak is usually the fastest way to grow pipeline without spending more on traffic, because you are recovering demand you already paid to create.",
+    "benchmark": "Good leak analysis measures stage-to-stage conversion to locate the worst drop-off, then prioritizes fixing that one over smaller leaks elsewhere.",
+    "operatorTake": "Teams pour money into the top of the funnel while the real problem is a leak in the middle, the lead-to-meeting handoff, a broken nurture, a confusing step. Measure each stage transition, find where the biggest percentage falls out, and fix that before buying more traffic. Plugging the largest leak compounds across everything upstream of it.",
+    "related": [
+      "marketing-funnel",
+      "conversion-rate",
+      "conversion-rate-optimization",
+      "micro-conversion"
+    ]
+  },
+  {
+    "slug": "micro-conversion",
+    "term": "Micro-Conversion",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "A small, intermediate action that signals progress toward the main goal, a content download, a pricing-page visit, a demo video watched, short of the final conversion.",
+    "whyItMatters": "Major B2B conversions are rare, so micro-conversions give you earlier, more frequent signals of intent and let you measure and optimize the path, not just the destination.",
+    "benchmark": "Useful micro-conversions are genuine signals of buying intent (not vanity clicks), tracked as steps toward the goal, and used to identify and nurture warming prospects.",
+    "operatorTake": "The value is in choosing micro-conversions that actually predict the real outcome, a pricing-page view or a high-intent demo request, not a blog visit that means little. Use them to spot warming accounts and to find where the path to the main conversion breaks. Just do not mistake a pile of micro-conversions for pipeline; they are leading indicators, not the goal.",
+    "related": [
+      "conversion-rate",
+      "marketing-funnel",
+      "funnel-leakage",
+      "intent-data"
+    ]
+  },
+  {
+    "slug": "a-b-testing",
+    "term": "A/B Testing",
+    "aliases": "Split Testing",
+    "category": "Funnel & Conversion",
+    "oneLiner": "Comparing two versions of a page, email, or ad by splitting traffic between them, to learn which performs better with real users rather than by opinion.",
+    "whyItMatters": "A/B testing replaces guesswork with evidence, but only when you have enough volume to reach a reliable result, which is a real constraint in low-traffic B2B.",
+    "benchmark": "A valid A/B test changes one meaningful variable, runs until it reaches a genuine sample size, and judges the winner on the outcome that matters, not an early or underpowered read.",
+    "operatorTake": "The honest catch for most B2B sites is that traffic is too low to ever reach statistical significance, so endless A/B testing produces noise dressed as insight. Reserve it for your highest-traffic pages and decisions, test things that actually matter, and otherwise lean on qualitative evidence and obvious friction removal. Calling a winner from an underpowered test is worse than not testing.",
+    "related": [
+      "conversion-rate-optimization",
+      "conversion-rate",
+      "landing-page",
+      "creative-testing"
+    ]
+  },
+  {
+    "slug": "message-market-match",
+    "term": "Message-Market Match",
+    "aliases": "",
+    "category": "Funnel & Conversion",
+    "oneLiner": "The degree to which your messaging actually resonates with the market you are targeting, the fit between what you say and what your buyer cares about.",
+    "whyItMatters": "You can have product-market fit and still fail to grow if the message does not land; message-market match is what turns a good offer into one the market actually responds to.",
+    "benchmark": "Strong message-market match shows up as messaging that mirrors how buyers describe their own problem, resonates in their language, and measurably improves response and conversion.",
+    "operatorTake": "When conversion is poor despite real demand, the message is often the problem, not the product or the channel. The fix is to listen to how buyers actually talk about their pain (sales calls, reviews, win-loss) and reflect that language back, rather than leading with internal jargon. Getting the message right usually lifts every channel at once.",
+    "related": [
+      "above-the-fold",
+      "conversion-rate",
+      "positioning",
+      "value-proposition"
+    ]
+  },
+  {
+    "slug": "revenue-operations",
+    "term": "Revenue Operations (RevOps)",
+    "aliases": "RevOps",
+    "category": "RevOps & CRM",
+    "oneLiner": "The function that aligns marketing, sales, and customer success operations, their systems, data, and processes, around one revenue engine.",
+    "whyItMatters": "When marketing, sales, and success run on disconnected tools and definitions, revenue leaks in the gaps. RevOps exists to make the whole go-to-market machine run as one system.",
+    "benchmark": "Mature RevOps means shared data and definitions across teams, connected systems, clean handoffs, and one trusted view of the funnel and pipeline end to end.",
+    "operatorTake": "RevOps is fundamentally a plumbing-and-alignment job: the value is in removing the friction and data gaps between teams, not in buying more tools. The biggest wins are usually unglamorous, a clean lead handoff, agreed definitions, reliable reporting, that compound across the whole funnel. Treat it as the connective tissue that makes everything else measurable and repeatable.",
+    "related": [
+      "marketing-operations",
+      "sales-operations",
+      "marketing-tech-stack",
+      "sales-and-marketing-sla"
+    ]
+  },
+  {
+    "slug": "marketing-operations",
+    "term": "Marketing Operations",
+    "aliases": "MOps",
+    "category": "RevOps & CRM",
+    "oneLiner": "The function that runs the marketing team's systems, data, and processes, the automation, the tech stack, the reporting, that let marketing execute and measure reliably.",
+    "whyItMatters": "As marketing scales, the difference between a team that ships consistently and one that runs on heroics is operations: the systems and processes underneath the campaigns.",
+    "benchmark": "Strong marketing operations means a well-run tech stack, clean data, reliable automation and reporting, and processes that let campaigns run without reinventing the setup each time.",
+    "operatorTake": "MOps is invisible when it works and painfully obvious when it does not, broken automations, dirty data, reports nobody trusts. Invest in the boring foundations (data hygiene, naming conventions, reliable tracking) before chasing more tools or tactics. Good ops is what lets a small team punch above its weight.",
+    "related": [
+      "revenue-operations",
+      "marketing-automation",
+      "marketing-tech-stack",
+      "data-enrichment"
+    ]
+  },
+  {
+    "slug": "sales-operations",
+    "term": "Sales Operations",
+    "aliases": "SalesOps",
+    "category": "RevOps & CRM",
+    "oneLiner": "The function that supports the sales team's systems and processes, the CRM, pipeline reporting, territory and quota setup, and forecasting, so reps can focus on selling.",
+    "whyItMatters": "Sales operations removes the administrative and systems drag on reps and gives leadership a reliable view of pipeline and forecast, which is essential as the team grows.",
+    "benchmark": "Effective sales operations keeps the CRM clean and usable, produces trustworthy pipeline and forecast reporting, and streamlines the process so reps spend time selling, not wrestling tools.",
+    "operatorTake": "The core tension SalesOps manages is between rep productivity and data discipline: too little process and the CRM is garbage, too much and reps rebel. Aim for the minimum process that produces trustworthy data, and make the CRM genuinely useful to reps, not just to management. Clean pipeline data is the foundation of every forecast and resourcing decision.",
+    "related": [
+      "revenue-operations",
+      "crm",
+      "pipeline-review",
+      "sales-and-marketing-sla"
+    ]
+  },
+  {
+    "slug": "crm",
+    "term": "CRM",
+    "aliases": "Customer Relationship Management",
+    "category": "RevOps & CRM",
+    "oneLiner": "The system of record for your prospects and customers, where every contact, account, deal, and interaction lives, the backbone of sales and marketing operations.",
+    "whyItMatters": "The CRM is the single source of truth for the customer relationship; if it is incomplete or dirty, every downstream report, forecast, and campaign is built on sand.",
+    "benchmark": "A healthy CRM has clean, deduplicated data, consistent fields and stages, logged activity, and genuine adoption by the people who are supposed to use it.",
+    "operatorTake": "A CRM is only as good as the data in it, and the hardest part is not the software but adoption and hygiene, getting reps to log activity and keeping records clean. Keep required fields minimal so the data that does get entered is reliable, and treat hygiene as ongoing, not a one-time cleanup. Garbage in the CRM quietly corrupts every decision made from it.",
+    "related": [
+      "sales-operations",
+      "customer-data-platform",
+      "data-enrichment",
+      "marketing-tech-stack"
+    ]
+  },
+  {
+    "slug": "customer-data-platform",
+    "term": "Customer Data Platform (CDP)",
+    "aliases": "CDP",
+    "category": "RevOps & CRM",
+    "oneLiner": "A system that unifies customer data from many sources into a single, persistent profile, giving marketing one consolidated view to segment and activate.",
+    "whyItMatters": "Customer data is usually scattered across tools; a CDP stitches it into unified profiles so you can segment, personalize, and measure based on the whole picture rather than fragments.",
+    "benchmark": "A working CDP ingests data from your key sources, resolves it into unified profiles, and makes those profiles usable for segmentation and activation across channels.",
+    "operatorTake": "A CDP is powerful but often oversold to companies whose real problem is messy data and unclear use cases, not the lack of a platform. Be clear on the specific activations you need before buying one, and fix data hygiene first, since a CDP built on dirty inputs just centralizes the mess. For many smaller B2B teams, a well-run CRM and clean tracking cover most of the need.",
+    "euNote": "A CDP concentrates personal data into rich profiles, which under GDPR raises the stakes on lawful basis, minimization, and honoring deletion, so build it privacy-first rather than hoarding everything.",
+    "related": [
+      "crm",
+      "data-enrichment",
+      "marketing-tech-stack",
+      "data-minimization"
+    ]
+  },
+  {
+    "slug": "marketing-automation",
+    "term": "Marketing Automation",
+    "aliases": "",
+    "category": "RevOps & CRM",
+    "oneLiner": "Software that automates repetitive marketing tasks, chiefly email sequences, lead nurturing, and scoring, triggered by rules and behavior.",
+    "whyItMatters": "Automation lets a small team nurture and respond at scale, sending the right message based on what a contact does, without manual effort for every interaction.",
+    "benchmark": "Good marketing automation runs relevant, well-timed, behavior-triggered flows, keeps the logic maintainable, and respects consent and frequency rather than blasting everyone.",
+    "operatorTake": "The failure mode is automating a bad or impersonal process at scale, drip sequences nobody asked for, which just annoys people faster. Automate flows that genuinely help the recipient, keep them relevant and consent-based, and resist the urge to over-send. And in Europe especially, make sure automated outreach rests on proper consent.",
+    "euNote": "Automated marketing email into the EU still needs a lawful basis and, in markets like Germany, prior consent, so wire your automation to documented opt-in rather than treating any address as fair game.",
+    "related": [
+      "marketing-operations",
+      "lead-nurturing",
+      "lead-routing",
+      "double-opt-in"
+    ]
+  },
+  {
+    "slug": "lead-routing",
+    "term": "Lead Routing",
+    "aliases": "Lead Assignment",
+    "category": "RevOps & CRM",
+    "oneLiner": "The rules and automation that send each incoming lead to the right person or team quickly, so nothing sits unworked.",
+    "whyItMatters": "Speed and accuracy of routing directly affect conversion: a lead sent to the wrong rep or left waiting goes cold fast, wasting the demand you paid to create.",
+    "benchmark": "Effective lead routing assigns leads to the right owner automatically and fast, by clear rules (territory, segment, account ownership), with no leads falling through the cracks.",
+    "operatorTake": "The classic, expensive leak is leads that arrive and then sit, unassigned or routed to the wrong person, while their interest cools by the hour. Automate routing on clear rules, make it fast, and add alerts so nothing stalls. Speed-to-lead is one of the highest-leverage operational fixes there is.",
+    "related": [
+      "lead-to-account-matching",
+      "sales-and-marketing-sla",
+      "crm",
+      "lead-handoff"
+    ]
+  },
+  {
+    "slug": "data-enrichment",
+    "term": "Data Enrichment",
+    "aliases": "",
+    "category": "RevOps & CRM",
+    "oneLiner": "Augmenting your contact and account records with additional data, firmographics, technographics, and role detail, from third-party sources, to improve targeting and routing.",
+    "whyItMatters": "Richer data lets you score, route, segment, and personalize better; enrichment fills the gaps that prospects do not give you, so your systems can act on a fuller picture.",
+    "benchmark": "Useful enrichment adds accurate, relevant fields that you will actually use for targeting or routing, kept reasonably current, rather than hoarding data for its own sake.",
+    "operatorTake": "Enrichment is only worth it if the added fields change what you do, scoring, routing, or personalization, so enrich for specific uses rather than buying every data point available. Watch data quality, since stale or wrong enrichment misleads, and in Europe be mindful that enriching personal data still needs a lawful basis. Enrich with purpose, not by reflex.",
+    "euNote": "In the EU, appending personal data from third parties is itself processing that needs a lawful basis under GDPR, and over-collection works against data minimization, so enrich narrowly and for defined purposes.",
+    "related": [
+      "crm",
+      "lead-routing",
+      "customer-data-platform",
+      "lawful-basis-for-processing"
+    ]
+  },
+  {
+    "slug": "attribution",
+    "term": "Attribution",
+    "aliases": "Marketing Attribution",
+    "category": "RevOps & CRM",
+    "oneLiner": "The practice of assigning credit for conversions and pipeline to the marketing touchpoints that influenced them, so you know what is actually working.",
+    "whyItMatters": "Without attribution you cannot tell which channels and campaigns drive revenue, so budget decisions become guesswork. With it, you can invest in what works and cut what does not.",
+    "benchmark": "Useful attribution reflects how your buyers actually move, credits multiple touches across long B2B journeys where appropriate, and is honest about its own limits rather than pretending to false precision.",
+    "operatorTake": "Attribution in B2B is genuinely hard and no model is truly accurate, so the goal is directional truth, not false precision. Last-touch over-credits the final step (often a branded search or a demo request); first-touch over-credits discovery; multi-touch spreads credit but adds complexity. Pick a model whose biases you understand, use it consistently, and treat it as a decision aid, not gospel. The teams that get value hold attribution loosely and triangulate with other evidence.",
+    "euNote": "In Europe, cookie consent and privacy rules limit the cross-site tracking that attribution depends on, so expect more gaps and lean on first-party and self-reported data more than in less-regulated markets.",
+    "related": [
+      "multi-touch-attribution",
+      "attribution-window",
+      "cookie-consent",
+      "first-touch-vs-last-touch-attribution"
+    ]
+  },
+  {
+    "slug": "multi-touch-attribution",
+    "term": "Multi-Touch Attribution",
+    "aliases": "MTA",
+    "category": "RevOps & CRM",
+    "oneLiner": "An attribution approach that distributes credit for a conversion across multiple touchpoints in the journey, rather than crediting only the first or last.",
+    "whyItMatters": "B2B buying involves many touches over months, so crediting just one (first or last) misrepresents reality; multi-touch tries to reflect that several interactions contributed.",
+    "benchmark": "Sound multi-touch attribution uses a credit model appropriate to your journey, is applied consistently, and is understood to be directional rather than precise.",
+    "operatorTake": "Multi-touch is more realistic than single-touch but also more complex and still imperfect, and the choice of weighting model is somewhat arbitrary. Use it to understand which channels assist versus close, not to chase decimal-point precision, and pick a model whose biases you can explain. It is a better lens, not a source of truth.",
+    "related": [
+      "attribution",
+      "first-touch-vs-last-touch-attribution",
+      "attribution-window",
+      "utm-parameters"
+    ]
+  },
+  {
+    "slug": "first-touch-vs-last-touch-attribution",
+    "term": "First-Touch vs Last-Touch Attribution",
+    "aliases": "Single-Touch Attribution",
+    "category": "RevOps & CRM",
+    "oneLiner": "The two simplest attribution models: first-touch credits the interaction that started the journey, last-touch credits the one right before conversion.",
+    "whyItMatters": "These are the default models in most tools, and each tells a one-sided story, so knowing their biases keeps you from over-investing in the wrong end of the funnel.",
+    "benchmark": "Used wisely, first-touch and last-touch are read together for what each reveals (discovery versus closing) rather than relied on alone, with awareness of what each ignores.",
+    "operatorTake": "First-touch over-credits whatever creates awareness and last-touch over-credits the final step, often branded search or a demo form that the rest of marketing earned. Neither is correct alone; reading both is more honest than trusting either. They are fine as simple lenses as long as you remember what they hide.",
+    "related": [
+      "attribution",
+      "multi-touch-attribution",
+      "attribution-window",
+      "marketing-funnel"
+    ]
+  },
+  {
+    "slug": "utm-parameters",
+    "term": "UTM Parameters",
+    "aliases": "UTMs",
+    "category": "RevOps & CRM",
+    "oneLiner": "Tags added to a URL that tell your analytics where a click came from, the campaign, source, and medium, so traffic and conversions can be traced to their origin.",
+    "whyItMatters": "UTMs are the backbone of campaign tracking; without consistent tagging you cannot reliably attribute traffic or pipeline to the campaigns that produced them.",
+    "benchmark": "Good UTM practice uses a strict, documented naming convention applied consistently across every campaign, so the data stays clean and comparable.",
+    "operatorTake": "The thing that wrecks UTM data is inconsistency, ten variations of the same source spelled differently, so a written naming convention everyone follows matters more than the tags themselves. Decide your taxonomy once, enforce it, and avoid putting anything sensitive in URL parameters. Disciplined tagging is what makes attribution possible at all.",
+    "related": [
+      "attribution",
+      "multi-touch-attribution",
+      "marketing-tech-stack",
+      "conversion-rate"
+    ]
+  },
+  {
+    "slug": "lead-to-account-matching",
+    "term": "Lead-to-Account Matching",
+    "aliases": "L2A Matching",
+    "category": "RevOps & CRM",
+    "oneLiner": "Connecting individual leads to the company accounts they belong to in your CRM, so you can see and act on the whole buying group within an account.",
+    "whyItMatters": "B2B buying is account-level, but leads come in as individuals; matching them to accounts is what makes account-based motions, routing, and reporting actually work.",
+    "benchmark": "Good lead-to-account matching reliably links people to the right account, surfaces the full buying group, and feeds accurate account-level routing and reporting.",
+    "operatorTake": "Without solid matching, ABM and account-level reporting fall apart, leads get routed to the wrong owner, and you cannot see that five people from one account are all engaging. Get the matching logic right (domain-based plus fuzzy rules), because it underpins everything account-based. It is unglamorous plumbing that quietly enables the whole motion.",
+    "related": [
+      "lead-routing",
+      "account-based-marketing",
+      "crm",
+      "buying-group-marketing"
+    ]
+  },
+  {
+    "slug": "sales-and-marketing-sla",
+    "term": "Sales and Marketing SLA",
+    "aliases": "SLA",
+    "category": "RevOps & CRM",
+    "oneLiner": "An agreement between sales and marketing on mutual commitments, how many qualified leads marketing delivers, and how fast and thoroughly sales works them.",
+    "whyItMatters": "Most sales-marketing friction comes from mismatched expectations; an SLA makes the commitments explicit on both sides, so leads are not dropped and finger-pointing is replaced by accountability.",
+    "benchmark": "A working SLA defines the lead quality and volume marketing commits to, the speed and rigor of follow-up sales commits to, and the shared metrics both teams are held to.",
+    "operatorTake": "The point of an SLA is not bureaucracy, it is ending the blame cycle (marketing says the leads were worked badly, sales says the leads were junk) by agreeing on definitions and commitments up front. Define what a qualified lead is, what fast follow-up means, and measure both sides. Alignment on paper only works if both teams actually own their half.",
+    "related": [
+      "revenue-operations",
+      "lead-routing",
+      "lead-handoff",
+      "sales-operations"
+    ]
+  },
+  {
+    "slug": "marketing-tech-stack",
+    "term": "Marketing Tech Stack",
+    "aliases": "Martech Stack",
+    "category": "RevOps & CRM",
+    "oneLiner": "The collection of software tools a marketing team uses, the CRM, automation, analytics, CMS, and the rest, and how well they connect.",
+    "whyItMatters": "The stack shapes what marketing can execute and measure; a well-integrated stack compounds, while a sprawling, disconnected one creates data silos and busywork.",
+    "benchmark": "A healthy stack covers your real needs with tools that integrate cleanly, share data, and are actually used, rather than a graveyard of overlapping, half-adopted subscriptions.",
+    "operatorTake": "Most teams have too many tools, not too few, and the cost is data silos, integration debt, and spend on software nobody fully uses. Favor a smaller stack of well-integrated tools you actually use over chasing every new category, and audit periodically for overlap and abandonment. Integration and adoption matter more than capability on paper.",
+    "related": [
+      "revenue-operations",
+      "marketing-operations",
+      "crm",
+      "marketing-automation"
+    ]
+  },
+  {
+    "slug": "product-marketing",
+    "term": "Product Marketing",
+    "aliases": "PMM",
+    "category": "Product Marketing",
+    "oneLiner": "The function that owns how a product is positioned, messaged, launched, and sold, the bridge between what the product does and why the market should care.",
+    "whyItMatters": "Product marketing translates product into market terms: positioning, messaging, launches, and sales enablement. Without it, even strong products get sold in features nobody connects to their own problem.",
+    "benchmark": "Strong product marketing produces clear positioning and messaging, well-run launches, sales enablement that reps actually use, and a feedback loop from market to product.",
+    "operatorTake": "PMM sits between product, marketing, and sales, and its value is making the product make sense to the market, turning features into a story buyers care about. The common gap is launching features rather than communicating outcomes. Anchor everything in the buyer's problem and the why-it-matters, not the spec sheet.",
+    "related": [
+      "positioning",
+      "product-launch",
+      "sales-enablement",
+      "competitive-intelligence"
+    ]
+  },
+  {
+    "slug": "product-launch",
+    "term": "Product Launch",
+    "aliases": "Go-to-Market Launch",
+    "category": "Product Marketing",
+    "oneLiner": "The coordinated effort to bring a new product or feature to market, aligning messaging, channels, sales, and timing around its introduction.",
+    "whyItMatters": "A launch concentrates attention and momentum; done well it drives adoption and pipeline, done poorly it is a feature that ships to silence.",
+    "benchmark": "A strong launch has clear positioning and target audience, coordinated messaging across channels, sales readiness, and goals it is measured against, scaled to the launch's importance.",
+    "operatorTake": "The biggest mistake is treating every release as a full-scale launch, which exhausts the team and the audience, or conversely shipping something significant with no launch at all. Tier your launches by impact, and remember a launch is a sustained motion, not a one-day announcement. Most of the value comes from the weeks after, not the day of.",
+    "related": [
+      "launch-tiers",
+      "product-marketing",
+      "sales-enablement",
+      "feature-adoption"
+    ]
+  },
+  {
+    "slug": "launch-tiers",
+    "term": "Launch Tiers",
+    "aliases": "Launch Tiering",
+    "category": "Product Marketing",
+    "oneLiner": "A system for sizing launches by impact, so a major release gets the full motion while a minor update gets a proportionate, lighter touch.",
+    "whyItMatters": "Not every release deserves the same effort; tiering prevents both launch fatigue from over-investing in small updates and missed momentum from under-investing in big ones.",
+    "benchmark": "A useful tiering system has clear criteria for each tier and a defined, proportionate set of activities per tier, applied consistently.",
+    "operatorTake": "Tiering is mostly a discipline for saying no, reserving the big motion for launches that genuinely move the business and handling the rest lightly. Without it, teams either treat everything as huge and burn out, or improvise each time. Define two or three tiers, the activities for each, and match the release to the tier honestly.",
+    "related": [
+      "product-launch",
+      "product-marketing",
+      "feature-adoption",
+      "sales-enablement"
+    ]
+  },
+  {
+    "slug": "sales-enablement",
+    "term": "Sales Enablement",
+    "aliases": "",
+    "category": "Product Marketing",
+    "oneLiner": "Equipping the sales team to sell effectively, the messaging, content, tools, and training reps need to have better conversations and win more deals.",
+    "whyItMatters": "Marketing and product knowledge is wasted if reps cannot deploy it in front of buyers; enablement is what gets the right message, proof, and materials into the actual sales conversation.",
+    "benchmark": "Effective sales enablement provides materials reps actually use, keeps them current, trains reps on the message, and is shaped by what reps and buyers really need, not what marketing assumes.",
+    "operatorTake": "The graveyard of sales enablement is decks and one-pagers nobody opens, built without asking reps what they actually need in the conversation. Build enablement around real selling moments (the objection, the comparison, the business case), keep it findable and current, and check it gets used. Enablement that reps ignore is just content theatre.",
+    "related": [
+      "battlecard",
+      "product-marketing",
+      "win-loss-analysis",
+      "competitive-intelligence"
+    ]
+  },
+  {
+    "slug": "battlecard",
+    "term": "Battlecard",
+    "aliases": "Competitive Battlecard",
+    "category": "Product Marketing",
+    "oneLiner": "A concise sales reference for handling a specific competitor or objection, what they do well, where you win, and how to respond, built for the live conversation.",
+    "whyItMatters": "Reps face competitors and objections in real time; a good battlecard gives them fast, accurate, confident responses instead of fumbling or overpromising.",
+    "benchmark": "A strong battlecard is short, honest, and current: clear on where you genuinely win and lose, with concrete responses, not marketing spin reps will not trust.",
+    "operatorTake": "Battlecards fail when they are too long to use mid-call or so spin-heavy that reps do not believe them. Keep them to the few things that matter in the moment, be honest about competitors' real strengths (reps lose trust otherwise), and update them as the market shifts. A believable one-pager beats an exhaustive deck nobody reads.",
+    "related": [
+      "sales-enablement",
+      "competitive-intelligence",
+      "win-loss-analysis",
+      "competitive-positioning"
+    ]
+  },
+  {
+    "slug": "win-loss-analysis",
+    "term": "Win/Loss Analysis",
+    "aliases": "Win/Loss",
+    "category": "Product Marketing",
+    "oneLiner": "Systematically studying why you win and lose deals, ideally by talking to the buyers themselves, to learn what actually drives decisions.",
+    "whyItMatters": "Your own assumptions about why deals are won or lost are usually wrong; structured win-loss gives you the buyer's real reasons, which sharpen positioning, product, and sales.",
+    "benchmark": "Good win-loss analysis gathers honest reasons from buyers (not just the rep's view), across enough deals to see patterns, and feeds findings back into positioning, product, and enablement.",
+    "operatorTake": "The highest-value, most underused source of truth in B2B is asking lost and won buyers directly why they decided as they did, because the rep's explanation is often self-serving. Do it consistently, look for patterns rather than reacting to one loss, and route what you learn into messaging and product. It is uncomfortable and it is gold.",
+    "related": [
+      "competitive-intelligence",
+      "battlecard",
+      "closed-lost-analysis",
+      "sales-enablement"
+    ]
+  },
+  {
+    "slug": "competitive-intelligence",
+    "term": "Competitive Intelligence",
+    "aliases": "CI, Compete",
+    "category": "Product Marketing",
+    "oneLiner": "The ongoing practice of understanding your competitors, their products, positioning, pricing, and moves, to inform your own strategy and sales.",
+    "whyItMatters": "You compete in a market, not a vacuum; knowing how rivals position and where they are weak helps you differentiate, equip sales, and anticipate rather than react.",
+    "benchmark": "Useful competitive intelligence is current, focused on the competitors that actually show up in your deals, and translated into action (positioning, battlecards, enablement) rather than left as a static document.",
+    "operatorTake": "The trap is either ignoring competitors entirely or obsessing over them and building a me-too roadmap. Track the few rivals who really appear in your deals, focus on where you genuinely differ, and turn it into something sales can use. Intelligence that does not change positioning or enablement is just trivia.",
+    "related": [
+      "battlecard",
+      "win-loss-analysis",
+      "competitive-positioning",
+      "sales-enablement"
+    ]
+  },
+  {
+    "slug": "pricing-and-packaging",
+    "term": "Pricing and Packaging",
+    "aliases": "",
+    "category": "Product Marketing",
+    "oneLiner": "How you structure and price your offering, the tiers, what is included in each, and what you charge, one of the highest-leverage decisions in the business.",
+    "whyItMatters": "Pricing and packaging directly shape revenue, positioning, and who buys; small changes can move the business more than most campaigns, yet they are often set once and neglected.",
+    "benchmark": "Sound pricing and packaging reflects the value delivered and the willingness to pay of your target segments, with tiers that guide buyers to the right option and room to expand.",
+    "operatorTake": "Pricing is one of the most powerful and least-tested levers most companies have, often set by gut years ago and rarely revisited. Anchor it to the value buyers get and what your segments will pay, design packages that steer people to the right tier, and revisit it deliberately rather than treating it as fire-and-forget. This is strategic guidance, not financial advice.",
+    "related": [
+      "product-marketing",
+      "positioning",
+      "cross-border-pricing",
+      "value-proposition"
+    ]
+  },
+  {
+    "slug": "feature-adoption",
+    "term": "Feature Adoption",
+    "aliases": "",
+    "category": "Product Marketing",
+    "oneLiner": "The rate at which customers actually use a product's features, a measure of whether what you ship delivers value and gets used, not just launched.",
+    "whyItMatters": "Features that ship but go unused waste effort and do not drive retention or expansion; tracking adoption tells you whether launches and onboarding are actually working.",
+    "benchmark": "Healthy feature adoption is measured against intent (who should use a feature versus who does), informs onboarding and messaging, and feeds back into product and launch decisions.",
+    "operatorTake": "Shipping a feature is not the same as it being adopted, and low adoption usually signals a discovery, onboarding, or value problem rather than a build problem. Measure who actually uses what, and treat poor adoption as a prompt to fix communication and onboarding, not just to build more. Adoption, not launch, is where value is realized.",
+    "related": [
+      "customer-onboarding",
+      "product-launch",
+      "product-marketing",
+      "launch-tiers"
+    ]
+  },
+  {
+    "slug": "customer-onboarding",
+    "term": "Customer Onboarding",
+    "aliases": "",
+    "category": "Product Marketing",
+    "oneLiner": "The process of getting new customers set up and to first value as quickly and smoothly as possible, the bridge between closing a deal and a customer who stays.",
+    "whyItMatters": "Onboarding sets the trajectory of the whole relationship; a customer who reaches value fast is far more likely to retain and expand, while a rough start drives early churn.",
+    "benchmark": "Strong onboarding gets customers to a meaningful first value quickly, with a clear path and proactive guidance, measured by time-to-value and early retention.",
+    "operatorTake": "The early days disproportionately determine retention, so the goal is to get customers to a real win fast, not to tour them through every feature. Define what first value looks like and engineer the shortest path to it, and watch where new customers stall. Most churn is set in motion in the first few weeks, for better or worse.",
+    "related": [
+      "feature-adoption",
+      "product-launch",
+      "win-loss-analysis",
+      "sales-enablement"
+    ]
+  },
+  {
+    "slug": "sales-development-representative",
+    "term": "Sales Development Representative (SDR)",
+    "aliases": "SDR",
+    "category": "Sales Alignment",
+    "oneLiner": "A sales role focused on the early funnel, qualifying inbound leads and doing outbound prospecting to book meetings for account executives, rather than closing deals.",
+    "whyItMatters": "SDRs are the engine that turns raw leads and target accounts into qualified pipeline; how they are run heavily influences both pipeline volume and quality.",
+    "benchmark": "An effective SDR function has clear qualification criteria, quality outreach (not just volume), fast follow-up on inbound, and a clean handoff of qualified meetings to closers.",
+    "operatorTake": "The common failure is running SDRs as a pure volume machine, blast enough emails and book anything, which produces meetings closers do not want and burns reps out. Reward qualified pipeline that converts, not raw activity, and invest in good targeting and messaging so the outreach is relevant. Quality of meeting beats quantity of dials every time.",
+    "related": [
+      "business-development-representative",
+      "lead-handoff",
+      "discovery-call",
+      "sales-qualified-opportunity"
+    ]
+  },
+  {
+    "slug": "business-development-representative",
+    "term": "Business Development Representative (BDR)",
+    "aliases": "BDR",
+    "category": "Sales Alignment",
+    "oneLiner": "A sales role similar to an SDR, often focused specifically on outbound prospecting into target accounts; the terms vary by company but the job is generating qualified opportunities.",
+    "whyItMatters": "BDRs drive proactive, outbound pipeline into the accounts you want rather than waiting for inbound, which is essential for ABM and for growth that does not depend on marketing volume alone.",
+    "benchmark": "A strong BDR motion targets the right accounts deliberately, runs relevant multi-channel outreach, and is measured on qualified opportunities created, not activity alone.",
+    "operatorTake": "SDR versus BDR labels differ by company and are not worth arguing over; what matters is whether the outbound is targeted and relevant or just spray. Point BDRs at a deliberate account list, equip them with real research and messaging, and measure qualified pipeline. The role lives or dies on targeting and relevance, not call volume.",
+    "related": [
+      "sales-development-representative",
+      "account-based-marketing",
+      "discovery-call",
+      "sales-qualified-opportunity"
+    ]
+  },
+  {
+    "slug": "lead-handoff",
+    "term": "Lead Handoff",
+    "aliases": "MQL-to-SQL Handoff",
+    "category": "Sales Alignment",
+    "oneLiner": "The transfer of a lead from marketing to sales (or SDR to AE), the moment a qualified lead changes hands, and a notorious point of leakage.",
+    "whyItMatters": "A surprising amount of pipeline is lost in the handoff, leads that go cold while waiting, fall through cracks, or arrive without context, so getting it clean directly protects conversion.",
+    "benchmark": "A clean handoff has agreed qualification criteria, fast transfer, full context passed along, and a feedback loop so the receiving side can flag quality issues.",
+    "operatorTake": "The handoff is where marketing and sales most often drop the ball on each other: leads sit, context is lost, and each blames the other. Fix it with agreed definitions, speed, and context that travels with the lead, plus a feedback loop on quality. It is one of the highest-leverage operational seams in the whole funnel.",
+    "related": [
+      "sales-and-marketing-sla",
+      "lead-routing",
+      "sales-development-representative",
+      "sales-qualified-opportunity"
+    ]
+  },
+  {
+    "slug": "discovery-call",
+    "term": "Discovery Call",
+    "aliases": "Discovery, Disco Call",
+    "category": "Sales Alignment",
+    "oneLiner": "The first substantive sales conversation, focused on understanding the prospect's situation, needs, and fit, before any pitch or demo.",
+    "whyItMatters": "A good discovery call determines whether and how a deal proceeds; skipping real discovery leads to generic pitches, mis-qualified deals, and wasted cycles on both sides.",
+    "benchmark": "A strong discovery call is mostly listening, uncovers the real problem, decision process, and fit, and qualifies honestly rather than forcing every prospect forward.",
+    "operatorTake": "The biggest mistake is turning discovery into a premature pitch, talking instead of listening and learning nothing about whether this is even a fit. Ask about the problem, the stakes, and the buying process, and be willing to disqualify. Discovery done well makes everything downstream, the demo, the proposal, the close, far more likely to land.",
+    "related": [
+      "sales-qualified-opportunity",
+      "sales-development-representative",
+      "mutual-action-plan",
+      "pipeline-review"
+    ]
+  },
+  {
+    "slug": "sales-qualified-opportunity",
+    "term": "Sales Qualified Opportunity (SQO)",
+    "aliases": "SQO",
+    "category": "Sales Alignment",
+    "oneLiner": "A deal that sales has vetted and accepted as a genuine opportunity worth pursuing, a step beyond a qualified lead, representing real, active pipeline.",
+    "whyItMatters": "The SQO is often the cleanest marker of real pipeline, sales has confirmed it is worth working, so it is a more reliable measure of funnel health than raw lead counts.",
+    "benchmark": "A meaningful SQO definition is agreed between marketing and sales, applied consistently, and reflects genuine fit and intent, not just a form fill or a taken meeting.",
+    "operatorTake": "The value of the SQO stage is that it filters optimism out of the pipeline, it is what sales actually believes is real, so it is a better basis for forecasting than lead volume. Keep the qualification criteria honest and consistent, since loose definitions inflate pipeline and wreck forecasts. Measure the funnel from here for a truer picture.",
+    "related": [
+      "discovery-call",
+      "lead-handoff",
+      "pipeline-review",
+      "sales-and-marketing-sla"
+    ]
+  },
+  {
+    "slug": "pipeline-review",
+    "term": "Pipeline Review",
+    "aliases": "Pipeline Meeting",
+    "category": "Sales Alignment",
+    "oneLiner": "A regular working session where sales leadership and reps go through open deals to assess health, next steps, and forecast accuracy.",
+    "whyItMatters": "Pipeline reviews are how teams keep deals moving, catch stalls early, and produce reliable forecasts, the operating rhythm of a functioning sales organization.",
+    "benchmark": "A productive pipeline review scrutinizes deal health honestly (next steps, risks, stage accuracy), drives action on stalled deals, and improves forecast reliability, rather than being a status-reading ritual.",
+    "operatorTake": "A pipeline review degenerates when it becomes reps reciting happy talk and inflated stages with no scrutiny. Make it about evidence, what is the concrete next step, what would have to be true to close, and push to clean out deals that are not real. An honest review produces a forecast you can trust; a polite one produces fiction.",
+    "related": [
+      "sales-qualified-opportunity",
+      "pipeline-velocity",
+      "mutual-action-plan",
+      "closed-lost-analysis"
+    ]
+  },
+  {
+    "slug": "mutual-action-plan",
+    "term": "Mutual Action Plan",
+    "aliases": "MAP, Close Plan",
+    "category": "Sales Alignment",
+    "oneLiner": "A shared, written plan between seller and buyer laying out the steps, owners, and dates required to reach a decision, keeping a complex deal on track.",
+    "whyItMatters": "Complex B2B deals stall when next steps are vague; a mutual action plan creates joint accountability and a clear path, which improves close rates and forecast accuracy.",
+    "benchmark": "A good mutual action plan is genuinely shared with the buyer, lists concrete steps, owners, and dates through to decision and onboarding, and is kept current as the deal moves.",
+    "operatorTake": "The power of a MAP is that it is built with the buyer, not just for internal forecasting, which both surfaces hidden steps and tests whether the buyer is actually committed. A buyer who will not engage with a close plan is telling you something. Use it to create joint accountability and to keep multi-stakeholder deals from drifting.",
+    "related": [
+      "discovery-call",
+      "sales-qualified-opportunity",
+      "pipeline-review",
+      "deal-desk"
+    ]
+  },
+  {
+    "slug": "closed-lost-analysis",
+    "term": "Closed-Lost Analysis",
+    "aliases": "Loss Analysis",
+    "category": "Sales Alignment",
+    "oneLiner": "Examining the deals you lost to understand why, so you can fix the patterns, whether in product, pricing, positioning, or sales execution.",
+    "whyItMatters": "Lost deals are a rich, honest signal about what is not working; studying them systematically reveals fixable patterns that improve future win rates.",
+    "benchmark": "Useful closed-lost analysis captures the real reason for each loss (ideally from the buyer), looks for patterns across deals, and routes findings into product, pricing, positioning, and enablement.",
+    "operatorTake": "The temptation is to record every loss as price or timing and move on, which hides the real, fixable reasons. Dig for the honest cause, ideally from the buyer, and look for recurring patterns rather than reacting to a single loss. It overlaps with win-loss analysis and is one of the most actionable feedback loops you have, if you are willing to hear it.",
+    "related": [
+      "win-loss-analysis",
+      "competitive-intelligence",
+      "pipeline-review",
+      "sales-qualified-opportunity"
+    ]
+  },
+  {
+    "slug": "deal-desk",
+    "term": "Deal Desk",
+    "aliases": "",
+    "category": "Sales Alignment",
+    "oneLiner": "A cross-functional function or process that reviews and approves non-standard deals, pricing, terms, and discounts, to keep complex or large deals moving without uncontrolled concessions.",
+    "whyItMatters": "As deals get larger and more customized, ad hoc approvals create delay and risk; a deal desk gives a fast, consistent path for pricing and terms decisions.",
+    "benchmark": "An effective deal desk speeds approvals on non-standard deals with clear rules and fast turnaround, balancing rep flexibility against margin and consistency.",
+    "operatorTake": "A deal desk is mostly relevant once you are doing sizeable, customized deals, before that it is overhead, and its job is to be fast and consistent, not a bottleneck reps route around. Set clear thresholds for what needs review, keep turnaround quick, and protect margin without killing momentum. Done badly it slows every deal; done well it removes friction from the big ones.",
+    "related": [
+      "pricing-and-packaging",
+      "mutual-action-plan",
+      "sales-operations",
+      "pipeline-review"
+    ]
   }
 ]
