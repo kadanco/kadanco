@@ -1,0 +1,119 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import glossary from '../../data/glossary.json';
+
+export function getStaticPaths() {
+  return glossary.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const OWNED = ['European Market Entry', 'Compliance & Privacy', 'Events & Field'];
+const owned = OWNED.includes(entry.category);
+
+const nameBySlug = Object.fromEntries(glossary.map((t) => [t.slug, t.term]));
+const titleCase = (s) => s.split('-').map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : w)).join(' ');
+const related = (entry.related || []).map((slug) => ({
+  slug,
+  label: nameBySlug[slug] || titleCase(slug),
+  exists: Object.prototype.hasOwnProperty.call(nameBySlug, slug),
+}));
+---
+<Layout title={`${entry.term} | Kadanco Glossary`} description={entry.oneLiner}>
+  <main>
+    <section class="gl-term-hero" data-theme="light">
+      <div class="container">
+        <nav class="gl-crumb" aria-label="Breadcrumb"><a href="/glossary/">Glossary</a> <span class="sep">/</span> <span>{entry.category}</span></nav>
+        <span class={`gl-tag ${owned ? 'owned' : ''}`}>{owned && <span class="d" aria-hidden="true"></span>}{entry.category}</span>
+        <h1>{entry.term}</h1>
+        {entry.aliases && <p class="gl-alias">Also: {entry.aliases}</p>}
+        <p class="gl-def">{entry.oneLiner}</p>
+      </div>
+    </section>
+
+    <section class="gl-body" data-theme="light">
+      <div class="container">
+        <div class="gl-grid">
+          <section class="gl-sec"><h2>Why it matters</h2><p>{entry.whyItMatters}</p></section>
+
+          {entry.formula && (
+            <section class="gl-sec"><h2>How it is calculated</h2><p class="gl-formula">{entry.formula}</p></section>
+          )}
+
+          <section class="gl-sec"><h2>What good looks like</h2><p>{entry.benchmark}</p></section>
+
+          <aside class="gl-take">
+            <div class="gl-take-h">
+              <span class="gl-take-mark" aria-hidden="true">K</span>
+              <span class="gl-take-ht">
+                <span class="gl-take-label">The operator's take</span>
+                <span class="gl-take-sub">How Kadanco actually uses this</span>
+              </span>
+            </div>
+            <p>{entry.operatorTake}</p>
+          </aside>
+
+          {entry.euNote && (
+            <section class="gl-sec owned"><h2><span class="d" aria-hidden="true"></span>In the European market</h2><p>{entry.euNote}</p></section>
+          )}
+
+          <section class="gl-sec gl-rel-sec"><h2>Related terms</h2>
+            <div class="gl-related">
+              {related.map((r) => (
+                r.exists
+                  ? <a class="gl-rel" href={`/glossary/${r.slug}/`}>{r.label}</a>
+                  : <span class="gl-rel dead">{r.label}</span>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-band center" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Free audit</span>
+        <h2>Reading about it is the easy part. <span class="hl">We run it.</span></h2>
+        <p class="lead" style="margin-top:20px">Tell us where you are trying to grow, and we will show you the few moves that matter most, then make them.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-lg" data-open-modal>Get a free audit</button>
+        </div>
+        <p class="cta-note">Free, no obligation. We will get back to you quickly.</p>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .gl-term-hero { padding: 120px 0 38px; background: #fff; border-bottom: 1px solid var(--border); }
+    .gl-crumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+    .gl-crumb a { color: var(--indigo); text-decoration: none; }
+    .gl-crumb a:hover { text-decoration: underline; }
+    .gl-crumb .sep { opacity: 0.5; margin: 0 4px; }
+    .gl-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--field); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; }
+    .gl-tag.owned { color: var(--indigo); }
+    .gl-tag .d { width: 7px; height: 7px; border-radius: 2px; background: var(--lime); display: inline-block; }
+    .gl-term-hero h1 { margin: 16px 0 0; }
+    .gl-alias { margin: 8px 0 0; font-size: 0.92rem; color: var(--muted); }
+    .gl-def { margin: 18px 0 0; font-size: clamp(1.12rem, 1.7vw, 1.4rem); line-height: 1.5; color: var(--ink); max-width: 760px; }
+
+    .gl-body { padding: 44px 0 84px; background: var(--bg); }
+    .gl-grid { display: grid; gap: 30px; max-width: 780px; }
+    .gl-sec h2 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); margin: 0 0 10px; }
+    .gl-sec.owned h2 { color: var(--ink); display: flex; align-items: center; gap: 7px; }
+    .gl-sec.owned h2 .d { width: 8px; height: 8px; border-radius: 2px; background: var(--lime); display: inline-block; }
+    .gl-sec p { margin: 0; font-size: 1.04rem; color: var(--ink); line-height: 1.62; }
+    .gl-formula { font-weight: 500; background: var(--field); border: 1px solid var(--border); border-left: 3px solid var(--indigo); border-radius: 8px; padding: 14px 16px; font-size: 0.98rem !important; }
+
+    .gl-take { background: linear-gradient(180deg, rgba(59,56,223,0.05), rgba(59,56,223,0.02)); border: 1px solid var(--border); border-left: 4px solid var(--lime); border-radius: 12px; padding: 22px 24px; }
+    .gl-take-h { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+    .gl-take-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: var(--lime); display: grid; place-items: center; font-weight: 800; font-size: 0.82rem; flex: none; }
+    .gl-take-ht { display: flex; flex-direction: column; line-height: 1.25; }
+    .gl-take-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+    .gl-take-sub { font-size: 0.72rem; color: var(--muted); }
+    .gl-take p { margin: 0; font-size: 1.04rem; line-height: 1.64; color: var(--ink); }
+
+    .gl-related { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gl-rel { font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--indigo); background: rgba(59,56,223,0.06); border: 1px solid rgba(59,56,223,0.18); border-radius: 999px; padding: 7px 13px; text-decoration: none; }
+    .gl-rel:hover { background: rgba(59,56,223,0.12); }
+    .gl-rel.dead { color: var(--muted); background: #fff; border-color: var(--border); cursor: default; }
+  </style>
+</Layout>

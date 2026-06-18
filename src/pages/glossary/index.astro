@@ -1,0 +1,214 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import glossary from '../../data/glossary.json';
+
+const OWNED = ['European Market Entry', 'Compliance & Privacy', 'Events & Field'];
+const isOwned = (c) => OWNED.includes(c);
+
+const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term, 'en'));
+
+const firstLetter = (t) => {
+  const c = t.term.replace(/^[^A-Za-z]+/, '').charAt(0).toUpperCase();
+  return c || '#';
+};
+
+const groups = {};
+for (const t of terms) {
+  const L = firstLetter(t);
+  (groups[L] = groups[L] || []).push(t);
+}
+const groupLetters = Object.keys(groups).sort();
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+const categories = [...new Set(terms.map((t) => t.category))].sort(
+  (a, b) => (isOwned(b) - isOwned(a)) || a.localeCompare(b)
+);
+const total = terms.length;
+---
+<Layout
+  title="B2B Marketing Glossary | Kadanco"
+  description="Plain-English definitions of B2B marketing terms, written by operators. Every term defined, plus how to actually use it, where teams go wrong, and what it means in the European market."
+>
+  <main>
+    <section class="hero gl-hero" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow">Glossary</span>
+        <h1>The B2B marketing glossary,<br />written by <span class="hl">operators</span>.</h1>
+        <p class="lead">Plain-English definitions for B2B founders and teams. Every term defined, plus how an operator actually uses it, where teams go wrong, and what it means in the European market.</p>
+        <p class="gl-count-pill"><b>{total}</b> terms and growing</p>
+      </div>
+    </section>
+
+    <div class="gl-controls" data-theme="light">
+      <div class="container gl-controls-in">
+        <div class="gl-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input id="gl-q" type="search" placeholder="Search terms, for example GDPR, localization, events" aria-label="Search the glossary" autocomplete="off" />
+        </div>
+        <div class="gl-chips" role="group" aria-label="Filter by category">
+          <button class="gl-chip" data-cat="All" aria-pressed="true">All</button>
+          {categories.map((c) => (
+            <button class={`gl-chip ${isOwned(c) ? 'owned' : ''}`} data-cat={c} aria-pressed="false">{c}</button>
+          ))}
+        </div>
+        <nav class="gl-az" aria-label="Jump to letter">
+          {alphabet.map((L) => (
+            groups[L]
+              ? <a href={`#gl-${L}`} data-letter={L}>{L}</a>
+              : <span class="gl-off" data-letter={L} aria-hidden="true">{L}</span>
+          ))}
+        </nav>
+      </div>
+    </div>
+
+    <section class="gl-list" data-theme="light">
+      <div class="container">
+        <p class="gl-meta"><span id="gl-count">{total}</span> terms</p>
+        <div id="gl-empty" class="gl-empty" hidden>
+          <strong>No terms match that.</strong> Try a different word, or clear the filter.
+        </div>
+        {groupLetters.map((L) => (
+          <section class="gl-group" data-letter={L} id={`gl-${L}`}>
+            <div class="gl-group-h"><span class="gl-ltr">{L}</span><span class="gl-gn">{groups[L].length}</span></div>
+            <div class="gl-cards">
+              {groups[L].map((t) => (
+                <a
+                  class="gl-card"
+                  href={`/glossary/${t.slug}/`}
+                  data-cat={t.category}
+                  data-text={`${t.term} ${t.aliases} ${t.oneLiner} ${t.category}`.toLowerCase()}
+                >
+                  <span class="gl-card-top">
+                    <span class="gl-card-name">{t.term}</span>
+                    <span class={`gl-card-cat ${isOwned(t.category) ? 'owned' : ''}`}>{t.category}</span>
+                  </span>
+                  <span class="gl-card-def">{t.oneLiner}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+
+    <section class="section cta-band center" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Free audit</span>
+        <h2>Know the terms. <span class="hl">Now fix the funnel.</span></h2>
+        <p class="lead" style="margin-top:20px">We will show you the few moves that matter most for your pipeline, then we will make them.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-lg" data-open-modal>Get a free audit</button>
+        </div>
+        <p class="cta-note">Free, no obligation. We will get back to you quickly.</p>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .gl-hero { padding-bottom: 56px; }
+    .gl-count-pill { display: inline-flex; align-items: baseline; gap: 8px; margin: 30px 0 0; padding: 9px 16px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); }
+    .gl-count-pill b { font-size: 1.25rem; font-weight: 800; color: var(--lime); }
+
+    .gl-controls { position: sticky; top: 0; z-index: 60; background: rgba(241,240,237,0.94); backdrop-filter: saturate(140%) blur(8px); -webkit-backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .gl-controls-in { display: flex; flex-direction: column; gap: 14px; }
+    .gl-search { position: relative; }
+    .gl-search input { width: 100%; font-family: inherit; font-size: 1rem; color: var(--ink); background: var(--field); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px 13px 42px; }
+    .gl-search input::placeholder { color: var(--muted); }
+    .gl-search input:focus { outline: none; border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(59,56,223,0.16); }
+    .gl-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+    .gl-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gl-chip { font-family: inherit; font-size: 0.82rem; font-weight: 500; color: var(--muted); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 7px 13px; cursor: pointer; white-space: nowrap; transition: border-color 0.12s ease, background 0.12s ease, color 0.12s ease; }
+    .gl-chip:hover { border-color: #c9c9dd; }
+    .gl-chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .gl-chip.owned { border-bottom: 2px solid var(--lime); }
+    .gl-chip.owned[aria-pressed="true"] { background: var(--indigo); border-color: var(--indigo); }
+    .gl-az { display: flex; flex-wrap: wrap; gap: 2px; }
+    .gl-az a, .gl-az span { font-size: 0.82rem; font-weight: 600; padding: 4px 7px; border-radius: 6px; text-decoration: none; }
+    .gl-az a { color: var(--indigo); cursor: pointer; }
+    .gl-az a:hover { background: rgba(59,56,223,0.08); }
+    .gl-az .gl-off { color: var(--muted); opacity: 0.4; }
+
+    .gl-list { padding: 40px 0 96px; background: var(--bg); }
+    .gl-meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 22px; }
+    .gl-empty { padding: 56px 0; text-align: center; color: var(--muted); }
+    .gl-empty strong { display: block; color: var(--ink); font-size: 1.2rem; margin-bottom: 6px; }
+    .gl-group { margin-bottom: 34px; scroll-margin-top: 168px; }
+    .gl-group-h { display: flex; align-items: baseline; gap: 10px; padding-bottom: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
+    .gl-group-h .gl-ltr { font-size: 1.5rem; font-weight: 800; color: var(--ink); }
+    .gl-group-h .gl-gn { font-size: 0.78rem; color: var(--muted); }
+    .gl-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    @media (min-width: 640px) { .gl-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .gl-cards { grid-template-columns: repeat(3, 1fr); } }
+    .gl-card { display: block; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; text-decoration: none; color: var(--ink); transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease; }
+    .gl-card:hover { border-color: #c9c9dd; box-shadow: 0 6px 22px rgba(26,1,117,0.06); transform: translateY(-1px); }
+    .gl-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .gl-card-name { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.01em; }
+    .gl-card-cat { flex: none; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-align: right; }
+    .gl-card-cat.owned { color: var(--indigo); }
+    .gl-card-cat.owned::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 2px; background: var(--lime); margin-right: 5px; vertical-align: middle; }
+    .gl-card-def { display: block; margin-top: 7px; font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+    .gl-hide { display: none !important; }
+  </style>
+
+  <script is:inline>
+    (function () {
+      var q = document.getElementById('gl-q');
+      var chips = Array.prototype.slice.call(document.querySelectorAll('.gl-chip'));
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.gl-card'));
+      var groups = Array.prototype.slice.call(document.querySelectorAll('.gl-group'));
+      var azLinks = Array.prototype.slice.call(document.querySelectorAll('.gl-az a'));
+      var countEl = document.getElementById('gl-count');
+      var emptyEl = document.getElementById('gl-empty');
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var state = { q: '', cat: 'All' };
+
+      function apply() {
+        var qq = state.q.trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (c) {
+          var okCat = state.cat === 'All' || c.getAttribute('data-cat') === state.cat;
+          var okQ = !qq || c.getAttribute('data-text').indexOf(qq) >= 0;
+          var vis = okCat && okQ;
+          c.classList.toggle('gl-hide', !vis);
+          if (vis) shown++;
+        });
+        var present = {};
+        groups.forEach(function (g) {
+          var any = g.querySelectorAll('.gl-card:not(.gl-hide)').length;
+          g.classList.toggle('gl-hide', any === 0);
+          if (any) present[g.getAttribute('data-letter')] = true;
+        });
+        azLinks.forEach(function (a) {
+          var on = !!present[a.getAttribute('data-letter')];
+          a.style.pointerEvents = on ? '' : 'none';
+          a.style.opacity = on ? '' : '0.4';
+        });
+        if (countEl) countEl.textContent = shown;
+        if (emptyEl) emptyEl.hidden = shown !== 0;
+      }
+
+      if (q) q.addEventListener('input', function () { state.q = q.value; apply(); });
+      chips.forEach(function (ch) {
+        ch.addEventListener('click', function () {
+          var c = ch.getAttribute('data-cat');
+          state.cat = state.cat === c ? 'All' : c;
+          chips.forEach(function (x) {
+            x.setAttribute('aria-pressed', x.getAttribute('data-cat') === state.cat ? 'true' : 'false');
+          });
+          if (state.cat === 'All') {
+            document.querySelector('.gl-chip[data-cat="All"]').setAttribute('aria-pressed', 'true');
+          }
+          apply();
+        });
+      });
+      azLinks.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          var L = a.getAttribute('data-letter');
+          var g = document.getElementById('gl-' + L);
+          if (g && !g.classList.contains('gl-hide')) g.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+        });
+      });
+    })();
+  </script>
+</Layout>
