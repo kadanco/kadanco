@@ -1,59 +1,38 @@
 ---
 // src/layouts/Layout.astro
 //
-// IMPORTANT, reconcile the <head> below with your CURRENT Layout.astro.
-// I did not have your original Layout, so I reconstructed a sensible head
-// (charset, viewport, title/description, canonical, OG/Twitter, favicon, fonts,
-// global.css). Keep anything you already have that is not here: analytics,
-// specific favicon files, a real og-default image, verification tags, etc.
-// If you paste your current Layout, I will merge precisely instead.
-//
-// What changed structurally: Layout now renders the shared Nav, Footer and
-// ContactModal around <slot/>, and owns the global UI script (colour-aware nav,
-// scroll progress, section spy). Pages no longer hard-code any of these.
+// Head restored verbatim from the pre-refactor Layout (commit 84c1d91):
+// the real adaptive favicon pair, the correct Fira Sans weights (incl. 700),
+// and the original OG tags. The only structural change versus that original is
+// the body: this Layout now renders the shared Nav, Footer and ContactModal
+// around <slot/>, and owns the global UI script (colour-aware nav, scroll
+// progress, section spy), so pages no longer hard-code any of these.
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import ContactModal from '../components/ContactModal.astro';
 
-const {
-  title = 'Kadanco. Senior marketing operators for B2B companies.',
-  description = 'Kadanco is a senior, full-stack marketing function for B2B companies. Two operators own the strategy and run the execution themselves. Owned and executed.',
-  ogImage = 'https://assets.kadanco.com/og-default.png',
-} = Astro.props;
-
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://kadanco.com').href;
+const { title, description } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#1A0175" />
-
-    <!-- Open Graph / Twitter (reconcile with your current tags) -->
-    <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <!-- Favicon (reconcile paths with what you actually have in R2 / public) -->
-    <link rel="icon" href="https://assets.kadanco.com/favicons/favicon.svg" type="image/svg+xml" />
-
-    <!-- Fira Sans (weights/method may differ from your current setup) -->
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-dark.svg" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-light.svg" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-dark.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,900;1,500&display=swap" rel="stylesheet" />
-
-    <slot name="head" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <Nav />
@@ -64,7 +43,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://kadanco.com
     <ContactModal />
 
     <!-- Global UI: colour-aware nav, scroll progress, section spy. -->
-    <!-- Moved here from index.astro so it runs on every page exactly once. -->
+    <!-- Lives here so it runs on every page exactly once. -->
     <script is:inline>
       (function () {
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
