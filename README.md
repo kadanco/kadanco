@@ -1,7 +1,9 @@
-# Kadanco — website (v1)
+# Kadanco website
 
-One-page marketing site built with [Astro](https://astro.build). Plain HTML + CSS, no
-UI framework. Design tokens come straight from the Kadanco Living Styleguide.
+Marketing site for Kadanco UG (Berlin), built with [Astro](https://astro.build) as a
+static site and deployed to Cloudflare Pages. Plain HTML and CSS, no UI framework. The
+design system lives in `src/styles/global.css` (indigo / lime / periwinkle palette,
+Fira Sans, 10px corner radius).
 
 ## Run it
 
@@ -12,70 +14,70 @@ npm run build    # static output in ./dist
 npm run preview  # preview the production build
 ```
 
-The pages are fully static. The one dynamic piece is the contact Function in
-`functions/` — Cloudflare Pages picks that up automatically when you deploy via
-**Git** or `npx wrangler pages deploy dist` (run from the project root). A bare
-drag-and-drop of `./dist` will publish the site but skip the function, so the form
-won't send.
-
-## Before you launch — replace these placeholders
-
-- **Logo** — `src/layouts/Layout.astro` (favicon) and the `.brandmark` blocks in
-  `src/pages/index.astro` (a green tile + "Kadanco" wordmark). Search for `LOGO PLACEHOLDER`.
-- **Founder photos** — the round `.avatar` initials in the founders section. Search for
-  `PHOTO PLACEHOLDER`.
-- **Contact form** — already wired to ping Slack or Discord via a Cloudflare Pages
-  Function (`functions/api/contact.js`). You just need to add the webhook secret —
-  see "Form notifications" below.
-- **Footer links** — `hello@kadanco.com` and the LinkedIn URL.
-- **Karan's bio** — placeholder-level until you add titles, rough dates and one concrete win.
-
-## Form notifications (Slack / Discord)
-
-Every submission is sent to a Slack or Discord channel by the Cloudflare Function. The
-function auto-detects which one from the URL, so you only set one secret.
-
-**1. Get an incoming-webhook URL**
-- *Slack:* create an app at api.slack.com/apps → enable **Incoming Webhooks** → **Add New
-  Webhook to Workspace** → pick a channel → copy the URL.
-- *Discord:* channel → **Edit Channel → Integrations → Webhooks → New Webhook** → **Copy
-  Webhook URL**.
-
-**2. Add it to Cloudflare** — your Pages project → **Settings → Variables and Secrets** →
-add an **encrypted** variable named `WEBHOOK_URL` set to that URL (Production, and Preview
-if you want test deploys to notify too). Redeploy.
-
-**3. Test locally (optional)** — `astro dev` does not run Functions. To test the form end
-to end on your machine:
-```bash
-cp .dev.vars.example .dev.vars   # paste your real WEBHOOK_URL inside
-npm run build
-npx wrangler pages dev dist      # serves the site + the function
-```
-
-Spam is filtered with a honeypot field; the front-end shows a sending state, a success
-panel, and a readable error (with your email as a fallback) if delivery ever fails.
-
 ## Structure
+
+The site is component-based. `src/layouts/Layout.astro` owns the `<head>` and renders the
+shared `Nav`, `Footer` and `ContactModal` around each page's `<slot/>`, plus the global UI
+script (colour-aware nav, scroll progress, section spy) and the consent + analytics tags.
+Pages just wrap their content in `<Layout>`.
 
 ```
 functions/
-  api/contact.js         # Cloudflare Function: receives the form, pings Slack/Discord
+  api/contact.js            Cloudflare Pages Function: contact form -> Plunk
 src/
-  layouts/Layout.astro   # <head>, fonts, meta, favicon
-  pages/index.astro      # the whole page + contact modal + modal script
-  styles/global.css      # design tokens, tactile buttons, all components
-public/                  # static assets (add your logo/og image here)
+  layouts/Layout.astro      <head>, shared chrome, global script, GTM + CookieYes
+  components/               Nav, Footer, ContactModal, ComparisonMatrix,
+                            UseCaseSpotlight, CadenceTimeline
+  pages/
+    index.astro             homepage
+    imprint.astro           Impressum + privacy policy
+    glossary/index.astro    glossary index (search, category filter, A-Z)
+    glossary/[slug].astro   one page per term, from src/data/glossary.json
+  data/glossary.json        glossary content
+  styles/global.css         design tokens and all shared components
+public/                     static assets served at the site root
 astro.config.mjs
-.dev.vars.example        # template for local function testing
+.dev.vars.example           template for local Function testing
 ```
 
-## Design notes
+All client scripts are written with `is:inline` so they are emitted verbatim and never
+bundled into `/_astro/*.js`. This keeps single-page previews working standalone. Keep any
+new scripts inline.
 
-- Fonts: Plus Jakarta Sans (display/body) + JetBrains Mono (labels), loaded from Google
-  Fonts in `Layout.astro`. Swap to `@fontsource/*` packages later if you want them self-hosted.
-- Signature element: the tactile "hard offset shadow" buttons (`.btn-*` in `global.css`).
-- The brand green (`#00d26a`) is used as a fill only, never as text on a light background
-  (it fails contrast). Emphasis in copy uses a green underline instead — see `.mark`.
-- Service taglines were rewritten in Kadanco's own voice (the originals matched a competitor
-  word-for-word). They live in the `groups` array at the top of `index.astro` if you want to edit.
+## Deployment
+
+Push to `main` and Cloudflare Pages builds and deploys automatically (build `npm run
+build`, output `dist`). The Pages Function in `functions/` is picked up automatically on
+Git deploys. A bare drag-and-drop of `./dist` would publish the site but skip the
+function, so the contact form would not send.
+
+## Contact form (Plunk)
+
+The contact modal posts to `/api/contact`, a Cloudflare Pages Function that validates the
+submission (with a honeypot for bots) and sends it to Plunk as a `contact-form-submitted`
+event.
+
+Set the secret in Cloudflare: Pages project -> Settings -> Variables and Secrets -> add an
+encrypted variable `PLUNK_API_KEY` (Production, and Preview too if you want test deploys to
+send). To test locally:
+
+```bash
+cp .dev.vars.example .dev.vars   # paste your real PLUNK_API_KEY inside
+npm run build
+npx wrangler pages dev dist      # serves the site plus the function
+```
+
+## Analytics and consent
+
+Google Tag Manager (container `GTM-MF44PR8H`) and the CookieYes consent banner are wired in
+`Layout.astro`. CookieYes loads first and sets Google Consent Mode defaults to denied; GA4
+and any other tags are configured inside the GTM container and fire only after the visitor
+consents. GA4's measurement ID lives in GTM, not in this repo. To change the GTM or
+CookieYes IDs, edit `Layout.astro`.
+
+## House rules
+
+- No em dashes anywhere in copy (use commas, periods, colons or parentheses).
+- Plain words over jargon.
+- Brand assets (logos, favicons, badges) are served from the R2 bucket at
+  https://assets.kadanco.com.

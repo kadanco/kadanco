@@ -24,6 +24,19 @@ const { title, description } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+
+    <!-- Consent + analytics. CookieYes loads FIRST and sets Google Consent Mode
+         defaults (all denied) before GTM. GA4 and any other tags are configured
+         INSIDE the GTM container and fire only after consent. Both are is:inline
+         so they emit verbatim and are never bundled (standalone previews keep
+         working). Do not reorder: CookieYes must come before GTM. -->
+    <!-- Start cookieyes banner -->
+    <script is:inline id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/abbfd62297b528b6e712cd6a9df37028/script.js"></script>
+    <!-- End cookieyes banner -->
+    <!-- Google Tag Manager -->
+    <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MF44PR8H');</script>
+    <!-- End Google Tag Manager -->
+
     <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-dark.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-light.svg" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="https://assets.kadanco.com/logo/favicon-dark.svg" />
@@ -35,6 +48,9 @@ const { title, description } = Astro.props;
     />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF44PR8H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <Nav />
 
     <slot />
