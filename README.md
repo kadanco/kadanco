@@ -7,6 +7,9 @@ Fira Sans, 10px corner radius).
 
 ## Run it
 
+Requires **Node 22.12 or newer** (Astro 7). The repo pins this via `.nvmrc`, which
+Cloudflare Pages also reads when it builds.
+
 ```bash
 npm install
 npm run dev      # local dev server at http://localhost:4321
@@ -37,6 +40,8 @@ src/
   styles/global.css         design tokens and all shared components
 public/                     static assets served at the site root
 astro.config.mjs
+tsconfig.json
+.nvmrc                      Node version for local dev and Cloudflare builds
 .dev.vars.example           template for local Function testing
 ```
 
