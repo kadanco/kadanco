@@ -1,8 +1,17 @@
 ---
 // src/components/Footer.astro
 // Shared site footer. Rendered once by Layout.astro.
+// The use-case row is the mobile-reachable route to those pages, since the nav
+// dropdowns are hidden below 880px.
 ---
 <footer class="footer" data-theme="light">
+  <div class="container footer-uc">
+    <span class="footer-uc-label">Use cases</span>
+    <a href="/use-cases/dach-market-entry/">DACH market entry</a>
+    <a href="/use-cases/founder-led-content/">Founder-led content</a>
+    <a href="/use-cases/conversion-rebuild/">Conversion rebuild</a>
+    <a href="/use-cases/event-pipeline/">Event pipeline</a>
+  </div>
   <div class="container footer-inner">
     <a class="brand" href="/" aria-label="Kadanco, home"><img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" /></a>
     <p class="small">© 2026 Kadanco UG</p>
@@ -14,3 +23,20 @@
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-uc {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 10px 22px;
+    padding-bottom: 20px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .footer-uc-label {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--indigo);
+  }
+  .footer-uc a {
+    color: var(--muted); text-decoration: none; font-size: 0.92rem;
+  }
+  .footer-uc a:hover { color: var(--indigo); }
+</style>

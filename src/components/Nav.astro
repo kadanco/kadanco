@@ -18,7 +18,19 @@
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a class="navlink" href="/#services">Services</a>
-      <a class="navlink" href="/#use-cases">Use Cases</a>
+      <div class="nav-resources">
+        <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false">
+          Use Cases
+          <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-resources-menu nav-resources-menu--wide" role="menu">
+          <a class="nav-resources-link" href="/use-cases/dach-market-entry/" role="menuitem">DACH market entry</a>
+          <a class="nav-resources-link" href="/use-cases/founder-led-content/" role="menuitem">Founder-led content</a>
+          <a class="nav-resources-link" href="/use-cases/conversion-rebuild/" role="menuitem">Conversion rebuild</a>
+          <a class="nav-resources-link" href="/use-cases/event-pipeline/" role="menuitem">Event pipeline</a>
+          <a class="nav-resources-link nav-resources-link--all" href="/#use-cases" role="menuitem">All use cases</a>
+        </div>
+      </div>
       <a class="navlink" href="/#founders">Who We Are</a>
       <a class="navlink" href="/#faq">FAQ</a>
       <div class="nav-resources">
@@ -73,31 +85,46 @@
     transition: background 0.15s ease, color 0.15s ease;
   }
   .nav-resources-link:hover { background: var(--field); color: var(--indigo); }
+  /* the use-cases menu carries longer labels than Resources */
+  .nav-resources-menu--wide { min-width: 236px; }
+  .nav-resources-link--all {
+    margin-top: 5px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.9rem;
+  }
 
   @media (max-width: 880px) { .nav-resources { display: none; } }
 </style>
 
 <script is:inline>
   (function () {
-    var wrap = document.querySelector('.nav-resources');
-    if (!wrap) return;
-    var trigger = wrap.querySelector('.nav-resources-trigger');
-    function close() {
+    // There is more than one dropdown in the nav (Use Cases, Resources), so this
+    // handles all of them: opening one closes the others.
+    var wraps = Array.prototype.slice.call(document.querySelectorAll('.nav-resources'));
+    if (!wraps.length) return;
+    function close(wrap) {
       wrap.classList.remove('open');
-      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      var t = wrap.querySelector('.nav-resources-trigger');
+      if (t) t.setAttribute('aria-expanded', 'false');
     }
-    if (trigger) {
+    function closeAll(except) {
+      wraps.forEach(function (w) { if (w !== except) close(w); });
+    }
+    wraps.forEach(function (wrap) {
+      var trigger = wrap.querySelector('.nav-resources-trigger');
+      if (!trigger) return;
       trigger.addEventListener('click', function (e) {
         e.preventDefault();
         var isOpen = wrap.classList.toggle('open');
         trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (isOpen) closeAll(wrap);
       });
-    }
+    });
     document.addEventListener('click', function (e) {
-      if (!wrap.contains(e.target)) close();
+      wraps.forEach(function (w) { if (!w.contains(e.target)) close(w); });
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') close();
+      if (e.key === 'Escape') closeAll(null);
     });
   })();
 </script>

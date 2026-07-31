@@ -1,5 +1,5 @@
 ---
-interface Item { eyebrow: string; name: string; summary: string; bundle: string[]; own: string; }
+interface Item { eyebrow: string; name: string; summary: string; bundle: string[]; own: string; href?: string; }
 interface Props { items: Item[]; interval?: number; }
 const { items, interval = 3000 } = Astro.props;
 ---
@@ -11,7 +11,10 @@ const { items, interval = 3000 } = Astro.props;
           <span class="ucs-eyebrow">{it.eyebrow}</span>
           <h3 class="ucs-title">{it.name}</h3>
           <p class="ucs-summary">{it.summary}</p>
-          <button class="ucs-flip" type="button" data-flip>Details <span aria-hidden="true">&#8594;</span></button>
+          <div class="ucs-actions">
+            <button class="ucs-flip" type="button" data-flip>Details <span aria-hidden="true">&#8594;</span></button>
+            {it.href && <a class="ucs-link" href={it.href} data-page>Full use case <span aria-hidden="true">&#8594;</span></a>}
+          </div>
         </div>
         <div class="ucs-face ucs-back">
           <span class="ucs-back-h">The bundle</span>
@@ -19,7 +22,10 @@ const { items, interval = 3000 } = Astro.props;
             {it.bundle.map((b) => <li>{b}</li>)}
           </ul>
           <p class="ucs-own"><strong>What you own.</strong> {it.own}</p>
-          <button class="ucs-flip ucs-flip--back" type="button" data-flip><span aria-hidden="true">&#8592;</span> Back</button>
+          <div class="ucs-actions">
+            <button class="ucs-flip ucs-flip--back" type="button" data-flip><span aria-hidden="true">&#8592;</span> Back</button>
+            {it.href && <a class="ucs-link ucs-link--back" href={it.href} data-page>Full use case <span aria-hidden="true">&#8594;</span></a>}
+          </div>
         </div>
       </article>
     ))}
@@ -57,6 +63,12 @@ const { items, interval = 3000 } = Astro.props;
   .ucs-flip { margin-top: auto; padding-top: 20px; align-self: flex-start; background: none; border: none; font: inherit; font-size: 0.86rem; font-weight: 600; color: var(--indigo); cursor: pointer; }
   .ucs-flip--back { color: var(--periwinkle); }
   .ucs-flip span { display: inline-block; transition: transform 0.2s ease; }
+  .ucs-actions { margin-top: auto; padding-top: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .ucs-actions .ucs-flip { margin-top: 0; padding-top: 0; }
+  .ucs-link { font-size: 0.86rem; font-weight: 600; color: var(--indigo); text-decoration: none; }
+  .ucs-link span { display: inline-block; transition: transform 0.2s ease; }
+  .ucs-link:hover span { transform: translateX(3px); }
+  .ucs-link--back { color: var(--lime); }
   .ucs-card:hover .ucs-front .ucs-flip span { transform: translateX(3px); }
   .ucs-card:hover .ucs-back .ucs-flip span { transform: translateX(-3px); }
 
@@ -70,6 +82,7 @@ const { items, interval = 3000 } = Astro.props;
     .ucs-face { opacity: 1 !important; transform: none !important; }
     .ucs-back { margin-top: 14px; }
     .ucs-dots, .ucs-flip { display: none; }
+    .ucs-actions { padding-top: 14px; }
   }
 </style>
 
@@ -98,7 +111,10 @@ const { items, interval = 3000 } = Astro.props;
         function next() { show(idx + 1); }
 
         cards.forEach(function (c) {
-          c.addEventListener('click', function () { c.classList.toggle('is-flipped'); });
+          c.addEventListener('click', function (e) {
+            if (e.target && e.target.closest && e.target.closest('[data-page]')) return;
+            c.classList.toggle('is-flipped');
+          });
         });
         dots.forEach(function (d, i) { d.addEventListener('click', function () { show(i); }); });
         ucs.addEventListener('mouseenter', function () { hoverPaused = true; });
