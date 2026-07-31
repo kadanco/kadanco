@@ -69,7 +69,8 @@ const useCases = [
     </div>
 
     <nav class="foot-legal" aria-label="Legal">
-      <a href="/imprint/">{t('footer.legal')}</a>
+      <a href={localizedHref(locale, '/imprint/')}>{t('footer.imprint')}</a>
+      <a href={localizedHref(locale, '/privacy-policy/')}>{t('footer.privacy')}</a>
     </nav>
 
     <div class="foot-bottom">

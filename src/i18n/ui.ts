@@ -24,8 +24,8 @@ export const localeNames: Record<Locale, string> = {
 };
 
 // Paths (English form, no locale prefix, no trailing slash) that have a REAL
-// translated page. The imprint is deliberately absent: its German version needs
-// legally reviewed text, so it stays English-only for now.
+// translated page. The English and German legal pages each stand on their own;
+// neither is presented as a translation of the other.
 export const translatedRoutes: Partial<Record<Locale, string[]>> = {
   de: [
     '/',
@@ -33,6 +33,8 @@ export const translatedRoutes: Partial<Record<Locale, string[]>> = {
     '/use-cases/founder-led-content',
     '/use-cases/conversion-rebuild',
     '/use-cases/event-pipeline',
+    '/privacy-policy',
+    '/imprint',
   ],
 };
 
@@ -65,7 +67,8 @@ const en: Dict = {
   'footer.head.company': 'Company',
   'footer.head.resources': 'Resources',
   'footer.head.contact': 'Contact',
-  'footer.legal': 'Imprint & Privacy',
+  'footer.imprint': 'Imprint',
+  'footer.privacy': 'Privacy Policy',
   'footer.linkedin': 'Kadanco on LinkedIn',
 
   // contact modal
@@ -115,7 +118,8 @@ const de: Dict = {
   'footer.head.company': 'Unternehmen',
   'footer.head.resources': 'Ressourcen',
   'footer.head.contact': 'Kontakt',
-  'footer.legal': 'Impressum & Datenschutz',
+  'footer.imprint': 'Impressum',
+  'footer.privacy': 'Datenschutzerklärung',
   'footer.linkedin': 'Kadanco auf LinkedIn',
 
   // contact modal
