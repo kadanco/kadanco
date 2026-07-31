@@ -9,13 +9,17 @@
 //
 // The link columns matter on mobile: the nav dropdowns are hidden below 880px,
 // so this is the only route to the use-case and glossary pages on a phone.
+import { asLocale, useTranslations, localizedHref } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+const t = useTranslations(locale);
 const year = new Date().getFullYear();
 
 const useCases = [
-  { label: 'DACH market entry', href: '/use-cases/dach-market-entry/' },
-  { label: 'Founder-led content', href: '/use-cases/founder-led-content/' },
-  { label: 'Conversion rebuild', href: '/use-cases/conversion-rebuild/' },
-  { label: 'Event pipeline', href: '/use-cases/event-pipeline/' },
+  { key: 'uc.dach', href: '/use-cases/dach-market-entry/' },
+  { key: 'uc.founder', href: '/use-cases/founder-led-content/' },
+  { key: 'uc.conversion', href: '/use-cases/conversion-rebuild/' },
+  { key: 'uc.events', href: '/use-cases/event-pipeline/' },
 ];
 ---
 <footer class="footer" data-theme="light">
@@ -23,49 +27,49 @@ const useCases = [
 
     <div class="foot-top">
       <div class="foot-brand-block">
-        <a class="brand" href="/" aria-label="Kadanco, home">
+        <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
           <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
         </a>
-        <p class="foot-tag">An embedded marketing team for B2B companies. We own the plan and run it ourselves.</p>
+        <p class="foot-tag">{t('footer.tagline')}</p>
       </div>
 
       <nav class="foot-cols" aria-label="Footer">
         <div class="foot-col">
-          <p class="foot-colhead">Use cases</p>
+          <p class="foot-colhead">{t('footer.head.usecases')}</p>
           <ul>
-            {useCases.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-            <li><a class="is-all" href="/#use-cases">All use cases</a></li>
+            {useCases.map((l) => <li><a href={localizedHref(locale, l.href)}>{t(l.key)}</a></li>)}
+            <li><a class="is-all" href={localizedHref(locale, '/#use-cases')}>{t('nav.allusecases')}</a></li>
           </ul>
         </div>
 
         <div class="foot-col">
-          <p class="foot-colhead">Company</p>
+          <p class="foot-colhead">{t('footer.head.company')}</p>
           <ul>
-            <li><a href="/#services">Services</a></li>
-            <li><a href="/#founders">Who we are</a></li>
-            <li><a href="/#faq">FAQ</a></li>
+            <li><a href={localizedHref(locale, '/#services')}>{t('nav.services')}</a></li>
+            <li><a href={localizedHref(locale, '/#founders')}>{t('nav.whoweare')}</a></li>
+            <li><a href={localizedHref(locale, '/#faq')}>{t('nav.faq')}</a></li>
           </ul>
         </div>
 
         <div class="foot-col">
-          <p class="foot-colhead">Resources</p>
+          <p class="foot-colhead">{t('footer.head.resources')}</p>
           <ul>
-            <li><a href="/glossary/">Glossary</a></li>
+            <li><a href="/glossary/">{t('nav.glossary')}</a></li>
           </ul>
         </div>
 
         <div class="foot-col">
-          <p class="foot-colhead">Contact</p>
+          <p class="foot-colhead">{t('footer.head.contact')}</p>
           <ul>
             <li><a href="mailto:hello@kadanco.com">hello@kadanco.com</a></li>
-            <li><a href="https://www.linkedin.com/company/kadanco/" aria-label="Kadanco on LinkedIn">LinkedIn</a></li>
+            <li><a href="https://www.linkedin.com/company/kadanco/" aria-label={t('footer.linkedin')}>LinkedIn</a></li>
           </ul>
         </div>
       </nav>
     </div>
 
     <nav class="foot-legal" aria-label="Legal">
-      <a href="/imprint/">Imprint &amp; Privacy</a>
+      <a href="/imprint/">{t('footer.legal')}</a>
     </nav>
 
     <div class="foot-bottom">

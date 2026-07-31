@@ -4,32 +4,40 @@
 // that shows the nav also has a working "Lets Talk" / "Get a free audit" target.
 // Opened by any [data-open-modal] button anywhere on the page.
 // The /api/contact Cloudflare Function and its Plunk secret are unchanged.
+//
+// All visible strings come from the i18n dictionary. Strings the script needs
+// (sending state, error text) are passed down as data- attributes on the form
+// so the inline script stays language-agnostic.
+import { asLocale, useTranslations } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+const t = useTranslations(locale);
 ---
 <div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal">
-    <button class="x" data-close-modal aria-label="Close dialog">✕</button>
+    <button class="x" data-close-modal aria-label={t('modal.close')}>✕</button>
     <div id="form-body">
-      <span class="eyebrow indigo">Lets Talk</span>
-      <h3 id="contact-title">Start a conversation</h3>
-      <p class="muted" style="margin-top:6px">Tell us a bit about you and we'll reach out fast to set up a chat.</p>
-      <form id="contact-form" novalidate>
+      <span class="eyebrow indigo">{t('modal.eyebrow')}</span>
+      <h3 id="contact-title">{t('modal.title')}</h3>
+      <p class="muted" style="margin-top:6px">{t('modal.lead')}</p>
+      <form id="contact-form" novalidate data-sending={t('modal.sending')} data-error={t('modal.error')} data-emailfallback={t('modal.emailfallback')}>
         <div class="hp" aria-hidden="true">
-          <label for="f-hp">Leave this field empty</label>
+          <label for="f-hp">{t('modal.hp')}</label>
           <input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
-        <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
-        <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization" /></div>
-        <div class="field"><label for="f-website">Website <span class="muted">(optional)</span></label><input id="f-website" name="website" /></div>
-        <div class="field"><label for="f-goal">What are you trying to grow?</label><textarea id="f-goal" name="goal"></textarea></div>
+        <div class="field"><label for="f-name">{t('modal.name')}</label><input id="f-name" name="name" autocomplete="name" required /></div>
+        <div class="field"><label for="f-email">{t('modal.email')}</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+        <div class="field"><label for="f-company">{t('modal.company')}</label><input id="f-company" name="company" autocomplete="organization" /></div>
+        <div class="field"><label for="f-website">{t('modal.website')} <span class="muted">{t('modal.optional')}</span></label><input id="f-website" name="website" /></div>
+        <div class="field"><label for="f-goal">{t('modal.goal')}</label><textarea id="f-goal" name="goal"></textarea></div>
         <p class="form-error" id="form-error" role="alert" style="display:none"></p>
-        <button class="btn btn-primary btn-block" type="submit">Send</button>
+        <button class="btn btn-primary btn-block" type="submit">{t('modal.send')}</button>
       </form>
     </div>
     <div id="form-success" class="success" style="display:none">
       <div class="check" aria-hidden="true">✓</div>
-      <h3>Thanks, talk soon.</h3>
-      <p class="muted" style="margin-top:6px">We'll reach out fast to set up a chat.</p>
+      <h3>{t('modal.success.title')}</h3>
+      <p class="muted" style="margin-top:6px">{t('modal.success.body')}</p>
     </div>
   </div>
 </div>
@@ -53,13 +61,13 @@
       e.preventDefault();
       if (!form.checkValidity()) { form.reportValidity(); return; }
       var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
-      btn.disabled = true; btn.textContent = 'Sending…'; errEl.style.display = 'none';
+      btn.disabled = true; btn.textContent = form.dataset.sending || 'Sending…'; errEl.style.display = 'none';
       fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ name: val('f-name'), email: val('f-email'), company: val('f-company'), website: val('f-website'), goal: val('f-goal'), _gotcha: val('f-hp') }) })
       .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) {
         if (res.ok && out.ok) { document.getElementById('form-body').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
-        else { throw new Error((out && out.error) || 'Something went wrong.'); } }); })
-      .catch(function (err) { errEl.textContent = err.message + ' You can also email hello@kadanco.com.'; errEl.style.display = 'block'; btn.disabled = false; btn.textContent = label; });
+        else { throw new Error((out && out.error) || form.dataset.error || 'Something went wrong.'); } }); })
+      .catch(function (err) { errEl.textContent = err.message + (form.dataset.emailfallback || ''); errEl.style.display = 'block'; btn.disabled = false; btn.textContent = label; });
     });
   })();
 </script>

@@ -1,0 +1,177 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import CadenceTimeline from '../../../components/CadenceTimeline.astro';
+---
+<Layout
+  title="Founder-Content und Pipeline | Kadanco"
+  description="Ein Publishing-Programm in Ihrer Stimme, das messbare Pipeline erzeugt. Messaging, Ghostwriting, SEO und GEO, vorgewärmtes Outbound und RevOps, betrieben von zwei Machern."
+>
+  <main id="top">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow">Use Case &middot; Founder-Content</span>
+        <h1>Ihre Haltung, veröffentlicht,<br><span class="hl">bis sie Pipeline erzeugt.</span></h1>
+        <p class="lead">Gründerinnen und Gründer sind die glaubwürdigste Stimme eines B2B-Unternehmens und haben am wenigsten Zeit. Wir machen aus Ihrer Haltung ein Publishing-Programm, das jede Woche läuft, ohne dass Sie schreiben, und verfolgen es bis in die Pipeline, statt bei Likes aufzuhören.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" data-open-modal>Kostenloses Audit anfordern</button>
+          <p class="hero-cta-note">Wir finden das, was nur Sie sagen können. Dann veröffentlichen wir es.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHY IT STALLS ===================== -->
+    <section class="section band-paper" data-theme="light">
+      <div class="container">
+        <span class="eyebrow dark">Warum Founder-Content stockt</span>
+        <h2>Die meisten fangen an. <span class="hl-indigo">Wenige bleiben dabei.</span></h2>
+        <div class="grid cols-3" style="margin-top:48px;text-align:left">
+          <div class="card">
+            <h3>Es läuft einen Monat</h3>
+            <p>Sie posten verlässlich, bis die erste volle Woche kommt. Dann hört es auf, und das Publikum, das Sie gerade aufgebaut haben, vergisst Sie wieder.</p>
+          </div>
+          <div class="card">
+            <h3>Es bringt Likes, keine Termine</h3>
+            <p>Das Engagement sieht gut aus, und trotzdem kommt nichts in der Pipeline an, weil niemand die Beiträge mit den gewünschten Accounts verbunden hat.</p>
+          </div>
+          <div class="card">
+            <h3>Es klingt nicht mehr nach Ihnen</h3>
+            <p>Übergeben an Junioren oder eine Agentur wird daraus Marketing-Sprache. Käufer merken das, und genau die Glaubwürdigkeit war der Punkt.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE MOTION (loop) ===================== -->
+    <section class="section" data-theme="light">
+      <div class="container">
+        <span class="eyebrow indigo">Wie das Programm läuft</span>
+        <h2>Ein Kreislauf, <span class="hl-indigo">keine Kampagne.</span></h2>
+        <p class="lead" style="margin-top:20px;max-width:740px">
+          Ihre Haltung geht jede Woche raus, das Publikum wird wärmer, und was tatsächlich konvertiert, sagt
+          uns, was als Nächstes zu schreiben ist.
+        </p>
+        <div style="max-width:1000px;margin:44px auto 0">
+          <svg viewBox="0 0 1120 320" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-label="Ein Kreislauf: Die Haltung der Gründer wird jede Woche veröffentlicht, baut ein Publikum auf, das Sie kennt, und erzeugt nachverfolgbare Pipeline. Was konvertiert, bestimmt den nächsten Beitrag.">
+            <defs>
+              <marker id="ucloopar" markerWidth="12" markerHeight="12" refX="7" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+                <path d="M1 1 L9 5 L1 9" fill="none" stroke="#3B38DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </marker>
+            </defs>
+
+            <rect x="20" y="40" width="240" height="92" rx="16" fill="#3B38DF"/>
+            <text x="140" y="80" font-family="Fira Sans" font-size="17" font-weight="600" fill="#FFFFFF" text-anchor="middle">Your point</text>
+            <text x="140" y="104" font-family="Fira Sans" font-size="17" font-weight="600" fill="#FFFFFF" text-anchor="middle">of view</text>
+
+            <rect x="300" y="40" width="240" height="92" rx="16" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+            <text x="420" y="80" font-family="Fira Sans" font-size="17" font-weight="500" fill="#201E1F" text-anchor="middle">Published</text>
+            <text x="420" y="104" font-family="Fira Sans" font-size="17" font-weight="500" fill="#201E1F" text-anchor="middle">every week</text>
+
+            <rect x="580" y="40" width="240" height="92" rx="16" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+            <text x="700" y="80" font-family="Fira Sans" font-size="17" font-weight="500" fill="#201E1F" text-anchor="middle">An audience</text>
+            <text x="700" y="104" font-family="Fira Sans" font-size="17" font-weight="500" fill="#201E1F" text-anchor="middle">that knows you</text>
+
+            <rect x="860" y="40" width="240" height="92" rx="16" fill="#DAFF02"/>
+            <text x="980" y="80" font-family="Fira Sans" font-size="17" font-weight="700" fill="#201E1F" text-anchor="middle">Pipeline</text>
+            <text x="980" y="104" font-family="Fira Sans" font-size="17" font-weight="700" fill="#201E1F" text-anchor="middle">you can trace</text>
+
+            <g fill="none" stroke="#3B38DF" stroke-width="2.5" marker-end="url(#ucloopar)">
+              <path d="M260 86 L 292 86"/>
+              <path d="M540 86 L 572 86"/>
+              <path d="M820 86 L 852 86"/>
+            </g>
+
+            <path d="M980 132 L 980 240 Q 980 262 958 262 L 162 262 Q 140 262 140 240 L 140 140" fill="none" stroke="#B2B1FF" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#ucloopar)"/>
+            <text x="560" y="292" font-family="Fira Sans" font-size="15" font-weight="500" fill="#5A5A72" text-anchor="middle">What converts tells us what to write next</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT WE RUN ===================== -->
+    <section class="section band-deep" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Was wir betreiben</span>
+        <h2>Fünf Workstreams, <span class="hl">ein Publishing-Programm.</span></h2>
+        <div class="grid cols-3" style="margin-top:48px;text-align:left">
+          <div class="card">
+            <h3>Messaging und Positionierung</h3>
+            <p>Wir finden das Wenige, das nur Sie sagen können, und die Argumente, die es wert sind, wiederholt zu werden, bis der Markt sie kennt.</p>
+          </div>
+          <div class="card">
+            <h3>Ghostwriting und Content</h3>
+            <p>Geschrieben in Ihrer Stimme, aus Ihrem Denken, nicht als generische Thought Leadership. Sie geben frei, wir veröffentlichen.</p>
+          </div>
+          <div class="card">
+            <h3>SEO und GEO</h3>
+            <p>Dieselben Gedanken so gebaut, dass sie in der Suche gefunden und von KI-Antworten zitiert werden. Ein Interview bringt monatelang Traffic.</p>
+          </div>
+          <div class="card">
+            <h3>Vorgewärmtes Outbound</h3>
+            <p>Ansprache, die ankommt, nachdem der Account Sie bereits gesehen hat. Die erste Nachricht ist eine Fortsetzung, kein Kaltstart.</p>
+          </div>
+          <div class="card">
+            <h3>RevOps, das es misst</h3>
+            <p>Content, verbunden mit Accounts, Terminen und Pipeline in Ihrem CRM. Sie sehen, was Umsatz gebracht hat und was nicht.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT YOU OWN ===================== -->
+    <section class="section band-paper" data-theme="light">
+      <div class="container">
+        <div class="split">
+          <div class="content">
+            <span class="eyebrow indigo">Was Sie bekommen</span>
+            <h2>Eine Stimme im Markt, <span class="hl-indigo">und die Pipeline als Beleg.</span></h2>
+          </div>
+          <div class="content">
+            <p class="lead">Ein Publishing-Programm, das jede Woche in Ihrer Stimme läuft, ob Sie diese Woche Zeit hatten oder nicht. Ein Publikum, das ins Vertriebsgespräch kommt und bereits weiß, wie Sie denken. Und eine Linie, der Sie vom Beitrag über den Termin bis zum Abschluss folgen können, statt eines Dashboards voller Engagement, das Sie nicht einlösen können.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FIRST 90 DAYS ===================== -->
+    <section class="section band-deep" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Die ersten 90 Tage</span>
+        <h2>Veröffentlicht in Wochen, <span class="hl">nicht irgendwann.</span></h2>
+        <CadenceTimeline
+          steps={[
+            { n: "01", title: "Verstehen", body: "Wir interviewen Sie richtig, holen die Haltung heraus, die Sie ohnehin haben, und einigen uns auf die Argumente, die Sie besetzen wollen." },
+            { n: "02", title: "Aufbauen", body: "Wir bauen Messaging, Content-Motor und Tracking und schreiben die ersten Wochen vor, damit das Programm nie von einem freien Nachmittag abhängt." },
+            { n: "03", title: "Liefern", amp: "& iterieren", body: "Sie geben frei, wir veröffentlichen, jede Woche. Danach lesen wir, was konvertiert hat, und schreiben mehr davon.", loop: "und das Publikum wächst" },
+          ]}
+        />
+      </div>
+    </section>
+
+    <!-- ===================== ONE USE CASE NOTE ===================== -->
+    <section class="section center" data-theme="light">
+      <div class="container">
+        <p class="lead" style="max-width:720px;margin:0 auto">
+          Founder-Content ist einer der Wege, auf denen Teams mit uns arbeiten. Es ist ein Use Case, nicht das
+          ganze Angebot. Dieselben zwei Macher betreiben die komplette Marketing-Funktion für B2B-Unternehmen.
+          <a class="hl-indigo" href="/de/">So funktioniert die gesamte Funktion</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="section cta-band center" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Kontakt</span>
+        <h2>Bereit, <span class="hl">zu veröffentlichen?</span></h2>
+        <p class="lead" style="margin-top:20px">Sagen Sie uns, wovon Sie in Ihrem Markt überzeugt sind. Wir machen daraus ein Programm, das jede Woche läuft.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-lg" data-open-modal>Kostenloses Audit anfordern</button>
+        </div>
+        <p class="cta-note">Kostenlos und unverbindlich. Wir melden uns schnell.</p>
+      </div>
+    </section>
+
+  </main>
+</Layout>

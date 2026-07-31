@@ -9,40 +9,82 @@
 // toggles on click (touch). The trigger reuses the .navlink class so it inherits
 // the colour-aware styling. Like the other nav links it is hidden below 880px,
 // the footer keeps the glossary reachable on mobile.
+//
+// Labels come from the i18n dictionary (src/i18n/ui.ts) and links run through
+// localizedHref, so one nav serves both languages. The language switcher reuses
+// the same dropdown markup and script as Use Cases and Resources.
+import { switcherLocales, localeNames } from '../i18n/ui';
+import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+const t = useTranslations(locale);
+const base = basePath(Astro.url.pathname, locale);
+
+const useCases = [
+  { key: 'uc.dach', href: '/use-cases/dach-market-entry/' },
+  { key: 'uc.founder', href: '/use-cases/founder-led-content/' },
+  { key: 'uc.conversion', href: '/use-cases/conversion-rebuild/' },
+  { key: 'uc.events', href: '/use-cases/event-pipeline/' },
+];
+
+// A language is a real link only where THIS page is translated; otherwise it is
+// shown greyed out, so nobody clicks through to a redirect.
+const langItems = switcherLocales.map((l) => ({
+  code: l,
+  name: localeNames[l],
+  current: l === locale,
+  available: hasTranslation(l, base),
+  href: localizeUrl(l, base === '/' ? '/' : base + '/'),
+}));
 ---
 <header class="nav nav--dark">
   <div class="container nav-inner">
-    <a class="brand" href="/" aria-label="Kadanco, home">
+    <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
       <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
       <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="navlink" href="/#services">Services</a>
+      <a class="navlink" href={localizedHref(locale, '/#services')}>{t('nav.services')}</a>
       <div class="nav-resources">
         <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false">
-          Use Cases
+          {t('nav.usecases')}
           <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-resources-menu nav-resources-menu--wide" role="menu">
-          <a class="nav-resources-link" href="/use-cases/dach-market-entry/" role="menuitem">DACH market entry</a>
-          <a class="nav-resources-link" href="/use-cases/founder-led-content/" role="menuitem">Founder-led content</a>
-          <a class="nav-resources-link" href="/use-cases/conversion-rebuild/" role="menuitem">Conversion rebuild</a>
-          <a class="nav-resources-link" href="/use-cases/event-pipeline/" role="menuitem">Event pipeline</a>
-          <a class="nav-resources-link nav-resources-link--all" href="/#use-cases" role="menuitem">All use cases</a>
+          {useCases.map((l) => (
+            <a class="nav-resources-link" href={localizedHref(locale, l.href)} role="menuitem">{t(l.key)}</a>
+          ))}
+          <a class="nav-resources-link nav-resources-link--all" href={localizedHref(locale, '/#use-cases')} role="menuitem">{t('nav.allusecases')}</a>
         </div>
       </div>
-      <a class="navlink" href="/#founders">Who We Are</a>
-      <a class="navlink" href="/#faq">FAQ</a>
+      <a class="navlink" href={localizedHref(locale, '/#founders')}>{t('nav.whoweare')}</a>
+      <a class="navlink" href={localizedHref(locale, '/#faq')}>{t('nav.faq')}</a>
       <div class="nav-resources">
         <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false">
-          Resources
+          {t('nav.resources')}
           <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <div class="nav-resources-menu" role="menu">
-          <a class="nav-resources-link" href="/glossary/" role="menuitem">Glossary</a>
+          <a class="nav-resources-link" href="/glossary/" role="menuitem">{t('nav.glossary')}</a>
         </div>
       </div>
-      <button class="btn btn-primary" data-open-modal>Lets Talk</button>
+      <div class="nav-resources nav-lang">
+        <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false" aria-label={t('lang.label')}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg>
+          <span>{localeNames[locale]}</span>
+          <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-resources-menu" role="menu">
+          {langItems.map((it) => (
+            it.current
+              ? <span class="nav-resources-link is-current" aria-current="true">{it.name}</span>
+              : it.available
+                ? <a class="nav-resources-link" href={it.href} role="menuitem" hreflang={it.code}>{it.name}</a>
+                : <span class="nav-resources-link is-soon">{it.name}</span>
+          ))}
+        </div>
+      </div>
+      <button class="btn btn-primary" data-open-modal>{t('nav.cta')}</button>
     </nav>
   </div>
 </header>
@@ -92,6 +134,11 @@
     border-top: 1px solid var(--border);
     color: var(--muted); font-size: 0.9rem;
   }
+
+  .nav-lang .nav-resources-trigger { gap: 7px; }
+  .nav-lang .nav-resources-menu { min-width: 150px; }
+  .nav-resources-link.is-current { color: var(--indigo); font-weight: 600; cursor: default; }
+  .nav-resources-link.is-soon { color: var(--muted); opacity: 0.55; cursor: default; }
 
   @media (max-width: 880px) { .nav-resources { display: none; } }
 </style>
