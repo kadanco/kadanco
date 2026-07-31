@@ -46,4 +46,10 @@ export default defineConfig({
     fallback: { de: 'en' },
   },
   integrations: [sitemap({ filter: inSitemap })],
+  // Astro 7 minifies CSS with Lightning CSS, which drops the standard
+  // `backdrop-filter` and keeps only `-webkit-backdrop-filter`. That silently
+  // removes the nav blur in Firefox. esbuild keeps both, so we use it instead.
+  vite: {
+    build: { cssMinify: 'esbuild' },
+  },
 });
