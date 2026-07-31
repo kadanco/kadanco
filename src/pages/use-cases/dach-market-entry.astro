@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ComparisonMatrix from '../../components/ComparisonMatrix.astro';
+import CadenceTimeline from '../../components/CadenceTimeline.astro';
+---
+<Layout
+  title="DACH market entry for B2B companies | Kadanco"
+  description="Enter the German market with a marketing function that builds and runs your German-language presence end to end. Positioning, content, LinkedIn and events, owned by two operators, one native German."
+>
+  <main id="top">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow">Use case &middot; DACH market entry</span>
+        <h1>A German-language presence,<br><span class="hl">built and run end to end.</span></h1>
+        <p class="lead">Translating your English site does not win German B2B buyers, and hiring a German marketing team takes months you do not have. We give you a real German-language presence (positioning, content, LinkedIn and events) built and run by two operators, one of them native German. First execution live in 14 days.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" data-open-modal>Get a free audit</button>
+          <p class="hero-cta-note">We'll map the few moves that open DACH for you, then we run them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHY IT STALLS (matrix) ===================== -->
+    <section class="section band-ink" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Why DACH entry stalls</span>
+        <h2>Going in is easy. <span class="hl">Landing is not.</span></h2>
+        <p class="lead" style="margin-top:20px;max-width:740px">
+          Most B2B companies enter DACH one of these ways, and most leak in the same places: in German, in execution, or in who owns the pipeline.
+        </p>
+        <div style="margin-top:44px">
+          <ComparisonMatrix
+            label="The usual routes into DACH"
+            theme="dark"
+            caption="No single route covers all three. <b>That is exactly what we run.</b>"
+            columns={[{ name: "In German" }, { name: "Execution", pulse: true }, { name: "Ownership" }]}
+            rows={[
+              { route: "Run it in English", reason: "Cheap and fast, but German buyers quietly pick the local vendor.", marks: ["gap", "part", "gap"] },
+              { route: "Translation agency", reason: "You get words, not a presence or a pipeline anyone owns.", marks: ["part", "gap", "gap"] },
+              { route: "German marketing hire", reason: "In-language and experienced, but slow to ramp and one person deep.", marks: ["has", "part", "part"] },
+              { route: "Freelancers", reason: "Each runs a slice; positioning, content and follow-up never add up.", marks: ["part", "part", "gap"] },
+            ]}
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT WE RUN (flow) ===================== -->
+    <section class="section band-paper" data-theme="light">
+      <div class="container">
+        <span class="eyebrow indigo">What we run in-market</span>
+        <h2>Five workstreams, <span class="hl-indigo">one German-language motion.</span></h2>
+        <p class="lead" style="margin-top:20px;max-width:740px">
+          Not a project that ends. A presence we build and keep running, scored on whether it produces pipeline.
+        </p>
+        <div style="max-width:1000px;margin:44px auto 0">
+          <svg viewBox="0 0 1120 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" role="img" aria-label="Five workstreams (localised positioning, a German content engine, LinkedIn for the team, an event motion, and distribution) run as one German-language motion that produces German pipeline.">
+            <defs>
+              <marker id="ucflowarrow" markerWidth="12" markerHeight="12" refX="7" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+                <path d="M1 1 L9 5 L1 9" fill="none" stroke="#3B38DF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </marker>
+            </defs>
+            <g fill="none" stroke="#B2B1FF" stroke-width="2">
+              <path d="M324 60  C 404 60  392 230 452 230"/>
+              <path d="M324 145 C 404 145 400 230 452 230"/>
+              <path d="M324 230 L 452 230"/>
+              <path d="M324 315 C 404 315 400 230 452 230"/>
+              <path d="M324 400 C 404 400 392 230 452 230"/>
+            </g>
+            <g font-family="Fira Sans" font-size="18" font-weight="500" fill="#201E1F">
+              <g>
+                <rect x="24" y="31" width="300" height="58" rx="14" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+                <rect x="40" y="53" width="14" height="14" rx="3" fill="#DAFF02"/>
+                <text x="68" y="65">Localised positioning</text>
+              </g>
+              <g>
+                <rect x="24" y="116" width="300" height="58" rx="14" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+                <rect x="40" y="138" width="14" height="14" rx="3" fill="#DAFF02"/>
+                <text x="68" y="150">German content engine</text>
+              </g>
+              <g>
+                <rect x="24" y="201" width="300" height="58" rx="14" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+                <rect x="40" y="223" width="14" height="14" rx="3" fill="#DAFF02"/>
+                <text x="68" y="235">LinkedIn for the team</text>
+              </g>
+              <g>
+                <rect x="24" y="286" width="300" height="58" rx="14" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+                <rect x="40" y="308" width="14" height="14" rx="3" fill="#DAFF02"/>
+                <text x="68" y="320">An event motion</text>
+              </g>
+              <g>
+                <rect x="24" y="371" width="300" height="58" rx="14" fill="#FFFFFF" stroke="#E6E6F0" stroke-width="1.5"/>
+                <rect x="40" y="393" width="14" height="14" rx="3" fill="#DAFF02"/>
+                <text x="68" y="405">Distribution that builds</text>
+              </g>
+            </g>
+            <rect x="452" y="182" width="214" height="96" rx="18" fill="#3B38DF"/>
+            <text x="559" y="222" font-family="Fira Sans" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">One German-language</text>
+            <text x="559" y="248" font-family="Fira Sans" font-size="19" font-weight="600" fill="#FFFFFF" text-anchor="middle">motion, run for you</text>
+            <path d="M666 230 L 792 230" fill="none" stroke="#3B38DF" stroke-width="2.5" marker-end="url(#ucflowarrow)"/>
+            <rect x="800" y="190" width="296" height="80" rx="16" fill="#DAFF02"/>
+            <text x="948" y="224" font-family="Fira Sans" font-size="21" font-weight="700" fill="#201E1F" text-anchor="middle">German pipeline</text>
+            <text x="948" y="248" font-family="Fira Sans" font-size="14" font-weight="500" fill="#201E1F" text-anchor="middle">meetings booked, owned end to end</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== WHAT YOU OWN ===================== -->
+    <section class="section band-deep" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">What you own</span>
+        <h2>A market presence, <span class="hl">not a translation project.</span></h2>
+        <div class="grid cols-3" style="margin-top:48px;text-align:left">
+          <div class="card">
+            <h3>A presence that grows</h3>
+            <p>A German-language presence that gets stronger every week, instead of a one-off launch that goes quiet.</p>
+          </div>
+          <div class="card">
+            <h3>Your assets, working</h3>
+            <p>The positioning, content and brand you already paid for, finally working in-market instead of sitting in English.</p>
+          </div>
+          <div class="card">
+            <h3>A pipeline motion</h3>
+            <p>A motion your salespeople plug into, with meetings and follow-up handled, not one they have to build and run themselves.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== THE EDGE ===================== -->
+    <section class="section band-paper" data-theme="light">
+      <div class="container">
+        <div class="split">
+          <div class="content">
+            <span class="eyebrow indigo">Why Kadanco for DACH</span>
+            <h2>A native operator, <span class="hl-indigo">not a translation layer.</span></h2>
+          </div>
+          <div class="content">
+            <p class="lead">Maria is a native German product and brand operator who has built for German companies. Karan runs growth and GTM. The two of them own your DACH presence and run it themselves: no junior handoffs, no agency managing freelancers. You get the actual work, in German, from the people who own it. <a class="hl-indigo" href="/#founders">Meet the operators</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FIRST 90 DAYS ===================== -->
+    <section class="section band-deep" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">The first 90 days</span>
+        <h2>Live in weeks, <span class="hl">not quarters.</span></h2>
+        <CadenceTimeline
+          steps={[
+            { n: "01", title: "Map", body: "We learn the German segment you are entering, your ICP and your numbers, then agree the few moves that open the market fastest." },
+            { n: "02", title: "Build", body: "We build the German-language presence ourselves: positioning, the content engine, LinkedIn and the first events. No briefs handed to a translator." },
+            { n: "03", title: "Ship", amp: "& iterate", body: "First execution live in weeks. Then we keep shipping into the market, and the presence gets stronger every month.", loop: "and the pipeline builds" },
+          ]}
+        />
+      </div>
+    </section>
+
+    <!-- ===================== ONE USE CASE NOTE ===================== -->
+    <section class="section center" data-theme="light">
+      <div class="container">
+        <p class="lead" style="max-width:720px;margin:0 auto">
+          DACH is one of the ways teams put Kadanco to work. It is one use case, not the whole offer. The same two operators run the full marketing function for B2B companies. <a class="hl-indigo" href="/">See how the full function works</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="section cta-band center" data-theme="dark">
+      <div class="container">
+        <span class="eyebrow peri">Lets Talk</span>
+        <h2>Ready to open <span class="hl">DACH?</span></h2>
+        <p class="lead" style="margin-top:20px">Tell us the segment you're entering. We'll show you the few moves that matter, then we'll run them.</p>
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-lg" data-open-modal>Get a free audit</button>
+        </div>
+        <p class="cta-note">Free, no obligation. We'll get back to you quickly.</p>
+      </div>
+    </section>
+
+  </main>
+</Layout>
