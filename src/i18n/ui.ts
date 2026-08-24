@@ -51,6 +51,7 @@ const en: Dict = {
   'nav.cta': 'Lets Talk',
   'nav.allusecases': 'All use cases',
   'nav.home': 'Kadanco, home',
+  'nav.menu': 'Menu',
 
   // use-case labels, shared by nav and footer
   'uc.dach': 'DACH market entry',
@@ -102,6 +103,7 @@ const de: Dict = {
   'nav.cta': 'Kontakt aufnehmen',
   'nav.allusecases': 'Alle Use Cases',
   'nav.home': 'Kadanco, Startseite',
+  'nav.menu': 'Menü',
 
   // use-case labels
   'uc.dach': 'DACH-Markteintritt',
