@@ -47,6 +47,13 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://assets.kadanco.com/public/og.png" />
 
+    <!-- Flags JS before first paint so the hero can start hidden without flashing. -->
+    <script is:inline>document.documentElement.className += ' js';</script>
+    <!-- Anime.js 4.5.0, self-hosted rather than CDN: no third-party request, so no
+         visitor IP leaves the EU and nothing extra to declare in the privacy policy.
+         Deferred, so it is parsed before DOMContentLoaded but never blocks render. -->
+    <script is:inline defer src="/vendor/anime.umd.min.js"></script>
+
     <!-- Consent + analytics. CookieYes loads FIRST and sets Google Consent Mode
          defaults (all denied) before GTM. GA4 and any other tags are configured
          INSIDE the GTM container and fire only after consent. Both are is:inline
@@ -107,15 +114,99 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
           var update = function () { var d = document.documentElement; var max = d.scrollHeight - d.clientHeight; bar.style.transform = 'scaleX(' + (max > 0 ? d.scrollTop / max : 0) + ')'; };
           window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update();
         }
-        if (!reduce && 'IntersectionObserver' in window) {
+        // ---------------- MOTION ----------------
+        // Anime.js drives the entrances. It is deferred, so it is guaranteed to be
+        // parsed by DOMContentLoaded. If it failed to load we fall back to the CSS
+        // class path, so content is never left stuck invisible.
+        var REVEAL_SEL = '.section .eyebrow, .section h2, .section .lead, .section .grid, .section .who-top, .section .embed-slot, .section .tags, .section .founders-grid, .section .compliance-row';
+
+        // Shared motion tokens. Confident but restrained: short travel, quick settle.
+        var M = { dur: 620, ease: 'out(3)', rise: 18, stagger: 70 };
+
+        function whenVisible(el, cb, margin) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); cb(e.target); } });
+          }, { threshold: 0.15, rootMargin: margin || '0px 0px -40px 0px' });
+          io.observe(el);
+        }
+
+        // Fallback: the original CSS-class reveal, used if Anime.js is unavailable.
+        function legacyReveal() {
+          document.documentElement.classList.add('motion-off');
           var io = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); } });
           }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-          var sel = '.section .eyebrow, .section h2, .section .lead, .section .grid, .section .who-top, .section .embed-slot, .section .tags, .section .founders-grid, .section .compliance-row';
-          document.querySelectorAll(sel).forEach(function (el) {
+          document.querySelectorAll(REVEAL_SEL).forEach(function (el) {
             if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
             el.classList.add('reveal'); io.observe(el);
           });
+        }
+
+        function heroIntro(A) {
+          var items = document.querySelectorAll('.hero .container > *');
+          if (!items.length) return;
+          A.animate(items, {
+            opacity: [0, 1],
+            translateY: [22, 0],
+            duration: 760,
+            delay: A.stagger(90, { start: 80 }),
+            ease: 'out(4)'
+          });
+        }
+
+        function revealOnScroll(A) {
+          document.querySelectorAll(REVEAL_SEL).forEach(function (el) {
+            // Above-the-fold content is shown immediately, never animated in.
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.92) return;
+            A.utils.set(el, { opacity: 0, translateY: M.rise });
+            whenVisible(el, function (target) {
+              A.animate(target, { opacity: [0, 1], translateY: [M.rise, 0], duration: M.dur, ease: M.ease });
+            });
+          });
+        }
+
+        // Generic choreography for the inline SVG diagrams on the use-case pages.
+        // Shapes settle in, connector strokes draw themselves, labels fade last.
+        function diagrams(A) {
+          document.querySelectorAll('svg[data-anim="diagram"]').forEach(function (svg) {
+            var shapes = svg.querySelectorAll('rect, circle');
+            var texts = svg.querySelectorAll('text');
+            // Paths that already carry a dash pattern are decorative dashed
+            // connectors: drawing them would overwrite the dashes, so they fade.
+            var draws = [], fades = [];
+            svg.querySelectorAll('path').forEach(function (pth) {
+              if (pth.closest('defs')) return; // arrow markers must stay put
+              // closest() catches a dash pattern set on the path OR inherited from a
+              // parent <g>. Drawing those would replace the dashes with a solid line.
+              (pth.closest('[stroke-dasharray]') ? fades : draws).push(pth);
+            });
+
+            A.utils.set(shapes, { opacity: 0, scale: 0.96 });
+            A.utils.set(texts, { opacity: 0 });
+            A.utils.set(fades, { opacity: 0 });
+
+            whenVisible(svg, function () {
+              var tl = A.createTimeline({ defaults: { ease: M.ease } });
+              tl.add(shapes, { opacity: [0, 1], scale: [0.96, 1], duration: 520, delay: A.stagger(55) }, 0);
+              if (draws.length) {
+                tl.add(A.svg.createDrawable(draws), { draw: ['0 0', '0 1'], duration: 700, delay: A.stagger(70), ease: 'inOut(2)' }, 220);
+              }
+              if (fades.length) tl.add(fades, { opacity: [0, 1], duration: 460, delay: A.stagger(70) }, 380);
+              tl.add(texts, { opacity: [0, 1], duration: 420, delay: A.stagger(35) }, 300);
+            }, '0px 0px -80px 0px');
+          });
+        }
+
+        if (!reduce && 'IntersectionObserver' in window) {
+          document.addEventListener('DOMContentLoaded', function () {
+            var A = window.anime;
+            if (!A || !A.animate) { legacyReveal(); return; }
+            heroIntro(A);
+            revealOnScroll(A);
+            diagrams(A);
+          });
+        } else {
+          document.documentElement.classList.add('motion-off');
         }
         if ('IntersectionObserver' in window) {
           var map = {};

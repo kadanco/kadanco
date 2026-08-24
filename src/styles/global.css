@@ -206,6 +206,12 @@ p { margin: 0 0 1rem; }
 /* ---------- motion ---------- */
 .card { transition: transform 0.18s ease, box-shadow 0.18s ease; }
 .founder:hover, .faq-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+/* Hero entrance is driven by Anime.js. Hidden only when JS is available, so a
+   no-JS visitor sees it immediately. .motion-off is set by the script when
+   Anime.js is missing or motion is reduced, which restores it instantly. */
+.js .hero .container > * { opacity: 0; }
+.js.motion-off .hero .container > * { opacity: 1; }
+
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, var(--indigo), var(--periwinkle), var(--lime)); z-index: 999; pointer-events: none; }
@@ -215,6 +221,8 @@ p { margin: 0 0 1rem; }
   .card, .founder, .faq-card { transition: none; }
   .founder:hover, .faq-card:hover { transform: none; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .js .hero .container > * { opacity: 1 !important; }
+  svg[data-anim] * { opacity: 1 !important; }
   .logo-track { animation: none; flex-wrap: wrap; justify-content: center; }
   .logo-marquee { overflow: visible; mask-image: none; -webkit-mask-image: none; }
   .logo--dupe { display: none; }
