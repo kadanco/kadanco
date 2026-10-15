@@ -43,12 +43,12 @@ const glyph: Record<string, string> = {
 
 <style>
   .cmx { max-width: 520px; }
-  .cmx-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; }
+  .cmx-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px; }
   .cmx-head { display: flex; align-items: flex-end; padding-bottom: 14px; }
   .cmx-sp { flex: 1; }
-  .cmx-colh { width: 58px; text-align: center; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .cmx-colh { width: 58px; text-align: center; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
   .cmx-rule { height: 1px; }
-  .cmx-row { display: flex; align-items: center; border-radius: 8px; cursor: default; transition: opacity 0.5s ease, transform 0.5s ease, background 0.15s ease; }
+  .cmx-row { display: flex; align-items: center; border-radius: var(--radius); cursor: default; transition: opacity 0.5s ease, transform 0.5s ease, background 0.15s ease; }
   .cmx.cmx-armed .cmx-row:not(.cmx-in) { opacity: 0; transform: translateY(8px); }
   .cmx.cmx-armed .cmx-row:not(.cmx-in) .cmx-mk { opacity: 0; transform: scale(0.4); }
   .cmx-route { flex: 1; font-size: 1.02rem; font-weight: 500; padding: 17px 10px 17px 8px; transition: color 0.15s ease; }
@@ -77,7 +77,7 @@ const glyph: Record<string, string> = {
   .cmx--dark .cmx-dot.cmx-gap { background: #322F3B; }
   .cmx--dark .cmx-lg { color: #8E8DA0; }
   .cmx--dark .cmx-cap { color: #A9A8BC; }
-  .cmx--dark .cmx-cap :global(b) { color: var(--periwinkle); font-weight: 600; }
+  .cmx--dark .cmx-cap :global(b) { color: var(--periwinkle); font-weight: 500; }
 
   @keyframes cmx-pop { 0% { opacity: 0; transform: scale(0.4); } 100% { opacity: 1; transform: scale(1); } }
   @keyframes cmx-pop-has { 0% { opacity: 0; transform: scale(0.4); } 68% { transform: scale(1.18); } 100% { opacity: 1; transform: scale(1); } }

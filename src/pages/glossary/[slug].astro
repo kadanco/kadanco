@@ -88,7 +88,7 @@ const related = (entry.related || []).map((slug) => ({
     .gl-crumb a { color: var(--indigo); text-decoration: none; }
     .gl-crumb a:hover { text-decoration: underline; }
     .gl-crumb .sep { opacity: 0.5; margin: 0 4px; }
-    .gl-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--field); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; }
+    .gl-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--field); border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 12px; }
     .gl-tag.owned { color: var(--indigo); }
     .gl-tag .d { width: 7px; height: 7px; border-radius: 2px; background: var(--lime); display: inline-block; }
     .gl-term-hero h1 { margin: 16px 0 0; }
@@ -97,22 +97,22 @@ const related = (entry.related || []).map((slug) => ({
 
     .gl-body { padding: 44px 0 84px; background: var(--bg); }
     .gl-grid { display: grid; gap: 30px; max-width: 780px; }
-    .gl-sec h2 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); margin: 0 0 10px; }
+    .gl-sec h2 { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--indigo); margin: 0 0 10px; }
     .gl-sec.owned h2 { color: var(--ink); display: flex; align-items: center; gap: 7px; }
     .gl-sec.owned h2 .d { width: 8px; height: 8px; border-radius: 2px; background: var(--lime); display: inline-block; }
     .gl-sec p { margin: 0; font-size: 1.04rem; color: var(--ink); line-height: 1.62; }
-    .gl-formula { font-weight: 500; background: var(--field); border: 1px solid var(--border); border-left: 3px solid var(--indigo); border-radius: 8px; padding: 14px 16px; font-size: 0.98rem !important; }
+    .gl-formula { font-weight: 500; background: var(--field); border: 1px solid var(--border); border-left: 3px solid var(--indigo); border-radius: var(--radius); padding: 14px 16px; font-size: 0.98rem !important; }
 
-    .gl-take { background: linear-gradient(180deg, rgba(59,56,223,0.05), rgba(59,56,223,0.02)); border: 1px solid var(--border); border-left: 4px solid var(--lime); border-radius: 12px; padding: 22px 24px; }
+    .gl-take { background: linear-gradient(180deg, rgba(59,56,223,0.05), rgba(59,56,223,0.02)); border: 1px solid var(--border); border-left: 4px solid var(--lime); border-radius: var(--radius); padding: 22px 24px; }
     .gl-take-h { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
-    .gl-take-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--ink); color: var(--lime); display: grid; place-items: center; font-weight: 800; font-size: 0.82rem; flex: none; }
+    .gl-take-mark { width: 30px; height: 30px; border-radius: var(--radius); background: var(--ink); color: var(--lime); display: grid; place-items: center; font-weight: 500; font-size: 0.82rem; flex: none; }
     .gl-take-ht { display: flex; flex-direction: column; line-height: 1.25; }
-    .gl-take-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+    .gl-take-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
     .gl-take-sub { font-size: 0.72rem; color: var(--muted); }
     .gl-take p { margin: 0; font-size: 1.04rem; line-height: 1.64; color: var(--ink); }
 
     .gl-related { display: flex; flex-wrap: wrap; gap: 8px; }
-    .gl-rel { font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--indigo); background: rgba(59,56,223,0.06); border: 1px solid rgba(59,56,223,0.18); border-radius: 999px; padding: 7px 13px; text-decoration: none; }
+    .gl-rel { font-family: inherit; font-size: 0.85rem; font-weight: 500; color: var(--indigo); background: rgba(59,56,223,0.06); border: 1px solid rgba(59,56,223,0.18); border-radius: var(--radius); padding: 7px 13px; text-decoration: none; }
     .gl-rel:hover { background: rgba(59,56,223,0.12); }
     .gl-rel.dead { color: var(--muted); background: #fff; border-color: var(--border); cursor: default; }
   </style>

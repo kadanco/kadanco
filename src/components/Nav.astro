@@ -181,7 +181,7 @@ const langItems = switcherLocales.map((l) => ({
     transform: translateX(-50%) translateY(0);
   }
   .nav-resources-link {
-    display: block; padding: 9px 12px; border-radius: 7px;
+    display: block; padding: 9px 12px; border-radius: var(--radius);
     color: var(--ink); text-decoration: none; font-size: 0.95rem; opacity: 1;
     transition: background 0.15s ease, color 0.15s ease;
   }
@@ -196,7 +196,7 @@ const langItems = switcherLocales.map((l) => ({
 
   .nav-lang .nav-resources-trigger { gap: 7px; }
   .nav-lang .nav-resources-menu { min-width: 150px; }
-  .nav-resources-link.is-current { color: var(--indigo); font-weight: 600; cursor: default; }
+  .nav-resources-link.is-current { color: var(--indigo); font-weight: 500; cursor: default; }
   .nav-resources-link.is-soon { color: var(--muted); opacity: 0.55; cursor: default; }
 
   @media (max-width: 880px) { .nav-resources { display: none; } }
@@ -256,11 +256,11 @@ const langItems = switcherLocales.map((l) => ({
 
     .nav-m-sub { padding: 6px 0 12px 2px; display: flex; flex-direction: column; }
     .nav-m-sublink {
-      padding: 11px 12px; border-radius: 7px;
+      padding: 11px 12px; border-radius: var(--radius);
       color: var(--muted); text-decoration: none; font-size: 1rem;
     }
     .nav-m-sublink:hover { background: var(--field); color: var(--indigo); }
-    .nav-m-sublink.is-current { color: var(--indigo); font-weight: 600; }
+    .nav-m-sublink.is-current { color: var(--indigo); font-weight: 500; }
     .nav-m-sublink.is-soon { opacity: 0.55; }
 
     .nav-m-langname { display: inline-flex; align-items: center; gap: 9px; }

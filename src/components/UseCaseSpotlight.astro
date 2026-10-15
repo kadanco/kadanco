@@ -49,23 +49,23 @@ const { items, interval = 3000 } = Astro.props;
   .ucs-card.is-flipped .ucs-front { opacity: 0; transform: translateY(-12px) scale(0.985); pointer-events: none; }
   .ucs-card.is-flipped .ucs-back { opacity: 1; transform: none; pointer-events: auto; }
 
-  .ucs-eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--indigo); }
-  .ucs-title { margin: 14px 0 0; font-size: 1.5rem; font-weight: 600; line-height: 1.16; color: var(--ink); }
+  .ucs-eyebrow { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--indigo); }
+  .ucs-title { margin: 14px 0 0; font-size: 1.5rem; font-weight: 500; line-height: 1.16; color: var(--ink); }
   .ucs-summary { margin: 12px 0 0; font-size: 1rem; line-height: 1.5; color: var(--muted); }
 
-  .ucs-back-h { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--periwinkle); }
+  .ucs-back-h { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--periwinkle); }
   .ucs-list { margin: 13px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
   .ucs-list li { position: relative; padding-left: 18px; font-size: 0.92rem; line-height: 1.4; color: rgba(255,255,255,0.92); }
   .ucs-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
   .ucs-own { margin: 15px 0 0; font-size: 0.9rem; line-height: 1.5; color: rgba(255,255,255,0.78); }
-  .ucs-own strong { color: var(--periwinkle); font-weight: 600; }
+  .ucs-own strong { color: var(--periwinkle); font-weight: 500; }
 
-  .ucs-flip { margin-top: auto; padding-top: 20px; align-self: flex-start; background: none; border: none; font: inherit; font-size: 0.86rem; font-weight: 600; color: var(--indigo); cursor: pointer; }
+  .ucs-flip { margin-top: auto; padding-top: 20px; align-self: flex-start; background: none; border: none; font: inherit; font-size: 0.86rem; font-weight: 500; color: var(--indigo); cursor: pointer; }
   .ucs-flip--back { color: var(--periwinkle); }
   .ucs-flip span { display: inline-block; transition: transform 0.2s ease; }
   .ucs-actions { margin-top: auto; padding-top: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .ucs-actions .ucs-flip { margin-top: 0; padding-top: 0; }
-  .ucs-link { font-size: 0.86rem; font-weight: 600; color: var(--indigo); text-decoration: none; }
+  .ucs-link { font-size: 0.86rem; font-weight: 500; color: var(--indigo); text-decoration: none; }
   .ucs-link span { display: inline-block; transition: transform 0.2s ease; }
   .ucs-link:hover span { transform: translateX(3px); }
   .ucs-link--back { color: var(--lime); }

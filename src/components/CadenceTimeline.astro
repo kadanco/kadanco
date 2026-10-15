@@ -37,15 +37,15 @@ const { steps } = Astro.props;
   .cad-step:nth-child(3) { --d: 1.25s; }
   .cad.is-playing .cad-step { opacity: 1; transform: none; }
 
-  .cad-node { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-weight: 600; color: var(--periwinkle); background: var(--indigo-deep); border: 1.5px solid rgba(178,177,255,0.45); transition: background 0.4s ease var(--d), color 0.4s ease var(--d), border-color 0.4s ease var(--d); }
+  .cad-node { flex: none; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-size: 0.85rem; font-weight: 500; color: var(--periwinkle); background: var(--indigo-deep); border: 1.5px solid rgba(178,177,255,0.45); transition: background 0.4s ease var(--d), color 0.4s ease var(--d), border-color 0.4s ease var(--d); }
   .cad.is-playing .cad-node { background: var(--lime); color: var(--indigo-deep); border-color: var(--lime); }
 
   .cad-body { padding-bottom: 2px; }
-  .cad-title { margin: 6px 0 0; font-size: 1.35rem; font-weight: 600; line-height: 1.12; color: #fff; }
+  .cad-title { margin: 6px 0 0; font-size: 1.35rem; font-weight: 500; line-height: 1.12; color: #fff; }
   .cad-amp { color: var(--periwinkle); font-weight: 500; }
   .cad-text { margin: 9px 0 0; font-size: 0.96rem; line-height: 1.5; color: rgba(255,255,255,0.72); }
 
-  .cad-loop { display: inline-flex; align-items: center; gap: 7px; margin-top: 13px; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--lime); }
+  .cad-loop { display: inline-flex; align-items: center; gap: 7px; margin-top: 13px; font-size: 0.76rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; color: var(--lime); }
   .cad-loop svg { width: 14px; height: 14px; }
   .cad.is-playing .cad-loop { animation: cadPulse 2.4s ease-in-out 1.9s infinite; }
   @keyframes cadPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
