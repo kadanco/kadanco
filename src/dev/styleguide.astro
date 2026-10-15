@@ -1,0 +1,183 @@
+---
+// Dev-only style guide. Served at /styleguide by `npm run dev` only.
+// It is injected by the devStyleguide() integration in astro.config.mjs and
+// is never part of `npm run build`, so it never reaches kadanco.com.
+// The brand system asks to keep the style guide off the public web root.
+//
+// Part 1 reads src/styles/tokens.css live, so it always shows the real values.
+// Part 2 renders the site's own components from global.css.
+// Part 3 shows the original brand system file from design/ for comparison.
+import '../styles/global.css';
+import tokensRaw from '../styles/tokens.css?raw';
+import guideHtml from '../../design/01_design-system/Kadanco_Brand_System-20261015-0848.html?raw';
+
+type Token = { name: string; value: string; note: string };
+const tokens: Token[] = [];
+const re = /--(kd-[a-z0-9-]+):\s*([^;]+);(?:[ \t]*\/\*\s*(.*?)\s*\*\/)?/g;
+let m: RegExpExecArray | null;
+while ((m = re.exec(tokensRaw))) tokens.push({ name: m[1], value: m[2].trim(), note: m[3] || '' });
+
+const colours = tokens.filter((t) => t.value.startsWith('#'));
+const depts = tokens.filter((t) => t.name.startsWith('kd-dept-'));
+const typeSteps = ['xl', 'l', 'm', 's', 'xs'].map((k) => ({
+  key: k,
+  size: tokens.find((t) => t.name === `kd-text-${k}`),
+  lh: tokens.find((t) => t.name === `kd-lh-${k}`),
+}));
+const other = tokens.filter(
+  (t) => !t.value.startsWith('#') && !t.name.startsWith('kd-dept-') && !/^kd-(text|lh)-/.test(t.name),
+);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Kadanco style guide (dev only)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,400;0,500;0,800;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body class="sg">
+    <header class="sg-top">
+      <div class="sg-wrap">
+        <span class="eyebrow indigo">Dev only · not deployed</span>
+        <h1>Kadanco style guide</h1>
+        <p class="lead">Values below are read live from <code>src/styles/tokens.css</code>. Change a token there and this page and the site both follow.</p>
+        <nav class="sg-nav">
+          <a href="#tokens">Tokens</a><a href="#components">Live components</a><a href="#reference">Reference file</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="sg-wrap">
+      <section id="tokens" class="sg-sec">
+        <h2>Colour</h2>
+        <div class="sg-swatches">
+          {colours.map((c) => (
+            <div class="sg-sw">
+              <div class="sg-chip" style={`background:var(--${c.name})`}></div>
+              <b>{c.name.replace('kd-', '')}</b>
+              <code>{c.value}</code>
+              {c.note && <span>{c.note}</span>}
+            </div>
+          ))}
+        </div>
+
+        <h3>Department colours</h3>
+        <div class="sg-depts">
+          {depts.map((d) => (
+            <div class="sg-dept" style={`background:var(--${d.name})`}>
+              <span>{d.name === 'kd-dept-plg' ? 'PLG' : d.name.replace('kd-dept-', '')}</span><code>{d.value}</code>
+            </div>
+          ))}
+        </div>
+        <p class="small">Orange (signal-2) is reserved for the single main CTA and is not a department colour.</p>
+
+        <h2>Type · Fira Sans</h2>
+        <div class="sg-type">
+          {typeSteps.map((s) => (
+            <div class="sg-type-row">
+              <code>{s.key.toUpperCase()} · {s.size?.value} / {s.lh?.value}{s.size?.note ? ` · ${s.size.note}` : ''}</code>
+              <span class={s.key === 'xs' ? 'sg-caps' : ''} style={`font-size:var(--kd-text-${s.key});line-height:var(--kd-lh-${s.key});font-weight:500`}>
+                {s.key === 'xs' ? 'Department 01 · Product' : 'Start Buying Execution.'}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <h2>Shape, spacing, weights</h2>
+        <div class="sg-table">
+          {other.map((t) => (
+            <div class="sg-tr"><code>--{t.name}</code><span>{t.value}</span><span class="small">{t.note}</span></div>
+          ))}
+        </div>
+      </section>
+
+      <section id="components" class="sg-sec">
+        <h2>Live components</h2>
+        <p class="lead">Rendered with the real classes from <code>src/styles/global.css</code>, exactly as on the site.</p>
+
+        <h3>Buttons</h3>
+        <div class="sg-row">
+          <a class="btn btn-primary">Get A Free Audit</a>
+          <a class="btn btn-primary btn-lg">Large Button</a>
+        </div>
+        <p class="small">Still lime. The colour pass (blue primary, orange single CTA) is a pending task.</p>
+
+        <h3>Labels on light</h3>
+        <div class="sg-row">
+          <span class="eyebrow">Default</span><span class="eyebrow indigo">Indigo</span>
+          <span class="eyebrow peri">Peri</span><span class="eyebrow dark">Dark</span>
+          <span class="tag">Tag</span>
+        </div>
+
+        <h3>Labels on dark</h3>
+        <div class="sg-row sg-dark" data-theme="dark">
+          <span class="eyebrow">Default</span><span class="eyebrow indigo">Indigo</span>
+          <span class="eyebrow peri">Peri</span><span class="eyebrow dark">Dark</span>
+        </div>
+
+        <h3>Card</h3>
+        <div class="sg-row">
+          <div class="card card--approach" style="max-width:360px">
+            <span class="lab">01 · Product</span>
+            <h3>Product Design Engineering</h3>
+            <p>Audit, design system and redesigned journeys for the product itself.</p>
+          </div>
+        </div>
+
+        <h3>Input</h3>
+        <div class="field" style="max-width:360px"><input type="text" placeholder="Your email" /></div>
+      </section>
+
+      <section id="reference" class="sg-sec">
+        <h2>Reference file</h2>
+        <p class="lead">The original brand system from <code>design/01_design-system/</code>. If it and the tokens above ever differ, update <code>tokens.css</code>.</p>
+        <iframe class="sg-frame" title="Kadanco brand system reference" srcdoc={guideHtml}></iframe>
+      </section>
+    </main>
+
+    <script is:inline>
+      // Size the reference iframe to its content (srcdoc is same-origin).
+      (function () {
+        var f = document.querySelector('.sg-frame');
+        if (!f) return;
+        function fit() { try { f.style.height = f.contentDocument.documentElement.scrollHeight + 'px'; } catch (e) {} }
+        f.addEventListener('load', function () { fit(); setTimeout(fit, 600); });
+      })();
+    </script>
+
+    <style>
+      .sg { background: var(--kd-beige-1); }
+      .sg-wrap { max-width: var(--kd-content-max); margin: 0 auto; padding: 0 var(--kd-gutter); }
+      .sg-top { padding: 56px 0 32px; border-bottom: 1px solid var(--kd-beige-3); }
+      .sg-top h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); margin-bottom: 16px; }
+      .sg-nav { display: flex; gap: 24px; margin-top: 24px; flex-wrap: wrap; }
+      .sg-nav a { color: var(--kd-blue-2); font-weight: 500; text-decoration: none; }
+      .sg-sec { padding: var(--kd-gap-section) 0; border-bottom: 1px solid var(--kd-beige-3); }
+      .sg-sec h2 { font-size: var(--kd-text-l); line-height: var(--kd-lh-l); margin: 40px 0 24px; }
+      .sg-sec h2:first-child { margin-top: 0; }
+      .sg-sec > h3 { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); margin: 32px 0 16px; }
+      code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; }
+      .sg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--kd-gap-group); }
+      .sg-sw b { display: block; margin-top: 10px; font-weight: 500; }
+      .sg-sw code, .sg-sw span { display: block; font-size: 13px; color: #4A4647; }
+      .sg-chip { height: 88px; border-radius: var(--kd-radius); border: 1px solid var(--kd-beige-3); }
+      .sg-depts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--kd-gap-group); }
+      .sg-dept { border-radius: var(--kd-radius); padding: 20px; min-height: 96px; display: flex; flex-direction: column; justify-content: space-between; color: #fff; }
+      .sg-dept:nth-child(2), .sg-dept:nth-child(3) { color: var(--kd-blue-1); }
+      .sg-dept span { font-weight: 500; text-transform: capitalize; }
+      .sg-type-row { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 16px 0; border-top: 1px solid var(--kd-beige-3); }
+      @media (max-width: 720px) { .sg-type-row { grid-template-columns: 1fr; gap: 6px; } }
+      .sg-caps { text-transform: uppercase; letter-spacing: .04em; }
+      .sg-tr { display: grid; grid-template-columns: 240px 260px 1fr; gap: 16px; padding: 10px 0; border-top: 1px solid var(--kd-beige-3); }
+      @media (max-width: 720px) { .sg-tr { grid-template-columns: 1fr; gap: 2px; } }
+      .sg-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+      .sg-row .eyebrow { margin-bottom: 0; }
+      .sg-dark { background: var(--kd-blue-1); padding: 24px; border-radius: var(--kd-radius); }
+      .sg-frame { width: 100%; height: 2400px; border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius); background: #fff; }
+    </style>
+  </body>
+</html>

@@ -25,6 +25,8 @@ npm run dev       # http://localhost:4321
 npm run build     # must pass before every commit
 ```
 
+Style guide: open http://localhost:4321/styleguide while `npm run dev` runs. Dev only, never built or deployed.
+
 ## Repo map
 
 ```
@@ -35,7 +37,9 @@ src/pages/                  index, imprint, privacy-policy, glossary, use-cases 
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
-src/styles/global.css       design tokens and shared components
+src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
+src/styles/global.css       shared components, maps working names onto tokens.css
+src/dev/styleguide.astro    dev-only style guide at /styleguide (injected in astro.config.mjs)
 design/                     October 2026 design files (source of truth for new work)
 ```
 
@@ -43,7 +47,7 @@ design/                     October 2026 design files (source of truth for new w
 
 October 2026 designs win over older code. Files in `design/`:
 
-- `01_design-system/Kadanco_Brand_System-20261015-0848.html`: tokens and components.
+- `01_design-system/Kadanco_Brand_System-20261015-0848.html`: tokens and components. Its values live in code in `src/styles/tokens.css`.
 - `02_pages/`: Home, Category Pages (3 service pages), Wireframes (12-page map).
 - `03_docs/Kadanco_Category_Pages_Context-20261015-0843.md`: handoff notes, task list, security notes.
 - `04_sections/`: section options to choose from (homepage heroes, concepts, use cases, glossary). View with `cd design/04_sections && python3 -m http.server 8000`.
@@ -63,6 +67,8 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Imagery: 3D isometric icons.
 
 ## House rules
+
+- New brand values go into `src/styles/tokens.css` first. Never hard-code a brand hex in a component; use a `--kd-*` token.
 
 - No em dashes anywhere (copy, code comments, docs, commit messages).
 - Plain words, no jargon, no AI-sounding words.
@@ -84,6 +90,9 @@ Done:
 - October design files added to `design/`.
 - Sitewide style rules applied: 5px radius, 45px controls, weights 400/500, outlined labels.
 - Missing `.dev.vars.example` added, em dash removed.
+- `src/styles/tokens.css` added from the style guide; `global.css` reads from it.
+- Dev-only style guide at `/styleguide`.
+- Unused font weights (600, 700, 900) removed from the Google Fonts request.
 
 Next, in order:
 1. **Homepage** (current focus): pick the hero, then rebuild the homepage to the October design.
@@ -108,3 +117,4 @@ Next, in order:
 - 2026-10-15: Brand system file wins over the context notes: orange is CTA only, PLG is #7270FF.
 - 2026-10-15: Design file names keep their original names inside `design/`.
 - 2026-10-15: Homepage is the first build target.
+- 2026-10-15: Style guide added as tokens in code plus a dev-only page. Not published, per the brand system security note.

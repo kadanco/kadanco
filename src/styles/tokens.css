@@ -1,0 +1,56 @@
+/* ============================================================
+   Kadanco brand tokens, v1.0.0 (2026-10-12)
+   Source: design/01_design-system/Kadanco_Brand_System-20261015-0848.html
+   Change a value here once and every page follows.
+   global.css maps its working names (--indigo, --lime, ...) onto these.
+   The dev-only style guide at /styleguide reads this file directly.
+   ============================================================ */
+:root {
+  /* ---------- font ---------- */
+  --kd-font-sans: "Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --kd-weight-regular: 400;
+  --kd-weight-medium: 500;
+  --kd-weight-logo: 800; /* logo only */
+
+  /* ---------- shape ---------- */
+  --kd-radius: 5px;
+  --kd-control-h: 45px;
+  --kd-border-w: 2px;
+
+  /* ---------- colour: neutrals ---------- */
+  --kd-ink: #201E1F;       /* text, footer */
+  --kd-white: #FFFFFF;     /* cards */
+  --kd-beige-1: #F3F0EB;   /* page ground */
+  --kd-beige-2: #E7E2D9;   /* alt section */
+  --kd-beige-3: #DCD5C8;   /* lines */
+
+  /* ---------- colour: blues ---------- */
+  --kd-lilac: #B2B1FF;     /* Sales */
+  --kd-blue-1: #1A0175;    /* dark ground */
+  --kd-blue-2: #3B38DF;    /* Product, primary button */
+  --kd-blue-3: #7270FF;    /* accent, PLG */
+
+  /* ---------- colour: signals ---------- */
+  --kd-signal-1: #DAFF02;  /* Marketing (dark-blue text, never a large ground) */
+  --kd-signal-2: #FE572A;  /* the single main CTA only */
+  --kd-signal-3: #FFDDD4;  /* soft fill */
+
+  /* ---------- department colours ---------- */
+  --kd-dept-product: var(--kd-blue-2);
+  --kd-dept-marketing: var(--kd-signal-1);
+  --kd-dept-sales: var(--kd-lilac);
+  --kd-dept-plg: var(--kd-blue-3);
+
+  /* ---------- type scale (size / line height, weight 500) ---------- */
+  --kd-text-xl: clamp(40px, 7vw, 70px);     --kd-lh-xl: 1.08;  /* hero, CTA */
+  --kd-text-l: clamp(30px, 4.2vw, 50px);    --kd-lh-l: 1.2;    /* section head */
+  --kd-text-m: 28px;                        --kd-lh-m: 34px;   /* card title */
+  --kd-text-s: 21px;                        --kd-lh-s: 28px;   /* item, button, link */
+  --kd-text-xs: 16px;                       --kd-lh-xs: 24px;  /* label, eyebrow (caps) */
+
+  /* ---------- spacing ---------- */
+  --kd-gap-group: 20px;     /* 16 to 24px inside groups */
+  --kd-gap-section: 64px;   /* 56 to 72px between sections */
+  --kd-gutter: 32px;        /* 20 to 32px page gutter */
+  --kd-content-max: 1280px; /* 1040 to 1280px */
+}

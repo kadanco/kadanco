@@ -2,8 +2,8 @@
 
 Marketing site for Kadanco UG (Berlin), built with [Astro](https://astro.build) as a
 static site and deployed to Cloudflare Pages. Plain HTML and CSS, no UI framework. The
-design system lives in `src/styles/global.css` (indigo / lime / periwinkle palette,
-Fira Sans, 10px corner radius).
+brand tokens live in `src/styles/tokens.css` and shared components in
+`src/styles/global.css` (Fira Sans, 5px corner radius). Design files are in `design/`.
 
 ## Run it
 
@@ -16,6 +16,9 @@ npm run dev      # local dev server at http://localhost:4321
 npm run build    # static output in ./dist
 npm run preview  # preview the production build
 ```
+
+While `npm run dev` runs, the style guide is at http://localhost:4321/styleguide. It is
+dev only and never part of the production build.
 
 ## Structure
 
@@ -37,7 +40,9 @@ src/
     glossary/index.astro    glossary index (search, category filter, A-Z)
     glossary/[slug].astro   one page per term, from src/data/glossary.json
   data/glossary.json        glossary content
-  styles/global.css         design tokens and all shared components
+  styles/tokens.css         brand tokens (--kd-*), single source of brand values
+  styles/global.css         shared components, reads tokens.css
+  dev/styleguide.astro      dev-only style guide at /styleguide
 public/                     static assets served at the site root
 astro.config.mjs
 tsconfig.json

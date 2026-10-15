@@ -22,6 +22,22 @@ function inSitemap(page) {
   return routes.includes(path);
 }
 
+// Dev-only style guide at /styleguide (src/dev/styleguide.astro).
+// Injected only for `astro dev`, so `npm run build` never outputs it and it
+// never reaches kadanco.com. The brand system asks to keep the guide private.
+function devStyleguide() {
+  return {
+    name: 'kadanco-dev-styleguide',
+    hooks: {
+      'astro:config:setup': ({ command, injectRoute }) => {
+        if (command === 'dev') {
+          injectRoute({ pattern: '/styleguide', entrypoint: './src/dev/styleguide.astro' });
+        }
+      },
+    },
+  };
+}
+
 export default defineConfig({
   site: 'https://kadanco.com',
   output: 'static',
@@ -45,7 +61,7 @@ export default defineConfig({
     },
     fallback: { de: 'en' },
   },
-  integrations: [sitemap({ filter: inSitemap })],
+  integrations: [sitemap({ filter: inSitemap }), devStyleguide()],
   // Astro 7 minifies CSS with Lightning CSS, which drops the standard
   // `backdrop-filter` and keeps only `-webkit-backdrop-filter`. That silently
   // removes the nav blur in Firefox. esbuild keeps both, so we use it instead.
