@@ -1,0 +1,3 @@
+# Copy to .dev.vars and fill in. .dev.vars is git-ignored.
+# Used by functions/api/contact.js when testing with: npx wrangler pages dev dist
+PLUNK_API_KEY=your-plunk-secret-key
