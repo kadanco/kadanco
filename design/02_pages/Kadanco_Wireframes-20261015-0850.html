@@ -1,0 +1,238 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kadanco Wireframes</title>
+<style>
+  :root{
+    --blue:#3B38DF; --yellow:#DAFF02; --purple:#B2B1FF; --orange:#FE572A;
+    --ink:#0b1030; --line:#c9cde0; --paper:#ffffff; --mut:#5b6080; --bg:#eef0f6;
+  }
+  :root:not([data-theme="light"]) @media (prefers-color-scheme: dark){}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-weight:400;line-height:1.4;padding:32px 16px 80px}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:26px;font-weight:500;margin:0 0 6px}
+  .sub{color:var(--mut);margin:0 0 28px;font-size:14px}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 30px;font-size:12px;color:var(--mut)}
+  .dot{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:14px;height:14px;border-radius:5px;display:inline-block;border:1px solid var(--line)}
+  .page{background:var(--paper);border:1px solid var(--line);border-radius:5px;
+    margin:0 0 26px;overflow:hidden}
+  .ph{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding:12px 16px;border-bottom:1px solid var(--line);background:#f6f7fb}
+  .pt{font-weight:500;font-size:15px}
+  .pn{font-size:11px;color:var(--mut);border:1px solid var(--line);border-radius:999px;
+    padding:2px 9px}
+  .tag{font-size:11px;border-radius:999px;padding:3px 10px;border:1px solid}
+  .body{padding:16px}
+  .nav{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+  .nav span{font-size:10px;color:var(--mut);border:1px dashed var(--line);
+    border-radius:4px;padding:3px 8px}
+  .nav span.on{color:var(--ink);border-style:solid}
+  .sec{border:1px dashed var(--line);border-radius:5px;padding:12px 14px;margin:0 0 10px;
+    background:#fbfcff;position:relative}
+  .sec.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .sec.blue{background:rgba(59,56,223,.08);border-color:var(--blue)}
+  .sec.yellow{background:rgba(218,255,2,.18);border-color:#b9d400}
+  .sec.purple{background:rgba(178,177,255,.2);border-color:var(--purple)}
+  .sec.orange{background:rgba(254,87,42,.1);border-color:var(--orange)}
+  .sec.paper{background:#f3efe7;border-color:#d8cfbc}
+  .lbl{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);
+    font-weight:500;margin:0 0 6px}
+  .sec.dark .lbl{color:#aeb3d8}
+  .ttl{font-size:14px;font-weight:500;margin:0 0 4px}
+  .cmp{font-size:11px;color:var(--mut);margin:0}
+  .sec.dark .cmp{color:#c7cbe8}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0 0}
+  .box{flex:1;min-width:90px;border:1px solid var(--line);border-radius:4px;
+    padding:8px;font-size:10px;color:var(--mut);background:#fff;text-align:center}
+  .sec.dark .box{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#cfd3ef}
+  .img{background:repeating-linear-gradient(45deg,#e7e9f2,#e7e9f2 6px,#f3f4fa 6px,#f3f4fa 12px);
+    border:1px dashed var(--line);border-radius:4px;min-height:52px;display:flex;
+    align-items:center;justify-content:center;font-size:10px;color:var(--mut);text-align:center;padding:6px}
+  .foot{background:var(--ink);color:#aeb3d8;font-size:10px;padding:10px 14px;border-radius:4px;margin-top:4px}
+  .cta-pill{display:inline-block;border:1px solid currentColor;border-radius:5px;
+    padding:4px 12px;font-size:10px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kadanco — Page Wireframes</h1>
+  <p class="sub">Low-fidelity map of the 12 pages. Each dashed block is a section; small boxes are components. Colour tint = department.</p>
+
+  <div class="legend">
+    <span class="dot"><i class="sw" style="background:var(--blue)"></i>Product · Blue</span>
+    <span class="dot"><i class="sw" style="background:var(--yellow)"></i>Marketing · Neon Yellow</span>
+    <span class="dot"><i class="sw" style="background:var(--purple)"></i>Sales · Purple</span>
+    <span class="dot"><i class="sw" style="background:var(--orange)"></i>PLG · Orange</span>
+    <span class="dot"><i class="sw" style="background:var(--ink)"></i>Dark section</span>
+    <span class="dot"><i class="sw" style="background:#f3efe7"></i>Paper / warm grey</span>
+  </div>
+
+  <!-- 1 HOME -->
+  <section class="page">
+    <div class="ph"><span class="pt">1 · Home</span><span class="pn">Core</span></div>
+    <div class="body">
+      <div class="nav"><span class="on">Home</span><span>Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec dark"><p class="lbl">Hero · dark</p><p class="ttl">"Every Team Is Saying It. We Fix It."</p><p class="cmp">Group-chat animation · CTA buttons</p></div>
+      <div class="sec paper"><p class="lbl">Social proof</p><p class="cmp">Client logos band + bold quote</p></div>
+      <div class="sec"><p class="lbl">Two doors</p><p class="cmp">No-brainer vs hard-to-sell split · 2 cards</p></div>
+      <div class="sec blue"><p class="lbl">The building</p><p class="cmp">Floors = departments, people per floor · hover</p></div>
+      <div class="sec"><p class="lbl">Before / After</p><p class="cmp">Split illustration</p></div>
+      <div class="sec"><p class="lbl">Use cases</p><div class="row"><div class="box">Case 1</div><div class="box">Case 2</div><div class="box">Case 3</div></div></div>
+      <div class="sec"><p class="lbl">Team teaser</p><div class="row"><div class="img">Founders photo</div><div class="box" style="flex:2">About link</div></div></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp">Liquid gradient · <span class="cta-pill">Book A Call</span></p></div>
+      <div class="foot">Footer · all pages · department colours</div>
+    </div>
+  </section>
+
+  <!-- 4 SERVICES OVERVIEW -->
+  <section class="page">
+    <div class="ph"><span class="pt">4 · Services Overview</span><span class="pn">Services</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span class="on">Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec paper"><p class="lbl">Hero · paper</p><p class="ttl">Big-type headline</p><p class="cmp">Scrolling workstream ticker</p></div>
+      <div class="sec"><p class="lbl">Comparison</p><p class="cmp">Department table + "whole function" option</p></div>
+      <div class="sec dark"><p class="lbl">One path</p><p class="cmp">Product → Marketing → Sales → PLG</p></div>
+      <div class="sec purple"><p class="lbl">Five phases</p><div class="row"><div class="box">1</div><div class="box">2</div><div class="box">3</div><div class="box">4</div><div class="box">5</div></div></div>
+      <div class="sec"><p class="lbl">Personas</p><div class="row"><div class="img">Audience 1</div><div class="img">Audience 2</div><div class="img">Audience 3</div><div class="img">Audience 4</div></div></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Book A Call</span></p></div>
+    </div>
+  </section>
+
+  <!-- 5 PRODUCT DESIGN ENG -->
+  <section class="page">
+    <div class="ph"><span class="pt">5 · Product Design Engineering</span><span class="tag" style="color:var(--blue);border-color:var(--blue)">Blue</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span class="on">Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec dark"><p class="lbl">Hero · dark terminal</p><p class="ttl">Adoption tests running</p><p class="cmp">Animated terminal</p></div>
+      <div class="sec"><p class="lbl">Symptoms</p><div class="row"><div class="box" style="flex:2">List</div><div class="img">CTO photo</div></div></div>
+      <div class="sec paper"><p class="lbl">Timeline</p><p class="cmp">5-phase + highlighter + 3D icons</p></div>
+      <div class="sec blue"><p class="lbl">Before / After</p><p class="cmp">Wipe interaction</p></div>
+      <div class="sec"><p class="lbl">Deliverables</p><div class="row"><div class="box">Card</div><div class="box">Card</div><div class="box">Card</div></div></div>
+      <div class="sec dark"><p class="lbl">Next floor</p><p class="cmp">→ Product Marketing Engineering</p></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Book A Call</span></p></div>
+    </div>
+  </section>
+
+  <!-- 6 PRODUCT MARKETING ENG -->
+  <section class="page">
+    <div class="ph"><span class="pt">6 · Product Marketing Engineering</span><span class="tag" style="color:#8a9c00;border-color:#b9d400">Neon Yellow</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span class="on">Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec yellow"><p class="lbl">Hero · lime tint</p><div class="row"><div class="box" style="flex:2">Headline + CTA</div><div class="img">Marketer photo</div></div></div>
+      <div class="sec"><p class="lbl">The loop</p><p class="cmp">Publishing loop diagram</p></div>
+      <div class="sec blue"><p class="lbl">Channels</p><div class="row"><div class="box">1</div><div class="box">2</div><div class="box">3</div><div class="box">4</div><div class="box">5</div></div></div>
+      <div class="sec paper"><p class="lbl">Runway phases</p><p class="cmp">Phase steps</p></div>
+      <div class="sec"><p class="lbl">Route matrix</p><p class="cmp">Comparison table</p></div>
+      <div class="sec dark"><p class="lbl">Next floor</p><p class="cmp">→ Sales Engineering</p></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Book A Call</span></p></div>
+    </div>
+  </section>
+
+  <!-- 7 SALES ENG -->
+  <section class="page">
+    <div class="ph"><span class="pt">7 · Sales Engineering (B2B / B2C)</span><span class="tag" style="color:#6b69d6;border-color:var(--purple)">Purple</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span class="on">Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec blue"><p class="lbl">Hero · inbox</p><p class="ttl">Booked meetings inbox</p><p class="cmp">Animated inbox</p></div>
+      <div class="sec"><p class="lbl">Leak funnel</p><p class="cmp">Funnel illustration</p></div>
+      <div class="sec purple"><p class="lbl">B2B / B2C toggle</p><div class="row"><div class="box">B2B + photo</div><div class="box">B2C + photo</div></div></div>
+      <div class="sec"><p class="lbl">Phases</p><p class="cmp">Rows open on hover</p></div>
+      <div class="sec dark"><p class="lbl">Photo band</p><div class="img" style="background:none;border-color:rgba(255,255,255,.25);color:#cfd3ef">Full-width photo + quote</div></div>
+      <div class="sec orange"><p class="lbl">Next floor</p><p class="cmp">→ Product-Led Growth</p></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Book A Call</span></p></div>
+    </div>
+  </section>
+
+  <!-- 8 USE CASES OVERVIEW -->
+  <section class="page">
+    <div class="ph"><span class="pt">8 · Use Cases Overview</span><span class="pn">Proof</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span>Services</span><span class="on">Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec"><p class="lbl">Hero · white centred</p><p class="ttl">Headline</p></div>
+      <div class="sec dark"><p class="lbl">Featured case</p><div class="row"><div class="box" style="flex:2">Adoption Rescue</div><div class="img" style="background:none;border-color:rgba(255,255,255,.25);color:#cfd3ef">Photo</div></div></div>
+      <div class="sec"><p class="lbl">Filter grid</p><p class="cmp">All / Product / Marketing / Sales</p><div class="row"><div class="box">Case</div><div class="box">Case</div><div class="box">Case</div></div></div>
+      <div class="sec blue"><p class="lbl">Not listed?</p><p class="cmp"><span class="cta-pill">Talk To Us</span></p></div>
+    </div>
+  </section>
+
+  <!-- 9 USE CASE DETAIL -->
+  <section class="page">
+    <div class="ph"><span class="pt">9 · Use Case Detail</span><span class="pn">Proof</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span>Services</span><span class="on">Use Cases</span><span>About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec dark"><p class="lbl">Hero · before/after toggle</p><p class="ttl">Adoption Rescue</p></div>
+      <div class="sec"><p class="lbl">Key facts strip</p><div class="row"><div class="box">Duration</div><div class="box">Team</div><div class="box">Result</div></div></div>
+      <div class="sec"><p class="lbl">Problem</p><div class="row"><div class="box" style="flex:2">Narrative</div><div class="img">Photo</div></div></div>
+      <div class="sec blue"><p class="lbl">4-step runway</p><div class="row"><div class="box">1</div><div class="box">2</div><div class="box">3</div><div class="box">4</div></div></div>
+      <div class="sec"><p class="lbl">What you own</p><div class="row"><div class="box">Card</div><div class="box">Card</div></div></div>
+      <div class="sec"><p class="lbl">Related cases</p><p class="cmp">3 cards</p></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Book A Call</span></p></div>
+    </div>
+  </section>
+
+  <!-- 2 ABOUT -->
+  <section class="page">
+    <div class="ph"><span class="pt">2 · About</span><span class="pn">Core</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span>Services</span><span>Use Cases</span><span class="on">About</span><span>Resources</span><span>Contact</span></div>
+      <div class="sec paper"><p class="lbl">Hero · paper</p><div class="row"><div class="box" style="flex:2">Large type</div><div class="img">Team photo</div></div></div>
+      <div class="sec"><p class="lbl">Founders</p><div class="row"><div class="box">Maria</div><div class="box">Karan</div></div></div>
+      <div class="sec dark"><p class="lbl">How we operate</p><p class="cmp">Highlighter step cycle</p></div>
+      <div class="sec"><p class="lbl">Principles</p><div class="row"><div class="box">1</div><div class="box">2</div><div class="box">3</div></div></div>
+      <div class="sec yellow"><p class="lbl">Berlin</p><div class="row"><div class="box" style="flex:2">Location</div><div class="img">City photo</div></div></div>
+      <div class="sec"><p class="lbl">CTA</p><p class="cmp"><span class="cta-pill">Work With Us</span></p></div>
+    </div>
+  </section>
+
+  <!-- 10 RESOURCES -->
+  <section class="page">
+    <div class="ph"><span class="pt">10 · Resources (Glossary)</span><span class="pn">Utility</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span>Services</span><span>Use Cases</span><span>About</span><span class="on">Resources</span><span>Contact</span></div>
+      <div class="sec blue"><p class="lbl">Hero · search</p><p class="cmp">Search field</p></div>
+      <div class="sec"><p class="lbl">Glossary</p><p class="cmp">Filterable terms (A–Z)</p></div>
+      <div class="sec"><p class="lbl">Guides</p><div class="row"><div class="img">Soon</div><div class="img">Soon</div><div class="img">Soon</div></div></div>
+      <div class="sec dark"><p class="lbl">Newsletter</p><p class="cmp">Double opt-in sign-up</p></div>
+    </div>
+  </section>
+
+  <!-- 3 CONTACT -->
+  <section class="page">
+    <div class="ph"><span class="pt">3 · Contact</span><span class="pn">Core</span></div>
+    <div class="body">
+      <div class="nav"><span>Home</span><span>Services</span><span>Use Cases</span><span>About</span><span>Resources</span><span class="on">Contact</span></div>
+      <div class="sec dark"><p class="lbl">Hero · form</p><div class="row"><div class="box" style="flex:2;background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#cfd3ef">Form + two-door choice</div><div class="box" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:#cfd3ef">Avatars</div></div></div>
+      <div class="sec"><p class="lbl">What happens next</p><div class="row"><div class="box">Step 1</div><div class="box">Step 2</div><div class="box">Step 3</div></div></div>
+      <div class="sec paper"><p class="lbl">Address</p><div class="row"><div class="box" style="flex:2">Berlin address</div><div class="img">Map</div></div></div>
+    </div>
+  </section>
+
+  <!-- 11 LEGAL -->
+  <section class="page">
+    <div class="ph"><span class="pt">11 · Legal</span><span class="pn">Utility</span></div>
+    <div class="body">
+      <div class="sec"><p class="lbl">Imprint</p><p class="cmp">Company details (GDPR required)</p></div>
+      <div class="sec"><p class="lbl">Privacy</p><p class="cmp">Policy text (GDPR required)</p></div>
+    </div>
+  </section>
+
+  <!-- 12 404 -->
+  <section class="page">
+    <div class="ph"><span class="pt">12 · 404</span><span class="pn">Utility</span></div>
+    <div class="body">
+      <div class="sec dark" style="text-align:center"><p class="ttl">"This Floor Isn't Built Yet."</p><p class="cmp">Back home · Contact buttons</p></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
+
+</body></html>

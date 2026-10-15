@@ -1,0 +1,315 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Kadanco Brand System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;800&display=swap">
+<style>
+/* Layout: single reading column, generous section bands; every value from the tokens below.
+   Brand is light-first (beige grounds); dark theme uses the navy/ink grounds. */
+:root{
+  --font:"Fira Sans",ui-sans-serif,system-ui,sans-serif;
+  --radius:5px; --ctrl-h:45px;
+  /* brand colour (fixed hues) */
+  --ink:#201E1F; --white:#FFFFFF;
+  --beige-1:#F3F0EB; --beige-2:#E7E2D9; --beige-3:#DCD5C8;
+  --lilac:#B2B1FF; --blue-1:#1A0175; --blue-2:#3B38DF; --blue-3:#7270FF;
+  --signal-1:#DAFF02; --signal-2:#FE572A; --signal-3:#FFDDD4;
+  /* theme roles — light */
+  --bg:#F3F0EB; --surface:#FFFFFF; --surface-2:#E7E2D9; --line:#DCD5C8;
+  --fg:#201E1F; --fg-2:#4A4647; --accent:#3B38DF; --code-bg:#201E1F; --code-fg:#F3F0EB;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17013F; --surface:#1A0175; --surface-2:#201E1F; --line:#3A2B9C;
+  --fg:#F3F0EB; --fg-2:#DCDBFF; --accent:#B2B1FF; --code-bg:#0E0038; --code-fg:#DCDBFF;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#17013F; --surface:#1A0175; --surface-2:#201E1F; --line:#3A2B9C;
+  --fg:#F3F0EB; --fg-2:#DCDBFF; --accent:#B2B1FF; --code-bg:#0E0038; --code-fg:#DCDBFF;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:40px 80px}
+h1,h2,h3{margin:0;font-weight:500;text-wrap:balance;letter-spacing:.06px}
+h1{font-size:clamp(40px,7vw,70px);line-height:1.08}
+h2{font-size:clamp(30px,4.2vw,50px);line-height:1.2}
+h3{font-size:28px;line-height:34px}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-size:16px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:21px;line-height:28px;color:var(--fg-2);max-width:60ch}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 40px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:32px;margin-bottom:56px}
+.top .theme{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:4px}
+.top .theme button{all:unset;cursor:pointer;font-size:13px;font-weight:500;padding:8px 14px;border-radius:var(--radius);color:var(--fg-2)}
+.top .theme button[aria-pressed="true"]{background:var(--accent);color:var(--white)}
+section{margin-top:72px;display:flex;flex-direction:column;gap:24px}
+section>.head{display:flex;flex-direction:column;gap:10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:32px}
+.grid-sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px}
+.sw .chip{height:96px;border-radius:var(--radius);border:1px solid var(--line)}
+.sw b{display:block;font-size:16px;font-weight:500;margin-top:10px}
+.sw span{display:block;font-size:14px;color:var(--fg-2)}
+.sw code{font-size:13px;color:var(--fg-2)}
+.typ{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px 32px;align-items:baseline}
+.typ .meta{font-size:14px;color:var(--fg-2)}
+@media (max-width:640px){.typ{grid-template-columns:1fr;gap:6px 0}.typ .meta{margin-top:18px}}
+.t-xl{font-size:clamp(40px,7vw,70px);line-height:1.08;font-weight:500}
+.t-l{font-size:clamp(30px,4.2vw,50px);line-height:1.2;font-weight:500}
+.t-m{font-size:28px;line-height:34px;font-weight:500}
+.t-s{font-size:21px;line-height:28px;font-weight:500}
+.t-xs{font-size:16px;line-height:24px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+/* components */
+.kd-btn{display:inline-flex;align-items:center;justify-content:center;height:var(--ctrl-h);padding:0 28px;border-radius:var(--radius);border:2px solid transparent;font-family:var(--font);font-weight:500;font-size:21px;line-height:1.2;text-decoration:none;white-space:nowrap;cursor:pointer}
+.kd-btn.sm{padding:0 20px;font-size:16px}
+.b-primary{background:var(--blue-2);border-color:var(--blue-2);color:#fff}
+.b-outline{background:transparent;border-color:var(--accent);color:var(--fg)}
+.b-cta{background:var(--signal-2);border-color:var(--signal-2);color:#fff}
+.b-accent{background:var(--blue-3);border-color:var(--blue-3);color:#fff}
+.b-lime{background:var(--signal-1);border-color:var(--signal-1);color:var(--blue-1)}
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.lbl{display:inline-flex;align-items:center;min-height:35px;padding:3px 14px;border-radius:var(--radius);border:1px solid transparent;font-weight:500;font-size:16px;letter-spacing:.04em;text-transform:uppercase}
+.l-lilac{background:var(--lilac);border-color:var(--lilac);color:var(--blue-1)}
+.l-lime{background:var(--signal-1);border-color:var(--signal-1);color:var(--blue-1)}
+.l-blue{background:var(--blue-2);border-color:var(--blue-2);color:#fff}
+.l-ink{background:var(--ink);border-color:var(--ink);color:#fff}
+.l-orange{background:var(--signal-2);border-color:var(--signal-2);color:#fff}
+.l-beige{background:var(--beige-3);border-color:var(--beige-3);color:var(--ink)}
+.l-peach{background:var(--signal-3);border-color:var(--signal-3);color:var(--ink)}
+.l-outline{background:transparent;border-color:var(--ink);color:var(--ink)}
+.logo{display:inline-flex;align-items:center;background:var(--blue-1);border-radius:var(--radius);padding:6px 10px;font-weight:800;font-size:28px;line-height:1;letter-spacing:-.015em}
+.logo .ka{color:var(--beige-1)} .logo .danco{color:var(--signal-1)}
+.logo.lime{background:var(--signal-1)}.logo.lime .ka{color:var(--blue-2)}.logo.lime .danco{color:var(--blue-1)}
+.logo.orange{background:var(--signal-2)}.logo.orange .ka{color:var(--beige-1)}.logo.orange .danco{color:var(--signal-1)}
+.logo.beige{background:var(--beige-1)}.logo.beige .ka{color:var(--blue-2)}.logo.beige .danco{color:var(--blue-1)}
+.teaser{display:flex;flex-direction:column;gap:20px;padding:32px;border-radius:var(--radius);min-height:300px;background:var(--blue-2);color:#fff;text-decoration:none}
+.teaser .link{margin-top:auto;font-size:21px;font-weight:500;color:var(--signal-1)}
+.navbar{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;background:var(--blue-1);border-radius:var(--radius);padding:18px 24px}
+.navbar a{color:#fff;text-decoration:none;font-size:18px}
+.navbar .links{display:flex;gap:12px 24px;flex-wrap:wrap}
+.navbar .slot{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px dashed rgba(255,255,255,.5);border-radius:var(--radius);color:#fff;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.sh{display:flex;flex-wrap:wrap;gap:20px 56px;align-items:flex-end}
+.sh .l{flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.sh .big{font-size:clamp(30px,4vw,50px);line-height:1.2;font-weight:500}
+.sh .intro{flex:1 1 320px;min-width:0;font-size:21px;line-height:1.35;color:var(--fg-2)}
+.founder{display:flex;gap:24px;flex-wrap:wrap;padding:32px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+.founder .tile{width:96px;height:96px;flex:none;border-radius:var(--radius);background:var(--blue-2);color:var(--beige-1);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:500;letter-spacing:-.03em}
+.founder .b{flex:1 1 240px;min-width:0;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.stepband{display:flex;align-items:center;gap:20px}
+.stepband .mark{width:52px;height:52px;flex:none;border-radius:var(--radius);background:var(--signal-2);color:#fff;display:flex;align-items:center;justify-content:center}
+.stepband .txt{font-size:clamp(21px,2.2vw,28px);line-height:1.35;font-weight:500;min-width:0}
+.stepband mark{background:var(--signal-2);color:#fff;padding:0 8px;border-radius:var(--radius)}
+.phase{display:flex;flex-wrap:wrap;gap:10px 48px;padding:24px 0;border-top:1px solid var(--line)}
+.phase .n{flex:0 0 96px;font-size:16px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.phase h4{flex:1 1 200px;min-width:0;margin:0;font-size:21px;line-height:28px;font-weight:500}
+.phase .d{flex:1.3 1 340px;min-width:0;font-size:21px;line-height:28px;color:var(--fg-2)}
+.phase.feat{background:var(--blue-2);border-radius:var(--radius);border-top-color:transparent;padding:24px 28px}
+.phase.feat .n{color:var(--signal-1)}.phase.feat h4,.phase.feat .d{color:#fff}
+.sitefoot{display:flex;justify-content:space-between;align-items:center;gap:20px 40px;flex-wrap:wrap;background:var(--ink);color:#DCD5C8;border-radius:var(--radius);padding:28px 24px}
+.sitefoot a{color:#F3F0EB}
+.sitefoot .links{display:flex;gap:12px 24px;flex-wrap:wrap;font-size:16px}
+.sitefoot .slot{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px dashed rgba(255,255,255,.4);border-radius:var(--radius);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.dept{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.dept .cell{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.dept .cap{height:72px}
+.dept .meta{padding:14px 16px;font-size:14px}
+.dept .meta b{display:block;font-size:16px;font-weight:500;color:var(--fg)}
+.note{font-size:14px;color:var(--fg-2);background:var(--surface-2);border-radius:var(--radius);padding:14px 16px}
+.spec{display:grid;grid-template-columns:140px 1fr;gap:10px 20px;font-size:16px}
+.spec code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--accent)}
+pre{margin:0;background:var(--code-bg);color:var(--code-fg);border-radius:var(--radius);padding:20px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.7}
+footer{margin-top:80px;border-top:1px solid var(--line);padding-top:24px;font-size:14px;color:var(--fg-2);display:flex;gap:16px;flex-wrap:wrap}
+:where(a,button):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span class="eyebrow">Kadanco Brand 2026 · v1.0</span>
+      <h1>Brand <span style="color:var(--accent)">system</span></h1>
+      <p class="lede">The colour and Fira&nbsp;Sans brand used on kadanco.com. One token set drives colour, type, spacing and every component.</p>
+    </div>
+    <div class="theme" role="group" aria-label="Theme">
+      <button type="button" data-t="light" aria-pressed="false">Light</button>
+      <button type="button" data-t="system" aria-pressed="true">System</button>
+      <button type="button" data-t="dark" aria-pressed="false">Dark</button>
+    </div>
+  </header>
+
+  <section>
+    <div class="head"><span class="eyebrow">Foundations</span><h2>Colour</h2>
+      <p class="lede">Ink and beige grounds carry the brand; blues mark Product, signal lime and orange carry Sales and Marketing.</p></div>
+    <div class="panel"><div class="grid-sw" id="swatches"></div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Foundations</span><h2>Department colours</h2>
+      <p class="lede">Each department owns one hue. Kept here as the single reference, since this mapping had drifted between notes.</p></div>
+    <div class="dept" id="depts"></div>
+    <div class="note">Mapping: Product = Blue #3B38DF · Marketing = Lime #DAFF02 · Sales = Lilac #B2B1FF · Accent/PLG = #7270FF. Orange #FE572A is reserved for the CTA, not a department.</div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Foundations</span><h2>Type · Fira Sans</h2>
+      <p class="lede">One family, weights 400 / 500 / 800. Five steps from hero to small print.</p></div>
+    <div class="panel"><div class="typ">
+      <span class="meta">XL · 70/80 · 500<br>Hero &amp; CTA</span><span class="t-xl">Start buying <span style="color:var(--signal-2)">execution.</span></span>
+      <span class="meta">L · 50/60 · 500<br>Section head</span><span class="t-l">Three experiences. <span style="color:var(--accent)">One method.</span></span>
+      <span class="meta">M · 28/34 · 500<br>Card title</span><span class="t-m">Product Marketing Experience</span>
+      <span class="meta">S · 21/28 · 500<br>Item, button, link</span><span class="t-s">Branded Design System &amp; Component Library</span>
+      <span class="meta">XS · 16/24 · 500 caps<br>Label, eyebrow</span><span class="t-xs">Department 01 · Product</span>
+    </div></div>
+    <div class="note">Open question: the Logo uses weight 800, but the written rules say “400 and 500 only.” 800 is kept here as a logo-only exception.</div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Foundations</span><h2>Spacing &amp; radius</h2></div>
+    <div class="panel"><div class="spec">
+      <span>Radius</span><span><code>--kd-radius</code> — 5px on every element</span>
+      <span>Control height</span><span><code>--kd-control-h</code> — 45px buttons &amp; inputs</span>
+      <span>Grid gap</span><span>16–24px within groups, 56–72px between sections</span>
+      <span>Page gutter</span><span>20–32px, content max 1040–1280px</span>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Logo</h2>
+      <p class="lede">Pending the official logo asset (SVG/PNG). No placeholder is shown — the mark is not recreated in CSS.</p></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Buttons</h2>
+      <p class="lede">45px tall, 2px border, weight 500. Primary is brand blue; orange is reserved for the single CTA.</p></div>
+    <div class="panel"><div class="row">
+      <a class="kd-btn b-primary">Primary</a>
+      <a class="kd-btn b-outline">Outline</a>
+      <a class="kd-btn b-cta">CTA</a>
+      <a class="kd-btn b-accent">Accent</a>
+      <a class="kd-btn b-lime">Lime</a>
+      <a class="kd-btn b-primary sm">Small</a>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Labels</h2>
+      <p class="lede">Outlined or filled, uppercase, 5px radius. Nine tones map onto the palette.</p></div>
+    <div class="panel"><div class="row">
+      <span class="lbl l-lilac">Lilac</span><span class="lbl l-lime">Lime</span><span class="lbl l-blue">Blue</span>
+      <span class="lbl l-ink">Ink</span><span class="lbl l-orange">Orange</span><span class="lbl l-beige">Beige</span>
+      <span class="lbl l-peach">Peach</span><span class="lbl l-outline">Outline</span>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Teaser card</h2>
+      <p class="lede">The repeating service/use-case card: label, title, body, arrow link. Five tones.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <a class="teaser"><span class="lbl l-lime">Level 01 · Product</span><h3 style="color:#fff">Product Experience Design</h3><p style="color:#ECEBFF;font-size:21px">Audit, design system and redesigned journeys for the product itself.</p><span class="link">Learn more →</span></a>
+      <a class="teaser" style="background:var(--signal-1)"><span class="lbl l-blue">Level 02 · Marketing</span><h3 style="color:var(--blue-1)">Product Marketing</h3><p style="color:var(--blue-1);font-size:21px">Positioning, launch and content that moves the product.</p><span class="link" style="color:var(--blue-2)">Learn more →</span></a>
+      <a class="teaser" style="background:var(--lilac)"><span class="lbl l-blue">Level 03 · Sales</span><h3 style="color:var(--blue-1)">Sales Enablement</h3><p style="color:var(--blue-1);font-size:21px">Pipeline, outreach and the material that closes.</p><span class="link" style="color:var(--blue-2)">Learn more →</span></a>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Navigation bar</h2>
+      <p class="lede">Navy ground, white links, blue CTA. Logo slot pending the official asset.</p></div>
+    <nav class="navbar" aria-label="Main (example)">
+      <span class="slot">Logo</span>
+      <div class="links"><a href="#">Product</a><a href="#">Marketing</a><a href="#">Sales</a><a href="#">About</a></div>
+      <div class="row" style="gap:16px"><a href="#" style="color:var(--lilac);font-size:16px;font-weight:500">EN / DE</a><a class="kd-btn b-blue sm">Let's talk</a></div>
+    </nav>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Section header</h2>
+      <p class="lede">Label + eyebrow, headline with a coloured highlight, and an intro paragraph.</p></div>
+    <div class="panel"><div class="sh">
+      <div class="l">
+        <div class="row" style="gap:12px 16px"><span class="lbl l-blue">Level 01</span><span style="font-size:16px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)">Product Design Agent</span></div>
+        <h3 class="big">Product Experience <span style="color:var(--accent)">Design</span></h3>
+      </div>
+      <p class="intro">Two decades of shipping digital products, now working on yours.</p>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Founder card</h2></div>
+    <article class="founder">
+      <div class="tile" aria-hidden="true">MR</div>
+      <div class="b">
+        <span class="lbl l-blue">Founder &amp; Product Manager</span>
+        <h3>Maria Richter</h3>
+        <p style="font-size:21px;color:var(--fg-2)">Founder and Product Manager with 20+ years of product experience.</p>
+        <a href="#" style="font-size:21px;font-weight:500">LinkedIn profile →</a>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Step band</h2>
+      <p class="lede">A single call-forward line with an arrow mark and a highlighted phrase.</p></div>
+    <div class="panel"><div class="stepband">
+      <span class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg></span>
+      <p class="txt">With Kadanco you can go one step further and advance with <mark>Product Marketing Experience.</mark></p>
+    </div></div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Phase row</h2>
+      <p class="lede">A numbered step list; the active phase gets a solid blue fill.</p></div>
+    <div class="panel" style="display:flex;flex-direction:column">
+      <div class="phase"><span class="n">Phase 1</span><h4>Product Audit</h4><p class="d">A review of your flows, interface, analytics and feedback.</p></div>
+      <div class="phase feat"><span class="n">Phase 2</span><h4>Design System</h4><p class="d">A branded component library your team builds on.</p></div>
+      <div class="phase"><span class="n">Phase 3</span><h4>Redesigned Journeys</h4><p class="d">The key flows reworked and handed off to development.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Components</span><h2>Footer</h2></div>
+    <footer class="sitefoot">
+      <span class="slot">Logo</span>
+      <span style="flex:1 1 360px;min-width:0;font-size:16px">© 2026 Kadanco UG (haftungsbeschränkt) · Berlin, Germany</span>
+      <div class="links"><a href="#">Imprint</a><a href="#">Privacy Policy</a><a href="#">LinkedIn</a></div>
+    </footer>
+  </section>
+
+  <section>
+    <div class="head"><span class="eyebrow">Handoff</span><h2>Using the tokens</h2>
+      <p class="lede">Change a value once in <code>tokens.css</code> / <code>tokens.json</code> → every build follows. This page reads the same tokens.</p></div>
+    <pre>:root{
+  --kd-font-sans:"Fira Sans", ui-sans-serif, system-ui, sans-serif;
+  --kd-radius:5px;  --kd-control-h:45px;
+  --kd-ink:#201E1F;     --kd-beige-1:#F3F0EB;  --kd-blue-2:#3B38DF;
+  --kd-signal-1:#DAFF02; --kd-signal-2:#FE572A; --kd-lilac:#B2B1FF;
+}</pre>
+    <div class="note">Security: publish only built CSS to production. Keep this styleguide and the token source behind auth — never in the public web root, and strip any real placeholder data before sharing the link.</div>
+  </section>
+
+  <footer><span>Kadanco brand system · v1.0.0 · 2026-10-12</span><span>Fira Sans</span><span>Token-driven</span></footer>
+</div>
+
+<script>
+(function(){
+  var root=document.documentElement;
+  var SW=[["Ink","#201E1F","Text, footer"],["White","#FFFFFF","Cards"],["Beige 01","#F3F0EB","Page ground"],
+    ["Beige 02","#E7E2D9","Alt section"],["Beige 03","#DCD5C8","Lines"],["Lilac","#B2B1FF","Sales"],
+    ["Blue 01","#1A0175","Dark ground"],["Blue 02","#3B38DF","Product"],["Blue 03","#7270FF","Accent"],
+    ["Signal 01","#DAFF02","Marketing"],["Signal 02","#FE572A","CTA only"],["Signal 03","#FFDDD4","Soft fill"]];
+  document.getElementById('swatches').innerHTML=SW.map(function(s){
+    var edge=(s[1]==='#FFFFFF'||s[1]==='#F3F0EB')?';border-color:#DCD5C8':'';
+    return '<div class="sw"><div class="chip" style="background:'+s[1]+edge+'"></div><b>'+s[0]+'</b><code>'+s[1]+'</code><span>'+s[2]+'</span></div>';}).join('');
+  var DEPT=[["Product","#3B38DF","#fff"],["Marketing","#DAFF02","#1A0175"],["Sales","#B2B1FF","#1A0175"],["Accent / PLG","#7270FF","#fff"]];
+  document.getElementById('depts').innerHTML=DEPT.map(function(d){
+    return '<div class="cell"><div class="cap" style="background:'+d[1]+'"></div><div class="meta"><b>'+d[0]+'</b>'+d[1]+'</div></div>';}).join('');
+  var btns=[].slice.call(document.querySelectorAll('.theme button'));
+  function set(t){ if(t==='system')root.removeAttribute('data-theme'); else root.setAttribute('data-theme',t);
+    btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.t===t)});
+    try{localStorage.setItem('kd-sg-theme',t)}catch(e){} }
+  btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.t)})});
+  try{var s=localStorage.getItem('kd-sg-theme');if(s)set(s)}catch(e){}
+})();
+</script>
+
+</body></html>

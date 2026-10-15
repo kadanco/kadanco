@@ -1,0 +1,280 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kadanco Category Pages</title>
+<style>
+:root{--blue:#3B38DF;--yellow:#DAFF02;--purple:#B2B1FF;--orange:#FE572A;
+--ink:#0b1030;--mut:#5b6080;--line:#d7dae8;--paper:#f3efe7;--bg:#fff;--r:5px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Arial,sans-serif;font-weight:400;line-height:1.5}
+h1,h2,h3{font-weight:500;line-height:1.15}
+p{color:var(--mut)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.sec{padding:72px 0;border-bottom:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;height:45px;padding:0 22px;border-radius:var(--r);
+background:var(--ink);color:#fff;text-decoration:none;font-weight:500;font-size:15px;border:1px solid var(--ink)}
+.btn.o{background:transparent;color:var(--ink)}
+.lbl{display:inline-block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:4px 12px;margin-bottom:18px}
+.eyebrow{color:var(--ink)}
+.img{background:repeating-linear-gradient(45deg,#e7e9f2,#e7e9f2 7px,#f3f4fa 7px,#f3f4fa 14px);
+border:1px dashed var(--line);border-radius:var(--r);min-height:260px;display:flex;align-items:center;
+justify-content:center;text-align:center;color:var(--mut);font-size:13px;padding:18px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.hero{padding:96px 0}
+.hero h1{font-size:clamp(30px,5vw,52px);max-width:16ch}
+.hero p{font-size:19px;max-width:48ch;margin-top:18px}
+.cta-row{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.step{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--line)}
+.num{flex:none;width:34px;height:34px;border-radius:999px;border:1px solid currentColor;
+display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.ba>div{padding:26px}
+.ba .before{background:#f7f8fc}.ba .after{color:#fff}
+.next{border-radius:var(--r);padding:30px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer{background:var(--ink);color:#aeb3d8;padding:40px 0;font-size:13px}
+/* dark hero variants */
+.dark{background:var(--ink);color:#fff}.dark p{color:#c7cbe8}.dark .lbl{color:#aeb3d8;border-color:#3a4070}
+.dark .btn{background:#fff;color:var(--ink);border-color:#fff}.dark .btn.o{background:transparent;color:#fff;border-color:#4a5090}
+/* dept accents */
+.blue .eyebrow{color:var(--blue)} .blue .num{color:var(--blue)} .blue .ba .after{background:var(--blue)} .blue .next{background:var(--blue)}
+.ylw .hero{background:rgba(218,255,2,.16)} .ylw .eyebrow{color:#7f9000} .ylw .num{color:#7f9000} .ylw .ba .after{background:var(--ink)} .ylw .next{background:var(--ink)}
+.prp .hero{background:rgba(178,177,255,.18)} .prp .eyebrow{color:#5b59c9} .prp .num{color:#5b59c9} .prp .ba .after{background:#5b59c9} .prp .next{background:#5b59c9}
+.term{background:var(--ink);color:#8affa0;border-radius:var(--r);padding:22px;font-size:14px;line-height:2}
+.term .c{color:#aeb3d8}
+/* tabs */
+.tabs{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:6px;padding:10px 20px}
+.tabs label{font-size:13px;padding:9px 15px;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;color:var(--mut)}
+input[name=pg]{position:absolute;opacity:0;pointer-events:none}
+.page{display:none}
+#p5:checked~.v #s5,#p6:checked~.v #s6,#p7:checked~.v #s7{display:block}
+#p5:checked~.tabs label[for=p5],#p6:checked~.tabs label[for=p6],#p7:checked~.tabs label[for=p7]{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media(max-width:720px){.g2,.g3,.g4,.ba{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<input type="radio" name="pg" id="p5" checked><input type="radio" name="pg" id="p6"><input type="radio" name="pg" id="p7">
+<div class="tabs"><div class="wrap">
+<label for="p5">Product Design Eng.</label><label for="p6">Product Marketing Eng.</label><label for="p7">Sales Eng.</label>
+</div></div>
+<div class="v">
+
+<!-- ========== PAGE 5 ========== -->
+<div class="page blue" id="s5">
+  <section class="hero dark"><div class="wrap">
+    <span class="lbl">Product Design Engineering</span>
+    <h1>Your Product Works. Nobody Can Tell.</h1>
+    <p>Engineering-led teams ship real capability behind an interface only the builders can navigate. We re-engineer the experience so the value is obvious in the first session.</p>
+    <div class="cta-row"><a class="btn" href="#">Book A Product Review</a><a class="btn o" href="#">See The Work</a></div>
+  </div></section>
+
+  <section class="sec"><div class="wrap grid g2" style="align-items:center">
+    <div><span class="lbl eyebrow">The Symptoms</span><h2>You Already Know The Signs.</h2>
+      <div style="margin-top:18px">
+        <div class="step"><span class="num">1</span><div><h3>Long Onboarding Calls</h3><p>Every new user needs a human to get started.</p></div></div>
+        <div class="step"><span class="num">2</span><div><h3>Demos That Need A Translator</h3><p>The value only lands when you narrate it live.</p></div></div>
+        <div class="step"><span class="num">3</span><div><h3>Churn Right After Signup</h3><p>People leave before the first win.</p></div></div>
+        <div class="step"><span class="num">4</span><div><h3>Requests For What Exists</h3><p>Features are there — just undiscoverable.</p></div></div>
+      </div>
+    </div>
+    <div class="img">Image: CTO in a product review with engineers</div>
+  </div></section>
+
+  <section class="sec" style="background:var(--paper)"><div class="wrap">
+    <span class="lbl eyebrow">How We Operate</span><h2>Five Phases To Obvious Value.</h2>
+    <div class="grid g4" style="margin-top:26px">
+      <div class="card"><div class="num" style="margin-bottom:12px">1</div><h3>Audit</h3><p>Map every step to first value.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">2</div><h3>Find The Moment</h3><p>Pinpoint where value clicks.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">3</div><h3>Redesign First-Run</h3><p>Rebuild the opening minutes.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">4</div><h3>Rebuild Core Flows</h3><p>Fix the paths that matter.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <span class="lbl eyebrow">Before / After</span><h2>Same Product. Different Outcome.</h2>
+    <div class="ba" style="margin-top:22px">
+      <div class="before"><span class="lbl">Before</span><h3>11-Step Setup</h3><p>Time-to-value: 3 days. Needs a call.</p></div>
+      <div class="after"><span class="lbl" style="color:#fff;border-color:rgba(255,255,255,.4)">After</span><h3>Guided First-Run</h3><p style="color:#e8e9ff">Time-to-value: minutes. Self-serve.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <span class="lbl eyebrow">Deliverables</span><h2>What You Own At The End.</h2>
+    <div class="grid g4" style="margin-top:22px">
+      <div class="card"><h3>Usability Audit</h3><p>Scored, prioritised.</p></div>
+      <div class="card"><h3>Redesigned Flows</h3><p>Shipped, not slides.</p></div>
+      <div class="card"><h3>Component Kit</h3><p>Reusable system.</p></div>
+      <div class="card"><h3>Adoption Dashboard</h3><p>Proof it worked.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" style="background:var(--paper)"><div class="wrap">
+    <span class="lbl eyebrow">Case Study</span><h2>Adoption Rescue.</h2>
+    <div class="grid g2" style="margin-top:22px;align-items:stretch">
+      <div class="card">
+        <div class="step" style="border-top:none;padding-top:0"><span class="num">P</span><div><h3>The Problem</h3><p>11-step setup; every trial needed a call. 40% dropped before first value.</p></div></div>
+        <div class="step"><span class="num">A</span><div><h3>What We Did</h3><p>Re-engineered first-run into a guided 3-step path.</p></div></div>
+        <div class="step"><span class="num">R</span><div><h3>The Result</h3><p>Time-to-value 3 days → under 10 min. Activation +34%. <em>(placeholder)</em></p></div></div>
+      </div>
+      <div class="img">Image: Product team reviewing the new first-run flow</div>
+    </div>
+    <p style="margin-top:18px;font-size:19px;color:var(--ink)">"Signups started converting on their own." <span style="color:var(--mut);font-size:14px">— placeholder, review before launch</span></p>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="next"><div><span class="lbl" style="color:#e8e9ff;border-color:rgba(255,255,255,.4)">Next Floor</span><h2 style="color:#fff">Value Is Clear. Now Make People Want It.</h2></div>
+      <a class="btn o" href="#" style="color:#fff;border-color:#fff">Product Marketing Engineering →</a></div>
+  </div></section>
+
+  <section class="sec" style="text-align:center"><div class="wrap">
+    <h2>Make Your Product Sell Itself.</h2>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="#">Book A Product Review</a></div>
+  </div></section>
+</div>
+
+<!-- ========== PAGE 6 ========== -->
+<div class="page ylw" id="s6">
+  <section class="hero"><div class="wrap grid g2" style="align-items:center">
+    <div><span class="lbl eyebrow">Product Marketing Engineering</span>
+      <h1>A Great Product Nobody Understands Doesn't Sell. We Make It Make Sense.</h1>
+      <p>We turn what the product does into what the buyer gets, in words they already use.</p>
+      <div class="cta-row"><a class="btn" href="#">Fix Your Positioning</a></div></div>
+    <div class="img">Image: Marketer mapping messaging on a wall</div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <span class="lbl eyebrow">The Loop</span><h2>Message. Publish. Measure. Sharpen.</h2>
+    <div class="grid g4" style="margin-top:26px">
+      <div class="card"><h3>Research The Buyer</h3><p>Their words, not yours.</p></div>
+      <div class="card"><h3>Frame The Message</h3><p>Outcome over feature.</p></div>
+      <div class="card"><h3>Publish</h3><p>Everywhere it's read.</p></div>
+      <div class="card"><h3>Sharpen</h3><p>Weekly, not quarterly.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec dark"><div class="wrap">
+    <span class="lbl eyebrow" style="color:var(--yellow)">Channels</span><h2>Where The Message Shows Up.</h2>
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card" style="border-color:#3a4070"><h3 style="color:#fff">Website</h3><p>The first read.</p></div>
+      <div class="card" style="border-color:#3a4070"><h3 style="color:#fff">Launch Assets</h3><p>Every release lands.</p></div>
+      <div class="card" style="border-color:#3a4070"><h3 style="color:#fff">Sales Deck</h3><p>One story, told twice.</p></div>
+      <div class="card" style="border-color:#3a4070"><h3 style="color:#fff">Docs</h3><p>Clarity after signup.</p></div>
+      <div class="card" style="border-color:#3a4070"><h3 style="color:#fff">Comparison Pages</h3><p>Win the shortlist.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" style="background:var(--paper)"><div class="wrap">
+    <span class="lbl eyebrow">Runway</span><h2>From Positioning To Launch.</h2>
+    <div style="margin-top:18px">
+      <div class="step"><span class="num">1</span><div><h3>Positioning</h3><p>Who it's for and why it wins.</p></div></div>
+      <div class="step"><span class="num">2</span><div><h3>Messaging</h3><p>The words that convert.</p></div></div>
+      <div class="step"><span class="num">3</span><div><h3>Proof</h3><p>Evidence buyers trust.</p></div></div>
+      <div class="step"><span class="num">4</span><div><h3>Launch</h3><p>Ship it to every channel.</p></div></div>
+    </div>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <span class="lbl eyebrow">Features vs Outcomes</span><h2>Why "Ship Features" Loses.</h2>
+    <div class="ba" style="margin-top:22px">
+      <div class="before"><span class="lbl">Ship Features</span><p>Clarity: low · Trust: low · Conversion: flat.</p></div>
+      <div class="after"><span class="lbl" style="color:#fff;border-color:rgba(255,255,255,.4)">Ship Outcomes</span><p style="color:#e8e9ff">Clarity: high · Trust: high · Conversion: up.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" style="background:var(--paper)"><div class="wrap">
+    <span class="lbl eyebrow">Case Study</span><h2>From Feature List To Clear Offer.</h2>
+    <div class="grid g2" style="margin-top:22px;align-items:stretch">
+      <div class="card">
+        <div class="step" style="border-top:none;padding-top:0"><span class="num">P</span><div><h3>The Problem</h3><p>The site listed features; buyers couldn't tell the product apart from rivals.</p></div></div>
+        <div class="step"><span class="num">A</span><div><h3>What We Did</h3><p>Repositioned around one buyer outcome; rebuilt homepage, deck and a comparison page.</p></div></div>
+        <div class="step"><span class="num">R</span><div><h3>The Result</h3><p>Demo requests +61%. Sales cycle −2 weeks. <em>(placeholder)</em></p></div></div>
+      </div>
+      <div class="img">Image: Buyer reading the new positioning on the homepage</div>
+    </div>
+    <p style="margin-top:18px;font-size:19px;color:var(--ink)">"Prospects arrive already understanding us." <span style="color:var(--mut);font-size:14px">— placeholder, review before launch</span></p>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="next"><div><span class="lbl" style="color:#e8e9ff;border-color:rgba(255,255,255,.4)">Next Floor</span><h2 style="color:#fff">They Get It. Now Book The Meetings.</h2></div>
+      <a class="btn o" href="#" style="color:#fff;border-color:#fff">Sales Engineering →</a></div>
+  </div></section>
+
+  <section class="sec" style="text-align:center"><div class="wrap">
+    <h2>Make The Product Make Sense.</h2>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="#">Fix Your Positioning</a></div>
+  </div></section>
+</div>
+
+<!-- ========== PAGE 7 ========== -->
+<div class="page prp" id="s7">
+  <section class="hero"><div class="wrap">
+    <span class="lbl eyebrow">Sales Engineering</span>
+    <h1>Pipeline Shouldn't Depend On One Founder. We Build The Engine.</h1>
+    <p>A repeatable motion that books qualified meetings without burning the team out.</p>
+    <div class="cta-row"><a class="btn" href="#">Build My Pipeline</a></div>
+  </div></section>
+
+  <section class="sec"><div class="wrap grid g2" style="align-items:center">
+    <div><span class="lbl eyebrow">The Leak</span><h2>Where Deals Quietly Drop.</h2>
+      <div style="margin-top:18px">
+        <div class="step"><span class="num">1</span><div><h3>Wrong Targets</h3><p>Effort spent on bad-fit accounts.</p></div></div>
+        <div class="step"><span class="num">2</span><div><h3>Weak First Touch</h3><p>Openers that get ignored.</p></div></div>
+        <div class="step"><span class="num">3</span><div><h3>Slow Follow-Up</h3><p>Interest cools before reply.</p></div></div>
+        <div class="step"><span class="num">4</span><div><h3>No Next Step</h3><p>Calls end without a commitment.</p></div></div>
+      </div>
+    </div>
+    <div class="img">Image: Founder and first sales hire reviewing pipeline</div>
+  </div></section>
+
+  <section class="sec" style="background:var(--paper)"><div class="wrap">
+    <span class="lbl eyebrow">The Motion</span><h2>One Repeatable Path.</h2>
+    <div class="grid g4" style="margin-top:22px">
+      <div class="card"><div class="num" style="margin-bottom:12px">1</div><h3>Target List</h3><p>Named, scored accounts.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">2</div><h3>First Touch</h3><p>Openers that earn a reply.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">3</div><h3>Qualify</h3><p>Fit before time spent.</p></div>
+      <div class="card"><div class="num" style="margin-bottom:12px">4</div><h3>Close &amp; Hand-Off</h3><p>Commitment, then delivery.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec dark"><div class="wrap" style="text-align:center">
+    <div class="img" style="background:none;border-color:#3a4070;color:#c7cbe8;min-height:180px">Image: Full-width field photo — buyer handshake</div>
+    <h2 style="color:#fff;max-width:20ch;margin:26px auto 0">"We stopped guessing. The meetings just started showing up."</h2>
+    <p style="margin-top:10px">— Placeholder quote, review before launch</p>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <span class="lbl eyebrow">Case Study</span><h2>Pipeline Off The Founder.</h2>
+    <div class="grid g2" style="margin-top:22px;align-items:stretch">
+      <div class="card">
+        <div class="step" style="border-top:none;padding-top:0"><span class="num">P</span><div><h3>The Problem</h3><p>Every deal ran through one founder; pipeline stalled when they were busy.</p></div></div>
+        <div class="step"><span class="num">A</span><div><h3>What We Did</h3><p>Built a target list, first-touch openers and a qualify-to-handoff motion.</p></div></div>
+        <div class="step"><span class="num">R</span><div><h3>The Result</h3><p>18 qualified meetings/month without the founder. Close rate +12%. <em>(placeholder)</em></p></div></div>
+      </div>
+      <div class="img">Image: First sales hire running the new motion</div>
+    </div>
+    <p style="margin-top:18px;font-size:19px;color:var(--ink)">"The meetings just started showing up." <span style="color:var(--mut);font-size:14px">— placeholder, review before launch</span></p>
+  </div></section>
+
+  <section class="sec"><div class="wrap">
+    <div class="next" style="background:var(--orange)"><div><span class="lbl" style="color:#fff;border-color:rgba(255,255,255,.5)">Next Floor</span><h2 style="color:#fff">Motion Works. Now Let The Product Sell Itself.</h2></div>
+      <a class="btn o" href="#" style="color:#fff;border-color:#fff">Product-Led Growth →</a></div>
+  </div></section>
+
+  <section class="sec" style="text-align:center"><div class="wrap">
+    <h2>Build A Pipeline That Lasts.</h2>
+    <div class="cta-row" style="justify-content:center"><a class="btn" href="#">Build My Pipeline</a></div>
+  </div></section>
+</div>
+
+<footer><div class="wrap">Kadanco · Product Design · Product Marketing · Sales · Product-Led Growth</div></footer>
+</div>
+</body>
+</html>
+
+</body></html>
