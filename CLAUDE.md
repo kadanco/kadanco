@@ -110,7 +110,6 @@ Next, in order:
 
 ## Open questions
 
-- Founder section shows only Maria Richter (per the design). Add Karan back?
 - Fonts still load from Google Fonts. Self-host before launch (GDPR).
 - Missing docs mentioned in the context notes: `Kadanco_Chat_Summary_2026-10-10.md`, `Kadanco_Website_Blueprint_2026-10-12.md`, `Kadanco_Finanzen_Chat_Summary_2026-10-10.md`.
 - Official logo asset (SVG) is still pending.
@@ -126,3 +125,4 @@ Next, in order:
 - 2026-10-17: The October Home design supersedes all old homepage content and style. Hero from the Home design file (closes the hero question).
 - 2026-10-17: Links and buttons follow the brand system styleguide: orange only for the main CTA (Get A Free Audit), blue primary, links 21px weight 500 with an arrow.
 - 2026-10-17: The design's floating theme switch moved into the nav.
+- 2026-10-17: Founders section keeps all content from the old homepage (Maria and Karan, photos, intro, tags); only the design follows the October system.

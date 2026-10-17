@@ -32,12 +32,16 @@ const copy = {
     ],
     stepA: 'With Kadanco you go one step further and advance with',
     stepB: 'Product Marketing Engineering.',
-    aboutEyebrow: 'Who runs it',
-    aboutH2a: 'Built And Run By',
-    aboutH2b: 'One Operator.',
-    founderRole: 'Founder & Product Manager',
-    founderBody: 'Founder and Product Manager with 20+ years of product experience, now working on yours.',
-    founderLink: 'LinkedIn profile',
+    aboutEyebrow: 'Who We Are',
+    aboutH2a: 'Two Operators',
+    aboutH2b: 'That Take Ownership.',
+    aboutIntro: 'is a complete marketing function for B2B companies. Two operators take ownership of the strategy and run the execution themselves. One team, one system of action, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
+    founders: [
+      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Founder & Product Manager', body: '20+ Product Experience Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
+      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Founder & Growth Manager', body: 'Replace your GTM stack with one platform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
+    ],
+    founderLink: 'View LinkedIn Profile',
+    tags: ['Product Development', 'Product Management', 'Product Design', 'Product Marketing', 'Lead Generation', 'Demand Generation', 'Growth Marketing', 'Email Marketing', 'Marketing Consulting', 'Marketing Strategy', 'Copywriting'],
     ctaEyebrow: 'Free, no obligation',
     ctaH2a: 'Tell Us Where It Hurts.',
     ctaH2b: "We'll Reply In A Day.",
@@ -60,12 +64,16 @@ const copy = {
     ],
     stepA: 'Mit Kadanco gehen Sie einen Schritt weiter, mit',
     stepB: 'Product Marketing Engineering.',
-    aboutEyebrow: 'Wer es umsetzt',
-    aboutH2a: 'Aufgebaut und geführt',
-    aboutH2b: 'von einer Macherin.',
-    founderRole: 'Gründerin & Product Managerin',
-    founderBody: 'Gründerin und Product Managerin mit über 20 Jahren Produkterfahrung, jetzt für Ihr Produkt.',
-    founderLink: 'LinkedIn-Profil',
+    aboutEyebrow: 'Über uns',
+    aboutH2a: 'Zwei Macher,',
+    aboutH2b: 'die Verantwortung übernehmen.',
+    aboutIntro: 'ist eine komplette Marketing-Funktion für B2B-Unternehmen. Zwei Macher übernehmen die Verantwortung für die Strategie und setzen sie selbst um. Ein Team, ein System, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
+    founders: [
+      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Gründerin & Product Managerin', body: '20+ Jahre Produkterfahrung, Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
+      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Gründer & Growth Manager', body: 'Ersetzen Sie Ihren GTM-Stack durch eine Plattform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
+    ],
+    founderLink: 'LinkedIn-Profil ansehen',
+    tags: ['Produktentwicklung', 'Produktmanagement', 'Produktdesign', 'Produktmarketing', 'Leadgenerierung', 'Demand Generation', 'Growth Marketing', 'E-Mail-Marketing', 'Marketingberatung', 'Marketingstrategie', 'Copywriting'],
     ctaEyebrow: 'Kostenlos und unverbindlich',
     ctaH2a: 'Sagen Sie uns, wo es hakt.',
     ctaH2b: 'Wir antworten innerhalb eines Tages.',
@@ -118,22 +126,32 @@ const c = copy[locale] ?? copy.en;
     </div>
   </section>
 
-  <!-- ===================== ABOUT ===================== -->
+  <!-- ===================== ABOUT: content from the old homepage, October design ===================== -->
   <section class="home-sec" id="about">
     <div class="container">
-      <div class="home-head">
-        <span class="home-eyebrow">{c.aboutEyebrow}</span>
-        <h2>{c.aboutH2a} <em>{c.aboutH2b}</em></h2>
-      </div>
-      <article class="home-founder">
-        <div class="home-founder-tile" aria-hidden="true">MR</div>
-        <div class="home-founder-b">
-          <span class="home-lbl home-lbl--blue">{c.founderRole}</span>
-          <h3>Maria Richter</h3>
-          <p>{c.founderBody}</p>
-          <a class="home-link home-link--accent" href="https://www.linkedin.com/in/miarichter/" target="_blank" rel="noopener">{c.founderLink} →</a>
+      <div class="home-sh">
+        <div class="home-head">
+          <span class="home-eyebrow">{c.aboutEyebrow}</span>
+          <h2>{c.aboutH2a} <em>{c.aboutH2b}</em></h2>
         </div>
-      </article>
+        <p class="home-sh-intro"><span class="home-strong">KADANCO</span> {c.aboutIntro}</p>
+      </div>
+      <div class="home-founders">
+        {c.founders.map((f) => (
+          <article class="home-founder">
+            <img class="home-founder-photo" src={f.photo} alt={f.name} width="104" height="104" loading="lazy" />
+            <div class="home-founder-b">
+              <span class="home-lbl home-lbl--blue">{f.role}</span>
+              <h3>{f.name}</h3>
+              <p>{f.body}</p>
+              <a class="home-link home-link--accent" href={f.linkedin} target="_blank" rel="noopener">{c.founderLink} →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <ul class="home-tags">
+        {c.tags.map((tag) => <li class="home-lbl home-lbl--outline">{tag}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -210,12 +228,21 @@ const c = copy[locale] ?? copy.en;
   .home-band p { font-size: clamp(20px, 2.4vw, 28px); line-height: 1.35; font-weight: var(--kd-weight-medium); min-width: 0; }
   .home-band mark { background: var(--kd-signal-1); color: var(--kd-blue-1); padding: 0 8px; border-radius: var(--kd-radius); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
-  /* ---------- founder card ---------- */
+  /* ---------- about: section header (head left, intro right), founder cards, tags ---------- */
+  .home-sh { display: flex; flex-wrap: wrap; gap: 20px 56px; align-items: flex-end; margin-bottom: 32px; }
+  .home-sh .home-head { flex: 1 1 360px; min-width: 0; margin-bottom: 0; }
+  .home-sh-intro { flex: 1 1 320px; min-width: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); }
+  .home-strong { font-weight: var(--kd-weight-medium); color: var(--kd-fg); }
+  .home-founders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 880px) { .home-founders { grid-template-columns: 1fr; } }
   .home-founder { display: flex; gap: 24px; flex-wrap: wrap; padding: 32px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); }
-  .home-founder-tile { width: 104px; height: 104px; flex: none; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-beige-1); display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: var(--kd-weight-medium); letter-spacing: -.03em; }
-  .home-founder-b { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .home-founder-photo { width: 104px; height: 104px; flex: none; border-radius: var(--kd-radius); object-fit: cover; background: var(--kd-blue-2); }
+  .home-founder-b { flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
   .home-founder h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
   .home-founder p { font-size: 19px; color: var(--kd-fg-2); }
+  .home-founder .home-link { margin-top: auto; }
+  .home-tags { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .home-lbl--outline { border: 1px solid var(--kd-line); color: var(--kd-fg); }
 
   /* ---------- CTA band ---------- */
   .home-ctaband { background: var(--kd-blue-2); color: var(--kd-white); }
