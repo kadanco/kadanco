@@ -65,6 +65,8 @@
   /* Pages that support dark mode use these instead of fixed colours. */
   --kd-bg: var(--kd-beige-1);
   --kd-surface: var(--kd-white);
+  --kd-surface-2: var(--kd-beige-2);
+  --kd-logo-filter: none; /* logos and badges keep their colours on light grounds */
   --kd-line: var(--kd-beige-3);
   --kd-fg: var(--kd-ink);
   --kd-fg-2: var(--kd-ink-2);
@@ -79,6 +81,8 @@
   :root:not([data-mode="light"]) {
     --kd-bg: var(--kd-night);
     --kd-surface: var(--kd-blue-1);
+    --kd-surface-2: var(--kd-ink);
+    --kd-logo-filter: grayscale(1) invert(1);
     --kd-line: var(--kd-night-line);
     --kd-fg: var(--kd-beige-1);
     --kd-fg-2: var(--kd-lilac-soft);
@@ -89,6 +93,8 @@
 :root[data-mode="dark"] {
   --kd-bg: var(--kd-night);
   --kd-surface: var(--kd-blue-1);
+  --kd-surface-2: var(--kd-ink);
+  --kd-logo-filter: grayscale(1) invert(1);
   --kd-line: var(--kd-night-line);
   --kd-fg: var(--kd-beige-1);
   --kd-fg-2: var(--kd-lilac-soft);

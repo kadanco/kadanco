@@ -7,6 +7,7 @@
 // Supports dark mode: every ground and text colour that should switch uses
 // the theme role tokens (--kd-bg, --kd-surface, --kd-fg, ...). The navy hero,
 // the three department cards and the blue CTA band keep their fixed colours.
+// Client logos and compliance badges turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
 import { asLocale } from '../i18n/utils';
@@ -32,6 +33,19 @@ const copy = {
     ],
     stepA: 'With Kadanco you go one step further and advance with',
     stepB: 'Product Marketing Engineering.',
+    logosEyebrow: 'Two careers behind the work',
+    logosNote: 'We bring four decades of collective experience across enterprise software, services, automotive, pharma, and SaaS in product, marketing, and sales.',
+    ucEyebrow: 'Use Cases',
+    ucH2a: 'What The Function',
+    ucH2b: 'Delivers.',
+    ucLede: 'A few of the outcomes teams hire us for, and the bundle of workstreams behind each.',
+    ucLink: 'Full use case',
+    useCases: [
+      { eyebrow: 'Market entry', name: 'DACH market entry', href: '/use-cases/dach-market-entry/', summary: 'A German-language presence that compounds, run end to end.', bundle: ['Localised positioning', 'A German content engine', 'LinkedIn for the team', 'An event motion', 'Distribution that compounds'] },
+      { eyebrow: 'Founder content', name: 'Founder-led content & pipeline', href: '/use-cases/founder-led-content/', summary: "A publishing motion in the founder's voice, feeding measurable pipeline.", bundle: ['Messaging & positioning', 'Ghostwriting & content', 'SEO & GEO', 'Outbound warmed by the content', 'RevOps to track what converts'] },
+      { eyebrow: 'Conversion', name: 'Rebuild that lifts conversion', href: '/use-cases/conversion-rebuild/', summary: 'A site and message that match where the company actually is now.', bundle: ['Repositioning around where you are now', 'Brand & website rebuild', 'Sales collateral', 'Conversion-rate optimisation', 'Lifecycle & automation'] },
+      { eyebrow: 'Events', name: 'Event pipeline engineering', href: '/use-cases/event-pipeline/', summary: 'Scored events, pre-event ABM, and CFO-grade ROI in 30 days.', bundle: ['Events scored by ICP overlap and persona density', 'LinkedIn & Meta ABM from four weeks out, with calendar holds', 'Hosted dinners and roundtables where deals close', 'Same-day enrichment, CRM sync and sequenced follow-up'] },
+    ],
     aboutEyebrow: 'Who We Are',
     aboutH2a: 'Two Operators',
     aboutH2b: 'That Take Ownership.',
@@ -42,6 +56,23 @@ const copy = {
     ],
     founderLink: 'View LinkedIn Profile',
     tags: ['Product Development', 'Product Management', 'Product Design', 'Product Marketing', 'Lead Generation', 'Demand Generation', 'Growth Marketing', 'Email Marketing', 'Marketing Consulting', 'Marketing Strategy', 'Copywriting'],
+    faqEyebrow: 'FAQ',
+    faqH2a: 'Questions,',
+    faqH2b: 'Answered.',
+    faqs: [
+      { q: 'How do you work with us?', a: 'We run as your marketing function on a quarterly engagement: map the market, ICP and funnel, agree the motions that move pipeline most, then execute them ourselves. Four clients at a time.' },
+      { q: 'How fast do we see results?', a: 'First execution is live inside two weeks of kickoff. From there we run in quarterly cycles, plan, ship, review, and the engine compounds.' },
+      { q: 'Who does the work?', a: 'The two operators who scope your work are the two who do it. No account-management layer, no junior delivery, no markup.' },
+      { q: 'What does it cost?', a: 'We scope each engagement to what your pipeline needs, with a predictable floor and a ceiling you control. The fastest way to a number is a short conversation.' },
+      { q: 'Only companies entering Germany?', a: 'No. We run the full marketing function for B2B companies generally. DACH market entry is one use case we do well in native German, not the whole offer.' },
+      { q: "What's included in the function?", a: 'The whole stack: positioning, brand and website, content and ghostwriting, ABM and demand, paid, events, SEO and GEO, CRO, and RevOps. We deploy whichever motions move your pipeline.' },
+    ],
+    complianceEyebrow: 'Compliance',
+    badges: [
+      { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'GDPR compliant' },
+      { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
+      { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+    ],
     ctaEyebrow: 'Free, no obligation',
     ctaH2a: 'Tell Us Where It Hurts.',
     ctaH2b: "We'll Reply In A Day.",
@@ -64,6 +95,19 @@ const copy = {
     ],
     stepA: 'Mit Kadanco gehen Sie einen Schritt weiter, mit',
     stepB: 'Product Marketing Engineering.',
+    logosEyebrow: 'Zwei Karrieren hinter der Arbeit',
+    logosNote: 'Wir bringen vier Jahrzehnte gemeinsame Erfahrung aus Enterprise-Software, Services, Automotive, Pharma und SaaS mit, in Produkt, Marketing und Vertrieb.',
+    ucEyebrow: 'Use Cases',
+    ucH2a: 'Was die Funktion',
+    ucH2b: 'liefert.',
+    ucLede: 'Einige der Ergebnisse, für die Teams uns holen, und die Workstreams, die dahinterstehen.',
+    ucLink: 'Zum Use Case',
+    useCases: [
+      { eyebrow: 'Markteintritt', name: 'DACH-Markteintritt', href: '/de/use-cases/dach-market-entry/', summary: 'Eine deutschsprachige Präsenz, die wächst, End-to-End betrieben.', bundle: ['Lokalisierte Positionierung', 'Ein deutschsprachiger Content-Motor', 'LinkedIn für das Team', 'Ein Event-Programm', 'Distribution, die sich aufbaut'] },
+      { eyebrow: 'Founder-Content', name: 'Founder-Content & Pipeline', href: '/de/use-cases/founder-led-content/', summary: 'Ein Publishing-Programm in der Stimme der Gründer, das messbare Pipeline erzeugt.', bundle: ['Messaging & Positionierung', 'Ghostwriting & Content', 'SEO & GEO', 'Outbound, vorgewärmt durch Content', 'RevOps, um Conversions zu messen'] },
+      { eyebrow: 'Conversion', name: 'Relaunch, der die Conversion hebt', href: '/de/use-cases/conversion-rebuild/', summary: 'Eine Website und eine Botschaft, die zum heutigen Unternehmen passen.', bundle: ['Neupositionierung auf den Stand von heute', 'Marken- und Website-Relaunch', 'Vertriebsunterlagen', 'Conversion-Optimierung', 'Lifecycle & Automatisierung'] },
+      { eyebrow: 'Events', name: 'Event-Pipeline-Engineering', href: '/de/use-cases/event-pipeline/', summary: 'Bewertete Events, ABM vor dem Event und ein ROI-Report in 30 Tagen.', bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'] },
+    ],
     aboutEyebrow: 'Über uns',
     aboutH2a: 'Zwei Macher,',
     aboutH2b: 'die Verantwortung übernehmen.',
@@ -74,6 +118,23 @@ const copy = {
     ],
     founderLink: 'LinkedIn-Profil ansehen',
     tags: ['Produktentwicklung', 'Produktmanagement', 'Produktdesign', 'Produktmarketing', 'Leadgenerierung', 'Demand Generation', 'Growth Marketing', 'E-Mail-Marketing', 'Marketingberatung', 'Marketingstrategie', 'Copywriting'],
+    faqEyebrow: 'FAQ',
+    faqH2a: 'Fragen,',
+    faqH2b: 'beantwortet.',
+    faqs: [
+      { q: 'Wie arbeiten Sie mit uns?', a: 'Wir arbeiten als Ihre Marketing-Funktion in einem Quartalsmandat: Markt, ICP und Funnel verstehen, die Maßnahmen festlegen, die die Pipeline am stärksten bewegen, und sie dann selbst umsetzen. Vier Kunden gleichzeitig.' },
+      { q: 'Wie schnell sehen wir Ergebnisse?', a: 'Die erste Umsetzung ist innerhalb von zwei Wochen nach Start live. Danach arbeiten wir in Quartalszyklen: planen, liefern, auswerten, und der Motor wird stärker.' },
+      { q: 'Wer macht die Arbeit?', a: 'Die beiden Macher, die Ihre Arbeit definieren, sind die beiden, die sie machen. Keine Account-Ebene, keine Junior-Umsetzung, kein Aufschlag.' },
+      { q: 'Was kostet das?', a: 'Wir schneiden jedes Mandat auf das zu, was Ihre Pipeline braucht, mit einer planbaren Untergrenze und einer Obergrenze, die Sie steuern. Am schnellsten kommen Sie in einem kurzen Gespräch zu einer Zahl.' },
+      { q: 'Nur Unternehmen, die nach Deutschland kommen?', a: 'Nein. Wir betreiben die komplette Marketing-Funktion für B2B-Unternehmen allgemein. Der DACH-Markteintritt ist ein Use Case, den wir auf muttersprachlichem Niveau beherrschen, nicht das ganze Angebot.' },
+      { q: 'Was gehört zur Funktion?', a: 'Der ganze Stack: Positionierung, Marke und Website, Content und Ghostwriting, ABM und Demand, Paid, Events, SEO und GEO, CRO und RevOps. Wir setzen die Maßnahmen ein, die Ihre Pipeline bewegen.' },
+    ],
+    complianceEyebrow: 'Compliance',
+    badges: [
+      { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'DSGVO-konform' },
+      { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
+      { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+    ],
     ctaEyebrow: 'Kostenlos und unverbindlich',
     ctaH2a: 'Sagen Sie uns, wo es hakt.',
     ctaH2b: 'Wir antworten innerhalb eines Tages.',
@@ -81,6 +142,17 @@ const copy = {
 };
 
 const c = copy[locale] ?? copy.en;
+
+const logos = [
+  { file: 'mercedes-benz', alt: 'Mercedes-Benz' },
+  { file: 'opel', alt: 'Opel' },
+  { file: 'toyota', alt: 'Toyota' },
+  { file: 'merck', alt: 'Merck' },
+  { file: 'oracle', alt: 'Oracle' },
+  { file: 'consorsbank', alt: 'Consorsbank' },
+  { file: 'dkb', alt: 'DKB' },
+  { file: 'sparkasse', alt: 'Sparkasse' },
+];
 ---
 <main id="top" class="home">
 
@@ -94,6 +166,21 @@ const c = copy[locale] ?? copy.en;
         <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
         <a href="#offers" class="btn btn-ghost btn-lg">{c.offersLink}</a>
       </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLIENT LOGOS (infinite marquee) ===================== -->
+  <section class="home-logos">
+    <div class="container">
+      <span class="home-eyebrow home-logos-head">{c.logosEyebrow}</span>
+      <div class="logo-marquee">
+        <div class="logo-track">
+          {logos.map((l) => <img src={`https://assets.kadanco.com/logos/${l.file}.svg`} alt={l.alt} class="logo" />)}
+          {/* decorative duplicate set for the seamless loop */}
+          {logos.map((l) => <img src={`https://assets.kadanco.com/logos/${l.file}.svg`} alt="" aria-hidden="true" class="logo logo--dupe" />)}
+        </div>
+      </div>
+      <p class="home-logos-note">{c.logosNote}</p>
     </div>
   </section>
 
@@ -126,6 +213,30 @@ const c = copy[locale] ?? copy.en;
     </div>
   </section>
 
+  <!-- ===================== USE CASES (teaser cards) ===================== -->
+  <section class="home-sec home-sec--alt" id="use-cases">
+    <div class="container">
+      <div class="home-head">
+        <span class="home-eyebrow">{c.ucEyebrow}</span>
+        <h2>{c.ucH2a} <em>{c.ucH2b}</em></h2>
+        <p class="home-lede">{c.ucLede}</p>
+      </div>
+      <div class="home-uc">
+        {c.useCases.map((u) => (
+          <a class="home-uc-card" href={u.href}>
+            <span class="home-lbl home-lbl--blue">{u.eyebrow}</span>
+            <h3>{u.name}</h3>
+            <p>{u.summary}</p>
+            <ul class="home-uc-bundle">
+              {u.bundle.map((b) => <li>{b}</li>)}
+            </ul>
+            <span class="home-link home-link--accent">{c.ucLink} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ===================== ABOUT: content from the old homepage, October design ===================== -->
   <section class="home-sec" id="about">
     <div class="container">
@@ -152,6 +263,34 @@ const c = copy[locale] ?? copy.en;
       <ul class="home-tags">
         {c.tags.map((tag) => <li class="home-lbl home-lbl--outline">{tag}</li>)}
       </ul>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="home-sec home-sec--alt" id="faq">
+    <div class="container">
+      <div class="home-head">
+        <span class="home-eyebrow">{c.faqEyebrow}</span>
+        <h2>{c.faqH2a} <em>{c.faqH2b}</em></h2>
+      </div>
+      <div class="home-faq">
+        {c.faqs.map((f) => (
+          <article class="home-faq-card">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COMPLIANCE ===================== -->
+  <section class="home-compliance">
+    <div class="container home-compliance-in">
+      <span class="home-eyebrow">{c.complianceEyebrow}</span>
+      <div class="home-badges">
+        {c.badges.map((b) => <img src={b.src} alt={b.alt} width="104" height="104" loading="lazy" />)}
+      </div>
     </div>
   </section>
 
@@ -228,6 +367,41 @@ const c = copy[locale] ?? copy.en;
   .home-band p { font-size: clamp(20px, 2.4vw, 28px); line-height: 1.35; font-weight: var(--kd-weight-medium); min-width: 0; }
   .home-band mark { background: var(--kd-signal-1); color: var(--kd-blue-1); padding: 0 8px; border-radius: var(--kd-radius); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
+  /* ---------- client logos: white band between hero and offers ---------- */
+  .home-logos { background: var(--kd-surface); border-bottom: 1px solid var(--kd-line); padding: 48px 0; text-align: center; }
+  .home-logos-head { display: block; margin-bottom: 28px; }
+  .home-logos .logo { filter: var(--kd-logo-filter); }
+  .home .home-logos-note { max-width: 60ch; margin: 28px auto 0; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+
+  /* alternate ground for every second content section */
+  .home-sec--alt { background: var(--kd-surface-2); }
+
+  /* ---------- use cases: teaser cards (label, title, body, bundle, arrow link) ---------- */
+  .home-uc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 820px) { .home-uc { grid-template-columns: 1fr; } }
+  .home-uc-card { display: flex; flex-direction: column; gap: 16px; padding: 32px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); color: var(--kd-fg); text-decoration: none; transition: transform .18s ease, border-color .18s ease; }
+  .home-uc-card:hover { transform: translateY(-4px); border-color: var(--kd-accent); }
+  .home-uc-card h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
+  .home-uc-card p { font-size: 19px; line-height: 1.4; color: var(--kd-fg-2); }
+  .home-uc-bundle { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .home-uc-bundle li { position: relative; padding-left: 22px; font-size: 16px; line-height: 1.4; }
+  .home-uc-bundle li::before { content: ""; position: absolute; left: 0; top: .45em; width: 10px; height: 10px; border-radius: 2px; background: var(--kd-accent); }
+  .home-uc-card .home-link { margin-top: auto; padding-top: 4px; }
+
+  /* ---------- FAQ: 3-column card grid ---------- */
+  .home-faq { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .home-faq { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .home-faq { grid-template-columns: 1fr; } }
+  .home-faq-card { padding: 28px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); display: flex; flex-direction: column; gap: 10px; }
+  .home-faq-card h3 { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); }
+  .home-faq-card p { font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
+
+  /* ---------- compliance: white band with the three badges ---------- */
+  .home-compliance { background: var(--kd-surface); border-block: 1px solid var(--kd-line); }
+  .home-compliance-in { padding-top: 48px; padding-bottom: 48px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .home-badges { display: flex; gap: 56px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .home-badges img { width: 104px; height: 104px; filter: var(--kd-logo-filter); }
+
   /* ---------- about: section header (head left, intro right), founder cards, tags ---------- */
   .home-sh { display: flex; flex-wrap: wrap; gap: 20px 56px; align-items: flex-end; margin-bottom: 32px; }
   .home-sh .home-head { flex: 1 1 360px; min-width: 0; margin-bottom: 0; }
@@ -253,5 +427,5 @@ const c = copy[locale] ?? copy.en;
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
   .home-hero :where(a):focus-visible, .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
-  @media (prefers-reduced-motion: reduce) { .home-card { transition: none; } .home-card:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .home-card, .home-uc-card { transition: none; } .home-card:hover, .home-uc-card:hover { transform: none; } }
 </style>
