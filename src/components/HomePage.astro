@@ -10,18 +10,15 @@
 // Client logos and compliance badges turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
+import HomeHero from './HomeHero.astro';
+import HomeHeroVisual from './HomeHeroVisual.astro';
 import { asLocale } from '../i18n/utils';
 
 const locale = asLocale(Astro.currentLocale);
 
 const copy = {
   en: {
-    eyebrow: 'Product · Marketing · Sales Engineering',
-    h1a: 'Stop Buying Advice.',
-    h1b: 'Start Buying Execution.',
-    lead: 'Product, marketing and sales experience from one senior team. We own the plan and run it. No junior hand-offs.',
     cta: 'Get A Free Audit',
-    offersLink: 'See The Offers',
     offersEyebrow: 'Three experiences. One method.',
     offersH2a: 'One Team Across Your',
     offersH2b: 'Whole Funnel.',
@@ -39,15 +36,15 @@ const copy = {
     ucLede: 'A few of the outcomes teams hire us for, and the bundle of workstreams behind each.',
     ucLink: 'Full use case',
     useCases: [
-      { eyebrow: 'Market entry', name: 'DACH market entry', href: '/use-cases/dach-market-entry/', summary: 'A German-language presence that compounds, run end to end.', bundle: ['Localised positioning', 'A German content engine', 'LinkedIn for the team', 'An event motion', 'Distribution that compounds'] },
-      { eyebrow: 'Founder content', name: 'Founder-led content & pipeline', href: '/use-cases/founder-led-content/', summary: "A publishing motion in the founder's voice, feeding measurable pipeline.", bundle: ['Messaging & positioning', 'Ghostwriting & content', 'SEO & GEO', 'Outbound warmed by the content', 'RevOps to track what converts'] },
+      { eyebrow: 'Market entry', name: 'DACH market entry', href: '/use-cases/dach-market-entry/', summary: 'A German-language presence that grows every week, run end to end.', bundle: ['Localised positioning', 'A German content engine', 'LinkedIn for the team', 'An events programme', 'Distribution that builds over time'] },
+      { eyebrow: 'Founder content', name: 'Founder-led content & pipeline', href: '/use-cases/founder-led-content/', summary: "A regular publishing schedule in the founder's voice, feeding measurable pipeline.", bundle: ['Messaging & positioning', 'Ghostwriting & content', 'SEO & GEO', 'Outbound warmed by the content', 'RevOps to track what converts'] },
       { eyebrow: 'Conversion', name: 'Rebuild that lifts conversion', href: '/use-cases/conversion-rebuild/', summary: 'A site and message that match where the company actually is now.', bundle: ['Repositioning around where you are now', 'Brand & website rebuild', 'Sales collateral', 'Conversion-rate optimisation', 'Lifecycle & automation'] },
       { eyebrow: 'Events', name: 'Event pipeline engineering', href: '/use-cases/event-pipeline/', summary: 'Scored events, pre-event ABM, and CFO-grade ROI in 30 days.', bundle: ['Events scored by ICP overlap and persona density', 'LinkedIn & Meta ABM from four weeks out, with calendar holds', 'Hosted dinners and roundtables where deals close', 'Same-day enrichment, CRM sync and sequenced follow-up'] },
     ],
     aboutEyebrow: 'Who We Are',
     aboutH2a: 'Two Operators',
     aboutH2b: 'That Take Ownership.',
-    aboutIntro: 'is a complete marketing function for B2B companies. Two operators take ownership of the strategy and run the execution themselves. One team, one system of action, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
+    aboutIntro: 'is a complete marketing function for B2B companies. Two operators take ownership of the strategy and run the execution themselves. One team, one plan, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
     founders: [
       { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Founder & Product Manager', body: '20+ Product Experience Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
       { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Founder & Growth Manager', body: 'Replace your GTM stack with one platform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
@@ -58,12 +55,12 @@ const copy = {
     faqH2a: 'Questions,',
     faqH2b: 'Answered.',
     faqs: [
-      { q: 'How do you work with us?', a: 'We run as your marketing function on a quarterly engagement: map the market, ICP and funnel, agree the motions that move pipeline most, then execute them ourselves. Four clients at a time.' },
-      { q: 'How fast do we see results?', a: 'First execution is live inside two weeks of kickoff. From there we run in quarterly cycles, plan, ship, review, and the engine compounds.' },
+      { q: 'How do you work with us?', a: 'We run as your marketing function on a quarterly engagement: map the market, ICP and funnel, agree the few moves that grow pipeline most, then execute them ourselves. Four clients at a time.' },
+      { q: 'How fast do we see results?', a: 'First execution is live inside two weeks of kickoff. From there we run in quarterly cycles, plan, ship, review, and each cycle builds on the last.' },
       { q: 'Who does the work?', a: 'The two operators who scope your work are the two who do it. No account-management layer, no junior delivery, no markup.' },
       { q: 'What does it cost?', a: 'We scope each engagement to what your pipeline needs, with a predictable floor and a ceiling you control. The fastest way to a number is a short conversation.' },
-      { q: 'Only companies entering Germany?', a: 'No. We run the full marketing function for B2B companies generally. DACH market entry is one use case we do well in native German, not the whole offer.' },
-      { q: "What's included in the function?", a: 'The whole stack: positioning, brand and website, content and ghostwriting, ABM and demand, paid, events, SEO and GEO, CRO, and RevOps. We deploy whichever motions move your pipeline.' },
+      { q: 'Only companies entering Germany?', a: 'No. We run the full marketing function for B2B companies generally. DACH market entry is one use case among several, and we do it well in native German.' },
+      { q: "What's included in the function?", a: 'The whole stack: positioning, brand and website, content and ghostwriting, ABM and demand, paid, events, SEO and GEO, CRO, and RevOps. We use whichever of these grow your pipeline.' },
     ],
     complianceEyebrow: 'Compliance',
     badges: [
@@ -76,12 +73,7 @@ const copy = {
     ctaH2b: "We'll Reply In A Day.",
   },
   de: {
-    eyebrow: 'Product · Marketing · Sales Engineering',
-    h1a: 'Schluss mit Beratung.',
-    h1b: 'Kaufen Sie Umsetzung.',
-    lead: 'Produkt-, Marketing- und Vertriebserfahrung aus einem erfahrenen Team. Wir verantworten den Plan und setzen ihn selbst um. Keine Übergabe an Junioren.',
     cta: 'Kostenloses Audit anfordern',
-    offersLink: 'Zu den Angeboten',
     offersEyebrow: 'Drei Erfahrungen. Eine Methode.',
     offersH2a: 'Ein Team für Ihren',
     offersH2b: 'ganzen Funnel.',
@@ -99,7 +91,7 @@ const copy = {
     ucLede: 'Einige der Ergebnisse, für die Teams uns holen, und die Workstreams, die dahinterstehen.',
     ucLink: 'Zum Use Case',
     useCases: [
-      { eyebrow: 'Markteintritt', name: 'DACH-Markteintritt', href: '/de/use-cases/dach-market-entry/', summary: 'Eine deutschsprachige Präsenz, die wächst, End-to-End betrieben.', bundle: ['Lokalisierte Positionierung', 'Ein deutschsprachiger Content-Motor', 'LinkedIn für das Team', 'Ein Event-Programm', 'Distribution, die sich aufbaut'] },
+      { eyebrow: 'Markteintritt', name: 'DACH-Markteintritt', href: '/de/use-cases/dach-market-entry/', summary: 'Eine deutschsprachige Präsenz, die wächst, End-to-End betrieben.', bundle: ['Lokalisierte Positionierung', 'Eine deutschsprachige Content-Produktion', 'LinkedIn für das Team', 'Ein Event-Programm', 'Distribution, die sich aufbaut'] },
       { eyebrow: 'Founder-Content', name: 'Founder-Content & Pipeline', href: '/de/use-cases/founder-led-content/', summary: 'Ein Publishing-Programm in der Stimme der Gründer, das messbare Pipeline erzeugt.', bundle: ['Messaging & Positionierung', 'Ghostwriting & Content', 'SEO & GEO', 'Outbound, vorgewärmt durch Content', 'RevOps, um Conversions zu messen'] },
       { eyebrow: 'Conversion', name: 'Relaunch, der die Conversion hebt', href: '/de/use-cases/conversion-rebuild/', summary: 'Eine Website und eine Botschaft, die zum heutigen Unternehmen passen.', bundle: ['Neupositionierung auf den Stand von heute', 'Marken- und Website-Relaunch', 'Vertriebsunterlagen', 'Conversion-Optimierung', 'Lifecycle & Automatisierung'] },
       { eyebrow: 'Events', name: 'Event-Pipeline-Engineering', href: '/de/use-cases/event-pipeline/', summary: 'Bewertete Events, ABM vor dem Event und ein ROI-Report in 30 Tagen.', bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'] },
@@ -107,7 +99,7 @@ const copy = {
     aboutEyebrow: 'Über uns',
     aboutH2a: 'Zwei Macher,',
     aboutH2b: 'die Verantwortung übernehmen.',
-    aboutIntro: 'ist eine komplette Marketing-Funktion für B2B-Unternehmen. Zwei Macher übernehmen die Verantwortung für die Strategie und setzen sie selbst um. Ein Team, ein System, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
+    aboutIntro: 'ist eine komplette Marketing-Funktion für B2B-Unternehmen. Zwei Macher übernehmen die Verantwortung für die Strategie und setzen sie selbst um. Ein Team, ein Plan, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
     founders: [
       { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Gründerin & Product Managerin', body: '20+ Jahre Produkterfahrung, Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
       { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Gründer & Growth Manager', body: 'Ersetzen Sie Ihren GTM-Stack durch eine Plattform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
@@ -119,10 +111,10 @@ const copy = {
     faqH2b: 'beantwortet.',
     faqs: [
       { q: 'Wie arbeiten Sie mit uns?', a: 'Wir arbeiten als Ihre Marketing-Funktion in einem Quartalsmandat: Markt, ICP und Funnel verstehen, die Maßnahmen festlegen, die die Pipeline am stärksten bewegen, und sie dann selbst umsetzen. Vier Kunden gleichzeitig.' },
-      { q: 'Wie schnell sehen wir Ergebnisse?', a: 'Die erste Umsetzung ist innerhalb von zwei Wochen nach Start live. Danach arbeiten wir in Quartalszyklen: planen, liefern, auswerten, und der Motor wird stärker.' },
+      { q: 'Wie schnell sehen wir Ergebnisse?', a: 'Die erste Umsetzung ist innerhalb von zwei Wochen nach Start live. Danach arbeiten wir in Quartalszyklen: planen, liefern, auswerten, und jeder Zyklus baut auf dem letzten auf.' },
       { q: 'Wer macht die Arbeit?', a: 'Die beiden Macher, die Ihre Arbeit definieren, sind die beiden, die sie machen. Keine Account-Ebene, keine Junior-Umsetzung, kein Aufschlag.' },
       { q: 'Was kostet das?', a: 'Wir schneiden jedes Mandat auf das zu, was Ihre Pipeline braucht, mit einer planbaren Untergrenze und einer Obergrenze, die Sie steuern. Am schnellsten kommen Sie in einem kurzen Gespräch zu einer Zahl.' },
-      { q: 'Nur Unternehmen, die nach Deutschland kommen?', a: 'Nein. Wir betreiben die komplette Marketing-Funktion für B2B-Unternehmen allgemein. Der DACH-Markteintritt ist ein Use Case, den wir auf muttersprachlichem Niveau beherrschen, nicht das ganze Angebot.' },
+      { q: 'Nur Unternehmen, die nach Deutschland kommen?', a: 'Nein. Wir betreiben die komplette Marketing-Funktion für B2B-Unternehmen allgemein. Der DACH-Markteintritt ist einer von mehreren Use Cases, und wir setzen ihn auf muttersprachlichem Niveau um.' },
       { q: 'Was gehört zur Funktion?', a: 'Der ganze Stack: Positionierung, Marke und Website, Content und Ghostwriting, ABM und Demand, Paid, Events, SEO und GEO, CRO und RevOps. Wir setzen die Maßnahmen ein, die Ihre Pipeline bewegen.' },
     ],
     complianceEyebrow: 'Compliance',
@@ -152,18 +144,8 @@ const logos = [
 ---
 <main id="top" class="home">
 
-  <!-- ===================== HERO ===================== -->
-  <section class="home-hero">
-    <div class="container home-hero-in">
-      <span class="home-eyebrow home-eyebrow--lilac">{c.eyebrow}</span>
-      <h1>{c.h1a} <em>{c.h1b}</em></h1>
-      <p>{c.lead}</p>
-      <div class="home-actions">
-        <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
-        <a href="#offers" class="btn btn-ghost btn-lg">{c.offersLink}</a>
-      </div>
-    </div>
-  </section>
+  <!-- ===================== HERO (text: HomeHero.astro, service stack: HomeHeroVisual.astro) ===================== -->
+  <HomeHero><HomeHeroVisual slot="visual" /></HomeHero>
 
   <!-- ===================== CLIENT LOGOS (infinite marquee) ===================== -->
   <section class="home-logos">
@@ -300,26 +282,12 @@ const logos = [
   .home em { font-style: normal; }
 
   .home-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
-  .home-eyebrow--lilac { color: var(--kd-lilac); }
   .home-eyebrow--white { color: var(--kd-white); opacity: .85; }
 
   /* links: S step (21/28, weight 500) with an arrow, per the brand system */
   .home-link { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); text-decoration: none; }
   .home-link--accent { color: var(--kd-accent); }
   .home-link--accent:hover { text-decoration: underline; }
-
-  /* ---------- hero: navy with a faint grid, clears the fixed 80px nav ---------- */
-  .home-hero {
-    background-color: var(--kd-blue-1);
-    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    color: var(--kd-white);
-  }
-  .home-hero-in { padding-top: calc(80px + 64px); padding-bottom: 72px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
-  .home-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 900px; }
-  .home-hero h1 em { color: var(--kd-signal-1); }
-  .home-hero p { font-size: clamp(19px, 2.4vw, 28px); line-height: 1.3; color: var(--kd-lilac-soft); max-width: 42ch; }
-  .home-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
 
   /* ---------- sections ---------- */
   .home-sec { padding: 72px 0; }
@@ -406,7 +374,7 @@ const logos = [
   .home-soft { opacity: .85; }
 
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
-  .home-hero :where(a):focus-visible, .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
+  .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
   @media (prefers-reduced-motion: reduce) { .home-card, .home-uc-card { transition: none; } .home-card:hover, .home-uc-card:hover { transform: none; } }
 </style>

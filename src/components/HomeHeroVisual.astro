@@ -1,0 +1,93 @@
+---
+// src/components/HomeHeroVisual.astro
+// Homepage hero visual: the three group services as stacked isometric slabs
+// (brand imagery rule), Product as the foundation, Marketing on it, Sales on
+// top, with a legend. Each legend entry links to its offer card further down
+// the page (#product, #marketing, #sales). Placed in HomeHero's visual slot.
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const copy = {
+  en: {
+    label: 'One team across three services',
+    layers: [
+      { id: 'sales', tag: '03 · Sales', name: 'Sales Engineering', out: 'Pipeline that does not hang on one founder.' },
+      { id: 'marketing', tag: '02 · Marketing', name: 'Product Marketing Engineering', out: 'A story buyers understand in seconds.' },
+      { id: 'product', tag: '01 · Product', name: 'Product Design Engineering', out: 'A product that is easy to use, demo and sell.' },
+    ],
+  },
+  de: {
+    label: 'Ein Team für drei Leistungen',
+    layers: [
+      { id: 'sales', tag: '03 · Vertrieb', name: 'Sales Engineering', out: 'Eine Pipeline, die nicht an einer Person hängt.' },
+      { id: 'marketing', tag: '02 · Marketing', name: 'Product Marketing Engineering', out: 'Eine Geschichte, die Käufer sofort verstehen.' },
+      { id: 'product', tag: '01 · Produkt', name: 'Product Design Engineering', out: 'Ein Produkt, das sich leicht nutzen, zeigen und verkaufen lässt.' },
+    ],
+  },
+};
+const c = copy[locale] ?? copy.en;
+
+// isometric slab geometry (2:1), bottom slab first so upper slabs overlap it
+const cx = 160, t = 16;
+const slabs = [
+  { id: 'product', a: 130, y: 150, d: 0 },
+  { id: 'marketing', a: 104, y: 98, d: 1 },
+  { id: 'sales', a: 80, y: 51, d: 2 },
+].map((s) => {
+  const { a, y } = s;
+  const top = `${cx},${y} ${cx + a},${y + a / 2} ${cx},${y + a} ${cx - a},${y + a / 2}`;
+  const left = `${cx - a},${y + a / 2} ${cx},${y + a} ${cx},${y + a + t} ${cx - a},${y + a / 2 + t}`;
+  const right = `${cx},${y + a} ${cx + a},${y + a / 2} ${cx + a},${y + a / 2 + t} ${cx},${y + a + t}`;
+  return { ...s, top, left, right };
+});
+---
+<div class="hv-stack" aria-label={c.label}>
+  <div class="hv-iso">
+    <svg viewBox="0 0 320 300" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      {slabs.map((s) => (
+        <g class={`slab slab--${s.id}`} style={`--d:${s.d}`}>
+          <polygon class="side" points={s.left} />
+          <polygon class="side side--r" points={s.right} />
+          <polygon class="top" points={s.top} />
+        </g>
+      ))}
+    </svg>
+    <ol class="hv-legend">
+      {c.layers.map((l) => (
+        <li><a href={`#${l.id}`} class={`lg lg--${l.id}`}><span class="hv-tag">{l.tag}</span><b>{l.name}</b><span class="out">{l.out}</span></a></li>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<style>
+  .hv-stack { color: var(--kd-white); }
+  .hv-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .lg { display: flex; flex-direction: column; gap: 4px; padding-left: 14px; border-left: 4px solid var(--bg); color: inherit; text-decoration: none; }
+  .hv-tag { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-lilac); }
+  .lg b { font-weight: var(--kd-weight-medium); font-size: 19px; line-height: 1.25; }
+  .out { font-size: 16px; line-height: 1.4; color: var(--kd-lilac-soft); }
+  .lg:hover b { text-decoration: underline; }
+  .lg:focus-visible { outline: 2px solid var(--kd-white); outline-offset: 4px; }
+
+  /* department colour per slab and legend entry */
+  .lg--product, .slab--product { --bg: var(--kd-dept-product); }
+  .lg--marketing, .slab--marketing { --bg: var(--kd-dept-marketing); }
+  .lg--sales, .slab--sales { --bg: var(--kd-dept-sales); }
+
+  .hv-iso { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+  .hv-iso svg { width: 100%; height: auto; display: block; overflow: visible; color: var(--kd-white); }
+  .slab .top { fill: var(--bg); }
+  .slab .side { fill: var(--kd-blue-1); }
+  .slab .side--r { fill: var(--kd-night); }
+
+  /* slabs drop in from the foundation up, then the top one floats */
+  .slab { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--d) * .35s); }
+  .slab--sales { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) .7s both, hv-float 4s ease-in-out 1.6s infinite; }
+  @keyframes hv-drop { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
+  @keyframes hv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  @media (max-width: 560px) { .hv-iso { grid-template-columns: minmax(0, 1fr); } .hv-iso svg { max-width: 300px; } }
+  @media (prefers-reduced-motion: reduce) { .slab, .slab--sales { animation: none; } }
+</style>

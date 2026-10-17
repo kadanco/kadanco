@@ -41,6 +41,7 @@ src/styles/tokens.css       brand tokens (--kd-*), the single source for all bra
 src/styles/global.css       shared components, maps working names onto tokens.css
 src/dev/styleguide.astro    dev-only style guide at /styleguide (injected in astro.config.mjs)
 design/                     October 2026 design files (source of truth for new work)
+docs/masterplan.md          group-wide plan for Kadanco and its brands (decisions D1 to D39)
 ```
 
 ## Design source of truth
@@ -97,9 +98,11 @@ Done:
 - Nav rebuilt to the design: solid navy, Product / Marketing / Sales / About, EN / DE, Light / Auto / Dark switch, blue Let's Talk. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange. Older pages' hero and CTA band buttons show orange.
+- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product, Marketing, Sales).
+- Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
 Next, in order:
-1. Review the new homepage. Offer cards open the contact modal until the category pages exist.
+1. Homepage content: owner feedback round on the whole page. Offer cards open the contact modal until the category pages exist.
 2. Colour pass on the remaining pages: beige grounds, dark mode support.
 3. 3 category pages: Product Design Engineering, Product Marketing Engineering, Sales Engineering.
 4. Update the 4 use case pages to the new designs.
@@ -128,3 +131,6 @@ Next, in order:
 - 2026-10-17: Founders section keeps all content from the old homepage (Maria and Karan, photos, intro, tags); only the design follows the October system.
 - 2026-10-17: Homepage order: hero, client logos, offers, use cases, who we are, FAQ, compliance, CTA. Logos, use cases, FAQ and compliance keep the old content in the October design.
 - 2026-10-17: Step band ("With Kadanco you go one step further...") removed from the homepage.
+- 2026-10-17: kadanco.com promotes the group's services under the Kadanco name. Brands are listed but never front and centre; they exist as dedicated sites for SEO, AEO and GEO. Recorded as D39 in `docs/masterplan.md`, which is the group-wide plan and should be read alongside this file.
+- 2026-10-17: Hero visual: isometric service stack (Product foundation, Marketing, Sales on top) with a legend linking to the offer cards. Chosen from 3 stack versions after 6 mockup visuals were rejected.
+- 2026-10-17: Voice rules from masterplan D29 apply to all site copy: no "X, not Y", no "rather than" as filler, no words from its banned list.
