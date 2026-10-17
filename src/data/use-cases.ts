@@ -11,7 +11,10 @@
 //           numbers exist (masterplan: no invented metrics or quotes).
 //
 // dept matches the department colours: product (blue), marketing (lime),
-// sales (lilac). Voice rules from masterplan D29 apply to every string.
+// sales (lilac). The export is sorted Product, then Marketing, then Sales,
+// the hero stack read from the foundation up. Within a department the order
+// below is kept.
+// Voice rules from masterplan D29 apply to every string.
 
 export type Dept = 'product' | 'marketing' | 'sales';
 
@@ -34,7 +37,7 @@ export interface UseCase {
   de: UseCaseText;
 }
 
-export const useCases: UseCase[] = [
+const entries: UseCase[] = [
   {
     id: 'adoption-rescue',
     dept: 'product',
@@ -72,25 +75,6 @@ export const useCases: UseCase[] = [
       summary: 'Website und Vertriebsstory rund um das Ergebnis, für das Käufer bezahlen.',
       problem: 'Die Website hat Features aufgezählt, und Käufer konnten das Produkt nicht vom Wettbewerb unterscheiden.',
       approach: 'Wir haben das Produkt auf ein Käuferergebnis ausgerichtet und die Startseite, das Sales-Deck und eine Vergleichsseite neu gebaut.',
-    },
-  },
-  {
-    id: 'pipeline-off-the-founder',
-    dept: 'sales',
-    kind: 'case',
-    en: {
-      eyebrow: 'Founder-led sales',
-      name: 'Pipeline Off The Founder',
-      summary: 'A sales process that books meetings without the founder in every deal.',
-      problem: 'Every deal ran through one founder, so pipeline stalled whenever they were busy.',
-      approach: 'We built a target list, first-touch openers and a clear path from qualified lead to handoff.',
-    },
-    de: {
-      eyebrow: 'Gründergeführter Vertrieb',
-      name: 'Pipeline ohne Gründer',
-      summary: 'Ein Vertriebsprozess, der Termine bucht, ohne dass der Gründer an jedem Deal sitzt.',
-      problem: 'Jeder Deal lief über eine Gründerperson. War sie beschäftigt, stand die Pipeline still.',
-      approach: 'Wir haben eine Zielliste, Erstansprachen und einen klaren Weg vom qualifizierten Lead bis zur Übergabe aufgebaut.',
     },
   },
   {
@@ -148,6 +132,25 @@ export const useCases: UseCase[] = [
     },
   },
   {
+    id: 'pipeline-off-the-founder',
+    dept: 'sales',
+    kind: 'case',
+    en: {
+      eyebrow: 'Founder-led sales',
+      name: 'Pipeline Off The Founder',
+      summary: 'A sales process that books meetings without the founder in every deal.',
+      problem: 'Every deal ran through one founder, so pipeline stalled whenever they were busy.',
+      approach: 'We built a target list, first-touch openers and a clear path from qualified lead to handoff.',
+    },
+    de: {
+      eyebrow: 'Gründergeführter Vertrieb',
+      name: 'Pipeline ohne Gründer',
+      summary: 'Ein Vertriebsprozess, der Termine bucht, ohne dass der Gründer an jedem Deal sitzt.',
+      problem: 'Jeder Deal lief über eine Gründerperson. War sie beschäftigt, stand die Pipeline still.',
+      approach: 'Wir haben eine Zielliste, Erstansprachen und einen klaren Weg vom qualifizierten Lead bis zur Übergabe aufgebaut.',
+    },
+  },
+  {
     id: 'event-pipeline',
     dept: 'sales',
     kind: 'page',
@@ -166,3 +169,8 @@ export const useCases: UseCase[] = [
     },
   },
 ];
+
+const deptOrder: Dept[] = ['product', 'marketing', 'sales'];
+
+// Array.prototype.sort is stable, so entries keep their order within a department.
+export const useCases: UseCase[] = [...entries].sort((a, b) => deptOrder.indexOf(a.dept) - deptOrder.indexOf(b.dept));
