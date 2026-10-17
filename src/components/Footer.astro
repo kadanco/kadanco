@@ -37,6 +37,7 @@ const useCases = [
           <p class="foot-colhead">{t('footer.head.usecases')}</p>
           <ul>
             {useCases.map((l) => <li><a href={localizedHref(locale, l.href)}>{t(l.key)}</a></li>)}
+            <li><a class="is-all" href={localizedHref(locale, '/use-cases/')}>{t('nav.allusecases')}</a></li>
           </ul>
         </div>
 
@@ -122,6 +123,7 @@ const useCases = [
     font-size: 0.92rem;
   }
   .foot-col a:hover { color: var(--kd-signal-1); }
+  .foot-col a.is-all { font-weight: var(--kd-weight-medium); color: var(--kd-white); }
 
   .foot-legal {
     display: flex;

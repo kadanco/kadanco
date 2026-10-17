@@ -37,6 +37,7 @@ src/pages/                  index, imprint, privacy-policy, glossary, use-cases 
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
+src/data/use-cases.ts       all 7 use cases (EN and DE), read by the homepage and /use-cases/
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
 src/dev/styleguide.astro    dev-only style guide at /styleguide (injected in astro.config.mjs)
@@ -99,13 +100,14 @@ Done:
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange. Older pages' hero and CTA band buttons show orange.
 - Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product, Marketing, Sales).
+- Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
 - Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
 Next, in order:
 1. Homepage content: owner feedback round on the whole page. Offer cards open the contact modal until the category pages exist.
 2. Colour pass on the remaining pages: beige grounds, dark mode support.
 3. 3 category pages: Product Design Engineering, Product Marketing Engineering, Sales Engineering.
-4. Update the 4 use case pages to the new designs.
+4. Update the 4 use case pages to the new designs (wireframe 9 detail template), and add detail pages for the 3 case studies once real results exist.
 5. Glossary: add department filter.
 6. Remaining pages from the 12-page wireframe.
 7. Real photos (about 25 placeholders), replace invented metrics and quotes, working CTAs.
@@ -134,3 +136,4 @@ Next, in order:
 - 2026-10-17: kadanco.com promotes the group's services under the Kadanco name. Brands are listed but never front and centre; they exist as dedicated sites for SEO, AEO and GEO. Recorded as D39 in `docs/masterplan.md`, which is the group-wide plan and should be read alongside this file.
 - 2026-10-17: Hero visual: isometric service stack (Product foundation, Marketing, Sales on top) with a legend linking to the offer cards. Chosen from 3 stack versions after 6 mockup visuals were rejected.
 - 2026-10-17: Voice rules from masterplan D29 apply to all site copy: no "X, not Y", no "rather than" as filler, no words from its banned list.
+- 2026-10-17: Use cases: homepage plus an overview page. Case studies show problem and approach only, no invented results or quotes. Departments: DACH entry, founder content, conversion rebuild, feature list to clear offer = Marketing; event pipeline, pipeline off the founder = Sales; adoption rescue = Product.

@@ -1,0 +1,135 @@
+---
+// src/components/UseCasesPage.astro
+// The /use-cases/ overview (October wireframe 8): centred hero, a filter by
+// department (All / Product / Marketing / Sales), the featured case, every
+// use case as a full card, and a "not listed" call to action.
+// Used by src/pages/use-cases/index.astro (EN) and src/pages/de/use-cases/index.astro (DE).
+// Data: src/data/use-cases.ts. Supports dark mode via the theme role tokens.
+//
+// The filter is progressive: without JavaScript every card stays visible and
+// the buttons do nothing harmful.
+import UseCaseCard from './UseCaseCard.astro';
+import { useCases, type Dept } from '../data/use-cases';
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const copy = {
+  en: {
+    eyebrow: 'Use Cases',
+    h1a: 'The Problems We Solve.',
+    h1b: 'Find Yours.',
+    lead: 'Real problems teams bring us, sorted by where they start: the product, the marketing or the sales pipeline.',
+    filterLabel: 'Filter use cases by department',
+    all: 'All', product: 'Product', marketing: 'Marketing', sales: 'Sales',
+    ctaH2a: 'Not Listed Here?',
+    ctaH2b: 'Tell Us What You Need.',
+    ctaLead: 'Most work starts with a problem that does not fit a neat category. Describe yours and we will tell you honestly if we can help.',
+    cta: 'Talk To Us',
+  },
+  de: {
+    eyebrow: 'Use Cases',
+    h1a: 'Die Probleme, die wir lösen.',
+    h1b: 'Finden Sie Ihres.',
+    lead: 'Echte Probleme, mit denen Teams zu uns kommen, sortiert nach ihrem Ursprung: Produkt, Marketing oder Vertriebspipeline.',
+    filterLabel: 'Use Cases nach Bereich filtern',
+    all: 'Alle', product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb',
+    ctaH2a: 'Nicht dabei?',
+    ctaH2b: 'Sagen Sie uns, was Sie brauchen.',
+    ctaLead: 'Die meiste Arbeit beginnt mit einem Problem, das in keine Schublade passt. Beschreiben Sie Ihres, und wir sagen Ihnen ehrlich, ob wir helfen können.',
+    cta: 'Kontakt aufnehmen',
+  },
+};
+const c = copy[locale] ?? copy.en;
+
+const depts: Dept[] = ['product', 'marketing', 'sales'];
+const count = (d: Dept) => useCases.filter((u) => u.dept === d).length;
+const featuredUc = useCases.find((u) => u.featured);
+const otherUc = useCases.filter((u) => !u.featured);
+---
+<main id="top" class="ucp">
+
+  <section class="ucp-hero">
+    <div class="container ucp-hero-in">
+      <span class="ucp-eyebrow">{c.eyebrow}</span>
+      <h1>{c.h1a} <em>{c.h1b}</em></h1>
+      <p>{c.lead}</p>
+    </div>
+  </section>
+
+  <section class="ucp-list">
+    <div class="container">
+      <div class="ucp-filter" role="group" aria-label={c.filterLabel}>
+        <button type="button" data-filter="all" aria-pressed="true">{c.all} <span>{useCases.length}</span></button>
+        {depts.map((d) => (
+          <button type="button" data-filter={d} aria-pressed="false" class={`ucp-f--${d}`}>{c[d]} <span>{count(d)}</span></button>
+        ))}
+      </div>
+      <div class="ucp-grid">
+        {featuredUc && <UseCaseCard uc={featuredUc} size="full" featured />}
+        {otherUc.map((u) => <UseCaseCard uc={u} size="full" />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="ucp-cta">
+    <div class="container ucp-cta-in">
+      <h2>{c.ctaH2a} <span class="ucp-soft">{c.ctaH2b}</span></h2>
+      <p>{c.ctaLead}</p>
+      <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
+    </div>
+  </section>
+
+</main>
+
+<script is:inline>
+  // Department filter: hides cards from other departments. Every card is
+  // visible until a filter is chosen, so the page works without JavaScript.
+  (function () {
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.ucp-filter button'));
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.ucp-grid .uc-card'));
+    if (!btns.length) return;
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.getAttribute('data-filter');
+        btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        cards.forEach(function (card) { card.hidden = f !== 'all' && card.getAttribute('data-dept') !== f; });
+      });
+    });
+  })();
+</script>
+
+<style>
+  .ucp { background: var(--kd-bg); color: var(--kd-fg); }
+  .ucp h1, .ucp h2 { margin: 0; font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }
+  .ucp p { margin: 0; }
+  .ucp em { font-style: normal; color: var(--kd-accent); }
+
+  /* hero: centred on the page ground, clears the fixed 80px nav */
+  .ucp-hero-in { padding-top: calc(80px + 72px); padding-bottom: 48px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+  .ucp-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
+  .ucp-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 16ch; }
+  .ucp-hero p { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); max-width: 52ch; }
+
+  /* filter: segmented buttons, 45px tall */
+  .ucp-list { padding-bottom: 72px; }
+  .ucp-filter { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 32px; }
+  .ucp-filter button { min-height: var(--kd-control-h); padding: 0 18px; border: 2px solid var(--kd-line); border-radius: var(--kd-radius); background: var(--kd-surface); color: var(--kd-fg); font-family: inherit; font-size: 16px; font-weight: var(--kd-weight-medium); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .ucp-filter button span { font-size: 13px; color: var(--kd-fg-2); }
+  .ucp-filter button:hover { border-color: var(--kd-accent); }
+  .ucp-filter button[aria-pressed="true"] { background: var(--kd-blue-2); border-color: var(--kd-blue-2); color: var(--kd-white); }
+  .ucp-filter button[aria-pressed="true"] span { color: var(--kd-lilac-soft); }
+  .ucp-filter button:focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
+
+  .ucp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .ucp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .ucp-grid { grid-template-columns: 1fr; } }
+
+  /* CTA: blue band, orange single CTA */
+  .ucp-cta { background: var(--kd-blue-2); color: var(--kd-white); }
+  .ucp-cta-in { padding-top: 56px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .ucp-cta h2 { font-size: var(--kd-text-l); line-height: 1.15; }
+  .ucp-soft { opacity: .85; }
+  .ucp-cta p { font-size: 19px; line-height: 1.45; color: var(--kd-lilac-tint); max-width: 56ch; }
+  .ucp-cta a:focus-visible { outline: 2px solid var(--kd-white); outline-offset: 2px; }
+</style>

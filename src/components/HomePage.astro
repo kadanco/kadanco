@@ -7,12 +7,15 @@
 // Supports dark mode: every ground and text colour that should switch uses
 // the theme role tokens (--kd-bg, --kd-surface, --kd-fg, ...). The navy hero,
 // the three department cards and the blue CTA band keep their fixed colours.
+// Use cases come from src/data/use-cases.ts (shared with /use-cases/).
 // Client logos and compliance badges turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
-import { asLocale } from '../i18n/utils';
+import UseCaseCard from './UseCaseCard.astro';
+import { useCases } from '../data/use-cases';
+import { asLocale, localizedHref } from '../i18n/utils';
 
 const locale = asLocale(Astro.currentLocale);
 
@@ -33,14 +36,8 @@ const copy = {
     ucEyebrow: 'Use Cases',
     ucH2a: 'What The Function',
     ucH2b: 'Delivers.',
-    ucLede: 'A few of the outcomes teams hire us for, and the bundle of workstreams behind each.',
-    ucLink: 'Full use case',
-    useCases: [
-      { eyebrow: 'Market entry', name: 'DACH market entry', href: '/use-cases/dach-market-entry/', summary: 'A German-language presence that grows every week, run end to end.', bundle: ['Localised positioning', 'A German content engine', 'LinkedIn for the team', 'An events programme', 'Distribution that builds over time'] },
-      { eyebrow: 'Founder content', name: 'Founder-led content & pipeline', href: '/use-cases/founder-led-content/', summary: "A regular publishing schedule in the founder's voice, feeding measurable pipeline.", bundle: ['Messaging & positioning', 'Ghostwriting & content', 'SEO & GEO', 'Outbound warmed by the content', 'RevOps to track what converts'] },
-      { eyebrow: 'Conversion', name: 'Rebuild that lifts conversion', href: '/use-cases/conversion-rebuild/', summary: 'A site and message that match where the company actually is now.', bundle: ['Repositioning around where you are now', 'Brand & website rebuild', 'Sales collateral', 'Conversion-rate optimisation', 'Lifecycle & automation'] },
-      { eyebrow: 'Events', name: 'Event pipeline engineering', href: '/use-cases/event-pipeline/', summary: 'Scored events, pre-event ABM, and CFO-grade ROI in 30 days.', bundle: ['Events scored by ICP overlap and persona density', 'LinkedIn & Meta ABM from four weeks out, with calendar holds', 'Hosted dinners and roundtables where deals close', 'Same-day enrichment, CRM sync and sequenced follow-up'] },
-    ],
+    ucLede: 'The problems teams bring us, from the product itself to the sales pipeline.',
+    ucAll: 'See All Use Cases',
     aboutEyebrow: 'Who We Are',
     aboutH2a: 'Two Operators',
     aboutH2b: 'That Take Ownership.',
@@ -88,14 +85,8 @@ const copy = {
     ucEyebrow: 'Use Cases',
     ucH2a: 'Was die Funktion',
     ucH2b: 'liefert.',
-    ucLede: 'Einige der Ergebnisse, für die Teams uns holen, und die Workstreams, die dahinterstehen.',
-    ucLink: 'Zum Use Case',
-    useCases: [
-      { eyebrow: 'Markteintritt', name: 'DACH-Markteintritt', href: '/de/use-cases/dach-market-entry/', summary: 'Eine deutschsprachige Präsenz, die wächst, End-to-End betrieben.', bundle: ['Lokalisierte Positionierung', 'Eine deutschsprachige Content-Produktion', 'LinkedIn für das Team', 'Ein Event-Programm', 'Distribution, die sich aufbaut'] },
-      { eyebrow: 'Founder-Content', name: 'Founder-Content & Pipeline', href: '/de/use-cases/founder-led-content/', summary: 'Ein Publishing-Programm in der Stimme der Gründer, das messbare Pipeline erzeugt.', bundle: ['Messaging & Positionierung', 'Ghostwriting & Content', 'SEO & GEO', 'Outbound, vorgewärmt durch Content', 'RevOps, um Conversions zu messen'] },
-      { eyebrow: 'Conversion', name: 'Relaunch, der die Conversion hebt', href: '/de/use-cases/conversion-rebuild/', summary: 'Eine Website und eine Botschaft, die zum heutigen Unternehmen passen.', bundle: ['Neupositionierung auf den Stand von heute', 'Marken- und Website-Relaunch', 'Vertriebsunterlagen', 'Conversion-Optimierung', 'Lifecycle & Automatisierung'] },
-      { eyebrow: 'Events', name: 'Event-Pipeline-Engineering', href: '/de/use-cases/event-pipeline/', summary: 'Bewertete Events, ABM vor dem Event und ein ROI-Report in 30 Tagen.', bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'] },
-    ],
+    ucLede: 'Die Probleme, mit denen Teams zu uns kommen, vom Produkt selbst bis zur Vertriebspipeline.',
+    ucAll: 'Alle Use Cases ansehen',
     aboutEyebrow: 'Über uns',
     aboutH2a: 'Zwei Macher,',
     aboutH2b: 'die Verantwortung übernehmen.',
@@ -130,6 +121,10 @@ const copy = {
 };
 
 const c = copy[locale] ?? copy.en;
+
+// featured case first (wide), then the rest in the grid
+const featuredUc = useCases.find((u) => u.featured);
+const otherUc = useCases.filter((u) => !u.featured);
 
 const logos = [
   { file: 'mercedes-benz', alt: 'Mercedes-Benz' },
@@ -183,7 +178,7 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== USE CASES (teaser cards) ===================== -->
+  <!-- ===================== USE CASES (all of src/data/use-cases.ts) ===================== -->
   <section class="home-sec home-sec--alt" id="use-cases">
     <div class="container">
       <div class="home-head">
@@ -192,18 +187,10 @@ const logos = [
         <p class="home-lede">{c.ucLede}</p>
       </div>
       <div class="home-uc">
-        {c.useCases.map((u) => (
-          <a class="home-uc-card" href={u.href}>
-            <span class="home-lbl home-lbl--blue">{u.eyebrow}</span>
-            <h3>{u.name}</h3>
-            <p>{u.summary}</p>
-            <ul class="home-uc-bundle">
-              {u.bundle.map((b) => <li>{b}</li>)}
-            </ul>
-            <span class="home-link home-link--accent">{c.ucLink} →</span>
-          </a>
-        ))}
+        {featuredUc && <UseCaseCard uc={featuredUc} featured />}
+        {otherUc.map((u) => <UseCaseCard uc={u} />)}
       </div>
+      <a class="btn btn-primary home-uc-all" href={localizedHref(locale, '/use-cases/')}>{c.ucAll}</a>
     </div>
   </section>
 
@@ -326,16 +313,10 @@ const logos = [
   .home-sec--alt { background: var(--kd-surface-2); }
 
   /* ---------- use cases: teaser cards (label, title, body, bundle, arrow link) ---------- */
-  .home-uc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 820px) { .home-uc { grid-template-columns: 1fr; } }
-  .home-uc-card { display: flex; flex-direction: column; gap: 16px; padding: 32px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); color: var(--kd-fg); text-decoration: none; transition: transform .18s ease, border-color .18s ease; }
-  .home-uc-card:hover { transform: translateY(-4px); border-color: var(--kd-accent); }
-  .home-uc-card h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
-  .home-uc-card p { font-size: 19px; line-height: 1.4; color: var(--kd-fg-2); }
-  .home-uc-bundle { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  .home-uc-bundle li { position: relative; padding-left: 22px; font-size: 16px; line-height: 1.4; }
-  .home-uc-bundle li::before { content: ""; position: absolute; left: 0; top: .45em; width: 10px; height: 10px; border-radius: 2px; background: var(--kd-accent); }
-  .home-uc-card .home-link { margin-top: auto; padding-top: 4px; }
+  .home-uc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .home-uc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .home-uc { grid-template-columns: 1fr; } }
+  .home-uc-all { margin-top: 32px; }
 
   /* ---------- FAQ: 3-column card grid ---------- */
   .home-faq { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -376,5 +357,5 @@ const logos = [
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
   .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
-  @media (prefers-reduced-motion: reduce) { .home-card, .home-uc-card { transition: none; } .home-card:hover, .home-uc-card:hover { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .home-card { transition: none; } .home-card:hover { transform: none; } }
 </style>
