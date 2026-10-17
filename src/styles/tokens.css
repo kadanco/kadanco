@@ -35,6 +35,13 @@
   --kd-signal-2: #FE572A;  /* the single main CTA only */
   --kd-signal-3: #FFDDD4;  /* soft fill */
 
+  /* ---------- colour: theme helpers ---------- */
+  --kd-ink-2: #4A4647;     /* secondary text on light */
+  --kd-night: #17013F;     /* page ground in dark mode */
+  --kd-night-line: #3A2B9C; /* lines in dark mode */
+  --kd-lilac-soft: #DCDBFF; /* secondary text on navy */
+  --kd-lilac-tint: #ECEBFF; /* body text on blue cards */
+
   /* ---------- department colours ---------- */
   --kd-dept-product: var(--kd-blue-2);
   --kd-dept-marketing: var(--kd-signal-1);
@@ -53,4 +60,38 @@
   --kd-gap-section: 64px;   /* 56 to 72px between sections */
   --kd-gutter: 32px;        /* 20 to 32px page gutter */
   --kd-content-max: 1280px; /* 1040 to 1280px */
+
+  /* ---------- theme roles (light) ---------- */
+  /* Pages that support dark mode use these instead of fixed colours. */
+  --kd-bg: var(--kd-beige-1);
+  --kd-surface: var(--kd-white);
+  --kd-line: var(--kd-beige-3);
+  --kd-fg: var(--kd-ink);
+  --kd-fg-2: var(--kd-ink-2);
+  --kd-accent: var(--kd-blue-2);
+}
+
+/* ---------- theme roles (dark) ----------
+   The nav theme switch sets data-mode="light" or "dark" on <html>; with no
+   attribute the visitor's system setting decides. Pages without dark mode
+   are rendered with data-mode="light", so they never switch. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="light"]) {
+    --kd-bg: var(--kd-night);
+    --kd-surface: var(--kd-blue-1);
+    --kd-line: var(--kd-night-line);
+    --kd-fg: var(--kd-beige-1);
+    --kd-fg-2: var(--kd-lilac-soft);
+    --kd-accent: var(--kd-lilac);
+    color-scheme: dark;
+  }
+}
+:root[data-mode="dark"] {
+  --kd-bg: var(--kd-night);
+  --kd-surface: var(--kd-blue-1);
+  --kd-line: var(--kd-night-line);
+  --kd-fg: var(--kd-beige-1);
+  --kd-fg-2: var(--kd-lilac-soft);
+  --kd-accent: var(--kd-lilac);
+  color-scheme: dark;
 }

@@ -3,9 +3,8 @@
 // Shared site footer, rendered once by Layout.astro.
 //
 // Structure follows the hubsell footer: a brand block beside a grid of link
-// columns, then a legal row, then the company meta line. Colours and fonts are
-// unchanged; everything below uses the existing tokens (--muted, --indigo,
-// --border, --ink) and the site's eyebrow treatment for column headings.
+// columns, then a legal row, then the company meta line. Ink ground, beige
+// text and lilac column heads, per the October 2026 design.
 //
 // The link columns matter on mobile: the nav dropdowns are hidden below 880px,
 // so this is the only route to the use-case and glossary pages on a phone.
@@ -22,13 +21,13 @@ const useCases = [
   { key: 'uc.events', href: '/use-cases/event-pipeline/' },
 ];
 ---
-<footer class="footer" data-theme="light">
+<footer class="footer">
   <div class="container">
 
     <div class="foot-top">
       <div class="foot-brand-block">
         <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
-          <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
+          <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
         </a>
         <p class="foot-tag">{t('footer.tagline')}</p>
       </div>
@@ -38,16 +37,16 @@ const useCases = [
           <p class="foot-colhead">{t('footer.head.usecases')}</p>
           <ul>
             {useCases.map((l) => <li><a href={localizedHref(locale, l.href)}>{t(l.key)}</a></li>)}
-            <li><a class="is-all" href={localizedHref(locale, '/#use-cases')}>{t('nav.allusecases')}</a></li>
           </ul>
         </div>
 
         <div class="foot-col">
           <p class="foot-colhead">{t('footer.head.company')}</p>
           <ul>
-            <li><a href={localizedHref(locale, '/#services')}>{t('nav.services')}</a></li>
-            <li><a href={localizedHref(locale, '/#founders')}>{t('nav.whoweare')}</a></li>
-            <li><a href={localizedHref(locale, '/#faq')}>{t('nav.faq')}</a></li>
+            <li><a href={localizedHref(locale, '/#product')}>{t('nav.product')}</a></li>
+            <li><a href={localizedHref(locale, '/#marketing')}>{t('nav.marketing')}</a></li>
+            <li><a href={localizedHref(locale, '/#sales')}>{t('nav.sales')}</a></li>
+            <li><a href={localizedHref(locale, '/#about')}>{t('nav.about')}</a></li>
           </ul>
         </div>
 
@@ -94,7 +93,7 @@ const useCases = [
     max-width: 34ch;
     font-size: 0.92rem;
     line-height: 1.5;
-    color: var(--muted);
+    color: var(--kd-beige-3);
   }
 
   .foot-cols {
@@ -107,7 +106,7 @@ const useCases = [
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--indigo);
+    color: var(--kd-lilac);
   }
   .foot-col ul {
     list-style: none;
@@ -118,13 +117,11 @@ const useCases = [
     gap: 11px;
   }
   .foot-col a {
-    color: var(--muted);
+    color: var(--kd-beige-1);
     text-decoration: none;
     font-size: 0.92rem;
   }
-  .foot-col a:hover { color: var(--indigo); }
-  .foot-col a.is-all { color: var(--ink); font-weight: 500; }
-  .foot-col a.is-all:hover { color: var(--indigo); }
+  .foot-col a:hover { color: var(--kd-signal-1); }
 
   .foot-legal {
     display: flex;
@@ -132,14 +129,14 @@ const useCases = [
     gap: 10px 22px;
     margin-top: 40px;
     padding-top: 22px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
   }
   .foot-legal a {
-    color: var(--muted);
+    color: var(--kd-beige-1);
     text-decoration: none;
     font-size: 0.92rem;
   }
-  .foot-legal a:hover { color: var(--indigo); }
+  .foot-legal a:hover { color: var(--kd-signal-1); }
 
   .foot-bottom {
     display: flex;
@@ -152,7 +149,7 @@ const useCases = [
   .foot-meta {
     font-size: 0.82rem;
     line-height: 1.5;
-    color: var(--muted);
+    color: var(--kd-beige-3);
   }
 
   @media (max-width: 820px) {

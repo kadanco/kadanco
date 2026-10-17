@@ -42,16 +42,20 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   // nav
-  'nav.services': 'Services',
-  'nav.usecases': 'Use Cases',
-  'nav.whoweare': 'Who We Are',
-  'nav.faq': 'FAQ',
-  'nav.resources': 'Resources',
   'nav.glossary': 'Glossary',
-  'nav.cta': 'Lets Talk',
-  'nav.allusecases': 'All use cases',
+  'nav.product': 'Product',
+  'nav.marketing': 'Marketing',
+  'nav.sales': 'Sales',
+  'nav.about': 'About',
+  'nav.cta': "Let's Talk",
   'nav.home': 'Kadanco, home',
   'nav.menu': 'Menu',
+
+  // theme switch
+  'theme.label': 'Colour theme',
+  'theme.light': 'Light',
+  'theme.auto': 'Auto',
+  'theme.dark': 'Dark',
 
   // use-case labels, shared by nav and footer
   'uc.dach': 'DACH market entry',
@@ -94,16 +98,20 @@ const en: Dict = {
 
 const de: Dict = {
   // nav
-  'nav.services': 'Leistungen',
-  'nav.usecases': 'Use Cases',
-  'nav.whoweare': 'Über uns',
-  'nav.faq': 'FAQ',
-  'nav.resources': 'Ressourcen',
   'nav.glossary': 'Glossar',
+  'nav.product': 'Produkt',
+  'nav.marketing': 'Marketing',
+  'nav.sales': 'Vertrieb',
+  'nav.about': 'Über uns',
   'nav.cta': 'Kontakt aufnehmen',
-  'nav.allusecases': 'Alle Use Cases',
   'nav.home': 'Kadanco, Startseite',
   'nav.menu': 'Menü',
+
+  // theme switch
+  'theme.label': 'Farbmodus',
+  'theme.light': 'Hell',
+  'theme.auto': 'Auto',
+  'theme.dark': 'Dunkel',
 
   // use-case labels
   'uc.dach': 'DACH-Markteintritt',

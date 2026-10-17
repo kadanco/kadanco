@@ -1,0 +1,230 @@
+---
+// src/components/HomePage.astro
+// The homepage, built from design/02_pages/Kadanco_Home-20261015-0850.html.
+// Used by src/pages/index.astro (EN) and src/pages/de/index.astro (DE), so
+// both languages share one layout; only the copy below differs.
+//
+// Supports dark mode: every ground and text colour that should switch uses
+// the theme role tokens (--kd-bg, --kd-surface, --kd-fg, ...). The navy hero,
+// the three department cards and the blue CTA band keep their fixed colours.
+//
+// Class names carry a home- prefix so they never collide with global.css.
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const copy = {
+  en: {
+    eyebrow: 'Product · Marketing · Sales Engineering',
+    h1a: 'Stop Buying Advice.',
+    h1b: 'Start Buying Execution.',
+    lead: 'Product, marketing and sales experience from one senior team. We own the plan and run it. No junior hand-offs.',
+    cta: 'Get A Free Audit',
+    offersLink: 'See The Offers',
+    offersEyebrow: 'Three experiences. One method.',
+    offersH2a: 'One Team Across Your',
+    offersH2b: 'Whole Funnel.',
+    offersLede: 'Each offer is engineered end to end and handed off ready to run.',
+    cards: [
+      { id: 'product', tone: 'product', label: '01 · Product', title: 'Product Design Engineering', body: 'Audit, design system and redesigned journeys for the product itself.', link: 'Book A Product Review' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing Engineering', body: 'Positioning, launch and content that make the product make sense.', link: 'Fix Your Positioning' },
+      { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales Engineering', body: "A pipeline engine that doesn't depend on one founder.", link: 'Build My Pipeline' },
+    ],
+    stepA: 'With Kadanco you go one step further and advance with',
+    stepB: 'Product Marketing Engineering.',
+    aboutEyebrow: 'Who runs it',
+    aboutH2a: 'Built And Run By',
+    aboutH2b: 'One Operator.',
+    founderRole: 'Founder & Product Manager',
+    founderBody: 'Founder and Product Manager with 20+ years of product experience, now working on yours.',
+    founderLink: 'LinkedIn profile',
+    ctaEyebrow: 'Free, no obligation',
+    ctaH2a: 'Tell Us Where It Hurts.',
+    ctaH2b: "We'll Reply In A Day.",
+  },
+  de: {
+    eyebrow: 'Product · Marketing · Sales Engineering',
+    h1a: 'Schluss mit Beratung.',
+    h1b: 'Kaufen Sie Umsetzung.',
+    lead: 'Produkt-, Marketing- und Vertriebserfahrung aus einem erfahrenen Team. Wir verantworten den Plan und setzen ihn selbst um. Keine Übergabe an Junioren.',
+    cta: 'Kostenloses Audit anfordern',
+    offersLink: 'Zu den Angeboten',
+    offersEyebrow: 'Drei Erfahrungen. Eine Methode.',
+    offersH2a: 'Ein Team für Ihren',
+    offersH2b: 'ganzen Funnel.',
+    offersLede: 'Jedes Angebot wird von Anfang bis Ende gebaut und einsatzbereit übergeben.',
+    cards: [
+      { id: 'product', tone: 'product', label: '01 · Produkt', title: 'Product Design Engineering', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing Engineering', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
+      { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Sales Engineering', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
+    ],
+    stepA: 'Mit Kadanco gehen Sie einen Schritt weiter, mit',
+    stepB: 'Product Marketing Engineering.',
+    aboutEyebrow: 'Wer es umsetzt',
+    aboutH2a: 'Aufgebaut und geführt',
+    aboutH2b: 'von einer Macherin.',
+    founderRole: 'Gründerin & Product Managerin',
+    founderBody: 'Gründerin und Product Managerin mit über 20 Jahren Produkterfahrung, jetzt für Ihr Produkt.',
+    founderLink: 'LinkedIn-Profil',
+    ctaEyebrow: 'Kostenlos und unverbindlich',
+    ctaH2a: 'Sagen Sie uns, wo es hakt.',
+    ctaH2b: 'Wir antworten innerhalb eines Tages.',
+  },
+};
+
+const c = copy[locale] ?? copy.en;
+---
+<main id="top" class="home">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="home-hero">
+    <div class="container home-hero-in">
+      <span class="home-eyebrow home-eyebrow--lilac">{c.eyebrow}</span>
+      <h1>{c.h1a} <em>{c.h1b}</em></h1>
+      <p>{c.lead}</p>
+      <div class="home-actions">
+        <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
+        <a href="#offers" class="btn btn-ghost btn-lg">{c.offersLink}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OFFERS ===================== -->
+  <section class="home-sec" id="offers">
+    <div class="container">
+      <div class="home-head">
+        <span class="home-eyebrow">{c.offersEyebrow}</span>
+        <h2>{c.offersH2a} <em>{c.offersH2b}</em></h2>
+        <p class="home-lede">{c.offersLede}</p>
+      </div>
+      <div class="home-offers">
+        {c.cards.map((card) => (
+          <a class={`home-card home-card--${card.tone}`} id={card.id} href="#contact" data-open-modal>
+            <span class="home-lbl">{card.label}</span>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+            <span class="home-link">{card.link} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STEP BAND ===================== -->
+  <section class="home-band">
+    <div class="container home-band-in">
+      <span class="home-mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg></span>
+      <p>{c.stepA} <mark>{c.stepB}</mark></p>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="home-sec" id="about">
+    <div class="container">
+      <div class="home-head">
+        <span class="home-eyebrow">{c.aboutEyebrow}</span>
+        <h2>{c.aboutH2a} <em>{c.aboutH2b}</em></h2>
+      </div>
+      <article class="home-founder">
+        <div class="home-founder-tile" aria-hidden="true">MR</div>
+        <div class="home-founder-b">
+          <span class="home-lbl home-lbl--blue">{c.founderRole}</span>
+          <h3>Maria Richter</h3>
+          <p>{c.founderBody}</p>
+          <a class="home-link home-link--accent" href="https://www.linkedin.com/in/miarichter/" target="_blank" rel="noopener">{c.founderLink} →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== CTA BAND ===================== -->
+  <section class="home-ctaband" id="contact">
+    <div class="container home-ctaband-in">
+      <span class="home-eyebrow home-eyebrow--white">{c.ctaEyebrow}</span>
+      <h2>{c.ctaH2a} <span class="home-soft">{c.ctaH2b}</span></h2>
+      <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
+    </div>
+  </section>
+
+</main>
+
+<style>
+  .home { background: var(--kd-bg); color: var(--kd-fg); }
+  .home h1, .home h2, .home h3 { margin: 0; font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }
+  .home p { margin: 0; }
+  .home em { font-style: normal; }
+
+  .home-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
+  .home-eyebrow--lilac { color: var(--kd-lilac); }
+  .home-eyebrow--white { color: var(--kd-white); opacity: .85; }
+
+  /* links: S step (21/28, weight 500) with an arrow, per the brand system */
+  .home-link { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); text-decoration: none; }
+  .home-link--accent { color: var(--kd-accent); }
+  .home-link--accent:hover { text-decoration: underline; }
+
+  /* ---------- hero: navy with a faint grid, clears the fixed 80px nav ---------- */
+  .home-hero {
+    background-color: var(--kd-blue-1);
+    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--kd-white);
+  }
+  .home-hero-in { padding-top: calc(80px + 64px); padding-bottom: 72px; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  .home-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 900px; }
+  .home-hero h1 em { color: var(--kd-signal-1); }
+  .home-hero p { font-size: clamp(19px, 2.4vw, 28px); line-height: 1.3; color: var(--kd-lilac-soft); max-width: 42ch; }
+  .home-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+
+  /* ---------- sections ---------- */
+  .home-sec { padding: 72px 0; }
+  .home-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; max-width: 60ch; }
+  .home-sec h2 { font-size: var(--kd-text-l); line-height: var(--kd-lh-l); }
+  .home-sec h2 em { color: var(--kd-accent); }
+  .home-lede { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); }
+
+  /* ---------- offer cards (department colours, fixed in both themes) ---------- */
+  .home-offers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 820px) { .home-offers { grid-template-columns: 1fr; } }
+  .home-card { display: flex; flex-direction: column; gap: 18px; padding: 32px; border-radius: var(--kd-radius); min-height: 340px; text-decoration: none; transition: transform .18s ease; }
+  .home-card:hover { transform: translateY(-4px); }
+  .home-card h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
+  .home-card p { font-size: 19px; line-height: 1.4; }
+  .home-card .home-link { margin-top: auto; }
+  .home-lbl { display: inline-flex; align-items: center; align-self: flex-start; padding: 3px 12px; border-radius: var(--kd-radius); font-size: 14px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .home-lbl--blue { background: var(--kd-blue-2); color: var(--kd-white); }
+
+  .home-card--product { background: var(--kd-dept-product); color: var(--kd-white); }
+  .home-card--product .home-lbl { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .home-card--product p { color: var(--kd-lilac-tint); }
+  .home-card--product .home-link { color: var(--kd-signal-1); }
+  .home-card--marketing { background: var(--kd-dept-marketing); color: var(--kd-blue-1); }
+  .home-card--sales { background: var(--kd-dept-sales); color: var(--kd-blue-1); }
+  .home-card--marketing .home-lbl, .home-card--sales .home-lbl { background: var(--kd-blue-2); color: var(--kd-white); }
+  .home-card--marketing .home-link, .home-card--sales .home-link { color: var(--kd-blue-2); }
+
+  /* ---------- step band ---------- */
+  .home-band { background: var(--kd-surface); border-block: 1px solid var(--kd-line); }
+  .home-band-in { padding-top: 40px; padding-bottom: 40px; display: flex; align-items: center; gap: 20px; }
+  .home-mark { width: 52px; height: 52px; flex: none; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); display: flex; align-items: center; justify-content: center; }
+  .home-band p { font-size: clamp(20px, 2.4vw, 28px); line-height: 1.35; font-weight: var(--kd-weight-medium); min-width: 0; }
+  .home-band mark { background: var(--kd-signal-1); color: var(--kd-blue-1); padding: 0 8px; border-radius: var(--kd-radius); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+  /* ---------- founder card ---------- */
+  .home-founder { display: flex; gap: 24px; flex-wrap: wrap; padding: 32px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); }
+  .home-founder-tile { width: 104px; height: 104px; flex: none; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-beige-1); display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: var(--kd-weight-medium); letter-spacing: -.03em; }
+  .home-founder-b { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .home-founder h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
+  .home-founder p { font-size: 19px; color: var(--kd-fg-2); }
+
+  /* ---------- CTA band ---------- */
+  .home-ctaband { background: var(--kd-blue-2); color: var(--kd-white); }
+  .home-ctaband-in { padding-top: 56px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .home-ctaband h2 { font-size: var(--kd-text-l); line-height: 1.15; }
+  .home-soft { opacity: .85; }
+
+  .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
+  .home-hero :where(a):focus-visible, .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
+  @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
+  @media (prefers-reduced-motion: reduce) { .home-card { transition: none; } .home-card:hover { transform: none; } }
+</style>

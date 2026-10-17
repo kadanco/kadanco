@@ -40,7 +40,7 @@ export const GET: APIRoute = () => {
 
 ## Core pages
 
-- [Home](${SITE}/): What Kadanco does, the standard alternatives it replaces (agency, fractional CMO, freelancers, in-house hire), the use cases it delivers, and the two founders.
+- [Home](${SITE}/): What Kadanco does, the three offers (Product Design Engineering, Product Marketing Engineering, Sales Engineering), and who runs it.
 - [Marketing glossary](${SITE}/glossary/): A reference library of ${total} B2B marketing terms across ${cats.length} categories. Each entry has a plain definition, why it matters, what good looks like, and an operator's take.
 - [Imprint and privacy](${SITE}/imprint/): Legal information (Impressum) and privacy policy.
 

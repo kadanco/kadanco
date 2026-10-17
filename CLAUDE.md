@@ -58,7 +58,7 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 
 - Font: Fira Sans. Weights 400 and 500 only. 800 only for the logo.
 - Radius 5px on every element. Buttons and inputs 45px tall, 2px border.
-- Labels outlined, uppercase, not filled.
+- Labels uppercase, outlined or filled (the brand system allows both; the Home design uses filled).
 - No glass effects.
 - Headlines Title Case, two sentences split by a full stop. CTAs Title Case.
 - Department colours: Product Blue #3B38DF, Marketing Lime #DAFF02 (dark-blue text, never a large background), Sales Lilac #B2B1FF, Accent/PLG #7270FF.
@@ -84,7 +84,7 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Deliver changes as files for the Downloads folder (usually a git patch), applied with `git am`.
 - New files get a timestamp: `NAME-YYYYMMDD-HHMM` (Germany time). Exception: files whose name a tool requires (`CLAUDE.md`, `README.md`, Astro pages, configs).
 
-## Status (15 October 2026)
+## Status (17 October 2026)
 
 Done:
 - October design files added to `design/`.
@@ -93,10 +93,14 @@ Done:
 - `src/styles/tokens.css` added from the style guide; `global.css` reads from it.
 - Dev-only style guide at `/styleguide`.
 - Unused font weights (600, 700, 900) removed from the Google Fonts request.
+- Homepage rebuilt to `design/02_pages/Kadanco_Home-20261015-0850.html` (EN and DE) in `src/components/HomePage.astro`. Old homepage backed up locally in `_local/accessdach/` for accessdach.com.
+- Nav rebuilt to the design: solid navy, Product / Marketing / Sales / About, EN / DE, Light / Auto / Dark switch, blue Let's Talk. Footer on ink.
+- Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
+- Buttons: `.btn-primary` is blue, `.btn-cta` orange. Older pages' hero and CTA band buttons show orange.
 
 Next, in order:
-1. **Homepage** (current focus): pick the hero, then rebuild the homepage to the October design.
-2. Colour pass: primary buttons blue, orange for the single CTA, beige grounds. Today buttons are still lime.
+1. Review the new homepage. Offer cards open the contact modal until the category pages exist.
+2. Colour pass on the remaining pages: beige grounds, dark mode support.
 3. 3 category pages: Product Design Engineering, Product Marketing Engineering, Sales Engineering.
 4. Update the 4 use case pages to the new designs.
 5. Glossary: add department filter.
@@ -106,7 +110,8 @@ Next, in order:
 
 ## Open questions
 
-- Which homepage hero (8 options plus door, terminal and before/after concepts in `design/04_sections/`)?
+- Founder section shows only Maria Richter (per the design). Add Karan back?
+- Fonts still load from Google Fonts. Self-host before launch (GDPR).
 - Missing docs mentioned in the context notes: `Kadanco_Chat_Summary_2026-10-10.md`, `Kadanco_Website_Blueprint_2026-10-12.md`, `Kadanco_Finanzen_Chat_Summary_2026-10-10.md`.
 - Official logo asset (SVG) is still pending.
 - Delete or merge the old branches `homepage-v2` and `cloudflare/workers-autoconfig`?
@@ -118,3 +123,6 @@ Next, in order:
 - 2026-10-15: Design file names keep their original names inside `design/`.
 - 2026-10-15: Homepage is the first build target.
 - 2026-10-15: Style guide added as tokens in code plus a dev-only page. Not published, per the brand system security note.
+- 2026-10-17: The October Home design supersedes all old homepage content and style. Hero from the Home design file (closes the hero question).
+- 2026-10-17: Links and buttons follow the brand system styleguide: orange only for the main CTA (Get A Free Audit), blue primary, links 21px weight 500 with an arrow.
+- 2026-10-17: The design's floating theme switch moved into the nav.

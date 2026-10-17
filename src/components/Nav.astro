@@ -1,147 +1,104 @@
 ---
 // src/components/Nav.astro
-// Shared site navigation. Rendered once by Layout.astro, so it is no longer
-// hard-coded per page. Section links point to the homepage (/#id) so they work
-// from sub-pages (glossary, imprint) too, not just the homepage.
-// Colour-aware behaviour is driven by the global script in Layout.astro.
+// Shared site navigation, rendered once by Layout.astro. October 2026 design:
+// solid navy bar, white links, EN / DE switch in lilac, blue CTA.
+// Section links point to the homepage (/#id) so they work from sub-pages too.
 //
-// Resources is a dropdown: it reveals on hover and keyboard focus (desktop) and
-// toggles on click (touch). The trigger reuses the .navlink class so it inherits
-// the colour-aware styling. Like the other nav links it is hidden below 880px,
-// the footer keeps the glossary reachable on mobile.
+// The Light / Auto / Dark theme switch is shown only on pages that support
+// dark mode (Layout passes `themeable`). Its state lives on <html data-mode>
+// and in localStorage; the head script in Layout.astro restores it before
+// first paint so there is no flash.
 //
 // Labels come from the i18n dictionary (src/i18n/ui.ts) and links run through
-// localizedHref, so one nav serves both languages. The language switcher reuses
-// the same dropdown markup and script as Use Cases and Resources.
-import { switcherLocales, localeNames } from '../i18n/ui';
+// localizedHref, so one nav serves both languages. The use case and glossary
+// pages are reached from the footer.
+import { switcherLocales } from '../i18n/ui';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
 
+const { themeable = false } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 const base = basePath(Astro.url.pathname, locale);
 
-const useCases = [
-  { key: 'uc.dach', href: '/use-cases/dach-market-entry/' },
-  { key: 'uc.founder', href: '/use-cases/founder-led-content/' },
-  { key: 'uc.conversion', href: '/use-cases/conversion-rebuild/' },
-  { key: 'uc.events', href: '/use-cases/event-pipeline/' },
+const links = [
+  { key: 'nav.product', href: '/#product' },
+  { key: 'nav.marketing', href: '/#marketing' },
+  { key: 'nav.sales', href: '/#sales' },
+  { key: 'nav.about', href: '/#about' },
 ];
 
 // A language is a real link only where THIS page is translated; otherwise it is
 // shown greyed out, so nobody clicks through to a redirect.
 const langItems = switcherLocales.map((l) => ({
   code: l,
-  name: localeNames[l],
   current: l === locale,
   available: hasTranslation(l, base),
   href: localizeUrl(l, base === '/' ? '/' : base + '/'),
 }));
+
+const themes = [
+  { t: 'light', key: 'theme.light' },
+  { t: 'system', key: 'theme.auto' },
+  { t: 'dark', key: 'theme.dark' },
+];
 ---
-<header class="nav nav--dark">
+<header class="nav">
   <div class="container nav-inner">
     <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
-      <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
-      <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
+      <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="navlink" href={localizedHref(locale, '/#services')}>{t('nav.services')}</a>
-      <div class="nav-resources">
-        <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false">
-          {t('nav.usecases')}
-          <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="nav-resources-menu nav-resources-menu--wide" role="menu">
-          {useCases.map((l) => (
-            <a class="nav-resources-link" href={localizedHref(locale, l.href)} role="menuitem">{t(l.key)}</a>
-          ))}
-          <a class="nav-resources-link nav-resources-link--all" href={localizedHref(locale, '/#use-cases')} role="menuitem">{t('nav.allusecases')}</a>
-        </div>
-      </div>
-      <a class="navlink" href={localizedHref(locale, '/#founders')}>{t('nav.whoweare')}</a>
-      <a class="navlink" href={localizedHref(locale, '/#faq')}>{t('nav.faq')}</a>
-      <div class="nav-resources">
-        <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false">
-          {t('nav.resources')}
-          <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="nav-resources-menu" role="menu">
-          <a class="nav-resources-link" href="/glossary/" role="menuitem">{t('nav.glossary')}</a>
-        </div>
-      </div>
-      <div class="nav-resources nav-lang">
-        <button type="button" class="navlink nav-resources-trigger" aria-haspopup="true" aria-expanded="false" aria-label={t('lang.label')}>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg>
-          <span>{localeNames[locale]}</span>
-          <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="nav-resources-menu" role="menu">
-          {langItems.map((it) => (
-            it.current
-              ? <span class="nav-resources-link is-current" aria-current="true">{it.name}</span>
+      {links.map((l) => <a class="navlink" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
+    </nav>
+    <div class="nav-right">
+      <span class="nav-lang" aria-label={t('lang.label')}>
+        {langItems.map((it, i) => (
+          <>
+            {i > 0 && <span class="nav-lang-sep" aria-hidden="true">/</span>}
+            {it.current
+              ? <span class="is-current" aria-current="true">{it.code.toUpperCase()}</span>
               : it.available
-                ? <a class="nav-resources-link" href={it.href} role="menuitem" hreflang={it.code}>{it.name}</a>
-                : <span class="nav-resources-link is-soon">{it.name}</span>
-          ))}
+                ? <a href={it.href} hreflang={it.code}>{it.code.toUpperCase()}</a>
+                : <span class="is-soon">{it.code.toUpperCase()}</span>}
+          </>
+        ))}
+      </span>
+      {themeable && (
+        <div class="theme-switch" role="group" aria-label={t('theme.label')}>
+          {themes.map((m) => <button type="button" data-t={m.t} aria-pressed={m.t === 'system' ? 'true' : 'false'}>{t(m.key)}</button>)}
         </div>
-      </div>
-      <button class="btn btn-primary" data-open-modal>{t('nav.cta')}</button>
+      )}
+      <button class="btn btn-primary btn-sm nav-cta" data-open-modal>{t('nav.cta')}</button>
       <button type="button" class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-mobile" aria-label={t('nav.menu')}>
         <span class="nav-burger-box" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
-    </nav>
+    </div>
   </div>
 
-  <!-- Mobile panel. The sub-groups are native <details>, so they are keyboard
-       accessible and work even if the script fails. Only the panel itself needs JS. -->
+  <!-- Mobile panel. Only the open/close needs JS. -->
   <div class="nav-mobile" id="nav-mobile" hidden>
     <div class="container">
-      <a class="nav-m-link" href={localizedHref(locale, '/#services')}>{t('nav.services')}</a>
+      {links.map((l) => <a class="nav-m-link" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
 
-      <details class="nav-m-group">
-        <summary>
-          <span>{t('nav.usecases')}</span>
-          <svg class="nav-m-caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </summary>
-        <div class="nav-m-sub">
-          {useCases.map((l) => (
-            <a class="nav-m-sublink" href={localizedHref(locale, l.href)}>{t(l.key)}</a>
+      <div class="nav-m-row">
+        <span class="nav-m-lang" aria-label={t('lang.label')}>
+          {langItems.map((it, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {it.current
+                ? <span class="is-current" aria-current="true">{it.code.toUpperCase()}</span>
+                : it.available
+                  ? <a href={it.href} hreflang={it.code}>{it.code.toUpperCase()}</a>
+                  : <span class="is-soon">{it.code.toUpperCase()}</span>}
+            </>
           ))}
-          <a class="nav-m-sublink" href={localizedHref(locale, '/#use-cases')}>{t('nav.allusecases')}</a>
-        </div>
-      </details>
-
-      <a class="nav-m-link" href={localizedHref(locale, '/#founders')}>{t('nav.whoweare')}</a>
-      <a class="nav-m-link" href={localizedHref(locale, '/#faq')}>{t('nav.faq')}</a>
-
-      <details class="nav-m-group">
-        <summary>
-          <span>{t('nav.resources')}</span>
-          <svg class="nav-m-caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </summary>
-        <div class="nav-m-sub">
-          <a class="nav-m-sublink" href="/glossary/">{t('nav.glossary')}</a>
-        </div>
-      </details>
-
-      <!-- Language: the trigger spells out the current language in full, next to the globe. -->
-      <details class="nav-m-group nav-m-lang">
-        <summary aria-label={t('lang.label')}>
-          <span class="nav-m-langname">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/></svg>
-            {localeNames[locale]}
-          </span>
-          <svg class="nav-m-caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </summary>
-        <div class="nav-m-sub">
-          {langItems.map((it) => (
-            it.current
-              ? <span class="nav-m-sublink is-current" aria-current="true">{it.name}</span>
-              : it.available
-                ? <a class="nav-m-sublink" href={it.href} hreflang={it.code}>{it.name}</a>
-                : <span class="nav-m-sublink is-soon">{it.name}</span>
-          ))}
-        </div>
-      </details>
+        </span>
+        {themeable && (
+          <div class="theme-switch theme-switch--light" role="group" aria-label={t('theme.label')}>
+            {themes.map((m) => <button type="button" data-t={m.t} aria-pressed={m.t === 'system' ? 'true' : 'false'}>{t(m.key)}</button>)}
+          </div>
+        )}
+      </div>
 
       <button class="btn btn-primary btn-block nav-m-cta" data-open-modal>{t('nav.cta')}</button>
     </div>
@@ -149,61 +106,30 @@ const langItems = switcherLocales.map((l) => ({
 </header>
 
 <style>
-  .nav-resources { position: relative; display: inline-flex; }
-  .nav-resources-trigger {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: none; border: 0; padding: 0; margin: 0;
-    font-family: inherit; line-height: 1; cursor: pointer;
-  }
-  .nav-caret { transition: transform 0.2s ease; opacity: 0.75; }
-  .nav-resources:hover .nav-caret,
-  .nav-resources.open .nav-caret { transform: rotate(180deg); }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
 
-  .nav-resources-menu {
-    position: absolute; top: calc(100% + 16px); left: 50%;
-    transform: translateX(-50%) translateY(-6px);
-    min-width: 184px; padding: 6px;
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    box-shadow: 0 18px 44px -20px rgba(26, 1, 117, 0.30);
-    opacity: 0; visibility: hidden; pointer-events: none;
-    transition: opacity 0.16s ease, transform 0.16s ease;
-    z-index: 90;
-  }
-  /* Invisible bridge across the gap so the menu stays open while the pointer */
-  /* travels from the trigger down to the menu (fixes the finicky hover). */
-  .nav-resources-menu::before {
-    content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px;
-  }
-  .nav-resources:hover .nav-resources-menu,
-  .nav-resources:focus-within .nav-resources-menu,
-  .nav-resources.open .nav-resources-menu {
-    opacity: 1; visibility: visible; pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
-  }
-  .nav-resources-link {
-    display: block; padding: 9px 12px; border-radius: var(--radius);
-    color: var(--ink); text-decoration: none; font-size: 0.95rem; opacity: 1;
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  .nav-resources-link:hover { background: var(--field); color: var(--indigo); }
-  /* the use-cases menu carries longer labels than Resources */
-  .nav-resources-menu--wide { min-width: 236px; }
-  .nav-resources-link--all {
-    margin-top: 5px; padding-top: 12px;
-    border-top: 1px solid var(--border);
-    color: var(--muted); font-size: 0.9rem;
-  }
+  .nav-lang { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 500; color: var(--kd-lilac); }
+  .nav-lang a { color: var(--kd-lilac); text-decoration: none; }
+  .nav-lang a:hover { color: var(--kd-white); }
+  .nav-lang .is-current { color: var(--kd-white); }
+  .nav-lang .is-soon { opacity: 0.45; }
 
-  .nav-lang .nav-resources-trigger { gap: 7px; }
-  .nav-lang .nav-resources-menu { min-width: 150px; }
-  .nav-resources-link.is-current { color: var(--indigo); font-weight: 500; cursor: default; }
-  .nav-resources-link.is-soon { color: var(--muted); opacity: 0.55; cursor: default; }
+  /* Light / Auto / Dark, same pattern as the brand system's theme control */
+  .theme-switch { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius); }
+  .theme-switch button {
+    all: unset; cursor: pointer; padding: 5px 9px; border-radius: var(--radius);
+    font-size: 0.75rem; font-weight: 500; color: var(--kd-lilac-soft);
+  }
+  .theme-switch button[aria-pressed="true"] { background: var(--kd-blue-2); color: var(--kd-white); }
+  .theme-switch button:focus-visible { outline: 2px solid var(--kd-lilac); outline-offset: 1px; }
+  .theme-switch--light { border-color: var(--kd-beige-3); }
+  .theme-switch--light button { color: var(--kd-ink-2); }
 
-  @media (max-width: 880px) { .nav-resources { display: none; } }
+  @media (max-width: 880px) {
+    .nav-links, .nav-right .nav-lang, .nav-right .theme-switch, .nav-cta { display: none; }
+  }
 
   /* ===================== MOBILE MENU ===================== */
-  /* Hidden on desktop; the burger and panel only exist below 880px, which is the
-     same breakpoint where the desktop links and dropdowns are hidden. */
   .nav-burger { display: none; }
   .nav-mobile { display: none; }
 
@@ -226,83 +152,53 @@ const langItems = switcherLocales.map((l) => ({
     .nav-burger[aria-expanded="true"] .nav-burger-box span:nth-child(2) { opacity: 0; }
     .nav-burger[aria-expanded="true"] .nav-burger-box span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
 
-    /* Solid panel: the nav bar itself is transparent, so the panel supplies its
-       own background and always uses ink-on-white regardless of section theme. */
     .nav-mobile {
       display: block;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      box-shadow: 0 24px 44px -24px rgba(26, 1, 117, 0.35);
+      background: var(--kd-white);
+      border-top: 1px solid var(--kd-beige-3);
       max-height: calc(100dvh - 80px);
       overflow-y: auto;
       padding: 8px 0 22px;
-      color: var(--ink);
+      color: var(--kd-ink);
     }
     .nav-mobile[hidden] { display: none; }
 
-    .nav-m-link,
-    .nav-m-group > summary {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; width: 100%;
+    .nav-m-link {
+      display: flex; align-items: center; width: 100%;
       padding: 14px 2px;
-      border-bottom: 1px solid var(--border);
-      color: var(--ink); text-decoration: none;
+      border-bottom: 1px solid var(--kd-beige-3);
+      color: var(--kd-ink); text-decoration: none;
       font-size: 1.05rem; font-weight: 500;
     }
-    .nav-m-group > summary { cursor: pointer; list-style: none; }
-    .nav-m-group > summary::-webkit-details-marker { display: none; }
-    .nav-m-caret { opacity: 0.6; flex: none; transition: transform 0.2s ease; }
-    .nav-m-group[open] > summary .nav-m-caret { transform: rotate(180deg); }
-
-    .nav-m-sub { padding: 6px 0 12px 2px; display: flex; flex-direction: column; }
-    .nav-m-sublink {
-      padding: 11px 12px; border-radius: var(--radius);
-      color: var(--muted); text-decoration: none; font-size: 1rem;
-    }
-    .nav-m-sublink:hover { background: var(--field); color: var(--indigo); }
-    .nav-m-sublink.is-current { color: var(--indigo); font-weight: 500; }
-    .nav-m-sublink.is-soon { opacity: 0.55; }
-
-    .nav-m-langname { display: inline-flex; align-items: center; gap: 9px; }
-
+    .nav-m-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 16px 2px 0; }
+    .nav-m-lang { display: inline-flex; gap: 8px; font-weight: 500; color: var(--kd-ink-2); }
+    .nav-m-lang a { color: var(--kd-blue-2); text-decoration: none; }
+    .nav-m-lang .is-current { color: var(--kd-ink); }
+    .nav-m-lang .is-soon { opacity: 0.45; }
     .nav-m-cta { margin-top: 18px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .nav-burger-box span, .nav-m-caret { transition: none; }
+    .nav-burger-box span { transition: none; }
   }
 </style>
 
 <script is:inline>
+  // Theme switch. Every switch on the page (desktop and mobile) stays in sync.
   (function () {
-    // There is more than one dropdown in the nav (Use Cases, Resources), so this
-    // handles all of them: opening one closes the others.
-    var wraps = Array.prototype.slice.call(document.querySelectorAll('.nav-resources'));
-    if (!wraps.length) return;
-    function close(wrap) {
-      wrap.classList.remove('open');
-      var t = wrap.querySelector('.nav-resources-trigger');
-      if (t) t.setAttribute('aria-expanded', 'false');
+    var root = document.documentElement;
+    var btns = Array.prototype.slice.call(document.querySelectorAll('.theme-switch button'));
+    if (!btns.length) return;
+    function show(mode) {
+      btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-t') === mode ? 'true' : 'false'); });
     }
-    function closeAll(except) {
-      wraps.forEach(function (w) { if (w !== except) close(w); });
+    function set(mode) {
+      if (mode === 'system') root.removeAttribute('data-mode'); else root.setAttribute('data-mode', mode);
+      show(mode);
+      try { if (mode === 'system') localStorage.removeItem('kd-theme'); else localStorage.setItem('kd-theme', mode); } catch (e) {}
     }
-    wraps.forEach(function (wrap) {
-      var trigger = wrap.querySelector('.nav-resources-trigger');
-      if (!trigger) return;
-      trigger.addEventListener('click', function (e) {
-        e.preventDefault();
-        var isOpen = wrap.classList.toggle('open');
-        trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        if (isOpen) closeAll(wrap);
-      });
-    });
-    document.addEventListener('click', function (e) {
-      wraps.forEach(function (w) { if (!w.contains(e.target)) close(w); });
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeAll(null);
-    });
+    btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-t')); }); });
+    show(root.getAttribute('data-mode') || 'system');
   })();
 
   // Mobile panel toggle. Guarded so it runs once even if the nav is re-rendered.
@@ -318,10 +214,6 @@ const langItems = switcherLocales.map((l) => ({
       burger.setAttribute('aria-expanded', open ? 'true' : 'false');
       // Lock background scroll while the panel is open.
       document.body.style.overflow = open ? 'hidden' : '';
-      if (!open) {
-        // Collapse the accordions so the panel reopens in a known state.
-        panel.querySelectorAll('details[open]').forEach(function (d) { d.open = false; });
-      }
     }
 
     burger.addEventListener('click', function () {

@@ -5,8 +5,11 @@
 // the real adaptive favicon pair, the correct Fira Sans weights (incl. 700),
 // and the original OG tags. The only structural change versus that original is
 // the body: this Layout now renders the shared Nav, Footer and ContactModal
-// around <slot/>, and owns the global UI script (colour-aware nav, scroll
-// progress, section spy), so pages no longer hard-code any of these.
+// around <slot/>, and owns the global UI script (scroll progress, motion,
+// section spy), so pages no longer hard-code any of these.
+//
+// `themeable`: the page supports dark mode. Only then does the nav show the
+// Light / Auto / Dark switch; every other page is pinned to light.
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -14,7 +17,7 @@ import ContactModal from '../components/ContactModal.astro';
 import { defaultLocale, switcherLocales } from '../i18n/ui';
 import { asLocale, basePath, hasTranslation, localizeUrl } from '../i18n/utils';
 
-const { title, description } = Astro.props;
+const { title, description, themeable = false } = Astro.props;
 
 // Active locale, canonical URL, and hreflang alternates. We only advertise a
 // language version that actually exists (see translatedRoutes in i18n/ui.ts),
@@ -28,7 +31,7 @@ const showHreflang = alternates.length > 1;
 const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href;
 ---
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} data-mode={themeable ? undefined : 'light'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,6 +52,8 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
 
     <!-- Flags JS before first paint so the hero can start hidden without flashing. -->
     <script is:inline>document.documentElement.className += ' js';</script>
+    <!-- Restores the visitor's theme choice before first paint (themeable pages only). -->
+    {themeable && <script is:inline>try { var m = localStorage.getItem('kd-theme'); if (m === 'light' || m === 'dark') document.documentElement.setAttribute('data-mode', m); } catch (e) {}</script>}
     <!-- Anime.js 4.5.0, self-hosted rather than CDN: no third-party request, so no
          visitor IP leaves the EU and nothing extra to declare in the privacy policy.
          Deferred, so it is parsed before DOMContentLoaded but never blocks render. -->
@@ -80,34 +85,18 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF44PR8H" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <Nav />
+    <Nav themeable={themeable} />
 
     <slot />
 
     <Footer />
     <ContactModal />
 
-    <!-- Global UI: colour-aware nav, scroll progress, section spy. -->
+    <!-- Global UI: scroll progress, motion, section spy. -->
     <!-- Lives here so it runs on every page exactly once. -->
     <script is:inline>
       (function () {
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var nav = document.querySelector('.nav');
-        if (nav) {
-          var themed = Array.prototype.slice.call(document.querySelectorAll('[data-theme]'));
-          var navTheme = function () {
-            var probe = 40, theme = 'dark';
-            for (var i = 0; i < themed.length; i++) {
-              var r = themed[i].getBoundingClientRect();
-              if (r.top <= probe && r.bottom > probe) { theme = themed[i].getAttribute('data-theme'); break; }
-            }
-            nav.classList.toggle('nav--light', theme === 'light');
-            nav.classList.toggle('nav--dark', theme !== 'light');
-          };
-          window.addEventListener('scroll', navTheme, { passive: true });
-          window.addEventListener('resize', navTheme);
-          navTheme();
-        }
 
         if (!reduce) {
           var bar = document.createElement('div'); bar.className = 'scroll-progress'; document.body.appendChild(bar);
