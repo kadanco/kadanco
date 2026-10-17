@@ -126,4 +126,5 @@ Next, in order:
 - 2026-10-17: Links and buttons follow the brand system styleguide: orange only for the main CTA (Get A Free Audit), blue primary, links 21px weight 500 with an arrow.
 - 2026-10-17: The design's floating theme switch moved into the nav.
 - 2026-10-17: Founders section keeps all content from the old homepage (Maria and Karan, photos, intro, tags); only the design follows the October system.
-- 2026-10-17: Homepage order: hero, client logos, offers, step band, use cases, who we are, FAQ, compliance, CTA. Logos, use cases, FAQ and compliance keep the old content in the October design. The step band stays.
+- 2026-10-17: Homepage order: hero, client logos, offers, use cases, who we are, FAQ, compliance, CTA. Logos, use cases, FAQ and compliance keep the old content in the October design.
+- 2026-10-17: Step band ("With Kadanco you go one step further...") removed from the homepage.

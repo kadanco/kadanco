@@ -31,8 +31,6 @@ const copy = {
       { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing Engineering', body: 'Positioning, launch and content that make the product make sense.', link: 'Fix Your Positioning' },
       { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales Engineering', body: "A pipeline engine that doesn't depend on one founder.", link: 'Build My Pipeline' },
     ],
-    stepA: 'With Kadanco you go one step further and advance with',
-    stepB: 'Product Marketing Engineering.',
     logosEyebrow: 'Two careers behind the work',
     logosNote: 'We bring four decades of collective experience across enterprise software, services, automotive, pharma, and SaaS in product, marketing, and sales.',
     ucEyebrow: 'Use Cases',
@@ -93,8 +91,6 @@ const copy = {
       { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing Engineering', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
       { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Sales Engineering', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
     ],
-    stepA: 'Mit Kadanco gehen Sie einen Schritt weiter, mit',
-    stepB: 'Product Marketing Engineering.',
     logosEyebrow: 'Zwei Karrieren hinter der Arbeit',
     logosNote: 'Wir bringen vier Jahrzehnte gemeinsame Erfahrung aus Enterprise-Software, Services, Automotive, Pharma und SaaS mit, in Produkt, Marketing und Vertrieb.',
     ucEyebrow: 'Use Cases',
@@ -202,14 +198,6 @@ const logos = [
           </a>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- ===================== STEP BAND ===================== -->
-  <section class="home-band">
-    <div class="container home-band-in">
-      <span class="home-mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg></span>
-      <p>{c.stepA} <mark>{c.stepB}</mark></p>
     </div>
   </section>
 
@@ -359,13 +347,6 @@ const logos = [
   .home-card--sales { background: var(--kd-dept-sales); color: var(--kd-blue-1); }
   .home-card--marketing .home-lbl, .home-card--sales .home-lbl { background: var(--kd-blue-2); color: var(--kd-white); }
   .home-card--marketing .home-link, .home-card--sales .home-link { color: var(--kd-blue-2); }
-
-  /* ---------- step band ---------- */
-  .home-band { background: var(--kd-surface); border-block: 1px solid var(--kd-line); }
-  .home-band-in { padding-top: 40px; padding-bottom: 40px; display: flex; align-items: center; gap: 20px; }
-  .home-mark { width: 52px; height: 52px; flex: none; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); display: flex; align-items: center; justify-content: center; }
-  .home-band p { font-size: clamp(20px, 2.4vw, 28px); line-height: 1.35; font-weight: var(--kd-weight-medium); min-width: 0; }
-  .home-band mark { background: var(--kd-signal-1); color: var(--kd-blue-1); padding: 0 8px; border-radius: var(--kd-radius); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 
   /* ---------- client logos: white band between hero and offers ---------- */
   .home-logos { background: var(--kd-surface); border-bottom: 1px solid var(--kd-line); padding: 48px 0; text-align: center; }
