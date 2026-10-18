@@ -5,8 +5,9 @@
 // (design/04_sections/use-cases/...UseCaseConversion.dc.html): navy outlines,
 // white faces, coloured tops. Product is the foundation (an app screen),
 // Marketing sits on it (a content card and text lines), Sales is on top
-// (rising pipeline bars). Each slice carries a small label. The three offer
-// cards below the logos explain the services, so there is no legend here.
+// (rising pipeline bars). Each slice's label is printed flat on its top face,
+// along the front edge. The three offer cards below the logos explain the
+// services, so there is no legend here.
 //
 // Geometry: true isometric (30 degrees), the same angles as the design file.
 // Boards and blocks are generated from box sizes below, so changing a size
@@ -22,7 +23,8 @@ const labels = {
 // ---------- isometric helpers ----------
 const W = 136, D = 100, T = 6;     // board size (x length, y depth, thickness)
 const GAP = 100;                   // vertical distance between slices
-const PAD_L = 100, PAD = 16;       // room for labels on the left
+const PAD_L = 16, PAD = 16;
+const STRIP = 18;                  // label strip along the front edge of each board
 const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
 const TOP = 2 * GAP + T + 46;      // highest point (top slice plus tallest bar)
 const ox = PAD_L + D * C30, oy = PAD + TOP;
@@ -43,27 +45,28 @@ const zP = 0, zM = GAP, zS = 2 * GAP;
 const product = [
   ...box(0, W, 0, D, zP, T),
   ...box(8, W - 8, 8, 20, zP + T, 4, 'acc'),           // top bar of the app screen
-  ...box(14, 58, 34, D - 12, zP + T, 8, 'acc'),        // UI block
-  ...box(70, W - 12, 34, D - 12, zP + T, 14, 'acc'),   // UI block
+  ...box(14, 58, 32, D - STRIP - 4, zP + T, 8, 'acc'),        // UI block
+  ...box(70, W - 12, 32, D - STRIP - 4, zP + T, 14, 'acc'),   // UI block
 ];
 const dots = [16, 24, 32].map((x) => pt(x, 14, zP + T + 4));
 const marketing = [
   ...box(0, W, 0, D, zM, T),
   ...box(12, W - 12, 12, 30, zM + T, 3),               // headline strip
-  ...box(12, 62, 42, 48, zM + T, 2, 'ink'),            // text lines
-  ...box(12, 54, 56, 62, zM + T, 2, 'ink'),
-  ...box(12, 46, 70, 76, zM + T, 2, 'ink'),
-  ...box(74, W - 12, 42, D - 12, zM + T, 8, 'acc'),    // content card
+  ...box(12, 62, 40, 46, zM + T, 2, 'ink'),            // text lines
+  ...box(12, 54, 52, 58, zM + T, 2, 'ink'),
+  ...box(12, 46, 64, 70, zM + T, 2, 'ink'),
+  ...box(74, W - 12, 40, D - STRIP - 4, zM + T, 8, 'acc'),    // content card
 ];
 const sales = [
   ...box(0, W, 0, D, zS, T),
-  ...box(20, 40, 50, 72, zS + T, 16, 'acc'),           // pipeline bars, rising
-  ...box(58, 78, 50, 72, zS + T, 28, 'acc'),
-  ...box(96, 116, 50, 72, zS + T, 42, 'acc'),
+  ...box(20, 40, 46, 70, zS + T, 16, 'acc'),           // pipeline bars, rising
+  ...box(58, 78, 46, 70, zS + T, 28, 'acc'),
+  ...box(96, 116, 46, 70, zS + T, 42, 'acc'),
 ];
 
-// label anchor: just left of each slice's left corner
-const lab = (z: number) => { const [x, y] = pt(0, D, z + T / 2); return { x: x - 16, y: y + 4 }; };
+// label: printed flat on the top face along the front edge. The matrix maps the
+// text's x axis onto the board's x axis and its y axis onto the board's depth.
+const lab = (z: number) => { const [x, y] = pt(12, D - 6, z + T); return `matrix(${C30.toFixed(4)} ${S30} ${(-C30).toFixed(4)} ${S30} ${x.toFixed(1)} ${y.toFixed(1)})`; };
 const slices = [
   { id: 'product', faces: product, label: labels.product, at: lab(zP), d: 0 },
   { id: 'marketing', faces: marketing, label: labels.marketing, at: lab(zM), d: 1 },
@@ -77,8 +80,7 @@ const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + 
       <g class={`slice slice--${s.id}`} style={`--d:${s.d}`}>
         {s.faces.map((f) => <polygon points={f.pts} class={f.cls} />)}
         {s.id === 'product' && dots.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.8" class="dot" />)}
-        <line x1={s.at.x + 4} y1={s.at.y - 4} x2={s.at.x + 14} y2={s.at.y - 4} class="lead" />
-        <text x={s.at.x} y={s.at.y} text-anchor="end" class="lbl">{s.label}</text>
+        <text transform={s.at} class="lbl">{s.label}</text>
       </g>
     ))}
   </svg>
@@ -99,8 +101,7 @@ const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + 
   .ink { fill: var(--kd-blue-1); }
   .dot { fill: var(--kd-white); stroke: none; }
 
-  .lbl { fill: var(--kd-lilac); stroke: none; font-family: var(--kd-font-sans); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
-  .lead { stroke: var(--kd-lilac); stroke-width: 1.2; }
+  .lbl { fill: var(--kd-blue-1); stroke: none; font-family: var(--kd-font-sans); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
 
   /* slices drop in from the foundation up, then float gently out of step */
   .slice { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both, hv-float 5s ease-in-out infinite; animation-delay: calc(var(--d) * .3s), calc(1.2s + var(--d) * .6s); }

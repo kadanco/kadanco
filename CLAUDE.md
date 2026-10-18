@@ -99,7 +99,7 @@ Done:
 - Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk) with the new content: Product / Marketing / Sales / About, plain EN / DE, one light/dark toggle icon. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
-- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices (Product app screen, Marketing content, Sales pipeline bars) in the style of the Conversion rebuild hero illustration, with small labels and no legend.
+- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices (Product app screen, Marketing content, Sales pipeline bars) in the style of the Conversion rebuild hero illustration, with the labels printed on each slice's top face and no legend.
 - Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
 - Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
@@ -139,9 +139,10 @@ Next, in order:
 - 2026-10-17: Voice rules from masterplan D29 apply to all site copy: no "X, not Y", no "rather than" as filler, no words from its banned list.
 - 2026-10-17: Use cases: homepage plus an overview page. Case studies show problem and approach only, no invented results or quotes. Departments: DACH entry, founder content, conversion rebuild, feature list to clear offer = Marketing; event pipeline, pipeline off the founder = Sales; adoption rescue = Product.
 - 2026-10-17: Use cases are always ordered Product, then Marketing, then Sales (the hero stack read from the foundation up). Enforced by a sort in `src/data/use-cases.ts`.
-- 2026-10-18: Hero layout: text 34%, visual 66%. Height follows the window (`clamp(600px, 100svh - 150px, 820px)`) so the logo row stays visible without scrolling. Stacks below 980px.
+- 2026-10-18: Hero layout (superseded the same day: now 50/50, see below): text 34%, visual 66%. Height follows the window (`clamp(600px, 100svh - 150px, 820px)`) so the logo row stays visible without scrolling. Stacks below 980px.
 - 2026-10-18: Who We Are and the final CTA restored exactly as live on main (`LiveFounders.astro`, `LiveCta.astro`): live copy, markup and look (10px radius, filled labels, lime CTA button), scoped to those sections. Deliberate exceptions to the October rules and D29 ("one system of action" stays because the owner asked for the exact live text). Live labels used weight 600, which is no longer loaded, so they render at 500.
 - 2026-10-18: From the original site: hero background (blue radial gradient, no grid), lime CTAs on every dark ground, and the Compliance section restored exactly as live (`LiveCompliance.astro`).
 - 2026-10-18: Nav back to the original design with the new content. Theme control is a single light/dark toggle (follows the system until clicked); language is a plain EN / DE. Colour switching reads the background under the nav, so it works in dark mode and on every page.
 - 2026-10-18: No "engineering" in copy unless it is about software engineering. Services are Product Design, Product Marketing and Sales; "engineering-led companies" stays. Glossary not yet changed (see open questions).
 - 2026-10-18: Hero visual remade as three isometric board slices in the Conversion rebuild illustration style (navy outlines, white faces, department-coloured tops). Legend removed; the offer cards below explain the services.
+- 2026-10-18: Hero split is now 50/50. Slice labels sit inside the slices, flat on the top face along the front edge.
