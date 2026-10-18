@@ -5,7 +5,7 @@
 // (design/04_sections/use-cases/...UseCaseConversion.dc.html): navy outlines,
 // white faces, coloured tops. Product is the foundation (an app screen),
 // Marketing sits on it (a content card and text lines), Sales is on top
-// (rising pipeline bars). Each slice's label is printed flat on its top face,
+// (pipeline bars lying flat, growing in length). Each slice's label is printed flat on its top face,
 // along the front edge. The three offer cards below the logos explain the
 // services, so there is no legend here.
 //
@@ -26,7 +26,7 @@ const GAP = 100;                   // vertical distance between slices
 const PAD_L = 16, PAD = 16;
 const STRIP = 18;                  // label strip along the front edge of each board
 const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
-const TOP = 2 * GAP + T + 46;      // highest point (top slice plus tallest bar)
+const TOP = 2 * GAP + T + 16;      // highest point (top slice plus its tallest block)
 const ox = PAD_L + D * C30, oy = PAD + TOP;
 const p = (x: number, y: number, z: number) => `${(ox + (x - y) * C30).toFixed(1)},${(oy + (x + y) * S30 - z).toFixed(1)}`;
 const pt = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
@@ -59,9 +59,11 @@ const marketing = [
 ];
 const sales = [
   ...box(0, W, 0, D, zS, T),
-  ...box(20, 40, 46, 70, zS + T, 16, 'acc'),           // pipeline bars, rising
-  ...box(58, 78, 46, 70, zS + T, 28, 'acc'),
-  ...box(96, 116, 46, 70, zS + T, 42, 'acc'),
+  // pipeline bars lie flat like the blocks on the other slices; they grow in
+  // length across the board (y), not upwards (z)
+  ...box(20, 40, 50, D - STRIP - 4, zS + T, 8, 'acc'),
+  ...box(58, 78, 30, D - STRIP - 4, zS + T, 8, 'acc'),
+  ...box(96, 116, 10, D - STRIP - 4, zS + T, 8, 'acc'),
 ];
 
 // label: printed flat on the top face along the front edge. The matrix maps the
