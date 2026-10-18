@@ -99,7 +99,7 @@ Done:
 - Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk) with the new content: Product / Marketing / Sales / About, plain EN / DE, one light/dark toggle icon. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
-- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product Design, Product Marketing, Sales).
+- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices (Product app screen, Marketing content, Sales pipeline bars) in the style of the Conversion rebuild hero illustration, with small labels and no legend.
 - Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
 - Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
@@ -144,3 +144,4 @@ Next, in order:
 - 2026-10-18: From the original site: hero background (blue radial gradient, no grid), lime CTAs on every dark ground, and the Compliance section restored exactly as live (`LiveCompliance.astro`).
 - 2026-10-18: Nav back to the original design with the new content. Theme control is a single light/dark toggle (follows the system until clicked); language is a plain EN / DE. Colour switching reads the background under the nav, so it works in dark mode and on every page.
 - 2026-10-18: No "engineering" in copy unless it is about software engineering. Services are Product Design, Product Marketing and Sales; "engineering-led companies" stays. Glossary not yet changed (see open questions).
+- 2026-10-18: Hero visual remade as three isometric board slices in the Conversion rebuild illustration style (navy outlines, white faces, department-coloured tops). Legend removed; the offer cards below explain the services.

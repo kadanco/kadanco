@@ -1,94 +1,111 @@
 ---
 // src/components/HomeHeroVisual.astro
-// Homepage hero visual: the three group services as stacked isometric slabs
-// (brand imagery rule), Product as the foundation, Marketing on it, Sales on
-// top, with a legend. Each legend entry links to its offer card further down
-// the page (#product, #marketing, #sales). Placed in HomeHero's visual slot.
+// Homepage hero visual: three isometric boards stacked as slices, drawn in the
+// style of the October "Conversion rebuild" hero illustration
+// (design/04_sections/use-cases/...UseCaseConversion.dc.html): navy outlines,
+// white faces, coloured tops. Product is the foundation (an app screen),
+// Marketing sits on it (a content card and text lines), Sales is on top
+// (rising pipeline bars). Each slice carries a small label. The three offer
+// cards below the logos explain the services, so there is no legend here.
+//
+// Geometry: true isometric (30 degrees), the same angles as the design file.
+// Boards and blocks are generated from box sizes below, so changing a size
+// keeps every face consistent.
 import { asLocale } from '../i18n/utils';
 
 const locale = asLocale(Astro.currentLocale);
+const labels = {
+  en: { product: '01 · Product', marketing: '02 · Marketing', sales: '03 · Sales', aria: 'Product, marketing and sales as three stacked layers, product at the base' },
+  de: { product: '01 · Produkt', marketing: '02 · Marketing', sales: '03 · Vertrieb', aria: 'Produkt, Marketing und Vertrieb als drei gestapelte Ebenen, das Produkt als Basis' },
+}[locale];
 
-const copy = {
-  en: {
-    label: 'One team across three services',
-    layers: [
-      { id: 'sales', tag: '03 · Sales', name: 'Sales', out: 'Pipeline that does not hang on one founder.' },
-      { id: 'marketing', tag: '02 · Marketing', name: 'Product Marketing', out: 'A story buyers understand in seconds.' },
-      { id: 'product', tag: '01 · Product', name: 'Product Design', out: 'A product that is easy to use, demo and sell.' },
-    ],
-  },
-  de: {
-    label: 'Ein Team für drei Leistungen',
-    layers: [
-      { id: 'sales', tag: '03 · Vertrieb', name: 'Sales', out: 'Eine Pipeline, die nicht an einer Person hängt.' },
-      { id: 'marketing', tag: '02 · Marketing', name: 'Product Marketing', out: 'Eine Geschichte, die Käufer sofort verstehen.' },
-      { id: 'product', tag: '01 · Produkt', name: 'Product Design', out: 'Ein Produkt, das sich leicht nutzen, zeigen und verkaufen lässt.' },
-    ],
-  },
-};
-const c = copy[locale] ?? copy.en;
+// ---------- isometric helpers ----------
+const W = 136, D = 100, T = 6;     // board size (x length, y depth, thickness)
+const GAP = 100;                   // vertical distance between slices
+const PAD_L = 100, PAD = 16;       // room for labels on the left
+const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
+const TOP = 2 * GAP + T + 46;      // highest point (top slice plus tallest bar)
+const ox = PAD_L + D * C30, oy = PAD + TOP;
+const p = (x: number, y: number, z: number) => `${(ox + (x - y) * C30).toFixed(1)},${(oy + (x + y) * S30 - z).toFixed(1)}`;
+const pt = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
 
-// isometric slab geometry (2:1), bottom slab first so upper slabs overlap it
-const cx = 160, t = 16;
-const slabs = [
-  { id: 'product', a: 130, y: 150, d: 0 },
-  { id: 'marketing', a: 104, y: 98, d: 1 },
-  { id: 'sales', a: 80, y: 51, d: 2 },
-].map((s) => {
-  const { a, y } = s;
-  const top = `${cx},${y} ${cx + a},${y + a / 2} ${cx},${y + a} ${cx - a},${y + a / 2}`;
-  const left = `${cx - a},${y + a / 2} ${cx},${y + a} ${cx},${y + a + t} ${cx - a},${y + a / 2 + t}`;
-  const right = `${cx},${y + a} ${cx + a},${y + a / 2} ${cx + a},${y + a / 2 + t} ${cx},${y + a + t}`;
-  return { ...s, top, left, right };
-});
+type Face = { pts: string; cls: string };
+// a box from (x0,y0) to (x1,y1), standing on z0 with height h; returns the three visible faces
+const box = (x0: number, x1: number, y0: number, y1: number, z0: number, h: number, top = ''): Face[] => [
+  { pts: [p(x0, y1, z0 + h), p(x1, y1, z0 + h), p(x1, y1, z0), p(x0, y1, z0)].join(' '), cls: 'f' },
+  { pts: [p(x1, y0, z0 + h), p(x1, y1, z0 + h), p(x1, y1, z0), p(x1, y0, z0)].join(' '), cls: 'f' },
+  { pts: [p(x0, y0, z0 + h), p(x1, y0, z0 + h), p(x1, y1, z0 + h), p(x0, y1, z0 + h)].join(' '), cls: `f ${top}`.trim() },
+];
+
+// ---------- the three slices ----------
+const zP = 0, zM = GAP, zS = 2 * GAP;
+// main content sits towards the front corner, where the slice above does not cover it
+const product = [
+  ...box(0, W, 0, D, zP, T),
+  ...box(8, W - 8, 8, 20, zP + T, 4, 'acc'),           // top bar of the app screen
+  ...box(14, 58, 34, D - 12, zP + T, 8, 'acc'),        // UI block
+  ...box(70, W - 12, 34, D - 12, zP + T, 14, 'acc'),   // UI block
+];
+const dots = [16, 24, 32].map((x) => pt(x, 14, zP + T + 4));
+const marketing = [
+  ...box(0, W, 0, D, zM, T),
+  ...box(12, W - 12, 12, 30, zM + T, 3),               // headline strip
+  ...box(12, 62, 42, 48, zM + T, 2, 'ink'),            // text lines
+  ...box(12, 54, 56, 62, zM + T, 2, 'ink'),
+  ...box(12, 46, 70, 76, zM + T, 2, 'ink'),
+  ...box(74, W - 12, 42, D - 12, zM + T, 8, 'acc'),    // content card
+];
+const sales = [
+  ...box(0, W, 0, D, zS, T),
+  ...box(20, 40, 50, 72, zS + T, 16, 'acc'),           // pipeline bars, rising
+  ...box(58, 78, 50, 72, zS + T, 28, 'acc'),
+  ...box(96, 116, 50, 72, zS + T, 42, 'acc'),
+];
+
+// label anchor: just left of each slice's left corner
+const lab = (z: number) => { const [x, y] = pt(0, D, z + T / 2); return { x: x - 16, y: y + 4 }; };
+const slices = [
+  { id: 'product', faces: product, label: labels.product, at: lab(zP), d: 0 },
+  { id: 'marketing', faces: marketing, label: labels.marketing, at: lab(zM), d: 1 },
+  { id: 'sales', faces: sales, label: labels.sales, at: lab(zS), d: 2 },
+];
+const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + PAD);
 ---
-<div class="hv-stack" aria-label={c.label}>
-  <div class="hv-iso">
-    <svg viewBox="0 0 320 300" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
-      {slabs.map((s) => (
-        <g class={`slab slab--${s.id}`} style={`--d:${s.d}`}>
-          <polygon class="side" points={s.left} />
-          <polygon class="side side--r" points={s.right} />
-          <polygon class="top" points={s.top} />
-        </g>
-      ))}
-    </svg>
-    <ol class="hv-legend">
-      {c.layers.map((l) => (
-        <li><a href={`#${l.id}`} class={`lg lg--${l.id}`}><span class="hv-tag">{l.tag}</span><b>{l.name}</b><span class="out">{l.out}</span></a></li>
-      ))}
-    </ol>
-  </div>
+<div class="hv-slices" role="img" aria-label={labels.aria}>
+  <svg viewBox={`0 0 ${vbW} ${vbH}`} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+    {slices.map((s) => (
+      <g class={`slice slice--${s.id}`} style={`--d:${s.d}`}>
+        {s.faces.map((f) => <polygon points={f.pts} class={f.cls} />)}
+        {s.id === 'product' && dots.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.8" class="dot" />)}
+        <line x1={s.at.x + 4} y1={s.at.y - 4} x2={s.at.x + 14} y2={s.at.y - 4} class="lead" />
+        <text x={s.at.x} y={s.at.y} text-anchor="end" class="lbl">{s.label}</text>
+      </g>
+    ))}
+  </svg>
 </div>
 
 <style>
-  .hv-stack { color: var(--kd-white); }
-  .hv-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
-  .lg { display: flex; flex-direction: column; gap: 4px; padding-left: 14px; border-left: 4px solid var(--bg); color: inherit; text-decoration: none; }
-  .hv-tag { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-lilac); }
-  .lg b { font-weight: var(--kd-weight-medium); font-size: 19px; line-height: 1.25; }
-  .out { font-size: 16px; line-height: 1.4; color: var(--kd-lilac-soft); }
-  .lg:hover b { text-decoration: underline; }
-  .lg:focus-visible { outline: 2px solid var(--kd-white); outline-offset: 4px; }
+  .hv-slices { color: var(--kd-blue-1); }
+  /* height follows the window so the hero stays short enough to show the logo row */
+  .hv-slices svg { display: block; height: clamp(360px, calc(100svh - 300px), 560px); width: auto; max-width: 100%; margin: 0 auto; overflow: visible; }
+  @media (max-width: 980px) { .hv-slices svg { height: auto; width: 100%; max-width: 420px; } }
 
-  /* department colour per slab and legend entry */
-  .lg--product, .slab--product { --bg: var(--kd-dept-product); }
-  .lg--marketing, .slab--marketing { --bg: var(--kd-dept-marketing); }
-  .lg--sales, .slab--sales { --bg: var(--kd-dept-sales); }
+  /* faces: white with navy outline, coloured tops per department */
+  .f { fill: var(--kd-white); }
+  .slice--product { --acc: var(--kd-dept-product); }
+  .slice--marketing { --acc: var(--kd-dept-marketing); }
+  .slice--sales { --acc: var(--kd-dept-sales); }
+  .acc { fill: var(--acc); }
+  .ink { fill: var(--kd-blue-1); }
+  .dot { fill: var(--kd-white); stroke: none; }
 
-  .hv-iso { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 40px; align-items: center; }
-  .hv-iso svg { max-width: 460px; justify-self: center; }
-  .hv-iso svg { width: 100%; height: auto; display: block; overflow: visible; color: var(--kd-white); }
-  .slab .top { fill: var(--bg); }
-  .slab .side { fill: var(--kd-blue-1); }
-  .slab .side--r { fill: var(--kd-night); }
+  .lbl { fill: var(--kd-lilac); stroke: none; font-family: var(--kd-font-sans); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
+  .lead { stroke: var(--kd-lilac); stroke-width: 1.2; }
 
-  /* slabs drop in from the foundation up, then the top one floats */
-  .slab { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(var(--d) * .35s); }
-  .slab--sales { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) .7s both, hv-float 4s ease-in-out 1.6s infinite; }
-  @keyframes hv-drop { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: none; } }
+  /* slices drop in from the foundation up, then float gently out of step */
+  .slice { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both, hv-float 5s ease-in-out infinite; animation-delay: calc(var(--d) * .3s), calc(1.2s + var(--d) * .6s); }
+  .slice--product { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes hv-drop { from { opacity: 0; transform: translateY(-28px); } to { opacity: 1; transform: none; } }
   @keyframes hv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-  @media (max-width: 560px) { .hv-iso { grid-template-columns: minmax(0, 1fr); } .hv-iso svg { max-width: 300px; } }
-  @media (prefers-reduced-motion: reduce) { .slab, .slab--sales { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .slice, .slice--product { animation: none; } }
 </style>
