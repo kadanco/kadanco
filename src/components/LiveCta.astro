@@ -1,0 +1,58 @@
+---
+// src/components/LiveCta.astro
+// The final call to action, restored exactly as it is live on kadanco.com
+// (branch main): same markup, same copy (EN and DE), same look, including
+// the lime button and the filled lilac label.
+//
+// The live values are scoped to this section, so the rest of the site keeps
+// the October rules (blue primary, orange single CTA, outlined labels).
+// Note: the live label uses weight 600, which the site no longer loads
+// (brand rule: 400 and 500), so the browser shows it at 500.
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const copy = {
+  en: {
+    eyebrow: 'Lets Talk',
+    h2a: "Tell us where you're trying to",
+    h2b: 'grow.',
+    lead: "We'll show you the few moves that matter most for your pipeline, then we'll make them.",
+    cta: 'Get a free audit',
+    note: "Free, no obligation. We'll get back to you quickly.",
+  },
+  de: {
+    eyebrow: 'Kontakt',
+    h2a: 'Sagen Sie uns, wo Sie',
+    h2b: 'wachsen wollen.',
+    lead: 'Wir zeigen Ihnen die wenigen Hebel, die für Ihre Pipeline am wichtigsten sind. Dann setzen wir sie um.',
+    cta: 'Kostenloses Audit anfordern',
+    note: 'Kostenlos und unverbindlich. Wir melden uns schnell.',
+  },
+};
+const c = copy[locale] ?? copy.en;
+---
+<!-- id="contact" keeps the in-page CTA links working -->
+<section id="contact" class="section cta-band center live-cta">
+  <div class="container">
+    <span class="eyebrow peri">{c.eyebrow}</span>
+    <h2>{c.h2a} <span class="hl">{c.h2b}</span></h2>
+    <p class="lead" style="margin-top:20px">{c.lead}</p>
+    <div class="cta-actions">
+      <button class="btn btn-primary btn-lg" data-open-modal>{c.cta}</button>
+    </div>
+    <p class="cta-note">{c.note}</p>
+  </div>
+</section>
+
+<style>
+  /* live values, scoped to this section only */
+  .live-cta { --radius: 10px; }
+  .live-cta .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
+  .live-cta .eyebrow.peri { background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .live-cta .btn { min-height: 0; padding: 13px 24px; }
+  .live-cta .btn.btn-lg { padding: 15px 30px; font-size: 1.05rem; }
+  .live-cta .btn.btn-primary { background: var(--kd-signal-1); border-color: transparent; color: var(--kd-blue-1); }
+  .live-cta .btn.btn-primary:hover { transform: translateY(-2px); background: var(--kd-legacy-lime-hover); }
+  .live-cta .btn:focus-visible { outline: 2px solid var(--kd-white); outline-offset: 2px; }
+</style>

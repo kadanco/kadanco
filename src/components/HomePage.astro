@@ -8,12 +8,16 @@
 // the theme role tokens (--kd-bg, --kd-surface, --kd-fg, ...). The navy hero,
 // the three department cards and the blue CTA band keep their fixed colours.
 // Use cases come from src/data/use-cases.ts (shared with /use-cases/).
+// Who We Are and the final CTA are restored exactly as live (LiveFounders,
+// LiveCta) and keep the pre-October look on purpose.
 // Client logos and compliance badges turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
 import UseCaseCard from './UseCaseCard.astro';
+import LiveFounders from './LiveFounders.astro';
+import LiveCta from './LiveCta.astro';
 import { useCases } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -21,7 +25,6 @@ const locale = asLocale(Astro.currentLocale);
 
 const copy = {
   en: {
-    cta: 'Get A Free Audit',
     offersEyebrow: 'Three experiences. One method.',
     offersH2a: 'One Team Across Your',
     offersH2b: 'Whole Funnel.',
@@ -38,16 +41,6 @@ const copy = {
     ucH2b: 'Delivers.',
     ucLede: 'The problems teams bring us, from the product itself to the sales pipeline.',
     ucAll: 'See All Use Cases',
-    aboutEyebrow: 'Who We Are',
-    aboutH2a: 'Two Operators',
-    aboutH2b: 'That Take Ownership.',
-    aboutIntro: 'is a complete marketing function for B2B companies. Two operators take ownership of the strategy and run the execution themselves. One team, one plan, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
-    founders: [
-      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Founder & Product Manager', body: '20+ Product Experience Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
-      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Founder & Growth Manager', body: 'Replace your GTM stack with one platform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
-    ],
-    founderLink: 'View LinkedIn Profile',
-    tags: ['Product Development', 'Product Management', 'Product Design', 'Product Marketing', 'Lead Generation', 'Demand Generation', 'Growth Marketing', 'Email Marketing', 'Marketing Consulting', 'Marketing Strategy', 'Copywriting'],
     faqEyebrow: 'FAQ',
     faqH2a: 'Questions,',
     faqH2b: 'Answered.',
@@ -65,12 +58,8 @@ const copy = {
       { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
       { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
     ],
-    ctaEyebrow: 'Free, no obligation',
-    ctaH2a: 'Tell Us Where It Hurts.',
-    ctaH2b: "We'll Reply In A Day.",
   },
   de: {
-    cta: 'Kostenloses Audit anfordern',
     offersEyebrow: 'Drei Erfahrungen. Eine Methode.',
     offersH2a: 'Ein Team für Ihren',
     offersH2b: 'ganzen Funnel.',
@@ -87,16 +76,6 @@ const copy = {
     ucH2b: 'liefert.',
     ucLede: 'Die Probleme, mit denen Teams zu uns kommen, vom Produkt selbst bis zur Vertriebspipeline.',
     ucAll: 'Alle Use Cases ansehen',
-    aboutEyebrow: 'Über uns',
-    aboutH2a: 'Zwei Macher,',
-    aboutH2b: 'die Verantwortung übernehmen.',
-    aboutIntro: 'ist eine komplette Marketing-Funktion für B2B-Unternehmen. Zwei Macher übernehmen die Verantwortung für die Strategie und setzen sie selbst um. Ein Team, ein Plan, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
-    founders: [
-      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Gründerin & Product Managerin', body: '20+ Jahre Produkterfahrung, Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
-      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Gründer & Growth Manager', body: 'Ersetzen Sie Ihren GTM-Stack durch eine Plattform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
-    ],
-    founderLink: 'LinkedIn-Profil ansehen',
-    tags: ['Produktentwicklung', 'Produktmanagement', 'Produktdesign', 'Produktmarketing', 'Leadgenerierung', 'Demand Generation', 'Growth Marketing', 'E-Mail-Marketing', 'Marketingberatung', 'Marketingstrategie', 'Copywriting'],
     faqEyebrow: 'FAQ',
     faqH2a: 'Fragen,',
     faqH2b: 'beantwortet.',
@@ -114,9 +93,6 @@ const copy = {
       { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
       { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
     ],
-    ctaEyebrow: 'Kostenlos und unverbindlich',
-    ctaH2a: 'Sagen Sie uns, wo es hakt.',
-    ctaH2b: 'Wir antworten innerhalb eines Tages.',
   },
 };
 
@@ -194,34 +170,8 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== ABOUT: content from the old homepage, October design ===================== -->
-  <section class="home-sec" id="about">
-    <div class="container">
-      <div class="home-sh">
-        <div class="home-head">
-          <span class="home-eyebrow">{c.aboutEyebrow}</span>
-          <h2>{c.aboutH2a} <em>{c.aboutH2b}</em></h2>
-        </div>
-        <p class="home-sh-intro"><span class="home-strong">KADANCO</span> {c.aboutIntro}</p>
-      </div>
-      <div class="home-founders">
-        {c.founders.map((f) => (
-          <article class="home-founder">
-            <img class="home-founder-photo" src={f.photo} alt={f.name} width="104" height="104" loading="lazy" />
-            <div class="home-founder-b">
-              <span class="home-lbl home-lbl--blue">{f.role}</span>
-              <h3>{f.name}</h3>
-              <p>{f.body}</p>
-              <a class="home-link home-link--accent" href={f.linkedin} target="_blank" rel="noopener">{c.founderLink} →</a>
-            </div>
-          </article>
-        ))}
-      </div>
-      <ul class="home-tags">
-        {c.tags.map((tag) => <li class="home-lbl home-lbl--outline">{tag}</li>)}
-      </ul>
-    </div>
-  </section>
+  <!-- ===================== WHO WE ARE: restored exactly as live (LiveFounders.astro) ===================== -->
+  <LiveFounders />
 
   <!-- ===================== FAQ ===================== -->
   <section class="home-sec home-sec--alt" id="faq">
@@ -251,14 +201,8 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== CTA BAND ===================== -->
-  <section class="home-ctaband" id="contact">
-    <div class="container home-ctaband-in">
-      <span class="home-eyebrow home-eyebrow--white">{c.ctaEyebrow}</span>
-      <h2>{c.ctaH2a} <span class="home-soft">{c.ctaH2b}</span></h2>
-      <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
-    </div>
-  </section>
+  <!-- ===================== FINAL CTA: restored exactly as live (LiveCta.astro) ===================== -->
+  <LiveCta />
 
 </main>
 
@@ -269,12 +213,9 @@ const logos = [
   .home em { font-style: normal; }
 
   .home-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
-  .home-eyebrow--white { color: var(--kd-white); opacity: .85; }
 
   /* links: S step (21/28, weight 500) with an arrow, per the brand system */
   .home-link { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); text-decoration: none; }
-  .home-link--accent { color: var(--kd-accent); }
-  .home-link--accent:hover { text-decoration: underline; }
 
   /* ---------- sections ---------- */
   .home-sec { padding: 72px 0; }
@@ -292,7 +233,6 @@ const logos = [
   .home-card p { font-size: 19px; line-height: 1.4; }
   .home-card .home-link { margin-top: auto; }
   .home-lbl { display: inline-flex; align-items: center; align-self: flex-start; padding: 3px 12px; border-radius: var(--kd-radius); font-size: 14px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
-  .home-lbl--blue { background: var(--kd-blue-2); color: var(--kd-white); }
 
   .home-card--product { background: var(--kd-dept-product); color: var(--kd-white); }
   .home-card--product .home-lbl { background: var(--kd-signal-1); color: var(--kd-blue-1); }
@@ -332,30 +272,7 @@ const logos = [
   .home-badges { display: flex; gap: 56px; justify-content: center; align-items: center; flex-wrap: wrap; }
   .home-badges img { width: 104px; height: 104px; filter: var(--kd-logo-filter); }
 
-  /* ---------- about: section header (head left, intro right), founder cards, tags ---------- */
-  .home-sh { display: flex; flex-wrap: wrap; gap: 20px 56px; align-items: flex-end; margin-bottom: 32px; }
-  .home-sh .home-head { flex: 1 1 360px; min-width: 0; margin-bottom: 0; }
-  .home-sh-intro { flex: 1 1 320px; min-width: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); }
-  .home-strong { font-weight: var(--kd-weight-medium); color: var(--kd-fg); }
-  .home-founders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 880px) { .home-founders { grid-template-columns: 1fr; } }
-  .home-founder { display: flex; gap: 24px; flex-wrap: wrap; padding: 32px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); }
-  .home-founder-photo { width: 104px; height: 104px; flex: none; border-radius: var(--kd-radius); object-fit: cover; background: var(--kd-blue-2); }
-  .home-founder-b { flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-  .home-founder h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
-  .home-founder p { font-size: 19px; color: var(--kd-fg-2); }
-  .home-founder .home-link { margin-top: auto; }
-  .home-tags { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-  .home-lbl--outline { border: 1px solid var(--kd-line); color: var(--kd-fg); }
-
-  /* ---------- CTA band ---------- */
-  .home-ctaband { background: var(--kd-blue-2); color: var(--kd-white); }
-  .home-ctaband-in { padding-top: 56px; padding-bottom: 56px; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
-  .home-ctaband h2 { font-size: var(--kd-text-l); line-height: 1.15; }
-  .home-soft { opacity: .85; }
-
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
-  .home-ctaband :where(a):focus-visible { outline-color: var(--kd-white); }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
   @media (prefers-reduced-motion: reduce) { .home-card { transition: none; } .home-card:hover { transform: none; } }
 </style>

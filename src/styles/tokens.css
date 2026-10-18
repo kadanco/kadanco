@@ -42,6 +42,12 @@
   --kd-lilac-soft: #DCDBFF; /* secondary text on navy */
   --kd-lilac-tint: #ECEBFF; /* body text on blue cards */
 
+  /* ---------- colour: pre-October site ---------- */
+  /* Only for the homepage sections restored exactly as they were live
+     (LiveFounders.astro, LiveCta.astro). Not for new work. */
+  --kd-legacy-paper: #F1F0ED;      /* old paper band ground */
+  --kd-legacy-lime-hover: #CBEF00; /* old lime button hover */
+
   /* ---------- department colours ---------- */
   --kd-dept-product: var(--kd-blue-2);
   --kd-dept-marketing: var(--kd-signal-1);

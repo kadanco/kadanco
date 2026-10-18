@@ -1,0 +1,84 @@
+---
+// src/components/LiveFounders.astro
+// The "Who We Are" founders section, restored exactly as it is live on
+// kadanco.com (branch main): same markup, same copy (EN and DE), same look.
+//
+// The live look predates the October brand rules (10px radius, filled
+// labels, beige filled tags, paper ground). Those live values are scoped to
+// this section below, so they never leak into the rest of the site. It does
+// not switch in dark mode, exactly like the live page.
+// Note: the live labels and tags use weight 600, which the site no longer
+// loads (brand rule: 400 and 500), so the browser shows them at 500.
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const copy = {
+  en: {
+    eyebrow: 'Who We Are',
+    h2a: 'Two Operators',
+    h2b: 'That Take Ownership.',
+    bubble: 'is a complete marketing function for B2B companies. Two operators take ownership of the strategy and run the execution themselves. One team, one system of action, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
+    founders: [
+      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Founder & Product Manager', body: '20+ Product Experience Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
+      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Founder & Growth Manager', body: 'Replace your GTM stack with one platform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
+    ],
+    linkedin: 'View LinkedIn Profile',
+    tags: ['Product Development', 'Product Management', 'Product Design', 'Product Marketing', 'Lead Generation', 'Demand Generation', 'Growth Marketing', 'Email Marketing', 'Marketing Consulting', 'Marketing Strategy', 'Copywriting'],
+  },
+  de: {
+    eyebrow: 'Über uns',
+    h2a: 'Zwei Macher,',
+    h2b: 'die Verantwortung übernehmen.',
+    bubble: 'ist eine komplette Marketing-Funktion für B2B-Unternehmen. Zwei Macher übernehmen die Verantwortung für die Strategie und setzen sie selbst um. Ein Team, ein System, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
+    founders: [
+      { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Gründerin & Product Managerin', body: '20+ Jahre Produkterfahrung, Made in Berlin | B2B Sustainable Energy Management | EdTech | Financial Wellbeing', linkedin: 'https://www.linkedin.com/in/miarichter/' },
+      { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Gründer & Growth Manager', body: 'Ersetzen Sie Ihren GTM-Stack durch eine Plattform | Founder @ hubsell', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
+    ],
+    linkedin: 'LinkedIn-Profil ansehen',
+    tags: ['Produktentwicklung', 'Produktmanagement', 'Produktdesign', 'Produktmarketing', 'Leadgenerierung', 'Demand Generation', 'Growth Marketing', 'E-Mail-Marketing', 'Marketingberatung', 'Marketingstrategie', 'Copywriting'],
+  },
+};
+const c = copy[locale] ?? copy.en;
+---
+<!-- id="about" keeps the nav and footer links working; the live id "founders" sits on an inner anchor for old links -->
+<section id="about" class="section band-paper live-founders">
+  <span id="founders" class="live-anchor"></span>
+  <div class="container">
+    <div class="who-top">
+      <div>
+        <span class="eyebrow indigo">{c.eyebrow}</span>
+        <h2>{c.h2a} <span class="hl-indigo">{c.h2b}</span></h2>
+      </div>
+      <div class="bubble">
+        <strong>KADANCO</strong> {c.bubble}
+      </div>
+    </div>
+
+    <div class="founders-grid">
+      {c.founders.map((f) => (
+        <div class="card founder">
+          <img src={f.photo} alt={f.name} class="avatar" />
+          <h3>{f.name}</h3>
+          <span class="role">{f.role}</span>
+          <p>{f.body}</p>
+          <a class="btn btn-indigo btn-block" href={f.linkedin} target="_blank" rel="noopener">{c.linkedin}</a>
+        </div>
+      ))}
+    </div>
+
+    <div class="tags">
+      {c.tags.map((t) => <span class="tag">{t}</span>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* live values, scoped to this section only */
+  .live-founders { --radius: 10px; --paper: var(--kd-legacy-paper); position: relative; color: var(--kd-ink); }
+  .live-anchor { position: absolute; top: 0; }
+  .live-founders .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
+  .live-founders .eyebrow.indigo { background: var(--kd-blue-2); color: var(--kd-white); }
+  .live-founders .btn { min-height: 0; padding: 13px 24px; }
+  .live-founders .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; padding: 7px 13px; border: 0; background: var(--kd-beige-3); color: var(--kd-ink); }
+</style>
