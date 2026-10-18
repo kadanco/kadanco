@@ -5,94 +5,184 @@
 // (design/04_sections/use-cases/...UseCaseConversion.dc.html): navy outlines,
 // white faces, coloured tops. Product is the foundation (an app screen),
 // Marketing sits on it (a content card and text lines), Sales is on top
-// (pipeline bars lying flat, growing in length). Each slice's label is printed flat on its top face,
-// along the front edge. The three offer cards below the logos explain the
-// services, so there is no legend here.
+// (pipeline bars lying flat, growing in length). Each slice's label is printed
+// flat on its top face, along the front edge.
+//
+// Interaction: hovering (or tapping, or focusing) a slice turns it from the
+// isometric view into a straight top-down view, brings it to the front and
+// shows its service text on the right. The other two slices keep floating
+// and fade into the background. Leaving the visual turns everything back.
+//
+// How: every shape is computed twice on the server, once in isometric and
+// once in the straight view, and stored on the element (data-a, data-b).
+// A small script blends between the two. Without JavaScript the visual is a
+// static isometric drawing.
 //
 // Geometry: true isometric (30 degrees), the same angles as the design file.
-// Boards and blocks are generated from box sizes below, so changing a size
-// keeps every face consistent.
 import { asLocale } from '../i18n/utils';
 
 const locale = asLocale(Astro.currentLocale);
-const labels = {
-  en: { product: '01 · Product', marketing: '02 · Marketing', sales: '03 · Sales', aria: 'Product, marketing and sales as three stacked layers, product at the base' },
-  de: { product: '01 · Produkt', marketing: '02 · Marketing', sales: '03 · Vertrieb', aria: 'Produkt, Marketing und Vertrieb als drei gestapelte Ebenen, das Produkt als Basis' },
+const copy = {
+  en: {
+    aria: 'Product, marketing and sales as three stacked layers, product at the base',
+    more: 'See the offer',
+    slices: {
+      product: { label: '01 · Product', name: 'Product Design', out: 'A product that is easy to use, demo and sell.' },
+      marketing: { label: '02 · Marketing', name: 'Product Marketing', out: 'A story buyers understand in seconds.' },
+      sales: { label: '03 · Sales', name: 'Sales', out: 'Pipeline that does not hang on one founder.' },
+    },
+  },
+  de: {
+    aria: 'Produkt, Marketing und Vertrieb als drei gestapelte Ebenen, das Produkt als Basis',
+    more: 'Zum Angebot',
+    slices: {
+      product: { label: '01 · Produkt', name: 'Product Design', out: 'Ein Produkt, das sich leicht nutzen, zeigen und verkaufen lässt.' },
+      marketing: { label: '02 · Marketing', name: 'Product Marketing', out: 'Eine Geschichte, die Käufer sofort verstehen.' },
+      sales: { label: '03 · Vertrieb', name: 'Sales', out: 'Eine Pipeline, die nicht an einer Person hängt.' },
+    },
+  },
 }[locale];
 
-// ---------- isometric helpers ----------
+// ---------- geometry ----------
 const W = 136, D = 100, T = 6;     // board size (x length, y depth, thickness)
 const GAP = 100;                   // vertical distance between slices
-const PAD_L = 16, PAD = 16;
+const PAD = 16;
 const STRIP = 18;                  // label strip along the front edge of each board
 const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
 const TOP = 2 * GAP + T + 16;      // highest point (top slice plus its tallest block)
-const ox = PAD_L + D * C30, oy = PAD + TOP;
-const p = (x: number, y: number, z: number) => `${(ox + (x - y) * C30).toFixed(1)},${(oy + (x + y) * S30 - z).toFixed(1)}`;
-const pt = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
+const ox = PAD + D * C30, oy = PAD + TOP;
+const iso = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
 
-type Face = { pts: string; cls: string };
-// a box from (x0,y0) to (x1,y1), standing on z0 with height h; returns the three visible faces
-const box = (x0: number, x1: number, y0: number, y1: number, z0: number, h: number, top = ''): Face[] => [
-  { pts: [p(x0, y1, z0 + h), p(x1, y1, z0 + h), p(x1, y1, z0), p(x0, y1, z0)].join(' '), cls: 'f' },
-  { pts: [p(x1, y0, z0 + h), p(x1, y1, z0 + h), p(x1, y1, z0), p(x1, y0, z0)].join(' '), cls: 'f' },
-  { pts: [p(x0, y0, z0 + h), p(x1, y0, z0 + h), p(x1, y1, z0 + h), p(x0, y1, z0 + h)].join(' '), cls: `f ${top}`.trim() },
-];
+// straight view: the board seen from directly above, centred where its
+// isometric top face sits, nudged left to leave room for the text
+const SHIFT = 34;
+const flatOf = (zBase: number) => {
+  const [cx, cy] = iso(W / 2, D / 2, zBase + T);
+  return (x: number, y: number) => [cx - SHIFT + (x - W / 2), cy + (y - D / 2)];
+};
 
-// ---------- the three slices ----------
+type P3 = [number, number, number];
+type Face = { a: string; b: string; cls: string };
+const fmt = (pts: number[][]) => pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+
+// a box from (x0,y0) to (x1,y1), standing on z0 with height h: the three faces
+// seen from the front, in isometric (a) and straight view (b)
+const boxOn = (flat: (x: number, y: number) => number[]) =>
+  (x0: number, x1: number, y0: number, y1: number, z0: number, h: number, top = ''): Face[] => {
+    const faces: { pts: P3[]; cls: string }[] = [
+      { pts: [[x0, y1, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x0, y1, z0]], cls: 'f side' },
+      { pts: [[x1, y0, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x1, y0, z0]], cls: 'f side' },
+      { pts: [[x0, y0, z0 + h], [x1, y0, z0 + h], [x1, y1, z0 + h], [x0, y1, z0 + h]], cls: `f ${top}`.trim() },
+    ];
+    return faces.map((f) => ({
+      a: fmt(f.pts.map(([x, y, z]) => iso(x, y, z))),
+      b: fmt(f.pts.map(([x, y]) => flat(x, y))),
+      cls: f.cls,
+    }));
+  };
+
 const zP = 0, zM = GAP, zS = 2 * GAP;
+const fP = flatOf(zP), fM = flatOf(zM), fS = flatOf(zS);
+const bP = boxOn(fP), bM = boxOn(fM), bS = boxOn(fS);
+
 // main content sits towards the front corner, where the slice above does not cover it
 const product = [
-  ...box(0, W, 0, D, zP, T),
-  ...box(8, W - 8, 8, 20, zP + T, 4, 'acc'),           // top bar of the app screen
-  ...box(14, 58, 32, D - STRIP - 4, zP + T, 8, 'acc'),        // UI block
-  ...box(70, W - 12, 32, D - STRIP - 4, zP + T, 14, 'acc'),   // UI block
+  ...bP(0, W, 0, D, zP, T),
+  ...bP(8, W - 8, 8, 20, zP + T, 4, 'acc'),                   // top bar of the app screen
+  ...bP(14, 58, 32, D - STRIP - 4, zP + T, 8, 'acc'),         // UI block
+  ...bP(70, W - 12, 32, D - STRIP - 4, zP + T, 14, 'acc'),    // UI block
 ];
-const dots = [16, 24, 32].map((x) => pt(x, 14, zP + T + 4));
 const marketing = [
-  ...box(0, W, 0, D, zM, T),
-  ...box(12, W - 12, 12, 30, zM + T, 3),               // headline strip
-  ...box(12, 62, 40, 46, zM + T, 2, 'ink'),            // text lines
-  ...box(12, 54, 52, 58, zM + T, 2, 'ink'),
-  ...box(12, 46, 64, 70, zM + T, 2, 'ink'),
-  ...box(74, W - 12, 40, D - STRIP - 4, zM + T, 8, 'acc'),    // content card
+  ...bM(0, W, 0, D, zM, T),
+  ...bM(12, W - 12, 12, 30, zM + T, 3),                       // headline strip
+  ...bM(12, 62, 40, 46, zM + T, 2, 'ink'),                    // text lines
+  ...bM(12, 54, 52, 58, zM + T, 2, 'ink'),
+  ...bM(12, 46, 64, 70, zM + T, 2, 'ink'),
+  ...bM(74, W - 12, 40, D - STRIP - 4, zM + T, 8, 'acc'),     // content card
 ];
+// pipeline bars lie flat like the blocks on the other slices; they grow in
+// length across the board (y), not upwards (z)
 const sales = [
-  ...box(0, W, 0, D, zS, T),
-  // pipeline bars lie flat like the blocks on the other slices; they grow in
-  // length across the board (y), not upwards (z)
-  ...box(20, 40, 50, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...box(58, 78, 30, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...box(96, 116, 10, D - STRIP - 4, zS + T, 8, 'acc'),
+  ...bS(0, W, 0, D, zS, T),
+  ...bS(20, 40, 50, D - STRIP - 4, zS + T, 8, 'acc'),
+  ...bS(58, 78, 30, D - STRIP - 4, zS + T, 8, 'acc'),
+  ...bS(96, 116, 10, D - STRIP - 4, zS + T, 8, 'acc'),
 ];
 
-// label: printed flat on the top face along the front edge. The matrix maps the
-// text's x axis onto the board's x axis and its y axis onto the board's depth.
-const lab = (z: number) => { const [x, y] = pt(12, D - 6, z + T); return `matrix(${C30.toFixed(4)} ${S30} ${(-C30).toFixed(4)} ${S30} ${x.toFixed(1)} ${y.toFixed(1)})`; };
-const slices = [
-  { id: 'product', faces: product, label: labels.product, at: lab(zP), d: 0 },
-  { id: 'marketing', faces: marketing, label: labels.marketing, at: lab(zM), d: 1 },
-  { id: 'sales', faces: sales, label: labels.sales, at: lab(zS), d: 2 },
-];
+// browser dots on the app screen's top bar, in both views
+const dots = [16, 24, 32].map((x) => ({ a: iso(x, 14, zP + T + 4), b: fP(x, 14) }));
+
+// label printed on the top face along the front edge; the matrix maps the
+// text's axes onto the board (isometric) or keeps it upright (straight view)
+const lab = (z: number, flat: (x: number, y: number) => number[]) => {
+  const [ax, ay] = iso(12, D - 6, z + T);
+  const [bx, by] = flat(12, D - 6);
+  return { a: [C30, S30, -C30, S30, ax, ay].map((n) => +n.toFixed(4)).join(' '), b: [1, 0, 0, 1, bx, by].map((n) => +n.toFixed(4)).join(' ') };
+};
+
+// where the text panel sits in the straight view: right of the board, centred on it
+const panelAt = (flat: (x: number, y: number) => number[]) => { const [x, y] = flat(W, D / 2); return { x: x + 14, y }; };
+
 const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + PAD);
+
+// hover bands: one horizontal band per slice, split halfway between slices,
+// so the target does not move while a slice turns
+const centreY = (z: number) => iso(W / 2, D / 2, z + T)[1];
+const cyS = centreY(zS), cyM = centreY(zM), cyP = centreY(zP);
+const bands = [
+  { i: 2, y0: 0, y1: (cyS + cyM) / 2 },
+  { i: 1, y0: (cyS + cyM) / 2, y1: (cyM + cyP) / 2 },
+  { i: 0, y0: (cyM + cyP) / 2, y1: vbH },
+];
+
+const ids = ['product', 'marketing', 'sales'] as const;
+const slices = ids.map((id, i) => {
+  const z = [zP, zM, zS][i], flat = [fP, fM, fS][i];
+  const pa = panelAt(flat);
+  return { id, i, faces: [product, marketing, sales][i], text: copy.slices[id], at: lab(z, flat), panel: { left: (pa.x / vbW) * 100, top: (pa.y / vbH) * 100 } };
+});
 ---
-<div class="hv-slices" role="img" aria-label={labels.aria}>
-  <svg viewBox={`0 0 ${vbW} ${vbH}`} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-    {slices.map((s) => (
-      <g class={`slice slice--${s.id}`} style={`--d:${s.d}`}>
-        {s.faces.map((f) => <polygon points={f.pts} class={f.cls} />)}
-        {s.id === 'product' && dots.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.8" class="dot" />)}
-        <text transform={s.at} class="lbl">{s.label}</text>
+<div class="hv-slices" role="group" aria-label={copy.aria} data-hv>
+  <div class="hv-stage">
+    <svg viewBox={`0 0 ${vbW} ${vbH}`} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+      <g class="hv-layers">
+        {slices.map((s) => (
+          <g class={`slice slice--${s.id}`} style={`--d:${s.i}`} data-slice={s.i}>
+            <g class="slice-in">
+              {s.faces.map((f) => <polygon points={f.a} data-a={f.a} data-b={f.b} class={f.cls} />)}
+              {s.id === 'product' && dots.map((d) => (
+                <circle cx={d.a[0].toFixed(1)} cy={d.a[1].toFixed(1)} r="1.8" class="dot" data-a={`${d.a[0].toFixed(1)},${d.a[1].toFixed(1)}`} data-b={`${d.b[0].toFixed(1)},${d.b[1].toFixed(1)}`} />
+              ))}
+              <text transform={`matrix(${s.at.a})`} data-a={s.at.a} data-b={s.at.b} class="lbl">{s.text.label}</text>
+            </g>
+          </g>
+        ))}
       </g>
+    </svg>
+
+    {/* hover, tap and keyboard targets: one stable band per slice */}
+    {bands.map((b) => (
+      <button type="button" class="hv-hit" data-i={b.i} aria-label={slices[b.i].text.name} aria-expanded="false"
+        style={`top:${(b.y0 / vbH) * 100}%;height:${((b.y1 - b.y0) / vbH) * 100}%`}></button>
     ))}
-  </svg>
+
+    {slices.map((s) => (
+      <div class={`hv-panel hv-panel--${s.id}`} data-panel={s.i} style={`left:${s.panel.left.toFixed(2)}%;top:${s.panel.top.toFixed(2)}%`} aria-hidden="true">
+        <span class="hv-panel-tag">{s.text.label}</span>
+        <b>{s.text.name}</b>
+        <p>{s.text.out}</p>
+        <a href={`#${s.id}`} tabindex="-1">{copy.more} →</a>
+      </div>
+    ))}
+  </div>
 </div>
 
 <style>
   .hv-slices { color: var(--kd-blue-1); }
+  .hv-stage { position: relative; width: fit-content; max-width: 100%; margin: 0 auto; }
   /* height follows the window so the hero stays short enough to show the logo row */
-  .hv-slices svg { display: block; height: clamp(360px, calc(100svh - 300px), 560px); width: auto; max-width: 100%; margin: 0 auto; overflow: visible; }
-  @media (max-width: 980px) { .hv-slices svg { height: auto; width: 100%; max-width: 420px; } }
+  .hv-stage svg { display: block; height: clamp(360px, calc(100svh - 300px), 560px); width: auto; max-width: 100%; overflow: visible; }
+  @media (max-width: 980px) { .hv-stage { width: 100%; max-width: 420px; } .hv-stage svg { height: auto; width: 100%; } }
 
   /* faces: white with navy outline, coloured tops per department */
   .f { fill: var(--kd-white); }
@@ -102,13 +192,139 @@ const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + 
   .acc { fill: var(--acc); }
   .ink { fill: var(--kd-blue-1); }
   .dot { fill: var(--kd-white); stroke: none; }
-
   .lbl { fill: var(--kd-blue-1); stroke: none; font-family: var(--kd-font-sans); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
 
   /* slices drop in from the foundation up, then float gently out of step */
   .slice { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both, hv-float 5s ease-in-out infinite; animation-delay: calc(var(--d) * .3s), calc(1.2s + var(--d) * .6s); }
   .slice--product { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both; }
+  .slice.is-active { animation: none; }
   @keyframes hv-drop { from { opacity: 0; transform: translateY(-28px); } to { opacity: 1; transform: none; } }
   @keyframes hv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-  @media (prefers-reduced-motion: reduce) { .slice, .slice--product { animation: none; } }
+
+  /* the other two slices step back */
+  .slice-in { transition: opacity .35s ease; }
+  .is-focus .slice:not(.is-active) .slice-in { opacity: .3; }
+
+  /* targets: invisible, full width, stacked over the drawing */
+  .hv-hit { position: absolute; left: 0; width: 100%; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+  .hv-hit:focus-visible { outline: 2px solid var(--kd-white); outline-offset: -2px; border-radius: var(--kd-radius); }
+
+  /* text panel: right of the straight board */
+  .hv-panel { position: absolute; z-index: 2; width: min(240px, 46vw); transform: translate(0, -50%) translateX(-8px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .3s ease, transform .3s ease, visibility 0s linear .3s; color: var(--kd-white); display: flex; flex-direction: column; gap: 6px; }
+  .hv-panel.is-on { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(0, -50%); transition: opacity .3s ease .3s, transform .3s ease .3s, visibility 0s; }
+  .hv-panel-tag { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; color: var(--kd-lilac); }
+  .hv-panel b { font-size: 22px; line-height: 1.2; font-weight: var(--kd-weight-medium); }
+  .hv-panel p { margin: 0; font-size: 16px; line-height: 1.45; color: var(--kd-lilac-soft); }
+  .hv-panel a { margin-top: 4px; font-size: 16px; font-weight: var(--kd-weight-medium); color: var(--kd-signal-1); text-decoration: none; }
+  .hv-panel a:hover { text-decoration: underline; }
+  /* narrow screens: the panel sits over the bottom of the drawing on a solid card */
+  @media (max-width: 980px) {
+    .hv-panel { left: 0 !important; top: auto !important; bottom: 0; width: 100%; padding: 16px 18px; border-radius: var(--kd-radius); background: var(--kd-blue-1); transform: translateY(8px); }
+    .hv-panel.is-on { transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slice, .slice--product { animation: none; }
+    .slice-in, .hv-panel, .hv-panel.is-on { transition: none; }
+  }
 </style>
+
+<script is:inline>
+  // Turns the hovered slice into its straight view and back. Each polygon,
+  // dot and label carries its isometric (data-a) and straight (data-b) values;
+  // this blends between them.
+  (function () {
+    var root = document.querySelector('[data-hv]');
+    if (!root) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var layers = root.querySelector('.hv-layers');
+    var nums = function (s) { return s.split(/[ ,]+/).map(Number); };
+
+    var slices = Array.prototype.slice.call(root.querySelectorAll('[data-slice]')).map(function (g) {
+      var parts = Array.prototype.slice.call(g.querySelectorAll('[data-a]')).map(function (el) {
+        return { el: el, a: nums(el.getAttribute('data-a')), b: nums(el.getAttribute('data-b')), tag: el.tagName.toLowerCase() };
+      });
+      return { g: g, parts: parts, t: 0, target: 0 };
+    });
+    var order = slices.map(function (s) { return s.g; });
+    var panels = Array.prototype.slice.call(root.querySelectorAll('[data-panel]'));
+    var hits = Array.prototype.slice.call(root.querySelectorAll('.hv-hit'));
+
+    function draw(s) {
+      var e = s.t < 0.5 ? 2 * s.t * s.t : 1 - Math.pow(-2 * s.t + 2, 2) / 2; // ease in-out
+      s.parts.forEach(function (p) {
+        var v = p.a.map(function (n, k) { return n + (p.b[k] - n) * e; });
+        if (p.tag === 'polygon') {
+          var out = [];
+          for (var k = 0; k < v.length; k += 2) out.push(v[k].toFixed(2) + ',' + v[k + 1].toFixed(2));
+          p.el.setAttribute('points', out.join(' '));
+        } else if (p.tag === 'circle') {
+          p.el.setAttribute('cx', v[0].toFixed(2)); p.el.setAttribute('cy', v[1].toFixed(2));
+        } else {
+          p.el.setAttribute('transform', 'matrix(' + v.map(function (n) { return n.toFixed(4); }).join(' ') + ')');
+        }
+        // side faces vanish in the straight view
+        if (p.el.classList.contains('side')) p.el.style.opacity = String(1 - e);
+      });
+    }
+
+    // next frame: an animation frame, with a backup timer in case frames are
+    // paused (hidden or headless pages); whichever comes first runs, once
+    function next(fn) {
+      var done = false;
+      var go = function (t) { if (done) return; done = true; fn(t); };
+      requestAnimationFrame(go);
+      setTimeout(function () { go(performance.now()); }, 50);
+    }
+    var running = false, last = 0;
+    function tick(now) {
+      if (!last) last = now;
+      var dt = Math.max(0, Math.min(64, now - last)); last = now;
+      var busy = false;
+      slices.forEach(function (s) {
+        if (s.t === s.target) return;
+        var step = reduce ? 1 : dt / 420;
+        s.t = s.target > s.t ? Math.min(s.target, s.t + step) : Math.max(s.target, s.t - step);
+        draw(s); busy = true;
+      });
+      if (busy) next(tick); else running = false;
+    }
+    function run() { if (!running) { running = true; last = 0; next(tick); } }
+
+    var active = -1;
+    function set(i) {
+      if (i === active) return;
+      active = i;
+      root.classList.toggle('is-focus', i >= 0);
+      slices.forEach(function (s, k) {
+        s.target = k === i ? 1 : 0;
+        s.g.classList.toggle('is-active', k === i);
+      });
+      // the active slice is drawn last, so it sits in front; others keep their order
+      order.forEach(function (g) { layers.appendChild(g); });
+      if (i >= 0) layers.appendChild(slices[i].g);
+      panels.forEach(function (p, k) {
+        var on = k === i;
+        p.classList.toggle('is-on', on);
+        p.setAttribute('aria-hidden', on ? 'false' : 'true');
+        var a = p.querySelector('a'); if (a) a.tabIndex = on ? 0 : -1;
+      });
+      hits.forEach(function (h) { h.setAttribute('aria-expanded', String(+h.getAttribute('data-i') === i)); });
+      run();
+    }
+
+    // Mouse: hover opens. Touch and keyboard: tap or focus opens. A tap also
+    // fires focus and click, so click only ever opens; tapping outside, moving
+    // the mouse away or Escape closes.
+    hits.forEach(function (h) {
+      var i = +h.getAttribute('data-i');
+      h.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') set(i); });
+      h.addEventListener('focus', function () { set(i); });
+      h.addEventListener('click', function () { set(i); });
+    });
+    root.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') set(-1); });
+    document.addEventListener('click', function (e) { if (!root.contains(e.target)) set(-1); });
+    root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) set(-1); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(-1); });
+  })();
+</script>

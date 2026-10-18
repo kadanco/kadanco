@@ -146,3 +146,4 @@ Next, in order:
 - 2026-10-18: No "engineering" in copy unless it is about software engineering. Services are Product Design, Product Marketing and Sales; "engineering-led companies" stays. Glossary not yet changed (see open questions).
 - 2026-10-18: Hero visual remade as three isometric board slices in the Conversion rebuild illustration style (navy outlines, white faces, department-coloured tops). Legend removed; the offer cards below explain the services.
 - 2026-10-18: Hero split is now 50/50. Slice labels sit inside the slices, flat on the top face along the front edge.
+- 2026-10-18: Hero slices are interactive: hover, tap or keyboard focus turns a slice into a straight top-down view with its service text on the right; the other two fade back and keep floating. Without JavaScript the drawing stays static.
