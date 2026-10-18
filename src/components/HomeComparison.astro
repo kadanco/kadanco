@@ -1,8 +1,9 @@
 ---
 // src/components/HomeComparison.astro
 // The comparison section, in the spot it holds on the live site (right after
-// the client logos). Content from the live "Overhead Problem" section (EN and
-// DE): the four standard routes against strategy, execution and ownership.
+// the client logos). Structure from the live "Overhead Problem" section (EN and
+// DE): the four standard routes against strategy, execution and ownership,
+// written for product, marketing and sales together.
 // Design from the October route matrix (design/04_sections/use-cases/
 // ...UseCaseDach.dc.html): soft rows, round marks, and a highlighted
 // "Solution" row for Kadanco that covers all three.
@@ -17,35 +18,35 @@ type Mark = 'has' | 'part' | 'gap';
 const copy = {
   en: {
     eyebrow: 'The Overhead Problem',
-    h2a: 'Most Marketing Spend Buys Management',
-    h2b: 'And No Execution.',
-    lead: 'As your company scales you need a marketing function that deploys. Every standard way of getting one taxes you somewhere: in overhead, in ownership, or in time.',
+    h2a: 'Most Outside Help Sells Advice.',
+    h2b: 'The Work Stays With You.',
+    lead: 'Product, marketing and sales all need people who plan the work and then do it. Every standard way of getting them costs you somewhere: in overhead, in ownership or in time.',
     cols: ['Strategy', 'Execution', 'Ownership'],
     solution: 'Solution',
     rows: [
-      { route: 'Agency', why: 'Partner rates for work the juniors are learning on.', marks: ['part', 'gap', 'part'] as Mark[] },
-      { route: 'Fractional CMO', why: 'Writes the plan, then leaves you to run it.', marks: ['has', 'gap', 'gap'] as Mark[] },
-      { route: 'Freelancers + tools', why: 'Everyone runs a slice; nobody owns the funnel.', marks: ['gap', 'part', 'gap'] as Mark[] },
-      { route: 'In-house hire', why: 'One or two hires deep; slow to ramp, the rest neglected.', marks: ['part', 'part', 'has'] as Mark[] },
+      { route: 'Agency', why: 'Partner rates for work juniors learn on, one discipline at a time.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Fractional CPO, CMO or CRO', why: 'Writes the plan for one area, then leaves you to run it.', marks: ['has', 'gap', 'gap'] as Mark[] },
+      { route: 'Freelancers + tools', why: 'Everyone runs a slice; nobody owns the result.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'In-house hires', why: 'Slow to find and ramp, one function at a time.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
-    kad: { route: 'KADANCO', why: 'Plans it, runs it and owns the result.' },
+    kad: { route: 'KADANCO', why: 'Plans and runs product, marketing and sales, and owns the result.' },
     legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
     cap: 'No single route covers all three. We do.',
   },
   de: {
     eyebrow: 'Das Overhead-Problem',
-    h2a: 'Die meisten Marketing-Budgets kaufen Management',
-    h2b: 'und keine Umsetzung.',
-    lead: 'Wenn Ihr Unternehmen wächst, brauchen Sie eine Marketing-Funktion, die liefert. Jeder übliche Weg dorthin kostet Sie an einer Stelle: beim Overhead, bei der Verantwortung oder bei der Zeit.',
+    h2a: 'Die meisten externen Partner verkaufen Beratung.',
+    h2b: 'Die Arbeit bleibt bei Ihnen.',
+    lead: 'Produkt, Marketing und Vertrieb brauchen Menschen, die die Arbeit planen und dann selbst machen. Jeder übliche Weg dorthin kostet Sie an einer Stelle: beim Overhead, bei der Verantwortung oder bei der Zeit.',
     cols: ['Strategie', 'Umsetzung', 'Verantwortung'],
     solution: 'Lösung',
     rows: [
-      { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen.', marks: ['part', 'gap', 'part'] as Mark[] },
-      { route: 'Fractional CMO', why: 'Schreibt den Plan und überlässt Ihnen die Umsetzung.', marks: ['has', 'gap', 'gap'] as Mark[] },
-      { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet den Funnel.', marks: ['gap', 'part', 'gap'] as Mark[] },
-      { route: 'Inhouse-Einstellung', why: 'Ein oder zwei Personen tief, lange Einarbeitung, der Rest bleibt liegen.', marks: ['part', 'part', 'has'] as Mark[] },
+      { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen, eine Disziplin nach der anderen.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Fractional CPO, CMO oder CRO', why: 'Schreibt den Plan für einen Bereich und überlässt Ihnen die Umsetzung.', marks: ['has', 'gap', 'gap'] as Mark[] },
+      { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet das Ergebnis.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'Inhouse-Einstellungen', why: 'Langsam gefunden und eingearbeitet, eine Funktion nach der anderen.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
-    kad: { route: 'KADANCO', why: 'Plant, setzt um und verantwortet das Ergebnis.' },
+    kad: { route: 'KADANCO', why: 'Plant und macht Produkt, Marketing und Vertrieb und verantwortet das Ergebnis.' },
     legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
     cap: 'Kein einzelner Weg deckt alle drei ab. Wir schon.',
   },
