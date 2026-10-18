@@ -1,0 +1,40 @@
+---
+// src/components/LiveCompliance.astro
+// The compliance section, restored exactly as it is live on kadanco.com
+// (branch main): lime band, filled ink "Compliance" label, three badges.
+// EN and DE alt texts as live. The live look is scoped to this section and
+// does not switch in dark mode, exactly like the live page.
+// Note: the live label uses weight 600, which the site no longer loads
+// (brand rule: 400 and 500), so the browser shows it at 500.
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+const badges = {
+  en: [
+    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'GDPR compliant' },
+    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
+    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+  ],
+  de: [
+    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'DSGVO-konform' },
+    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
+    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+  ],
+}[locale];
+---
+<section class="section band-lime center live-compliance">
+  <div class="container">
+    <span class="eyebrow dark">Compliance</span>
+    <div class="compliance-row">
+      {badges.map((b) => <img class="badge" src={b.src} alt={b.alt} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* live values, scoped to this section only */
+  .live-compliance { --radius: 10px; }
+  .live-compliance .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
+  .live-compliance .eyebrow.dark { background: var(--kd-ink); color: var(--kd-white); }
+</style>

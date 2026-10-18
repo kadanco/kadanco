@@ -1,7 +1,7 @@
 ---
 // src/components/HomeHero.astro
-// The homepage hero: navy ground with a faint grid, eyebrow, H1, lead and two
-// buttons. The text never changes here. An optional visual can sit on the
+// The homepage hero: blue radial gradient (from the original site), eyebrow,
+// H1, lead and two buttons; the main button is lime, as on the original. The text never changes here. An optional visual can sit on the
 // right through the "visual" slot; without it the hero is a single column.
 // Used by HomePage.astro and by the dev-only hero options page.
 import { asLocale } from '../i18n/utils';
@@ -37,7 +37,7 @@ const hasVisual = Astro.slots.has('visual');
       <h1>{c.h1a} <em>{c.h1b}</em></h1>
       <p>{c.lead}</p>
       <div class="home-hero-actions">
-        <a href="#contact" class="btn btn-cta btn-lg" data-open-modal>{c.cta}</a>
+        <a href="#contact" class="btn btn-lime btn-lg" data-open-modal>{c.cta}</a>
         <a href="#offers" class="btn btn-ghost btn-lg">{c.offersLink}</a>
       </div>
     </div>
@@ -46,11 +46,9 @@ const hasVisual = Astro.slots.has('visual');
 </section>
 
 <style>
-  /* navy with a faint grid, clears the fixed 80px nav */
+  /* blue radial gradient from the original site, clears the fixed 80px nav */
   .home-hero {
-    background-color: var(--kd-blue-1);
-    background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+    background: radial-gradient(125% 120% at 50% -10%, var(--kd-legacy-hero-1) 0%, var(--kd-legacy-hero-2) 58%, var(--kd-legacy-hero-3) 100%);
     color: var(--kd-white);
   }
   .home-hero-in { padding-top: calc(80px + 64px); padding-bottom: 72px; }

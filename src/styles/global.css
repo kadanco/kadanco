@@ -69,9 +69,12 @@ p { margin: 0 0 1rem; }
 .btn-primary:hover { transform: translateY(-2px); background: var(--kd-blue-1); border-color: var(--kd-blue-1); }
 .btn-cta { background: var(--kd-signal-2); border-color: var(--kd-signal-2); color: var(--kd-white); }
 .btn-cta:hover { transform: translateY(-2px); }
-/* Older pages (use cases) put .btn-primary on blue heroes and CTA bands. That
-   button is their single main CTA, so it takes the orange CTA look. */
-.hero .btn-primary, .cta-band .btn-primary { background: var(--kd-signal-2); border-color: var(--kd-signal-2); }
+/* CTA on a dark ground: lime with navy text, as on the original site.
+   Used by the homepage hero, the nav and the blue CTA bands. The older pages
+   (use cases) put .btn-primary on blue heroes and CTA bands, so those take
+   the same look. */
+.btn-lime, .hero .btn-primary, .cta-band .btn-primary { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+.btn-lime:hover, .hero .btn-primary:hover, .cta-band .btn-primary:hover { transform: translateY(-2px); background: var(--kd-legacy-lime-hover); border-color: var(--kd-legacy-lime-hover); }
 .btn-accent { background: var(--lime); color: var(--indigo-deep); }
 .btn-accent:hover { transform: translateY(-2px); background: #cbef00; }
 .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.6); color: var(--kd-white); }

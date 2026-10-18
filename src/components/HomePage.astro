@@ -8,9 +8,9 @@
 // the theme role tokens (--kd-bg, --kd-surface, --kd-fg, ...). The navy hero,
 // the three department cards and the blue CTA band keep their fixed colours.
 // Use cases come from src/data/use-cases.ts (shared with /use-cases/).
-// Who We Are and the final CTA are restored exactly as live (LiveFounders,
-// LiveCta) and keep the pre-October look on purpose.
-// Client logos and compliance badges turn light in dark mode via --kd-logo-filter.
+// Who We Are, Compliance and the final CTA are restored exactly as live
+// (LiveFounders, LiveCompliance, LiveCta) and keep the pre-October look on purpose.
+// Client logos turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
 import HomeHero from './HomeHero.astro';
@@ -18,6 +18,7 @@ import HomeHeroVisual from './HomeHeroVisual.astro';
 import UseCaseCard from './UseCaseCard.astro';
 import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
+import LiveCompliance from './LiveCompliance.astro';
 import { useCases } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -52,12 +53,6 @@ const copy = {
       { q: 'Only companies entering Germany?', a: 'No. We run the full marketing function for B2B companies generally. DACH market entry is one use case among several, and we do it well in native German.' },
       { q: "What's included in the function?", a: 'The whole stack: positioning, brand and website, content and ghostwriting, ABM and demand, paid, events, SEO and GEO, CRO, and RevOps. We use whichever of these grow your pipeline.' },
     ],
-    complianceEyebrow: 'Compliance',
-    badges: [
-      { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'GDPR compliant' },
-      { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
-      { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
-    ],
   },
   de: {
     offersEyebrow: 'Drei Erfahrungen. Eine Methode.',
@@ -86,12 +81,6 @@ const copy = {
       { q: 'Was kostet das?', a: 'Wir schneiden jedes Mandat auf das zu, was Ihre Pipeline braucht, mit einer planbaren Untergrenze und einer Obergrenze, die Sie steuern. Am schnellsten kommen Sie in einem kurzen Gespräch zu einer Zahl.' },
       { q: 'Nur Unternehmen, die nach Deutschland kommen?', a: 'Nein. Wir betreiben die komplette Marketing-Funktion für B2B-Unternehmen allgemein. Der DACH-Markteintritt ist einer von mehreren Use Cases, und wir setzen ihn auf muttersprachlichem Niveau um.' },
       { q: 'Was gehört zur Funktion?', a: 'Der ganze Stack: Positionierung, Marke und Website, Content und Ghostwriting, ABM und Demand, Paid, Events, SEO und GEO, CRO und RevOps. Wir setzen die Maßnahmen ein, die Ihre Pipeline bewegen.' },
-    ],
-    complianceEyebrow: 'Compliance',
-    badges: [
-      { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'DSGVO-konform' },
-      { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
-      { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
     ],
   },
 };
@@ -191,15 +180,8 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== COMPLIANCE ===================== -->
-  <section class="home-compliance">
-    <div class="container home-compliance-in">
-      <span class="home-eyebrow">{c.complianceEyebrow}</span>
-      <div class="home-badges">
-        {c.badges.map((b) => <img src={b.src} alt={b.alt} width="104" height="104" loading="lazy" />)}
-      </div>
-    </div>
-  </section>
+  <!-- ===================== COMPLIANCE: restored exactly as live (LiveCompliance.astro) ===================== -->
+  <LiveCompliance />
 
   <!-- ===================== FINAL CTA: restored exactly as live (LiveCta.astro) ===================== -->
   <LiveCta />
@@ -265,12 +247,6 @@ const logos = [
   .home-faq-card { padding: 28px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); display: flex; flex-direction: column; gap: 10px; }
   .home-faq-card h3 { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); }
   .home-faq-card p { font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
-
-  /* ---------- compliance: white band with the three badges ---------- */
-  .home-compliance { background: var(--kd-surface); border-block: 1px solid var(--kd-line); }
-  .home-compliance-in { padding-top: 48px; padding-bottom: 48px; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-  .home-badges { display: flex; gap: 56px; justify-content: center; align-items: center; flex-wrap: wrap; }
-  .home-badges img { width: 104px; height: 104px; filter: var(--kd-logo-filter); }
 
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }

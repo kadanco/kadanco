@@ -1,7 +1,8 @@
 ---
 // src/components/Nav.astro
 // Shared site navigation, rendered once by Layout.astro. October 2026 design:
-// solid navy bar, white links, EN / DE switch in lilac, blue CTA.
+// solid navy bar, white links, EN / DE switch in lilac, lime CTA (dark ground,
+// original look). The CTA in the white mobile panel stays blue.
 // Section links point to the homepage (/#id) so they work from sub-pages too.
 //
 // The Light / Auto / Dark theme switch is shown only on pages that support
@@ -68,7 +69,7 @@ const themes = [
           {themes.map((m) => <button type="button" data-t={m.t} aria-pressed={m.t === 'system' ? 'true' : 'false'}>{t(m.key)}</button>)}
         </div>
       )}
-      <button class="btn btn-primary btn-sm nav-cta" data-open-modal>{t('nav.cta')}</button>
+      <button class="btn btn-lime btn-sm nav-cta" data-open-modal>{t('nav.cta')}</button>
       <button type="button" class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-mobile" aria-label={t('nav.menu')}>
         <span class="nav-burger-box" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>

@@ -46,7 +46,10 @@
   /* Only for the homepage sections restored exactly as they were live
      (LiveFounders.astro, LiveCta.astro). Not for new work. */
   --kd-legacy-paper: #F1F0ED;      /* old paper band ground */
-  --kd-legacy-lime-hover: #CBEF00; /* old lime button hover */
+  --kd-legacy-lime-hover: #CBEF00; /* old lime button hover, now the hover for every lime CTA */
+  --kd-legacy-hero-1: #4F4CF5;     /* old hero radial gradient: light centre */
+  --kd-legacy-hero-2: #322FC8;     /* old hero radial gradient: middle */
+  --kd-legacy-hero-3: #2A27AE;     /* old hero radial gradient: edge */
 
   /* ---------- department colours ---------- */
   --kd-dept-product: var(--kd-blue-2);
