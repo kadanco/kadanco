@@ -90,8 +90,9 @@ const bP = boxOn(fP), bM = boxOn(fM), bS = boxOn(fS);
 const product = [
   ...bP(0, W, 0, D, zP, T),
   ...bP(8, W - 8, 8, 20, zP + T, 4, 'acc'),                   // top bar of the app screen
-  ...bP(14, 58, 32, D - STRIP - 4, zP + T, 8, 'acc'),         // UI block
-  ...bP(70, W - 12, 32, D - STRIP - 4, zP + T, 14, 'acc'),    // UI block
+  // the two UI blocks share the top bar's outer edges (8 and W - 8), with a 12 gap
+  ...bP(8, (W - 12) / 2, 32, D - STRIP - 4, zP + T, 8, 'acc'),       // UI block
+  ...bP((W + 12) / 2, W - 8, 32, D - STRIP - 4, zP + T, 14, 'acc'),  // UI block
 ];
 const marketing = [
   ...bM(0, W, 0, D, zM, T),
