@@ -124,6 +124,7 @@ const langItems = switcherLocales.map((l) => ({
   /* narrow phones: the logo never shrinks; the CTA gets smaller instead */
   .brand { flex: none; }
   @media (max-width: 480px) {
+    .nav-inner { gap: 12px; }
     .nav-links { gap: 16px; }
     .nav-cta { min-height: 38px; padding: 0 14px; font-size: 0.85rem; }
   }

@@ -1,0 +1,175 @@
+---
+// src/components/HomeComparison.astro
+// The comparison section, in the spot it holds on the live site (right after
+// the client logos). Content from the live "Overhead Problem" section (EN and
+// DE): the four standard routes against strategy, execution and ownership.
+// Design from the October route matrix (design/04_sections/use-cases/
+// ...UseCaseDach.dc.html): soft rows, round marks, and a highlighted
+// "Solution" row for Kadanco that covers all three.
+//
+// Light: the design's pale lilac band. Dark mode: the page ground with the
+// design's dark marks (lime covered, lilac partial, ink gap).
+import { asLocale } from '../i18n/utils';
+
+const locale = asLocale(Astro.currentLocale);
+
+type Mark = 'has' | 'part' | 'gap';
+const copy = {
+  en: {
+    eyebrow: 'The Overhead Problem',
+    h2a: 'Most Marketing Spend Buys Management',
+    h2b: 'And No Execution.',
+    lead: 'As your company scales you need a marketing function that deploys. Every standard way of getting one taxes you somewhere: in overhead, in ownership, or in time.',
+    cols: ['Strategy', 'Execution', 'Ownership'],
+    solution: 'Solution',
+    rows: [
+      { route: 'Agency', why: 'Partner rates for work the juniors are learning on.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Fractional CMO', why: 'Writes the plan, then leaves you to run it.', marks: ['has', 'gap', 'gap'] as Mark[] },
+      { route: 'Freelancers + tools', why: 'Everyone runs a slice; nobody owns the funnel.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'In-house hire', why: 'One or two hires deep; slow to ramp, the rest neglected.', marks: ['part', 'part', 'has'] as Mark[] },
+    ],
+    kad: { route: 'KADANCO', why: 'Plans it, runs it and owns the result.' },
+    legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
+    cap: 'No single route covers all three. We do.',
+  },
+  de: {
+    eyebrow: 'Das Overhead-Problem',
+    h2a: 'Die meisten Marketing-Budgets kaufen Management',
+    h2b: 'und keine Umsetzung.',
+    lead: 'Wenn Ihr Unternehmen wächst, brauchen Sie eine Marketing-Funktion, die liefert. Jeder übliche Weg dorthin kostet Sie an einer Stelle: beim Overhead, bei der Verantwortung oder bei der Zeit.',
+    cols: ['Strategie', 'Umsetzung', 'Verantwortung'],
+    solution: 'Lösung',
+    rows: [
+      { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Fractional CMO', why: 'Schreibt den Plan und überlässt Ihnen die Umsetzung.', marks: ['has', 'gap', 'gap'] as Mark[] },
+      { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet den Funnel.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'Inhouse-Einstellung', why: 'Ein oder zwei Personen tief, lange Einarbeitung, der Rest bleibt liegen.', marks: ['part', 'part', 'has'] as Mark[] },
+    ],
+    kad: { route: 'KADANCO', why: 'Plant, setzt um und verantwortet das Ergebnis.' },
+    legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
+    cap: 'Kein einzelner Weg deckt alle drei ab. Wir schon.',
+  },
+}[locale];
+const marks: Mark[] = ['has', 'part', 'gap'];
+---
+<!-- data-theme="light": the nav reads gradients as dark unless told otherwise; in dark
+     mode this band is a plain colour, which the nav measures directly -->
+<section class="cmp" id="comparison" data-theme="light">
+  <div class="container cmp-in">
+    <div class="cmp-text">
+      <span class="cmp-eyebrow">{copy.eyebrow}</span>
+      <h2>{copy.h2a} <em>{copy.h2b}</em></h2>
+      <p class="cmp-lead">{copy.lead}</p>
+    </div>
+
+    <div class="cmx" role="table" aria-label={copy.eyebrow}>
+      <div class="cmx-head" role="row">
+        <span class="cmx-sp" role="columnheader"></span>
+        {copy.cols.map((c) => <span class="cmx-colh" role="columnheader">{c}</span>)}
+      </div>
+      {copy.rows.map((r) => (
+        <>
+          <div class="cmx-rule" aria-hidden="true"></div>
+          <div class="cmx-row" role="row">
+            <span class="cmx-route" role="rowheader">{r.route}<span class="cmx-why">{r.why}</span></span>
+            {r.marks.map((m, k) => (
+              <span class="cmx-cell" role="cell" aria-label={`${copy.cols[k]}: ${copy.legend[m]}`}>
+                <span class={`cmx-mk cmx-${m}`} aria-hidden="true">
+                  {m === 'has' && <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>}
+                  {m === 'part' && <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8 q2.5 -3.5 5 0 q2.5 3.5 5 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>}
+                  {m === 'gap' && <svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 8 L12 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>}
+                </span>
+              </span>
+            ))}
+          </div>
+        </>
+      ))}
+      <div class="cmx-row cmx-kad" role="row" data-solution={copy.solution}>
+        <span class="cmx-route" role="rowheader">{copy.kad.route}<span class="cmx-why">{copy.kad.why}</span></span>
+        {copy.cols.map((c) => (
+          <span class="cmx-cell" role="cell" aria-label={`${c}: ${copy.legend.has}`}>
+            <span class="cmx-mk cmx-has" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+          </span>
+        ))}
+      </div>
+      <div class="cmx-legend">
+        {marks.map((m) => <span class="cmx-lg"><span class={`cmx-dot cmx-${m}`}></span>{copy.legend[m]}</span>)}
+      </div>
+      <p class="cmx-cap">{copy.cap}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* light: pale lilac band from the design */
+  .cmp {
+    --c-bg: linear-gradient(180deg, var(--kd-white) 0%, var(--kd-lilac-tint) 45%, var(--kd-lilac-soft) 100%);
+    --c-fg: var(--kd-blue-1); --c-fg-2: var(--kd-blue-1); --c-accent: var(--kd-blue-2);
+    --c-rule: rgba(26, 1, 117, .16); --c-row-hover: rgba(255, 255, 255, .4);
+    --c-has-bg: var(--kd-blue-2); --c-has-fg: var(--kd-white);
+    --c-part-bg: var(--kd-signal-1); --c-part-fg: var(--kd-blue-1);
+    --c-gap-bg: var(--kd-white); --c-gap-fg: rgba(26, 1, 117, .6); --c-gap-ring: rgba(26, 1, 117, .18);
+    background: var(--c-bg); color: var(--c-fg);
+  }
+  /* dark mode: page ground, the design's dark marks */
+  :global(:root[data-mode="dark"]) .cmp {
+    --c-bg: var(--kd-bg); --c-fg: var(--kd-white); --c-fg-2: var(--kd-lilac-soft); --c-accent: var(--kd-lilac);
+    --c-rule: rgba(255, 255, 255, .12); --c-row-hover: rgba(255, 255, 255, .05);
+    --c-has-bg: var(--kd-signal-1); --c-has-fg: var(--kd-ink);
+    --c-part-bg: var(--kd-lilac); --c-part-fg: var(--kd-ink);
+    --c-gap-bg: var(--kd-ink); --c-gap-fg: var(--kd-lilac-soft); --c-gap-ring: transparent;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-mode])) .cmp {
+      --c-bg: var(--kd-bg); --c-fg: var(--kd-white); --c-fg-2: var(--kd-lilac-soft); --c-accent: var(--kd-lilac);
+      --c-rule: rgba(255, 255, 255, .12); --c-row-hover: rgba(255, 255, 255, .05);
+      --c-has-bg: var(--kd-signal-1); --c-has-fg: var(--kd-ink);
+      --c-part-bg: var(--kd-lilac); --c-part-fg: var(--kd-ink);
+      --c-gap-bg: var(--kd-ink); --c-gap-fg: var(--kd-lilac-soft); --c-gap-ring: transparent;
+    }
+  }
+
+  .cmp-in { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  @media (max-width: 980px) { .cmp-in { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 64px; padding-bottom: 64px; } }
+
+  .cmp-text { display: flex; flex-direction: column; gap: 16px; }
+  .cmp-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--c-accent); }
+  .cmp h2 { margin: 0; font-size: var(--kd-text-l); line-height: var(--kd-lh-l); font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }
+  .cmp h2 em { font-style: normal; color: var(--c-accent); }
+  .cmp-lead { margin: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--c-fg-2); opacity: .85; max-width: 52ch; }
+
+  /* matrix */
+  .cmx { width: 100%; max-width: 560px; justify-self: end; }
+  @media (max-width: 980px) { .cmx { justify-self: start; } }
+  .cmx-head { display: flex; align-items: flex-end; padding-bottom: 14px; }
+  .cmx-sp { flex: 1; }
+  /* long German headings (VERANTWORTUNG) fit: smaller caps, and hyphenation as a last resort */
+  .cmx-colh { width: 104px; flex: none; text-align: center; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .7; hyphens: auto; overflow-wrap: anywhere; }
+  .cmx-rule { height: 1px; background: var(--c-rule); }
+  .cmx-row { display: flex; align-items: center; border-radius: var(--kd-radius); transition: background .15s; }
+  .cmx-row:hover { background: var(--c-row-hover); }
+  .cmx-route { flex: 1; min-width: 0; padding: 12px 10px 12px 12px; font-size: 17px; font-weight: var(--kd-weight-medium); line-height: 1.35; }
+  .cmx-why { display: block; margin-top: 3px; font-size: 14px; font-weight: var(--kd-weight-regular); line-height: 1.4; opacity: .72; }
+  .cmx-cell { width: 104px; flex: none; display: flex; justify-content: center; padding: 14px 0; }
+  .cmx-mk { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+  .cmx-has { background: var(--c-has-bg); color: var(--c-has-fg); }
+  .cmx-part { background: var(--c-part-bg); color: var(--c-part-fg); }
+  .cmx-gap { background: var(--c-gap-bg); color: var(--c-gap-fg); box-shadow: inset 0 0 0 1px var(--c-gap-ring); }
+
+  /* the solution row */
+  .cmx-kad { position: relative; margin-top: 26px; box-shadow: inset 0 0 0 2px var(--c-accent); }
+  .cmx-kad::before { content: attr(data-solution); position: absolute; top: -11px; left: 14px; height: 22px; padding: 0 9px; display: flex; align-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; line-height: 1; }
+  .cmx-kad .cmx-route { letter-spacing: .02em; }
+
+  .cmx-legend { display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
+  .cmx-lg { display: flex; align-items: center; gap: 8px; font-size: 13px; opacity: .78; }
+  .cmx-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .cmx-cap { margin: 16px 0 0; font-size: 17px; line-height: 1.5; font-weight: var(--kd-weight-medium); }
+
+  @media (max-width: 560px) {
+    .cmx-colh, .cmx-cell { width: 66px; }
+    .cmx-colh { font-size: 9px; letter-spacing: 0; }
+    .cmx-route { font-size: 15px; }
+    .cmx-why { font-size: 13px; }
+  }
+</style>

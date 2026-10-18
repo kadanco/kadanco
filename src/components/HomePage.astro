@@ -19,6 +19,7 @@ import UseCaseCard from './UseCaseCard.astro';
 import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
 import LiveCompliance from './LiveCompliance.astro';
+import HomeComparison from './HomeComparison.astro';
 import { useCases } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -121,6 +122,9 @@ const logos = [
       <p class="home-logos-note">{c.logosNote}</p>
     </div>
   </section>
+
+  <!-- ===================== COMPARISON: live spot, October route matrix (HomeComparison.astro) ===================== -->
+  <HomeComparison />
 
   <!-- ===================== OFFERS ===================== -->
   <section class="home-sec" id="offers">
