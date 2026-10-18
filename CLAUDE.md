@@ -147,3 +147,4 @@ Next, in order:
 - 2026-10-18: Hero visual remade as three isometric board slices in the Conversion rebuild illustration style (navy outlines, white faces, department-coloured tops). Legend removed; the offer cards below explain the services.
 - 2026-10-18: Hero split is now 50/50. Slice labels sit inside the slices, flat on the top face along the front edge.
 - 2026-10-18: Hero slices are interactive: hover, tap or keyboard focus turns a slice into a straight top-down view with its service text on the right; the other two fade back and keep floating. Without JavaScript the drawing stays static.
+- 2026-10-18: Hero slices: no load animation, all three always float. On hover end the slice turns back to isometric the same way it turned, staying in front until settled; the float pauses during hover so it never jumps.

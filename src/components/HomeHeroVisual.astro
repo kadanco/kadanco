@@ -11,7 +11,8 @@
 // Interaction: hovering (or tapping, or focusing) a slice turns it from the
 // isometric view into a straight top-down view, brings it to the front and
 // shows its service text on the right. The other two slices keep floating
-// and fade into the background. Leaving the visual turns everything back.
+// and fade into the background. Leaving the visual turns the slice back the
+// same way it turned. There is no load animation; the slices always float.
 //
 // How: every shape is computed twice on the server, once in isometric and
 // once in the straight view, and stored on the element (data-a, data-b).
@@ -194,11 +195,11 @@ const slices = ids.map((id, i) => {
   .dot { fill: var(--kd-white); stroke: none; }
   .lbl { fill: var(--kd-blue-1); stroke: none; font-family: var(--kd-font-sans); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
 
-  /* slices drop in from the foundation up, then float gently out of step */
-  .slice { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both, hv-float 5s ease-in-out infinite; animation-delay: calc(var(--d) * .3s), calc(1.2s + var(--d) * .6s); }
-  .slice--product { animation: hv-drop .7s cubic-bezier(.2,.8,.2,1) both; }
-  .slice.is-active { animation: none; }
-  @keyframes hv-drop { from { opacity: 0; transform: translateY(-28px); } to { opacity: 1; transform: none; } }
+  /* all three slices float gently out of step from the first frame (negative
+     delays start them mid-cycle). The active slice pauses in place, so the
+     float continues from the same spot when the hover ends: no jump. */
+  .slice { animation: hv-float 5s ease-in-out infinite; animation-delay: calc(var(--d) * -1.7s); }
+  .slice.is-active { animation-play-state: paused; }
   @keyframes hv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
   /* the other two slices step back */
@@ -224,7 +225,7 @@ const slices = ids.map((id, i) => {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .slice, .slice--product { animation: none; }
+    .slice { animation: none; }
     .slice-in, .hv-panel, .hv-panel.is-on { transition: none; }
   }
 </style>
@@ -287,11 +288,17 @@ const slices = ids.map((id, i) => {
         s.t = s.target > s.t ? Math.min(s.target, s.t + step) : Math.max(s.target, s.t - step);
         draw(s); busy = true;
       });
-      if (busy) next(tick); else running = false;
+      if (busy) next(tick); else { running = false; if (active < 0) restack(-1); }
     }
     function run() { if (!running) { running = true; last = 0; next(tick); } }
 
-    var active = -1;
+    var active = -1, front = -1;
+    function restack(i) {
+      if (i < 0) { order.forEach(function (g) { layers.appendChild(g); }); front = -1; return; }
+      if (front >= 0 && front !== i) layers.appendChild(slices[front].g); // the one turning back
+      layers.appendChild(slices[i].g);
+      front = i;
+    }
     function set(i) {
       if (i === active) return;
       active = i;
@@ -300,9 +307,10 @@ const slices = ids.map((id, i) => {
         s.target = k === i ? 1 : 0;
         s.g.classList.toggle('is-active', k === i);
       });
-      // the active slice is drawn last, so it sits in front; others keep their order
-      order.forEach(function (g) { layers.appendChild(g); });
-      if (i >= 0) layers.appendChild(slices[i].g);
+      // the active slice is drawn last, so it sits in front. A slice turning
+      // back stays in front of the resting ones until it is isometric again;
+      // the original order returns once everything has settled.
+      if (i >= 0) restack(i);
       panels.forEach(function (p, k) {
         var on = k === i;
         p.classList.toggle('is-on', on);
