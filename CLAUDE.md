@@ -99,14 +99,14 @@ Done:
 - Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk) with the new content: Product / Marketing / Sales / About, plain EN / DE, one light/dark toggle icon. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
-- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product, Marketing, Sales).
+- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product Design, Product Marketing, Sales).
 - Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
 - Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
 Next, in order:
 1. Homepage content: owner feedback round on the whole page. Offer cards open the contact modal until the category pages exist.
 2. Colour pass on the remaining pages: beige grounds, dark mode support.
-3. 3 category pages: Product Design Engineering, Product Marketing Engineering, Sales Engineering.
+3. 3 category pages: Product Design, Product Marketing, Sales.
 4. Update the 4 use case pages to the new designs (wireframe 9 detail template), and add detail pages for the 3 case studies once real results exist.
 5. Glossary: add department filter.
 6. Remaining pages from the 12-page wireframe.
@@ -115,6 +115,7 @@ Next, in order:
 
 ## Open questions
 
+- Glossary still uses "engineer" loosely in about 9 entries, including the term and URL `/glossary/event-pipeline-engineering/`. Rename (with a redirect) or leave until the glossary moves to accessDACH?
 - Fonts still load from Google Fonts. Self-host before launch (GDPR).
 - Missing docs mentioned in the context notes: `Kadanco_Chat_Summary_2026-10-10.md`, `Kadanco_Website_Blueprint_2026-10-12.md`, `Kadanco_Finanzen_Chat_Summary_2026-10-10.md`.
 - Official logo asset (SVG) is still pending.
@@ -142,3 +143,4 @@ Next, in order:
 - 2026-10-18: Who We Are and the final CTA restored exactly as live on main (`LiveFounders.astro`, `LiveCta.astro`): live copy, markup and look (10px radius, filled labels, lime CTA button), scoped to those sections. Deliberate exceptions to the October rules and D29 ("one system of action" stays because the owner asked for the exact live text). Live labels used weight 600, which is no longer loaded, so they render at 500.
 - 2026-10-18: From the original site: hero background (blue radial gradient, no grid), lime CTAs on every dark ground, and the Compliance section restored exactly as live (`LiveCompliance.astro`).
 - 2026-10-18: Nav back to the original design with the new content. Theme control is a single light/dark toggle (follows the system until clicked); language is a plain EN / DE. Colour switching reads the background under the nav, so it works in dark mode and on every page.
+- 2026-10-18: No "engineering" in copy unless it is about software engineering. Services are Product Design, Product Marketing and Sales; "engineering-led companies" stays. Glossary not yet changed (see open questions).

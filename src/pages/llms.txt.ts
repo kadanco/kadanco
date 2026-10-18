@@ -40,7 +40,7 @@ export const GET: APIRoute = () => {
 
 ## Core pages
 
-- [Home](${SITE}/): What Kadanco does, the three offers (Product Design Engineering, Product Marketing Engineering, Sales Engineering), the use cases it delivers, the two founders, and answers to common questions.
+- [Home](${SITE}/): What Kadanco does, the three offers (Product Design, Product Marketing, Sales), the use cases it delivers, the two founders, and answers to common questions.
 - [Use cases](${SITE}/use-cases/): Every problem Kadanco solves, from product adoption and positioning to founder-led sales, DACH market entry and event pipeline, filterable by product, marketing or sales.
 - [Marketing glossary](${SITE}/glossary/): A reference library of ${total} B2B marketing terms across ${cats.length} categories. Each entry has a plain definition, why it matters, what good looks like, and an operator's take.
 - [Imprint and privacy](${SITE}/imprint/): Legal information (Impressum) and privacy policy.

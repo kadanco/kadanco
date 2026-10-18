@@ -157,13 +157,13 @@ const entries: UseCase[] = [
     href: '/use-cases/event-pipeline/',
     en: {
       eyebrow: 'Events',
-      name: 'Event pipeline engineering',
+      name: 'Event pipeline',
       summary: 'Scored events, pre-event ABM, and CFO-grade ROI in 30 days.',
       bundle: ['Events scored by ICP overlap and persona density', 'LinkedIn & Meta ABM from four weeks out, with calendar holds', 'Hosted dinners and roundtables where deals close', 'Same-day enrichment, CRM sync and sequenced follow-up'],
     },
     de: {
       eyebrow: 'Events',
-      name: 'Event-Pipeline-Engineering',
+      name: 'Event-Pipeline',
       summary: 'Bewertete Events, ABM vor dem Event und ein ROI-Report in 30 Tagen.',
       bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'],
     },
