@@ -53,11 +53,9 @@ const en: Dict = {
   'nav.home': 'Kadanco, home',
   'nav.menu': 'Menu',
 
-  // theme switch
-  'theme.label': 'Colour theme',
-  'theme.light': 'Light',
-  'theme.auto': 'Auto',
-  'theme.dark': 'Dark',
+  // light/dark toggle (button labels say what a click does)
+  'theme.toDark': 'Switch to dark mode',
+  'theme.toLight': 'Switch to light mode',
 
   // use-case labels, shared by nav and footer
   'uc.dach': 'DACH market entry',
@@ -110,11 +108,9 @@ const de: Dict = {
   'nav.home': 'Kadanco, Startseite',
   'nav.menu': 'Menü',
 
-  // theme switch
-  'theme.label': 'Farbmodus',
-  'theme.light': 'Hell',
-  'theme.auto': 'Auto',
-  'theme.dark': 'Dunkel',
+  // light/dark toggle
+  'theme.toDark': 'Zum dunklen Modus wechseln',
+  'theme.toLight': 'Zum hellen Modus wechseln',
 
   // use-case labels
   'uc.dach': 'DACH-Markteintritt',

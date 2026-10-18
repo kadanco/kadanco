@@ -61,7 +61,7 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Font: Fira Sans. Weights 400 and 500 only. 800 only for the logo.
 - Radius 5px on every element. Buttons and inputs 45px tall, 2px border.
 - Labels uppercase, outlined or filled (the brand system allows both; the Home design uses filled).
-- No glass effects.
+- No glass effects. One exception: the nav keeps the original blurred, transparent look (owner decision, 2026-10-18).
 - Headlines Title Case, two sentences split by a full stop. CTAs Title Case.
 - Department colours: Product Blue #3B38DF, Marketing Lime #DAFF02 (dark-blue text, never a large background), Sales Lilac #B2B1FF, Accent/PLG #7270FF.
 - Orange #FE572A is for the single main CTA only, on light grounds. On dark grounds (hero, nav, blue CTA bands) the CTA is lime with navy text (`.btn-lime`), as on the original site.
@@ -96,7 +96,7 @@ Done:
 - Dev-only style guide at `/styleguide`.
 - Unused font weights (600, 700, 900) removed from the Google Fonts request.
 - Homepage rebuilt to `design/02_pages/Kadanco_Home-20261015-0850.html` (EN and DE) in `src/components/HomePage.astro`. Old homepage backed up locally in `_local/accessdach/` for accessdach.com.
-- Nav rebuilt to the design: solid navy, Product / Marketing / Sales / About, EN / DE, Light / Auto / Dark switch, blue Let's Talk. Footer on ink.
+- Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk) with the new content: Product / Marketing / Sales / About, plain EN / DE, one light/dark toggle icon. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
 - Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro` (isometric service stack: Product, Marketing, Sales).
@@ -141,3 +141,4 @@ Next, in order:
 - 2026-10-18: Hero layout: text 34%, visual 66%. Height follows the window (`clamp(600px, 100svh - 150px, 820px)`) so the logo row stays visible without scrolling. Stacks below 980px.
 - 2026-10-18: Who We Are and the final CTA restored exactly as live on main (`LiveFounders.astro`, `LiveCta.astro`): live copy, markup and look (10px radius, filled labels, lime CTA button), scoped to those sections. Deliberate exceptions to the October rules and D29 ("one system of action" stays because the owner asked for the exact live text). Live labels used weight 600, which is no longer loaded, so they render at 500.
 - 2026-10-18: From the original site: hero background (blue radial gradient, no grid), lime CTAs on every dark ground, and the Compliance section restored exactly as live (`LiveCompliance.astro`).
+- 2026-10-18: Nav back to the original design with the new content. Theme control is a single light/dark toggle (follows the system until clicked); language is a plain EN / DE. Colour switching reads the background under the nav, so it works in dark mode and on every page.

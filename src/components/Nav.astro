@@ -1,18 +1,17 @@
 ---
 // src/components/Nav.astro
-// Shared site navigation, rendered once by Layout.astro. October 2026 design:
-// solid navy bar, white links, EN / DE switch in lilac, lime CTA (dark ground,
-// original look). The CTA in the white mobile panel stays blue.
-// Section links point to the homepage (/#id) so they work from sub-pages too.
+// Shared site navigation, rendered once by Layout.astro.
 //
-// The Light / Auto / Dark theme switch is shown only on pages that support
-// dark mode (Layout passes `themeable`). Its state lives on <html data-mode>
-// and in localStorage; the head script in Layout.astro restores it before
-// first paint so there is no flash.
+// Look: the original kadanco.com nav. Fixed and transparent with a blur,
+// white text over dark sections and ink text over light ones, the logo
+// swapping to match, the lime underline on links and the lime CTA. This is
+// a deliberate exception to the "no glass" brand rule (owner decision).
+// The colour switch is driven by the script in Layout.astro, which reads the
+// background under the nav, so it also follows dark mode.
 //
-// Labels come from the i18n dictionary (src/i18n/ui.ts) and links run through
-// localizedHref, so one nav serves both languages. The use case and glossary
-// pages are reached from the footer.
+// Content: the October nav. Product, Marketing, Sales, About, a plain EN / DE
+// switch, a light/dark toggle (only on pages that support dark mode, see
+// `themeable` in Layout.astro) and "Let's Talk".
 import { switcherLocales } from '../i18n/ui';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
 
@@ -36,22 +35,16 @@ const langItems = switcherLocales.map((l) => ({
   available: hasTranslation(l, base),
   href: localizeUrl(l, base === '/' ? '/' : base + '/'),
 }));
-
-const themes = [
-  { t: 'light', key: 'theme.light' },
-  { t: 'system', key: 'theme.auto' },
-  { t: 'dark', key: 'theme.dark' },
-];
 ---
-<header class="nav">
+<header class="nav nav--dark">
   <div class="container nav-inner">
     <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
-      <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
+      <img class="brand-logo brand-logo--dark" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
+      <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
     </a>
     <nav class="nav-links" aria-label="Primary">
       {links.map((l) => <a class="navlink" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
-    </nav>
-    <div class="nav-right">
+
       <span class="nav-lang" aria-label={t('lang.label')}>
         {langItems.map((it, i) => (
           <>
@@ -64,28 +57,30 @@ const themes = [
           </>
         ))}
       </span>
+
       {themeable && (
-        <div class="theme-switch" role="group" aria-label={t('theme.label')}>
-          {themes.map((m) => <button type="button" data-t={m.t} aria-pressed={m.t === 'system' ? 'true' : 'false'}>{t(m.key)}</button>)}
-        </div>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label={t('theme.toDark')} data-label-dark={t('theme.toDark')} data-label-light={t('theme.toLight')}>
+          <svg class="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
+          <svg class="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+        </button>
       )}
-      <button class="btn btn-lime btn-sm nav-cta" data-open-modal>{t('nav.cta')}</button>
+
+      <button class="btn btn-lime nav-cta" data-open-modal>{t('nav.cta')}</button>
       <button type="button" class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-mobile" aria-label={t('nav.menu')}>
         <span class="nav-burger-box" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
-    </div>
+    </nav>
   </div>
 
   <!-- Mobile panel. Only the open/close needs JS. -->
   <div class="nav-mobile" id="nav-mobile" hidden>
     <div class="container">
       {links.map((l) => <a class="nav-m-link" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
-
       <div class="nav-m-row">
-        <span class="nav-m-lang" aria-label={t('lang.label')}>
+        <span class="nav-lang" aria-label={t('lang.label')}>
           {langItems.map((it, i) => (
             <>
-              {i > 0 && <span aria-hidden="true">/</span>}
+              {i > 0 && <span class="nav-lang-sep" aria-hidden="true">/</span>}
               {it.current
                 ? <span class="is-current" aria-current="true">{it.code.toUpperCase()}</span>
                 : it.available
@@ -95,40 +90,37 @@ const themes = [
           ))}
         </span>
         {themeable && (
-          <div class="theme-switch theme-switch--light" role="group" aria-label={t('theme.label')}>
-            {themes.map((m) => <button type="button" data-t={m.t} aria-pressed={m.t === 'system' ? 'true' : 'false'}>{t(m.key)}</button>)}
-          </div>
+          <button type="button" class="theme-toggle" data-theme-toggle aria-label={t('theme.toDark')} data-label-dark={t('theme.toDark')} data-label-light={t('theme.toLight')}>
+            <svg class="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" /></svg>
+            <svg class="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+          </button>
         )}
       </div>
-
-      <button class="btn btn-primary btn-block nav-m-cta" data-open-modal>{t('nav.cta')}</button>
     </div>
   </div>
 </header>
 
 <style>
-  .nav-right { display: flex; align-items: center; gap: 18px; }
+  /* EN / DE: plain text in the nav colour, the current language at full strength */
+  .nav-lang { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 500; }
+  .nav-lang a { color: inherit; text-decoration: none; opacity: .6; }
+  .nav-lang a:hover { opacity: 1; }
+  .nav-lang .nav-lang-sep { opacity: .4; }
+  .nav-lang .is-soon { opacity: .3; }
 
-  .nav-lang { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 500; color: var(--kd-lilac); }
-  .nav-lang a { color: var(--kd-lilac); text-decoration: none; }
-  .nav-lang a:hover { color: var(--kd-white); }
-  .nav-lang .is-current { color: var(--kd-white); }
-  .nav-lang .is-soon { opacity: 0.45; }
-
-  /* Light / Auto / Dark, same pattern as the brand system's theme control */
-  .theme-switch { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: var(--radius); }
-  .theme-switch button {
-    all: unset; cursor: pointer; padding: 5px 9px; border-radius: var(--radius);
-    font-size: 0.75rem; font-weight: 500; color: var(--kd-lilac-soft);
+  /* light/dark: one icon button; shows the moon in light mode, the sun in dark */
+  .theme-toggle { display: inline-grid; place-items: center; width: 32px; height: 32px; margin: 0 -6px; padding: 0; border: 0; border-radius: var(--kd-radius); background: none; color: inherit; cursor: pointer; opacity: .82; }
+  .theme-toggle:hover { opacity: 1; }
+  .theme-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  .theme-toggle .ic-sun { display: none; }
+  :global([data-mode="dark"]) .theme-toggle .ic-sun { display: block; }
+  :global([data-mode="dark"]) .theme-toggle .ic-moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-mode])) .theme-toggle .ic-sun { display: block; }
+    :global(html:not([data-mode])) .theme-toggle .ic-moon { display: none; }
   }
-  .theme-switch button[aria-pressed="true"] { background: var(--kd-blue-2); color: var(--kd-white); }
-  .theme-switch button:focus-visible { outline: 2px solid var(--kd-lilac); outline-offset: 1px; }
-  .theme-switch--light { border-color: var(--kd-beige-3); }
-  .theme-switch--light button { color: var(--kd-ink-2); }
 
-  @media (max-width: 880px) {
-    .nav-links, .nav-right .nav-lang, .nav-right .theme-switch, .nav-cta { display: none; }
-  }
+  @media (max-width: 880px) { .nav-links > .nav-lang, .nav-links > .theme-toggle { display: none; } }
 
   /* ===================== MOBILE MENU ===================== */
   .nav-burger { display: none; }
@@ -153,6 +145,8 @@ const themes = [
     .nav-burger[aria-expanded="true"] .nav-burger-box span:nth-child(2) { opacity: 0; }
     .nav-burger[aria-expanded="true"] .nav-burger-box span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
 
+    /* Solid panel: the nav bar is transparent, so the panel brings its own
+       white background and ink text, whatever section is behind it. */
     .nav-mobile {
       display: block;
       background: var(--kd-white);
@@ -163,7 +157,6 @@ const themes = [
       color: var(--kd-ink);
     }
     .nav-mobile[hidden] { display: none; }
-
     .nav-m-link {
       display: flex; align-items: center; width: 100%;
       padding: 14px 2px;
@@ -171,12 +164,7 @@ const themes = [
       color: var(--kd-ink); text-decoration: none;
       font-size: 1.05rem; font-weight: 500;
     }
-    .nav-m-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 16px 2px 0; }
-    .nav-m-lang { display: inline-flex; gap: 8px; font-weight: 500; color: var(--kd-ink-2); }
-    .nav-m-lang a { color: var(--kd-blue-2); text-decoration: none; }
-    .nav-m-lang .is-current { color: var(--kd-ink); }
-    .nav-m-lang .is-soon { opacity: 0.45; }
-    .nav-m-cta { margin-top: 18px; }
+    .nav-m-row { display: flex; align-items: center; gap: 24px; padding: 16px 2px 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -185,21 +173,33 @@ const themes = [
 </style>
 
 <script is:inline>
-  // Theme switch. Every switch on the page (desktop and mobile) stays in sync.
+  // Light/dark toggle. Until the visitor clicks, the site follows the system
+  // setting. A click switches to the other mode and remembers it.
   (function () {
     var root = document.documentElement;
-    var btns = Array.prototype.slice.call(document.querySelectorAll('.theme-switch button'));
+    var btns = Array.prototype.slice.call(document.querySelectorAll('[data-theme-toggle]'));
     if (!btns.length) return;
-    function show(mode) {
-      btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-t') === mode ? 'true' : 'false'); });
+    var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+    function current() {
+      var m = root.getAttribute('data-mode');
+      if (m === 'light' || m === 'dark') return m;
+      return mq && mq.matches ? 'dark' : 'light';
     }
-    function set(mode) {
-      if (mode === 'system') root.removeAttribute('data-mode'); else root.setAttribute('data-mode', mode);
-      show(mode);
-      try { if (mode === 'system') localStorage.removeItem('kd-theme'); else localStorage.setItem('kd-theme', mode); } catch (e) {}
+    function label() {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      btns.forEach(function (b) { b.setAttribute('aria-label', b.getAttribute(next === 'dark' ? 'data-label-dark' : 'data-label-light')); });
     }
-    btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-t')); }); });
-    show(root.getAttribute('data-mode') || 'system');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var next = current() === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-mode', next);
+        try { localStorage.setItem('kd-theme', next); } catch (e) {}
+        label();
+        window.dispatchEvent(new Event('kd-theme-change'));
+      });
+    });
+    if (mq && mq.addEventListener) mq.addEventListener('change', label);
+    label();
   })();
 
   // Mobile panel toggle. Guarded so it runs once even if the nav is re-rendered.
@@ -217,9 +217,7 @@ const themes = [
       document.body.style.overflow = open ? 'hidden' : '';
     }
 
-    burger.addEventListener('click', function () {
-      setOpen(panel.hidden);
-    });
+    burger.addEventListener('click', function () { setOpen(panel.hidden); });
 
     // Any navigation or the CTA closes the panel.
     panel.addEventListener('click', function (e) {
@@ -228,10 +226,7 @@ const themes = [
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !panel.hidden) {
-        setOpen(false);
-        burger.focus();
-      }
+      if (e.key === 'Escape' && !panel.hidden) { setOpen(false); burger.focus(); }
     });
 
     // Returning to desktop width must not leave a locked body or an open panel.

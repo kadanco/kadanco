@@ -9,7 +9,7 @@
 // section spy), so pages no longer hard-code any of these.
 //
 // `themeable`: the page supports dark mode. Only then does the nav show the
-// Light / Auto / Dark switch; every other page is pinned to light.
+// light/dark toggle; every other page is pinned to light.
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -92,11 +92,53 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <Footer />
     <ContactModal />
 
-    <!-- Global UI: scroll progress, motion, section spy. -->
+    <!-- Global UI: colour-aware nav, scroll progress, motion, section spy. -->
     <!-- Lives here so it runs on every page exactly once. -->
     <script is:inline>
       (function () {
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Colour-aware nav (original look): white text over dark grounds, ink
+        // over light ones. Reads the real background just under the nav, so it
+        // works on every page and in dark mode. A gradient or image counts as
+        // dark unless a parent says data-theme="light".
+        var nav = document.querySelector('.nav');
+        if (nav) {
+          var lum = function (rgb) {
+            var m = rgb.match(/\d+(\.\d+)?/g); if (!m) return 1;
+            var c = m.slice(0, 3).map(function (v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+            return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+          };
+          var groundUnder = function () {
+            var x = window.innerWidth / 2, y = nav.offsetHeight + 4;
+            var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
+            for (var i = 0; i < stack.length; i++) {
+              var el = stack[i];
+              if (nav.contains(el)) continue;
+              var cs = getComputedStyle(el);
+              if (cs.backgroundImage && cs.backgroundImage !== 'none' && el.tagName !== 'IMG') {
+                var tagged = el.closest('[data-theme]');
+                return tagged ? tagged.getAttribute('data-theme') : 'dark';
+              }
+              var bg = cs.backgroundColor;
+              var alpha = bg.match(/rgba?\([^)]*,\s*([\d.]+)\)$/);
+              if (bg && bg !== 'transparent' && !(alpha && parseFloat(alpha[1]) === 0) && bg.indexOf('rgba(0, 0, 0, 0)') !== 0) {
+                return lum(bg) > 0.4 ? 'light' : 'dark';
+              }
+            }
+            return 'dark';
+          };
+          var navTheme = function () {
+            var theme = groundUnder();
+            nav.classList.toggle('nav--light', theme === 'light');
+            nav.classList.toggle('nav--dark', theme !== 'light');
+          };
+          window.addEventListener('scroll', navTheme, { passive: true });
+          window.addEventListener('resize', navTheme);
+          window.addEventListener('kd-theme-change', function () { setTimeout(navTheme, 30); });
+          if (window.matchMedia) { var mqd = window.matchMedia('(prefers-color-scheme: dark)'); if (mqd.addEventListener) mqd.addEventListener('change', navTheme); }
+          navTheme();
+        }
 
         if (!reduce) {
           var bar = document.createElement('div'); bar.className = 'scroll-progress'; document.body.appendChild(bar);
