@@ -1,12 +1,10 @@
 ---
 // src/components/HomeSteps.astro
-// "How We Work": how an engagement runs, in three steps (Map, Build, Ship).
-// Brings back the live "How We Operate" section, rewritten for product,
-// marketing and sales and cleaned of the masterplan D29 words. Built with the
-// brand system's phase row component: a numbered list where the active step
-// has a solid blue fill. The fill moves through the steps in a slow loop and
-// stops on hover; with reduced motion step 01 stays filled.
-// Navy band, the same in light and dark mode.
+// "How We Work": the live "How We Operate" section with its original look
+// (deep band, CadenceTimeline on the left, text on the right) and new text,
+// rewritten for product, marketing and sales and cleaned of the masterplan
+// D29 words. The original "and it compounds" line under step 03 is gone.
+import CadenceTimeline from './CadenceTimeline.astro';
 import { asLocale } from '../i18n/utils';
 
 const locale = asLocale(Astro.currentLocale);
@@ -19,7 +17,7 @@ const copy = {
     steps: [
       { n: '01', title: 'Map', body: 'We learn your product, your buyers, your funnel and your numbers. Then we agree on the few moves that change the most.' },
       { n: '02', title: 'Build', body: 'We do the work ourselves: the product experience, the site, the content, the campaigns and the sales process. No briefs handed to someone else.' },
-      { n: '03', title: 'Ship & Improve', body: 'The first work goes live within two weeks. Then we keep shipping, and every month builds on the last.' },
+      { n: '03', title: 'Ship', amp: '& improve', body: 'The first work goes live within two weeks. Then we keep shipping, and every month builds on the last.' },
     ],
   },
   de: {
@@ -30,56 +28,22 @@ const copy = {
     steps: [
       { n: '01', title: 'Verstehen', body: 'Wir lernen Ihr Produkt, Ihre Käufer, Ihren Funnel und Ihre Zahlen kennen. Dann einigen wir uns auf die wenigen Hebel, die am meisten bewegen.' },
       { n: '02', title: 'Aufbauen', body: 'Wir machen die Arbeit selbst: Produkterlebnis, Website, Content, Kampagnen und Vertriebsprozess. Keine Briefings, die an andere weitergereicht werden.' },
-      { n: '03', title: 'Liefern & verbessern', body: 'Die erste Arbeit ist innerhalb von zwei Wochen live. Danach liefern wir weiter, und jeder Monat baut auf dem letzten auf.' },
+      { n: '03', title: 'Liefern', amp: '& verbessern', body: 'Die erste Arbeit ist innerhalb von zwei Wochen live. Danach liefern wir weiter, und jeder Monat baut auf dem letzten auf.' },
     ],
   },
 }[locale];
 ---
-<section class="steps" id="how-we-work">
-  <div class="container steps-in">
-    <div class="steps-head">
-      <span class="steps-eyebrow">{copy.eyebrow}</span>
-      <h2>{copy.h2a} <em>{copy.h2b}</em></h2>
-      <p class="steps-lead">{copy.lead}</p>
+
+<!-- original look: same markup and classes as the live How We Operate section -->
+<section class="section band-deep" id="how-we-work" data-theme="dark">
+  <div class="container">
+    <div class="split">
+      <CadenceTimeline steps={copy.steps} />
+      <div class="content">
+        <span class="eyebrow">{copy.eyebrow}</span>
+        <h2>{copy.h2a} <span class="hl">{copy.h2b}</span></h2>
+        <p class="lead" style="margin-top:20px">{copy.lead}</p>
+      </div>
     </div>
-    <ol class="steps-list">
-      {copy.steps.map((st, i) => (
-        <li class="phase" style={`--i:${i}`}>
-          <span class="n">{st.n}</span>
-          <h3>{st.title}</h3>
-          <p class="d">{st.body}</p>
-        </li>
-      ))}
-    </ol>
   </div>
 </section>
-
-<style>
-  .steps { background: var(--kd-blue-1); color: var(--kd-white); }
-  .steps-in { padding-top: 96px; padding-bottom: 96px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px; align-items: center; }
-  @media (max-width: 980px) { .steps-in { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 64px; padding-bottom: 64px; } }
-
-  .steps-head { display: flex; flex-direction: column; gap: 16px; }
-  .steps-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-lilac); }
-  .steps h2 { margin: 0; font-size: var(--kd-text-l); line-height: var(--kd-lh-l); font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }
-  .steps h2 em { font-style: normal; color: var(--kd-signal-1); }
-  .steps-lead { margin: 0; font-size: 19px; line-height: 1.5; color: var(--kd-lilac-soft); }
-
-  /* phase rows (brand system): number, title, description; active row filled blue */
-  .steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  .phase { display: grid; grid-template-columns: 56px minmax(0, 160px) minmax(0, 1fr); gap: 8px 24px; align-items: baseline; padding: 24px 28px; border-radius: var(--kd-radius); border: 1px solid rgba(255, 255, 255, .14); animation: steps-feat 9s ease-in-out infinite; animation-delay: calc(var(--i) * 3s); }
-  .phase .n { font-size: var(--kd-text-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; color: var(--kd-signal-1); }
-  .phase h3 { margin: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); }
-  .phase .d { margin: 0; font-size: 17px; line-height: 1.5; color: var(--kd-lilac-soft); }
-  @media (max-width: 640px) { .phase { grid-template-columns: 40px minmax(0, 1fr); padding: 20px; } .phase .d { grid-column: 2; } }
-
-  @keyframes steps-feat {
-    0%, 30% { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
-    36%, 100% { background: transparent; border-color: rgba(255, 255, 255, .14); }
-  }
-  .steps-list:hover .phase { animation-play-state: paused; }
-  @media (prefers-reduced-motion: reduce) {
-    .phase { animation: none; }
-    .phase:first-child { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
-  }
-</style>
