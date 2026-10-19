@@ -1,0 +1,122 @@
+---
+// Dev-only page: every animated isometric icon from the October designs, and
+// a proposal of where to use them (nav dropdowns and homepage sections).
+// Served at /icons by `npm run dev` only (injected in astro.config.mjs).
+import '../styles/global.css';
+import IsoIcon from '../components/IsoIcon.astro';
+import { isoIcons, type IsoIconName } from '../data/iso-icons';
+
+const names = Object.keys(isoIcons) as IsoIconName[];
+
+const menus: { title: string; items: [IsoIconName, string, string][] }[] = [
+  { title: 'Services', items: [
+    ['layers', 'Product Design', 'the foundation, three layers lifting'],
+    ['target', 'Product Marketing', 'a clear position, dart hits the target'],
+    ['growth', 'Sales', 'pipeline, bars rising with an arrow'],
+  ] },
+  { title: 'Use Cases', items: [
+    ['board', 'Adoption Rescue', 'blocks shift into place'],
+    ['posts', 'From Feature List To Clear Offer', 'pages publishing in turn'],
+    ['pin', 'DACH market entry', 'map pin with a pulse'],
+    ['rocket', 'Founder-led content & pipeline', 'launch'],
+    ['score', 'Rebuild that lifts conversion', 'cards lifting into place'],
+    ['network', 'Pipeline Off The Founder', 'connected nodes, work flows on its own'],
+    ['stage', 'Event pipeline', 'event stage with chairs'],
+  ] },
+  { title: 'Resources', items: [
+    ['docs', 'Glossary', 'documents'],
+    ['seo', 'FAQ', 'server with blinking lights'],
+  ] },
+];
+
+const places: [IsoIconName[], string, string][] = [
+  [['layers', 'target', 'growth'], 'Offer cards (Product Design, Product Marketing, Sales)', 'the same three icons as the Services menu, large in each card'],
+  [['board', 'posts', 'pin', 'rocket', 'score', 'network', 'stage'], 'Use case cards (homepage and /use-cases/)', 'the same icon as in the Use Cases menu, top of each card'],
+  [['target', 'build', 'rocket'], 'How We Work steps (Map, Build, Ship & improve)', 'the three step icons from the design use case pages'],
+];
+---
+<!doctype html>
+<html lang="en" data-mode="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Animated icons (dev only)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body class="ic">
+    <main class="ic-wrap">
+      <h1>Animated icons</h1>
+      <p class="ic-lead">All {names.length} isometric icons from the October designs, moving. Below: where they could go.</p>
+
+      <h2>1 · All icons</h2>
+      <div class="ic-grid">
+        {names.map((n) => (
+          <figure class="ic-cell">
+            <IsoIcon name={n} size={96} />
+            <figcaption><b>{n}</b><span>{isoIcons[n].note}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+      <p class="ic-note">On navy (hero, nav and dark sections):</p>
+      <div class="ic-grid ic-grid--dark">
+        {names.map((n) => <figure class="ic-cell"><IsoIcon name={n} size={72} /><figcaption><b>{n}</b></figcaption></figure>)}
+      </div>
+
+      <h2>2 · Proposal: nav dropdowns</h2>
+      <p class="ic-lead">Small (28px) icons next to each entry. They move only while the menu is open.</p>
+      <div class="ic-menus">
+        {menus.map((m) => (
+          <div>
+            <p class="ic-menu-title">{m.title}</p>
+            <div class="ic-menu">
+              {m.items.map(([n, label, why]) => (
+                <div class="ic-menu-item">
+                  <IsoIcon name={n} size={28} />
+                  <span><b>{label}</b><small>{n} · {why}</small></span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <h2>3 · Proposal: homepage</h2>
+      {places.map(([icons, where, why]) => (
+        <div class="ic-place">
+          <div class="ic-place-icons">{icons.map((n) => <IsoIcon name={n} size={64} />)}</div>
+          <p><b>{where}</b><span>{why}</span></p>
+        </div>
+      ))}
+    </main>
+
+    <style>
+      .ic { background: var(--kd-beige-1); color: var(--kd-ink); }
+      .ic-wrap { max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px; }
+      .ic h1 { font-size: var(--kd-text-l); margin: 0 0 8px; }
+      .ic h2 { font-size: var(--kd-text-m); margin: 56px 0 16px; }
+      .ic-lead, .ic-note { color: var(--kd-ink-2); margin: 0 0 20px; }
+      .ic-note { margin-top: 28px; }
+      .ic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+      .ic-cell { margin: 0; padding: 20px 12px; background: var(--kd-white); border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+      .ic-cell b { display: block; font-weight: 500; font-size: 15px; }
+      .ic-cell span { display: block; font-size: 13px; color: var(--kd-ink-2); line-height: 1.35; }
+      .ic-grid--dark .ic-cell { background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
+      .ic-grid--dark .iso-ic { color: var(--kd-white); }
+      .ic-grid--dark .iso-ic polygon { fill: var(--kd-blue-1); }
+      .ic-menus { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start; }
+      .ic-menu-title { margin: 0 0 8px; font-weight: 500; }
+      .ic-menu { padding: 6px; background: var(--kd-white); border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius); box-shadow: 0 18px 44px -20px rgba(26, 1, 117, .3); }
+      .ic-menu-item { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: var(--kd-radius); }
+      .ic-menu-item:hover { background: var(--kd-beige-1); }
+      .ic-menu-item b { display: block; font-weight: 400; font-size: 15px; }
+      .ic-menu-item small { display: block; font-size: 12px; color: var(--kd-ink-2); }
+      .ic-place { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; padding: 20px 0; border-top: 1px solid var(--kd-beige-3); }
+      .ic-place-icons { display: flex; flex-wrap: wrap; gap: 16px; }
+      .ic-place b { display: block; font-weight: 500; }
+      .ic-place span { color: var(--kd-ink-2); }
+    </style>
+  </body>
+</html>

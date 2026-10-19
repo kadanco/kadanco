@@ -13,6 +13,7 @@ import { translatedRoutes } from './src/i18n/ui';
 // to English, so they stay out of the sitemap.
 const LOCALE_URL = /^https:\/\/kadanco\.com\/(de)(\/.*)?$/;
 function inSitemap(page) {
+  if (INTERNAL_PAGES.some((r) => page.replace(/\/$/, '').endsWith(r.pattern))) return false; // never list internal pages
   const m = page.match(LOCALE_URL);
   if (!m) return true; // English URL
   const routes = translatedRoutes[m[1]];
@@ -22,17 +23,25 @@ function inSitemap(page) {
   return routes.includes(path);
 }
 
-// Dev-only style guide at /styleguide (src/dev/styleguide.astro).
-// Injected only for `astro dev`, so `npm run build` never outputs it and it
-// never reaches kadanco.com. The brand system asks to keep the guide private.
-function devStyleguide() {
+// Internal pages: style guide (/styleguide), animated icons (/icons) and all
+// components (/components). Shown locally and on staging, never on the live
+// site. Staging = any Cloudflare Pages branch build other than main (Cloudflare
+// sets CF_PAGES_BRANCH), or a build with KADANCO_STAGING=1. The live site is
+// built from main, so these pages never reach kadanco.com. The brand system
+// asks to keep the style guide private; staging URLs are unlisted and noindex.
+const INTERNAL_PAGES = [
+  { pattern: '/styleguide', entrypoint: './src/dev/styleguide.astro' },
+  { pattern: '/icons', entrypoint: './src/dev/icons.astro' },
+  { pattern: '/components', entrypoint: './src/dev/components.astro' },
+];
+const branch = process.env.CF_PAGES_BRANCH;
+const isStagingBuild = (branch && branch !== 'main') || process.env.KADANCO_STAGING === '1';
+function internalPages() {
   return {
-    name: 'kadanco-dev-styleguide',
+    name: 'kadanco-internal-pages',
     hooks: {
       'astro:config:setup': ({ command, injectRoute }) => {
-        if (command === 'dev') {
-          injectRoute({ pattern: '/styleguide', entrypoint: './src/dev/styleguide.astro' });
-        }
+        if (command === 'dev' || isStagingBuild) INTERNAL_PAGES.forEach((r) => injectRoute(r));
       },
     },
   };
@@ -61,7 +70,7 @@ export default defineConfig({
     },
     fallback: { de: 'en' },
   },
-  integrations: [sitemap({ filter: inSitemap }), devStyleguide()],
+  integrations: [sitemap({ filter: inSitemap }), internalPages()],
   // Astro 7 minifies CSS with Lightning CSS, which drops the standard
   // `backdrop-filter` and keeps only `-webkit-backdrop-filter`. That silently
   // removes the nav blur in Firefox. esbuild keeps both, so we use it instead.

@@ -11,6 +11,7 @@
 // contact modal. Supports dark mode through the theme role tokens.
 import type { UseCase } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
+import IsoIcon from './IsoIcon.astro';
 
 interface Props { uc: UseCase; size?: 'compact' | 'full'; featured?: boolean }
 const { uc, size = 'compact', featured = false } = Astro.props;
@@ -34,6 +35,7 @@ const showDetail = size === 'full' || featured;
   data-open-modal={hasPage ? undefined : ''}
 >
   <div class="uc-main">
+    <IsoIcon name={uc.icon} size={featured ? 72 : 56} class="uc-icon" />
     <div class="uc-labels">
       <span class="uc-dept">{ui[uc.dept]}</span>
       <span class="uc-eyebrow">{t.eyebrow}</span>

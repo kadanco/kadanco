@@ -25,7 +25,7 @@ npm run dev       # http://localhost:4321
 npm run build     # must pass before every commit
 ```
 
-Style guide: open http://localhost:4321/styleguide while `npm run dev` runs. Dev only, never built or deployed.
+Internal pages (local and staging only, never on kadanco.com): http://localhost:4321/styleguide, /icons (animated icons), /components (every component, with a side menu). A build includes them when `CF_PAGES_BRANCH` is not `main` or `KADANCO_STAGING=1`.
 
 ## Repo map
 
@@ -41,7 +41,8 @@ src/data/use-cases.ts       all 7 use cases (EN and DE), read by the homepage an
 src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
-src/dev/styleguide.astro    dev-only style guide at /styleguide (injected in astro.config.mjs)
+src/dev/                    internal pages: /styleguide, /icons, /components (local and staging only, see INTERNAL_PAGES in astro.config.mjs)
+src/data/iso-icons.ts       22 animated isometric icons from the designs; render with src/components/IsoIcon.astro
 design/                     October 2026 design files (source of truth for new work)
 docs/masterplan.md          group-wide plan for Kadanco and its brands (decisions D1 to D39)
 ```
@@ -159,3 +160,5 @@ Next, in order:
 - 2026-10-19: How We Work uses the original How We Operate look (deep band, `CadenceTimeline` left, text right) with the new text. The "and it compounds" line under step 03 is removed.
 - 2026-10-19: FAQ uses the live design (`LiveFaq.astro`: paper band, centred filled label, three-column white cards, 10px radius) with the new questions and answers from `HomePage.astro`.
 - 2026-10-19: Footer columns match the nav: Services, Use Cases (all 7 plus All use cases), Resources (Glossary, FAQ), Company (About, email, LinkedIn). Both read `src/data/menus.ts`. Footer tagline now covers product, marketing and sales.
+- 2026-10-19: Internal pages (/styleguide, /icons, /components) are built for local dev and every staging branch, never for main; noindex and out of the sitemap.
+- 2026-10-19: Animated isometric icons from the designs on the site: nav dropdowns (36px, moving only while open), offer cards (layers, target, growth), use case cards (icon per use case in `src/data/use-cases.ts`). The same icon always means the same service or use case.

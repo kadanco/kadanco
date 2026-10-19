@@ -1,0 +1,83 @@
+/* ============================================================
+   Animated isometric icons (src/data/iso-icons.ts, IsoIcon.astro)
+   Taken from the October 2026 designs. Navy outlines, white faces,
+   blue and lime accents; set --acc / --acc2 on a parent to recolour.
+   Motion stops for visitors who prefer reduced motion.
+   ============================================================ */
+.iso-ic { display: inline-block; flex: none; color: var(--kd-blue-1); --acc: var(--kd-blue-2); --acc2: var(--kd-signal-1); line-height: 0; }
+.iso-ic svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.iso-ic polygon, .iso-ic .side { fill: var(--kd-white); }
+.iso-ic .acc { fill: var(--acc); }
+.iso-ic .acc2, .iso-ic .led { fill: var(--acc2); }
+.iso-ic .arr{animation:ev-arr 2.4s ease-in-out infinite}
+.iso-ic .b1{animation-delay:.3s}
+.iso-ic .b2{animation-delay:.6s}
+.iso-ic .bar{transform-box:fill-box;transform-origin:50% 100%;animation:ev-bar 2.4s ease-in-out infinite}
+.iso-ic .blk{animation:uc-blk 4.5s ease-in-out infinite}
+.iso-ic .bob2{animation:rw-plate 3s ease-in-out .5s infinite}
+.iso-ic .bob{animation:comp-bob 2.4s ease-in-out infinite}
+.iso-ic .bob{animation:rw-plate 2.6s ease-in-out infinite}
+.iso-ic .c1{animation-delay:.3s}
+.iso-ic .c2{animation-delay:.6s}
+.iso-ic .c3{animation-delay:.9s}
+.iso-ic .chair{animation:rw-chair 2.2s ease-in-out infinite}
+.iso-ic .dart{animation:rw-dart 2.4s ease-out infinite}
+.iso-ic .drop{animation:rw-drop 2.6s ease-in infinite}
+.iso-ic .flake{transform-box:fill-box;transform-origin:center;animation:ev-flake 9s linear infinite}
+.iso-ic .float{animation:comp-float 3s ease-in infinite}
+.iso-ic .fly{animation:uc-fly 2.8s ease-in-out infinite}
+.iso-ic .ghost{animation:ev-ghost 2s ease-in-out infinite}
+.iso-ic .k1{animation-delay:.4s}
+.iso-ic .k2{animation-delay:.8s}
+.iso-ic .l1{animation-delay:.3s}
+.iso-ic .l2{animation-delay:.6s}
+.iso-ic .leaf{transform-box:fill-box;transform-origin:0% 50%;animation:fv-open 4s ease-in-out infinite}
+.iso-ic .led{animation:comp-led 1.4s ease-in-out infinite}
+.iso-ic .lift{animation:rw-lift 2.6s ease-in-out infinite}
+.iso-ic .ly2{animation:uc-ly2 3.2s ease-in-out infinite}
+.iso-ic .ly3{animation:uc-ly3 3.2s ease-in-out infinite}
+.iso-ic .p1{animation-delay:.3s}
+.iso-ic .p2{animation-delay:.6s}
+.iso-ic .pipd{fill:var(--kd-blue-1);stroke:none}
+.iso-ic .pip{fill:var(--kd-white)}
+.iso-ic .plate{animation:rw-plate 2.2s ease-in-out infinite}
+.iso-ic .pod{animation:rw-plate 2.6s ease-in-out infinite}
+.iso-ic .pop{animation:rw-pop 2.8s ease-in-out infinite}
+.iso-ic .post{animation:uc-post 4.5s ease-in-out infinite}
+.iso-ic .r2{animation-delay:.6s}
+.iso-ic .ring{transform-box:fill-box;transform-origin:center;animation:comp-ring 2.4s ease-out infinite}
+.iso-ic .ring{transform-box:fill-box;transform-origin:center;animation:rw-ring 2.4s ease-out infinite}
+.iso-ic .roll{transform-box:fill-box;transform-origin:50% 100%;animation:ev-roll 3.2s ease-in-out infinite}
+.iso-ic .s1{animation-delay:.4s}
+.iso-ic .s2{animation-delay:.8s}
+.iso-ic .sat{animation:rw-plate 2.4s ease-in-out infinite}
+.iso-ic .screen .acc2{animation:ev-screen 2.4s ease-in-out infinite}
+.iso-ic .think-flame{transform-box:fill-box;transform-origin:50% 0;animation:ic-flame .35s ease-in-out infinite}
+.iso-ic .wire{stroke-dasharray:3 4;animation:ap-wire2 1.2s linear infinite}
+@keyframes ap-wire2{to{stroke-dashoffset:-14}}
+@keyframes comp-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes comp-float{0%{transform:translate(0,0);opacity:0}20%{opacity:1}70%{transform:translate(-14px,22px);opacity:1}100%{transform:translate(-18px,28px);opacity:0}}
+@keyframes comp-led{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes comp-ring{0%{transform:scale(.5);opacity:0}30%{opacity:1}100%{transform:scale(1.25);opacity:0}}
+@keyframes ev-arr{0%,100%{transform:translate(0,0)}50%{transform:translate(3px,-3px)}}
+@keyframes ev-bar{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.82)}}
+@keyframes ev-flake{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes ev-ghost{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes ev-roll{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-8deg) translateY(-6px)}40%{transform:rotate(6deg) translateY(0)}55%,100%{transform:rotate(0)}}
+@keyframes ev-screen{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes fv-open{0%,100%{transform:skewY(0) scaleX(1)}45%,60%{transform:skewY(-14deg) scaleX(.55)}}
+@keyframes ic-flame{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.6)}}
+@keyframes rw-chair{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes rw-dart{0%{transform:translate(14px,-18px);opacity:0}20%{opacity:1}45%,80%{transform:translate(0,0);opacity:1}100%{opacity:0}}
+@keyframes rw-drop{0%{transform:translateY(-6px);opacity:0}15%{opacity:1}55%{transform:translateY(34px);opacity:1}65%,100%{transform:translateY(40px);opacity:0}}
+@keyframes rw-lift{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes rw-plate{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes rw-pop{0%,30%{transform:translateY(4px);opacity:.3}50%,85%{transform:translateY(-4px);opacity:1}100%{transform:translateY(4px);opacity:.3}}
+@keyframes rw-ring{0%{transform:scale(.6);opacity:0}30%{opacity:1}100%{transform:scale(1.15);opacity:0}}
+@keyframes uc-blk{0%,10%{transform:translateY(-14px);opacity:0}25%,85%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:0}}
+@keyframes uc-fly{0%{transform:translate(-8px,8px);opacity:0}25%{opacity:1}70%{transform:translate(8px,-8px);opacity:1}100%{transform:translate(14px,-14px);opacity:0}}
+@keyframes uc-ly2{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes uc-ly3{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes uc-post{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.iso-ic--still *, .iso-ic--still *::before { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .iso-ic * { animation: none !important; } }

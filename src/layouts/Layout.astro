@@ -17,7 +17,7 @@ import ContactModal from '../components/ContactModal.astro';
 import { defaultLocale, switcherLocales } from '../i18n/ui';
 import { asLocale, basePath, hasTranslation, localizeUrl } from '../i18n/utils';
 
-const { title, description, themeable = false } = Astro.props;
+const { title, description, themeable = false, noindex = false } = Astro.props;
 
 // Active locale, canonical URL, and hreflang alternates. We only advertise a
 // language version that actually exists (see translatedRoutes in i18n/ui.ts),
@@ -37,6 +37,7 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonicalHref} />
     {showHreflang && alternates.map((l) => <link rel="alternate" hreflang={l} href={altHref(l)} />)}
     {showHreflang && <link rel="alternate" hreflang="x-default" href={altHref(defaultLocale)} />}

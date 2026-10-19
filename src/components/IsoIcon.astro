@@ -1,0 +1,16 @@
+---
+// src/components/IsoIcon.astro
+// One animated isometric icon from src/data/iso-icons.ts.
+//   <IsoIcon name="pin" size={48} />           animated
+//   <IsoIcon name="pin" size={24} still />     no motion (small sizes, dense lists)
+// Accent colours follow --acc and --acc2 from a parent (default blue and lime).
+import '../styles/iso-icons.css';
+import { isoIcons, type IsoIconName } from '../data/iso-icons';
+
+interface Props { name: IsoIconName; size?: number; still?: boolean; class?: string }
+const { name, size = 48, still = false, class: cls } = Astro.props;
+const icon = isoIcons[name];
+---
+<span class:list={['iso-ic', { 'iso-ic--still': still }, cls]} style={`width:${size}px;height:${size}px`} aria-hidden="true">
+  <svg viewBox={icon.viewBox} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" set:html={icon.body} />
+</span>

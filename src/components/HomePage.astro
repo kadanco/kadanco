@@ -16,6 +16,8 @@
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
 import UseCaseCard from './UseCaseCard.astro';
+import IsoIcon from './IsoIcon.astro';
+import type { IsoIconName } from '../data/iso-icons';
 import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
 import LiveCompliance from './LiveCompliance.astro';
@@ -34,9 +36,9 @@ const copy = {
     offersH2b: 'Whole Funnel.',
     offersLede: 'Each offer is built end to end and handed off ready to run.',
     cards: [
-      { id: 'product', tone: 'product', label: '01 · Product', title: 'Product Design', body: 'Audit, design system and redesigned journeys for the product itself.', link: 'Book A Product Review' },
-      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing', body: 'Positioning, launch and content that make the product make sense.', link: 'Fix Your Positioning' },
-      { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales', body: "A pipeline engine that doesn't depend on one founder.", link: 'Build My Pipeline' },
+      { id: 'product', icon: 'layers', tone: 'product', label: '01 · Product', title: 'Product Design', body: 'Audit, design system and redesigned journeys for the product itself.', link: 'Book A Product Review' },
+      { id: 'marketing', icon: 'target', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing', body: 'Positioning, launch and content that make the product make sense.', link: 'Fix Your Positioning' },
+      { id: 'sales', icon: 'growth', tone: 'sales', label: '03 · Sales', title: 'Sales', body: "A pipeline engine that doesn't depend on one founder.", link: 'Build My Pipeline' },
     ],
     logosEyebrow: 'Two careers behind the work',
     logosNote: 'We bring four decades of collective experience across enterprise software, services, automotive, pharma, and SaaS in product, marketing, and sales.',
@@ -63,9 +65,9 @@ const copy = {
     offersH2b: 'ganzen Funnel.',
     offersLede: 'Jedes Angebot wird von Anfang bis Ende gebaut und einsatzbereit übergeben.',
     cards: [
-      { id: 'product', tone: 'product', label: '01 · Produkt', title: 'Product Design', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
-      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
-      { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Sales', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
+      { id: 'product', icon: 'layers', tone: 'product', label: '01 · Produkt', title: 'Product Design', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
+      { id: 'marketing', icon: 'target', tone: 'marketing', label: '02 · Marketing', title: 'Product Marketing', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
+      { id: 'sales', icon: 'growth', tone: 'sales', label: '03 · Vertrieb', title: 'Sales', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
     ],
     logosEyebrow: 'Zwei Karrieren hinter der Arbeit',
     logosNote: 'Wir bringen vier Jahrzehnte gemeinsame Erfahrung aus Enterprise-Software, Services, Automotive, Pharma und SaaS mit, in Produkt, Marketing und Vertrieb.',
@@ -139,6 +141,7 @@ const logos = [
       <div class="home-offers">
         {c.cards.map((card) => (
           <a class={`home-card home-card--${card.tone}`} id={card.id} href="#contact" data-open-modal>
+            <IsoIcon name={card.icon as IsoIconName} size={72} />
             <span class="home-lbl">{card.label}</span>
             <h3>{card.title}</h3>
             <p>{card.body}</p>
@@ -211,6 +214,9 @@ const logos = [
   .home-lbl { display: inline-flex; align-items: center; align-self: flex-start; padding: 3px 12px; border-radius: var(--kd-radius); font-size: 14px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
 
   .home-card--product { background: var(--kd-dept-product); color: var(--kd-white); }
+  /* icon accents per card ground: lime on blue, blue on lime, defaults on lilac */
+  .home-card--product :global(.iso-ic) { --acc: var(--kd-signal-1); }
+  .home-card--marketing :global(.iso-ic) { --acc: var(--kd-blue-2); --acc2: var(--kd-blue-2); }
   .home-card--product .home-lbl { background: var(--kd-signal-1); color: var(--kd-blue-1); }
   .home-card--product p { color: var(--kd-lilac-tint); }
   .home-card--product .home-link { color: var(--kd-signal-1); }

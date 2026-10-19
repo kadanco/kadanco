@@ -1,0 +1,254 @@
+---
+// Internal page: every design component on one page, rendered with the real
+// components, with a detached side menu to jump between them.
+// Served at /components locally and on staging only (see INTERNAL_PAGES in
+// astro.config.mjs); never on the live site, never in the sitemap, noindex.
+import Layout from '../layouts/Layout.astro';
+import HomePage from '../components/HomePage.astro';
+import HomeHero from '../components/HomeHero.astro';
+import HomeHeroVisual from '../components/HomeHeroVisual.astro';
+import HomeComparison from '../components/HomeComparison.astro';
+import HomeSteps from '../components/HomeSteps.astro';
+import UseCaseCard from '../components/UseCaseCard.astro';
+import LiveFounders from '../components/LiveFounders.astro';
+import LiveFaq from '../components/LiveFaq.astro';
+import LiveCompliance from '../components/LiveCompliance.astro';
+import LiveCta from '../components/LiveCta.astro';
+import CadenceTimeline from '../components/CadenceTimeline.astro';
+import ComparisonMatrix from '../components/ComparisonMatrix.astro';
+import UseCaseSpotlight from '../components/UseCaseSpotlight.astro';
+import IsoIcon from '../components/IsoIcon.astro';
+import tokensRaw from '../styles/tokens.css?raw';
+import { useCases } from '../data/use-cases';
+import { isoIcons, type IsoIconName } from '../data/iso-icons';
+
+// colour tokens, read live from tokens.css
+const colours = [...tokensRaw.matchAll(/--(kd-[a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})\s*;(?:[ \t]*\/\*\s*(.*?)\s*\*\/)?/g)].map((m) => ({ name: m[1], value: m[2], note: m[3] || '' }));
+const iconNames = Object.keys(isoIcons) as IsoIconName[];
+const featured = useCases.find((u) => u.featured)!;
+const pageCase = useCases.find((u) => u.kind === 'page')!;
+const caseStudy = useCases.find((u) => u.kind === 'case' && !u.featured)!;
+
+const sections = [
+  { id: 'cp-colours', group: 'Foundations', name: 'Colours' },
+  { id: 'cp-type', group: 'Foundations', name: 'Type' },
+  { id: 'cp-buttons', group: 'Foundations', name: 'Buttons' },
+  { id: 'cp-labels', group: 'Foundations', name: 'Labels' },
+  { id: 'cp-icons', group: 'Foundations', name: 'Animated icons' },
+  { id: 'cp-hero', group: 'Homepage', name: 'Hero with slices' },
+  { id: 'cp-comparison', group: 'Homepage', name: 'Comparison' },
+  { id: 'cp-cards', group: 'Homepage', name: 'Use case cards' },
+  { id: 'cp-founders', group: 'Homepage', name: 'Who We Are' },
+  { id: 'cp-steps', group: 'Homepage', name: 'How We Work' },
+  { id: 'cp-faq', group: 'Homepage', name: 'FAQ' },
+  { id: 'cp-compliance', group: 'Homepage', name: 'Compliance' },
+  { id: 'cp-cta', group: 'Homepage', name: 'Final CTA' },
+  { id: 'cp-matrix', group: 'Use case pages', name: 'Comparison matrix' },
+  { id: 'cp-spotlight', group: 'Use case pages', name: 'Use case spotlight' },
+  { id: 'cp-timeline', group: 'Use case pages', name: 'Timeline' },
+  { id: 'cp-modal', group: 'Site', name: 'Contact modal' },
+  { id: 'cp-full', group: 'Site', name: 'Full homepage' },
+];
+const groups = [...new Set(sections.map((s) => s.group))];
+---
+<Layout title="Components (internal)" description="All Kadanco design components on one page. For internal use on local and staging builds." themeable noindex>
+  <div class="cp">
+    <aside class="cp-menu" aria-label="Components">
+      <details open>
+        <summary>Components <span>internal · not on kadanco.com</span></summary>
+        {groups.map((g) => (
+          <>
+            <p class="cp-group">{g}</p>
+            <ul>{sections.filter((s) => s.group === g).map((s) => <li><a href={`#${s.id}`} data-cp-link>{s.name}</a></li>)}</ul>
+          </>
+        ))}
+        <p class="cp-group">More</p>
+        <ul><li><a href="/styleguide">Style guide</a></li><li><a href="/icons">Icon gallery</a></li></ul>
+      </details>
+    </aside>
+
+    <main class="cp-main">
+      <header class="cp-intro">
+        <h1>Components</h1>
+        <p>Every design component, rendered with the real code. Internal: shown locally and on staging, never on the live site.</p>
+      </header>
+
+      <section id="cp-colours" class="cp-sec">
+        <h2>Colours</h2>
+        <div class="cp-swatches">
+          {colours.map((c) => (
+            <div class="cp-sw"><span style={`background:var(--${c.name})`}></span><b>{c.name.replace('kd-', '')}</b><code>{c.value}</code><small>{c.note}</small></div>
+          ))}
+        </div>
+      </section>
+
+      <section id="cp-type" class="cp-sec">
+        <h2>Type</h2>
+        {['xl', 'l', 'm', 's', 'xs'].map((k) => (
+          <p class={`cp-type cp-type--${k}`} style={`font-size:var(--kd-text-${k});line-height:var(--kd-lh-${k})`}><code>{k.toUpperCase()}</code>{k === 'xs' ? 'Department 01 · Product' : 'Stop Buying Advice.'}</p>
+        ))}
+      </section>
+
+      <section id="cp-buttons" class="cp-sec">
+        <h2>Buttons</h2>
+        <div class="cp-row">
+          <a class="btn btn-primary">Primary</a>
+          <a class="btn btn-cta">Orange CTA (light ground)</a>
+          <a class="btn btn-primary btn-sm">Small</a>
+          <a class="btn btn-primary btn-lg">Large</a>
+        </div>
+        <div class="cp-row cp-dark">
+          <a class="btn btn-lime btn-lg">Lime CTA (dark ground)</a>
+          <a class="btn btn-ghost btn-lg">Ghost</a>
+        </div>
+      </section>
+
+      <section id="cp-labels" class="cp-sec">
+        <h2>Labels</h2>
+        <div class="cp-row">
+          <span class="eyebrow">Default</span><span class="eyebrow indigo">Indigo</span><span class="eyebrow dark">Dark</span><span class="tag">Tag</span>
+        </div>
+        <div class="cp-row cp-dark" data-theme="dark">
+          <span class="eyebrow">On dark</span><span class="eyebrow peri">Peri</span>
+        </div>
+      </section>
+
+      <section id="cp-icons" class="cp-sec">
+        <h2>Animated icons</h2>
+        <p class="cp-note">All {iconNames.length}. Larger view with notes: <a href="/icons">/icons</a>.</p>
+        <div class="cp-icons">
+          {iconNames.map((n) => <figure><IsoIcon name={n} size={64} /><figcaption>{n}</figcaption></figure>)}
+        </div>
+      </section>
+
+      <section id="cp-hero" class="cp-sec cp-sec--full">
+        <h2>Hero with slices <span>HomeHero + HomeHeroVisual · hover a slice</span></h2>
+        <HomeHero><HomeHeroVisual slot="visual" /></HomeHero>
+      </section>
+
+      <section id="cp-comparison" class="cp-sec cp-sec--full">
+        <h2>Comparison <span>HomeComparison</span></h2>
+        <HomeComparison />
+      </section>
+
+      <section id="cp-cards" class="cp-sec">
+        <h2>Use case cards <span>UseCaseCard: featured, compact, full</span></h2>
+        <div class="cp-cards">
+          <UseCaseCard uc={featured} featured />
+          <UseCaseCard uc={pageCase} />
+          <UseCaseCard uc={caseStudy} />
+          <UseCaseCard uc={pageCase} size="full" />
+          <UseCaseCard uc={caseStudy} size="full" />
+        </div>
+      </section>
+
+      <section id="cp-founders" class="cp-sec cp-sec--full"><h2>Who We Are <span>LiveFounders</span></h2><LiveFounders /></section>
+      <section id="cp-steps" class="cp-sec cp-sec--full"><h2>How We Work <span>HomeSteps + CadenceTimeline</span></h2><HomeSteps /></section>
+      <section id="cp-faq" class="cp-sec cp-sec--full">
+        <h2>FAQ <span>LiveFaq</span></h2>
+        <LiveFaq eyebrow="FAQ" h2a="Questions," h2b="Answered." faqs={[
+          { q: 'Example question one?', a: 'Each card holds one question and a short answer.' },
+          { q: 'Example question two?', a: 'Three columns on desktop, two on tablets, one on phones.' },
+          { q: 'Example question three?', a: 'Cards lift slightly on hover.' },
+        ]} />
+      </section>
+      <section id="cp-compliance" class="cp-sec cp-sec--full"><h2>Compliance <span>LiveCompliance</span></h2><LiveCompliance /></section>
+      <section id="cp-cta" class="cp-sec cp-sec--full"><h2>Final CTA <span>LiveCta</span></h2><LiveCta /></section>
+
+      <section id="cp-matrix" class="cp-sec cp-sec--full">
+        <h2>Comparison matrix <span>ComparisonMatrix (use case pages)</span></h2>
+        <div class="band-ink cp-pad" data-theme="dark">
+          <ComparisonMatrix label="The standard routes" theme="dark" caption="No single route is the whole function. <b>Execution is where they all leak.</b>"
+            columns={[{ name: 'Strategy' }, { name: 'Execution', pulse: true }, { name: 'Ownership' }]}
+            rows={[
+              { route: 'Agency', reason: 'Partner rates for work juniors learn on.', marks: ['part', 'gap', 'part'] },
+              { route: 'Fractional CMO', reason: 'Writes the plan, then leaves you to run it.', marks: ['has', 'gap', 'gap'] },
+              { route: 'In-house hire', reason: 'Slow to find and ramp.', marks: ['part', 'part', 'has'] },
+            ]} />
+        </div>
+      </section>
+
+      <section id="cp-spotlight" class="cp-sec cp-sec--full">
+        <h2>Use case spotlight <span>UseCaseSpotlight (rotating)</span></h2>
+        <div class="band-lime cp-pad" data-theme="light">
+          <UseCaseSpotlight interval={3000} items={useCases.filter((u) => u.kind === 'page').map((u) => ({ eyebrow: u.en.eyebrow, name: u.en.name, href: u.href, summary: u.en.summary, bundle: u.en.bundle ?? [], own: u.en.own ?? '' }))} />
+        </div>
+      </section>
+
+      <section id="cp-timeline" class="cp-sec cp-sec--full">
+        <h2>Timeline <span>CadenceTimeline, with and without the extra line</span></h2>
+        <div class="band-deep cp-pad cp-two" data-theme="dark">
+          <CadenceTimeline steps={[{ n: '01', title: 'Map', body: 'Step text.' }, { n: '02', title: 'Build', body: 'Step text.' }, { n: '03', title: 'Ship', amp: '& improve', body: 'Step text.' }]} />
+          <CadenceTimeline steps={[{ n: '01', title: 'Map', body: 'Step text.' }, { n: '02', title: 'Build', body: 'Step text.' }, { n: '03', title: 'Ship', amp: '& iterate', body: 'Step text.', loop: 'extra line' }]} />
+        </div>
+      </section>
+
+      <section id="cp-modal" class="cp-sec">
+        <h2>Contact modal <span>ContactModal, opened by any [data-open-modal]</span></h2>
+        <button class="btn btn-primary" data-open-modal>Open the contact modal</button>
+      </section>
+
+      <section id="cp-full" class="cp-sec cp-sec--full">
+        <h2>Full homepage <span>HomePage, every section in order</span></h2>
+        <div class="cp-frame"><HomePage /></div>
+      </section>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .cp { --menu-w: 230px; padding-top: 80px; background: var(--kd-beige-1); color: var(--kd-ink); }
+  /* detached menu: fixed on the left, scrolls on its own */
+  .cp-menu { position: fixed; z-index: 70; top: 96px; left: 16px; bottom: 16px; width: var(--menu-w); overflow-y: auto; padding: 16px; background: var(--kd-white); border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius); box-shadow: 0 18px 44px -24px rgba(26, 1, 117, .35); }
+  .cp-menu summary { font-weight: 500; cursor: pointer; list-style: none; }
+  .cp-menu summary::-webkit-details-marker { display: none; }
+  .cp-menu summary span { display: block; font-size: 12px; font-weight: 400; color: var(--kd-ink-2); }
+  .cp-group { margin: 16px 0 4px; font-size: 12px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--kd-blue-2); }
+  .cp-menu ul { list-style: none; margin: 0; padding: 0; }
+  .cp-menu a { display: block; padding: 5px 8px; border-radius: var(--kd-radius); color: var(--kd-ink); text-decoration: none; font-size: 14px; }
+  .cp-menu a:hover, .cp-menu a.is-here { background: var(--kd-beige-1); color: var(--kd-blue-2); }
+  .cp-main { margin-left: calc(var(--menu-w) + 32px); padding: 24px 24px 96px; min-width: 0; }
+  @media (max-width: 980px) {
+    .cp-menu { position: sticky; top: 80px; left: auto; bottom: auto; width: auto; max-height: 60vh; margin: 0 12px; }
+    .cp-menu details:not([open]) { max-height: none; }
+    .cp-main { margin-left: 0; }
+  }
+  .cp-intro h1 { margin: 0 0 6px; font-size: var(--kd-text-l); }
+  .cp-intro p, .cp-note { color: var(--kd-ink-2); margin: 0; }
+  .cp-sec { scroll-margin-top: 96px; padding: 40px 0; border-bottom: 1px solid var(--kd-beige-3); }
+  .cp-sec h2 { margin: 0 0 20px; font-size: var(--kd-text-m); font-weight: 500; }
+  .cp-sec h2 span { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--kd-ink-2); }
+  .cp-sec--full > :not(h2) { border-radius: var(--kd-radius); overflow: hidden; }
+  .cp-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-bottom: 16px; }
+  .cp-row .eyebrow { margin-bottom: 0; }
+  .cp-dark { padding: 24px; background: var(--kd-blue-1); border-radius: var(--kd-radius); }
+  .cp-pad { padding: 48px 32px; }
+  .cp-two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .cp-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+  .cp-sw span { display: block; height: 64px; border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius); }
+  .cp-sw b { display: block; margin-top: 8px; font-weight: 500; font-size: 14px; }
+  .cp-sw code, .cp-sw small { display: block; font-size: 12px; color: var(--kd-ink-2); }
+  .cp-type { margin: 0 0 12px; font-weight: 500; display: flex; align-items: baseline; gap: 16px; }
+  .cp-type code { font-size: 12px; color: var(--kd-ink-2); width: 28px; flex: none; }
+  .cp-type--xs { text-transform: uppercase; letter-spacing: .04em; }
+  .cp-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; margin-top: 16px; }
+  .cp-icons figure { margin: 0; padding: 12px; background: var(--kd-white); border-radius: var(--kd-radius); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; color: var(--kd-ink-2); }
+  .cp-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .cp-cards, .cp-two { grid-template-columns: 1fr; } }
+  .cp-frame { outline: 1px solid var(--kd-beige-3); }
+</style>
+
+<script is:inline>
+  // highlight the section in view in the side menu
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-cp-link]'));
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('is-here', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) io.observe(s); });
+  })();
+</script>

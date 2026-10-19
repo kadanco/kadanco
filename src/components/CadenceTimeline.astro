@@ -64,6 +64,22 @@ const { steps } = Astro.props;
     window.__cadInit = true;
     function init() {
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // the line ends at the centre of the last step's dot, whatever the
+      // height of the text below it (offsetTop ignores the entry transform;
+      // the offsets are summed up to the timeline box)
+      function fit(cad) {
+        var track = cad.querySelector('.cad-track');
+        var last = cad.querySelector('.cad-step:last-child .cad-node');
+        if (!track || !last) return;
+        var y = last.offsetHeight / 2, el = last;
+        while (el && el !== cad) { y += el.offsetTop; el = el.offsetParent; }
+        if (el !== cad) y -= cad.offsetTop; // the chain skipped past the timeline
+        track.style.bottom = (cad.offsetHeight - y) + 'px';
+      }
+      var all = document.querySelectorAll('[data-cad]');
+      all.forEach(fit);
+      window.addEventListener('resize', function () { all.forEach(fit); });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { all.forEach(fit); });
       document.querySelectorAll('[data-cad]').forEach(function (cad) {
         if (reduce || !('IntersectionObserver' in window)) { cad.classList.add('is-playing'); return; }
         var io = new IntersectionObserver(function (entries) {

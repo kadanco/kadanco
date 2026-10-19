@@ -16,6 +16,8 @@
 // below is kept.
 // Voice rules from masterplan D29 apply to every string.
 
+import type { IsoIconName } from './iso-icons';
+
 export type Dept = 'product' | 'marketing' | 'sales';
 
 interface UseCaseText {
@@ -34,6 +36,7 @@ export interface UseCase {
   kind: 'page' | 'case';
   href?: string; // English path; localized by the page
   featured?: boolean;
+  icon: IsoIconName;       // animated icon, also used in the nav
   en: UseCaseText;
   de: UseCaseText;
 }
@@ -41,6 +44,7 @@ export interface UseCase {
 const entries: UseCase[] = [
   {
     id: 'adoption-rescue',
+    icon: 'board',
     dept: 'product',
     kind: 'case',
     featured: true,
@@ -61,6 +65,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'feature-list-to-clear-offer',
+    icon: 'posts',
     dept: 'marketing',
     kind: 'case',
     en: {
@@ -80,6 +85,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'dach-market-entry',
+    icon: 'pin',
     dept: 'marketing',
     kind: 'page',
     href: '/use-cases/dach-market-entry/',
@@ -100,6 +106,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'founder-led-content',
+    icon: 'rocket',
     dept: 'marketing',
     kind: 'page',
     href: '/use-cases/founder-led-content/',
@@ -120,6 +127,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'conversion-rebuild',
+    icon: 'score',
     dept: 'marketing',
     kind: 'page',
     href: '/use-cases/conversion-rebuild/',
@@ -140,6 +148,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'pipeline-off-the-founder',
+    icon: 'network',
     dept: 'sales',
     kind: 'case',
     en: {
@@ -159,6 +168,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'event-pipeline',
+    icon: 'stage',
     dept: 'sales',
     kind: 'page',
     href: '/use-cases/event-pipeline/',
