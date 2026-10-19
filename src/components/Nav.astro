@@ -169,12 +169,17 @@ const langItems = switcherLocales.map((l) => ({
   @media (max-width: 1080px) { .nav-links { gap: 22px; } }
 
   /* ---------- dropdowns (hover and focus on desktop, click on touch) ---------- */
-  .nav-dd { position: relative; display: inline-flex; }
-  .nav-dd-trigger { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; margin: 0; font-family: inherit; line-height: 1; cursor: pointer; }
+  /* the whole item is the target: it fills the full height of the bar, so
+     hovering anywhere on or around the label opens the menu */
+  .nav-links { align-self: stretch; }
+  .nav-dd { position: relative; display: inline-flex; align-self: stretch; }
+  .nav-dd-trigger { display: inline-flex; align-items: center; gap: 6px; height: 100%; background: none; border: 0; padding: 0 4px; margin: 0 -4px; font-family: inherit; line-height: 1; cursor: pointer; }
+  /* keep the hover underline just under the label, not at the bottom of the bar */
+  .nav-links .nav-dd-trigger::after { bottom: calc(50% - 15px); left: 4px; right: 4px; }
   .nav-caret { transition: transform .2s ease; opacity: .75; }
   .nav-dd:hover .nav-caret, .nav-dd.open .nav-caret { transform: rotate(180deg); }
   .nav-dd-menu {
-    position: absolute; top: calc(100% + 16px); left: 50%; z-index: 90;
+    position: absolute; top: calc(100% - 8px); left: 50%; z-index: 90;
     min-width: 200px; padding: 6px;
     background: var(--kd-white); border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius);
     box-shadow: 0 18px 44px -20px rgba(26, 1, 117, .3);
@@ -182,7 +187,7 @@ const langItems = switcherLocales.map((l) => ({
     transition: opacity .16s ease, transform .16s ease;
   }
   /* invisible bridge so the menu stays open while the pointer moves down to it */
-  .nav-dd-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+  .nav-dd-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
   .nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu, .nav-dd.open .nav-dd-menu {
     opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
   }
