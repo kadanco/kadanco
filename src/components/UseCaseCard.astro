@@ -29,6 +29,7 @@ const showDetail = size === 'full' || featured;
 <a
   class:list={['uc-card', `uc-card--${uc.dept}`, { 'uc-card--featured': featured, 'uc-card--full': size === 'full' }]}
   href={href}
+  id={uc.id}
   data-dept={uc.dept}
   data-open-modal={hasPage ? undefined : ''}
 >

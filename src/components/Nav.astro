@@ -9,10 +9,14 @@
 // The colour switch is driven by the script in Layout.astro, which reads the
 // background under the nav, so it also follows dark mode.
 //
-// Content: the October nav. Product, Marketing, Sales, About, a plain EN / DE
-// switch, a light/dark toggle (only on pages that support dark mode, see
-// `themeable` in Layout.astro) and "Let's Talk".
+// Content: four items, Services, Use Cases and Resources as dropdowns plus
+// About, then a plain EN / DE switch, a light/dark toggle (only on pages that
+// support dark mode, see `themeable` in Layout.astro) and "Let's Talk".
+// Dropdowns open on hover and keyboard focus (desktop) and on click (touch).
+// The use case list comes from src/data/use-cases.ts, so it stays in sync.
+// Resources is meant to grow (blog posts later): add items to `resources`.
 import { switcherLocales } from '../i18n/ui';
+import { useCases } from '../data/use-cases';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
 
 const { themeable = false } = Astro.props;
@@ -20,16 +24,30 @@ const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 const base = basePath(Astro.url.pathname, locale);
 
-const links = [
-  { key: 'nav.product', href: '/#product' },
-  { key: 'nav.marketing', href: '/#marketing' },
-  { key: 'nav.sales', href: '/#sales' },
-  { key: 'nav.about', href: '/#about' },
-  // extra links: hidden on mid-size screens (still in the mobile menu and the footer)
-  { key: 'nav.usecases', href: '/use-cases/', extra: true },
-  { key: 'nav.faq', href: '/#faq', extra: true },
-  { key: 'nav.glossary', href: '/glossary/', extra: true },
+type Item = { label: string; href: string; all?: boolean };
+type Menu = { key: string; items: Item[] };
+
+const services: Item[] = [
+  { label: 'Product Design', href: '/#product' },
+  { label: 'Product Marketing', href: '/#marketing' },
+  { label: 'Sales', href: '/#sales' },
 ];
+// pages link to their detail page; case studies to their card on /use-cases/
+const ucItems: Item[] = useCases.map((u) => ({
+  label: (u[locale] ?? u.en).name,
+  href: u.kind === 'page' && u.href ? u.href : `/use-cases/#${u.id}`,
+}));
+const resources: Item[] = [
+  { label: t('nav.glossary'), href: '/glossary/' },
+  { label: t('nav.faq'), href: '/#faq' },
+];
+const menus: Menu[] = [
+  { key: 'nav.services', items: services },
+  { key: 'nav.usecases', items: [...ucItems, { label: t('nav.allusecases'), href: '/use-cases/', all: true }] },
+  { key: 'nav.resources', items: resources },
+];
+const about = { key: 'nav.about', href: '/#about' };
+
 
 // A language is a real link only where THIS page is translated; otherwise it is
 // shown greyed out, so nobody clicks through to a redirect.
@@ -47,7 +65,18 @@ const langItems = switcherLocales.map((l) => ({
       <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
     </a>
     <nav class="nav-links" aria-label="Primary">
-      {links.map((l) => <a class:list={['navlink', { 'navlink--extra': l.extra }]} href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
+      {menus.map((m) => (
+        <div class="nav-dd">
+          <button type="button" class="navlink nav-dd-trigger" aria-haspopup="true" aria-expanded="false">
+            {t(m.key)}
+            <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+          <div class="nav-dd-menu" role="menu">
+            {m.items.map((it) => <a class:list={['nav-dd-link', { 'nav-dd-link--all': it.all }]} href={localizedHref(locale, it.href)} role="menuitem">{it.label}</a>)}
+          </div>
+        </div>
+      ))}
+      <a class="navlink" href={localizedHref(locale, about.href)}>{t(about.key)}</a>
 
       <span class="nav-lang" aria-label={t('lang.label')}>
         {langItems.map((it, i) => (
@@ -79,7 +108,18 @@ const langItems = switcherLocales.map((l) => ({
   <!-- Mobile panel. Only the open/close needs JS. -->
   <div class="nav-mobile" id="nav-mobile" hidden>
     <div class="container">
-      {links.map((l) => <a class="nav-m-link" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
+      {menus.map((m) => (
+        <details class="nav-m-group">
+          <summary>
+            <span>{t(m.key)}</span>
+            <svg class="nav-m-caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </summary>
+          <div class="nav-m-sub">
+            {m.items.map((it) => <a class:list={['nav-m-sublink', { 'nav-m-sublink--all': it.all }]} href={localizedHref(locale, it.href)}>{it.label}</a>)}
+          </div>
+        </details>
+      ))}
+      <a class="nav-m-link" href={localizedHref(locale, about.href)}>{t(about.key)}</a>
       <div class="nav-m-row">
         <span class="nav-lang" aria-label={t('lang.label')}>
           {langItems.map((it, i) => (
@@ -125,9 +165,31 @@ const langItems = switcherLocales.map((l) => ({
   }
 
   @media (max-width: 880px) { .nav-links > .nav-lang, .nav-links > .theme-toggle { display: none; } }
-  /* desktop links never wrap; on mid-size screens the extra links step out */
   .nav-links .navlink { white-space: nowrap; }
-  @media (max-width: 1180px) { .nav-links { gap: 22px; } .nav-links .navlink--extra { display: none; } }
+  @media (max-width: 1080px) { .nav-links { gap: 22px; } }
+
+  /* ---------- dropdowns (hover and focus on desktop, click on touch) ---------- */
+  .nav-dd { position: relative; display: inline-flex; }
+  .nav-dd-trigger { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; margin: 0; font-family: inherit; line-height: 1; cursor: pointer; }
+  .nav-caret { transition: transform .2s ease; opacity: .75; }
+  .nav-dd:hover .nav-caret, .nav-dd.open .nav-caret { transform: rotate(180deg); }
+  .nav-dd-menu {
+    position: absolute; top: calc(100% + 16px); left: 50%; z-index: 90;
+    min-width: 200px; padding: 6px;
+    background: var(--kd-white); border: 1px solid var(--kd-beige-3); border-radius: var(--kd-radius);
+    box-shadow: 0 18px 44px -20px rgba(26, 1, 117, .3);
+    transform: translateX(-50%) translateY(-6px); opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .16s ease, transform .16s ease;
+  }
+  /* invisible bridge so the menu stays open while the pointer moves down to it */
+  .nav-dd-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+  .nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu, .nav-dd.open .nav-dd-menu {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
+  }
+  .nav-dd-link { display: block; padding: 9px 12px; border-radius: var(--kd-radius); color: var(--kd-ink); text-decoration: none; font-size: .95rem; white-space: nowrap; }
+  .nav-dd-link:hover, .nav-dd-link:focus-visible { background: var(--kd-beige-1); color: var(--kd-blue-2); outline: none; }
+  .nav-dd-link--all { margin-top: 5px; padding-top: 12px; border-top: 1px solid var(--kd-beige-3); border-radius: 0 0 var(--kd-radius) var(--kd-radius); font-weight: var(--kd-weight-medium); }
+  @media (max-width: 880px) { .nav-dd { display: none; } }
   /* narrow phones: the logo never shrinks; the CTA gets smaller instead */
   .brand { flex: none; }
   @media (max-width: 480px) {
@@ -178,6 +240,18 @@ const langItems = switcherLocales.map((l) => ({
       color: var(--kd-ink); text-decoration: none;
       font-size: 1.05rem; font-weight: 500;
     }
+    .nav-m-group > summary {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 14px 2px; border-bottom: 1px solid var(--kd-beige-3);
+      color: var(--kd-ink); font-size: 1.05rem; font-weight: 500; cursor: pointer; list-style: none;
+    }
+    .nav-m-group > summary::-webkit-details-marker { display: none; }
+    .nav-m-caret { opacity: .6; flex: none; transition: transform .2s ease; }
+    .nav-m-group[open] > summary .nav-m-caret { transform: rotate(180deg); }
+    .nav-m-sub { display: flex; flex-direction: column; padding: 6px 0 12px 2px; }
+    .nav-m-sublink { padding: 10px 12px; border-radius: var(--kd-radius); color: var(--kd-ink-2); text-decoration: none; }
+    .nav-m-sublink:hover { background: var(--kd-beige-1); color: var(--kd-blue-2); }
+    .nav-m-sublink--all { font-weight: 500; color: var(--kd-ink); }
     .nav-m-row { display: flex; align-items: center; gap: 24px; padding: 16px 2px 0; }
   }
 
@@ -214,6 +288,25 @@ const langItems = switcherLocales.map((l) => ({
     });
     if (mq && mq.addEventListener) mq.addEventListener('change', label);
     label();
+  })();
+
+  // Dropdowns: click toggles (touch), opening one closes the others; a click
+  // outside or Escape closes all. Hover and focus are handled in CSS.
+  (function () {
+    var wraps = Array.prototype.slice.call(document.querySelectorAll('.nav-dd'));
+    if (!wraps.length) return;
+    function close(w) { w.classList.remove('open'); var b = w.querySelector('.nav-dd-trigger'); if (b) b.setAttribute('aria-expanded', 'false'); }
+    wraps.forEach(function (w) {
+      var b = w.querySelector('.nav-dd-trigger');
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = w.classList.toggle('open');
+        b.setAttribute('aria-expanded', open ? 'true' : 'false');
+        wraps.forEach(function (o) { if (o !== w) close(o); });
+      });
+    });
+    document.addEventListener('click', function (e) { wraps.forEach(function (w) { if (!w.contains(e.target)) close(w); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') wraps.forEach(close); });
   })();
 
   // Mobile panel toggle. Guarded so it runs once even if the nav is re-rendered.

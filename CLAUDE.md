@@ -96,7 +96,7 @@ Done:
 - Dev-only style guide at `/styleguide`.
 - Unused font weights (600, 700, 900) removed from the Google Fonts request.
 - Homepage rebuilt to `design/02_pages/Kadanco_Home-20261015-0850.html` (EN and DE) in `src/components/HomePage.astro`. Old homepage backed up locally in `_local/accessdach/` for accessdach.com.
-- Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk) with the new content: Product / Marketing / Sales / About, plain EN / DE, one light/dark toggle icon. Footer on ink.
+- Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk). Four items: Services, Use Cases and Resources as dropdowns, plus About; then EN / DE, one light/dark toggle icon, CTA. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
 - Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices (Product app screen, Marketing content, Sales pipeline bars lying flat) in the style of the Conversion rebuild hero illustration, with the labels printed on each slice's top face and no legend.
@@ -154,3 +154,4 @@ Next, in order:
 - 2026-10-19: Hero boards turned 45 degrees (owner request) instead of a quarter. The angle is one setting, `ANGLE` in `HomeHeroVisual.astro` (0 = labels on the front-left edge, 90 = front-right). At 45 the boards read as flat cards; 60 or 75 keep the 3D look with gently rising labels.
 - 2026-10-19: Hero slices restored to the original orientation with labels on the front-left edge (reading top left to bottom right). The quarter turn, the 45 degree turn and the label alternatives (right edge, side tags, hover only) were tried and rejected.
 - 2026-10-19: Gaps against the live homepage filled: "How We Work" (Map, Build, Ship & Improve) after Who We Are in `HomeSteps.astro`, rewritten for product, marketing and sales; "What you get" outcome lines back on the use case cards (`own` in `src/data/use-cases.ts`); scroll fade-ins extended to the new sections; nav links Use Cases, FAQ and Glossary back (hidden between 881 and 1180px, always in the mobile menu and footer).
+- 2026-10-19: Nav is four items: Services (Product Design, Product Marketing, Sales), Use Cases (all 7 from `src/data/use-cases.ts` plus All use cases), Resources (Glossary, FAQ; blog posts later, add to `resources` in `Nav.astro`), About. Then language, light/dark, CTA. Mobile menu uses the same groups as accordions.
