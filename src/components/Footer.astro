@@ -6,20 +6,16 @@
 // columns, then a legal row, then the company meta line. Ink ground, beige
 // text and lilac column heads, per the October 2026 design.
 //
-// The link columns matter on mobile: the nav dropdowns are hidden below 880px,
-// so this is the only route to the use-case and glossary pages on a phone.
+// Columns: Services, Use Cases and Resources (the same groups as the nav,
+// from src/data/menus.ts), then Company with About and contact details.
 import { asLocale, useTranslations, localizedHref } from '../i18n/utils';
+import { siteMenus } from '../data/menus';
 
 const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 const year = new Date().getFullYear();
 
-const useCases = [
-  { key: 'uc.dach', href: '/use-cases/dach-market-entry/' },
-  { key: 'uc.founder', href: '/use-cases/founder-led-content/' },
-  { key: 'uc.conversion', href: '/use-cases/conversion-rebuild/' },
-  { key: 'uc.events', href: '/use-cases/event-pipeline/' },
-];
+const menus = siteMenus(locale, t);
 ---
 <footer class="footer">
   <div class="container">
@@ -33,34 +29,19 @@ const useCases = [
       </div>
 
       <nav class="foot-cols" aria-label="Footer">
-        <div class="foot-col">
-          <p class="foot-colhead">{t('footer.head.usecases')}</p>
-          <ul>
-            {useCases.map((l) => <li><a href={localizedHref(locale, l.href)}>{t(l.key)}</a></li>)}
-            <li><a class="is-all" href={localizedHref(locale, '/use-cases/')}>{t('nav.allusecases')}</a></li>
-          </ul>
-        </div>
+        {menus.map((m) => (
+          <div class="foot-col">
+            <p class="foot-colhead">{t(m.key)}</p>
+            <ul>
+              {m.items.map((it) => <li><a class:list={{ 'is-all': it.all }} href={localizedHref(locale, it.href)}>{it.label}</a></li>)}
+            </ul>
+          </div>
+        ))}
 
         <div class="foot-col">
           <p class="foot-colhead">{t('footer.head.company')}</p>
           <ul>
-            <li><a href={localizedHref(locale, '/#product')}>{t('nav.product')}</a></li>
-            <li><a href={localizedHref(locale, '/#marketing')}>{t('nav.marketing')}</a></li>
-            <li><a href={localizedHref(locale, '/#sales')}>{t('nav.sales')}</a></li>
             <li><a href={localizedHref(locale, '/#about')}>{t('nav.about')}</a></li>
-          </ul>
-        </div>
-
-        <div class="foot-col">
-          <p class="foot-colhead">{t('footer.head.resources')}</p>
-          <ul>
-            <li><a href="/glossary/">{t('nav.glossary')}</a></li>
-          </ul>
-        </div>
-
-        <div class="foot-col">
-          <p class="foot-colhead">{t('footer.head.contact')}</p>
-          <ul>
             <li><a href="mailto:hello@kadanco.com">hello@kadanco.com</a></li>
             <li><a href="https://www.linkedin.com/company/kadanco/" aria-label={t('footer.linkedin')}>LinkedIn</a></li>
           </ul>

@@ -38,6 +38,7 @@ src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
 src/data/use-cases.ts       all 7 use cases (EN and DE), read by the homepage and /use-cases/
+src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
 src/dev/styleguide.astro    dev-only style guide at /styleguide (injected in astro.config.mjs)
@@ -157,3 +158,4 @@ Next, in order:
 - 2026-10-19: Nav is four items: Services (Product Design, Product Marketing, Sales), Use Cases (all 7 from `src/data/use-cases.ts` plus All use cases), Resources (Glossary, FAQ; blog posts later, add to `resources` in `Nav.astro`), About. Then language, light/dark, CTA. Mobile menu uses the same groups as accordions.
 - 2026-10-19: How We Work uses the original How We Operate look (deep band, `CadenceTimeline` left, text right) with the new text. The "and it compounds" line under step 03 is removed.
 - 2026-10-19: FAQ uses the live design (`LiveFaq.astro`: paper band, centred filled label, three-column white cards, 10px radius) with the new questions and answers from `HomePage.astro`.
+- 2026-10-19: Footer columns match the nav: Services, Use Cases (all 7 plus All use cases), Resources (Glossary, FAQ), Company (About, email, LinkedIn). Both read `src/data/menus.ts`. Footer tagline now covers product, marketing and sales.

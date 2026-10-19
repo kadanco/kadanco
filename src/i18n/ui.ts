@@ -71,7 +71,7 @@ const en: Dict = {
   'lang.label': 'Change language',
 
   // footer
-  'footer.tagline': 'An embedded marketing team for B2B companies. We own the plan and run it ourselves.',
+  'footer.tagline': 'One senior team across product, marketing and sales for B2B companies. We own the plan and run it ourselves.',
   'footer.head.usecases': 'Use cases',
   'footer.head.company': 'Company',
   'footer.head.resources': 'Resources',
@@ -130,7 +130,7 @@ const de: Dict = {
   'lang.label': 'Sprache wechseln',
 
   // footer
-  'footer.tagline': 'Ein eingebettetes Marketing-Team für B2B-Unternehmen. Wir verantworten den Plan und setzen ihn selbst um.',
+  'footer.tagline': 'Ein erfahrenes Team für Produkt, Marketing und Vertrieb in B2B-Unternehmen. Wir verantworten den Plan und setzen ihn selbst um.',
   'footer.head.usecases': 'Use Cases',
   'footer.head.company': 'Unternehmen',
   'footer.head.resources': 'Ressourcen',

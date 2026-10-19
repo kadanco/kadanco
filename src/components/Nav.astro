@@ -13,10 +13,9 @@
 // About, then a plain EN / DE switch, a light/dark toggle (only on pages that
 // support dark mode, see `themeable` in Layout.astro) and "Let's Talk".
 // Dropdowns open on hover and keyboard focus (desktop) and on click (touch).
-// The use case list comes from src/data/use-cases.ts, so it stays in sync.
-// Resources is meant to grow (blog posts later): add items to `resources`.
+// The link groups come from src/data/menus.ts, shared with the footer.
 import { switcherLocales } from '../i18n/ui';
-import { useCases } from '../data/use-cases';
+import { siteMenus } from '../data/menus';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
 
 const { themeable = false } = Astro.props;
@@ -24,28 +23,7 @@ const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 const base = basePath(Astro.url.pathname, locale);
 
-type Item = { label: string; href: string; all?: boolean };
-type Menu = { key: string; items: Item[] };
-
-const services: Item[] = [
-  { label: 'Product Design', href: '/#product' },
-  { label: 'Product Marketing', href: '/#marketing' },
-  { label: 'Sales', href: '/#sales' },
-];
-// pages link to their detail page; case studies to their card on /use-cases/
-const ucItems: Item[] = useCases.map((u) => ({
-  label: (u[locale] ?? u.en).name,
-  href: u.kind === 'page' && u.href ? u.href : `/use-cases/#${u.id}`,
-}));
-const resources: Item[] = [
-  { label: t('nav.glossary'), href: '/glossary/' },
-  { label: t('nav.faq'), href: '/#faq' },
-];
-const menus: Menu[] = [
-  { key: 'nav.services', items: services },
-  { key: 'nav.usecases', items: [...ucItems, { label: t('nav.allusecases'), href: '/use-cases/', all: true }] },
-  { key: 'nav.resources', items: resources },
-];
+const menus = siteMenus(locale, t);
 const about = { key: 'nav.about', href: '/#about' };
 
 
