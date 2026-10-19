@@ -1,0 +1,39 @@
+---
+// src/components/LiveFaq.astro
+// The FAQ section in the live kadanco.com design (branch main): paper band,
+// centred filled "FAQ" label, "Questions, Answered." and a three-column grid
+// of white cards. The questions and answers are the new homepage copy,
+// passed in from HomePage.astro (EN and DE). The live look (10px radius,
+// filled label, old paper ground) is scoped to this section; like the live
+// page it stays light in dark mode.
+// Note: the live label uses weight 600, which the site no longer loads
+// (brand rule: 400 and 500), so the browser shows it at 500.
+interface Props {
+  eyebrow: string;
+  h2a: string;
+  h2b: string;
+  faqs: { q: string; a: string }[];
+}
+const { eyebrow, h2a, h2b, faqs } = Astro.props;
+---
+<section id="faq" class="section band-paper center live-faq" data-theme="light">
+  <div class="container">
+    <span class="eyebrow indigo">{eyebrow}</span>
+    <h2>{h2a} <span class="hl-indigo">{h2b}</span></h2>
+    <div class="grid cols-3" style="margin-top:48px">
+      {faqs.map((f) => (
+        <div class="card faq-card">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* live values, scoped to this section only */
+  .live-faq { --radius: 10px; --paper: var(--kd-legacy-paper); color: var(--kd-ink); }
+  .live-faq .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
+  .live-faq .eyebrow.indigo { background: var(--kd-blue-2); color: var(--kd-white); }
+</style>

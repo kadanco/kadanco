@@ -19,6 +19,7 @@ import UseCaseCard from './UseCaseCard.astro';
 import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
 import LiveCompliance from './LiveCompliance.astro';
+import LiveFaq from './LiveFaq.astro';
 import HomeComparison from './HomeComparison.astro';
 import HomeSteps from './HomeSteps.astro';
 import { useCases } from '../data/use-cases';
@@ -170,23 +171,8 @@ const logos = [
   <!-- ===================== HOW WE WORK: the live How We Operate, rewritten (HomeSteps.astro) ===================== -->
   <HomeSteps />
 
-  <!-- ===================== FAQ ===================== -->
-  <section class="home-sec home-sec--alt" id="faq">
-    <div class="container">
-      <div class="home-head">
-        <span class="home-eyebrow">{c.faqEyebrow}</span>
-        <h2>{c.faqH2a} <em>{c.faqH2b}</em></h2>
-      </div>
-      <div class="home-faq">
-        {c.faqs.map((f) => (
-          <article class="home-faq-card">
-            <h3>{f.q}</h3>
-            <p>{f.a}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ===================== FAQ: live design, new questions (LiveFaq.astro) ===================== -->
+  <LiveFaq eyebrow={c.faqEyebrow} h2a={c.faqH2a} h2b={c.faqH2b} faqs={c.faqs} />
 
   <!-- ===================== COMPLIANCE: restored exactly as live (LiveCompliance.astro) ===================== -->
   <LiveCompliance />
@@ -248,13 +234,6 @@ const logos = [
   @media (max-width: 640px) { .home-uc { grid-template-columns: 1fr; } }
   .home-uc-all { margin-top: 32px; }
 
-  /* ---------- FAQ: 3-column card grid ---------- */
-  .home-faq { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 980px) { .home-faq { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { .home-faq { grid-template-columns: 1fr; } }
-  .home-faq-card { padding: 28px; background: var(--kd-surface); border: 1px solid var(--kd-line); border-radius: var(--kd-radius); display: flex; flex-direction: column; gap: 10px; }
-  .home-faq-card h3 { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); }
-  .home-faq-card p { font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
 
   .home :where(a, button):focus-visible { outline: 2px solid var(--kd-accent); outline-offset: 2px; }
   @media (max-width: 640px) { .home-sec { padding: 56px 0; } .home-card { min-height: 0; } }
