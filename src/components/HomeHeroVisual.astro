@@ -45,85 +45,95 @@ const copy = {
 }[locale];
 
 // ---------- geometry ----------
-const W = 136, D = 100, T = 6;     // board size (x length, y depth, thickness)
+// Content is laid out as it looks in the straight view: u to the right (0..U),
+// v downwards (0..V), the label along the bottom edge. In the isometric view
+// each board is turned a quarter, so that bottom edge becomes the front-right
+// edge and the label reads upwards, from bottom left to top right.
+const U = 136, V = 100, T = 6;     // board in the straight view: width, height, thickness
+const W = V, D = U;                // the same board in isometric x (down-right) and y (down-left)
 const GAP = 100;                   // vertical distance between slices
 const PAD = 16;
-const STRIP = 18;                  // label strip along the front edge of each board
+const STRIP = 18;                  // label strip along the bottom edge (straight view)
 const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
 const TOP = 2 * GAP + T + 16;      // highest point (top slice plus its tallest block)
 const ox = PAD + D * C30, oy = PAD + TOP;
 const iso = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
+// layout (u, v) to board (x, y): the quarter turn
+const toX = (u: number, v: number) => v, toY = (u: number, v: number) => U - u;
 
 // straight view: the board seen from directly above, centred where its
 // isometric top face sits, nudged left to leave room for the text
 const SHIFT = 34;
 const flatOf = (zBase: number) => {
   const [cx, cy] = iso(W / 2, D / 2, zBase + T);
-  return (x: number, y: number) => [cx - SHIFT + (x - W / 2), cy + (y - D / 2)];
+  return (u: number, v: number) => [cx - SHIFT + (u - U / 2), cy + (v - V / 2)];
 };
 
 type P3 = [number, number, number];
 type Face = { a: string; b: string; cls: string };
+type Box = { depth: number; faces: Face[] };
 const fmt = (pts: number[][]) => pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
 
-// a box from (x0,y0) to (x1,y1), standing on z0 with height h: the three faces
-// seen from the front, in isometric (a) and straight view (b)
-const boxOn = (flat: (x: number, y: number) => number[]) =>
-  (x0: number, x1: number, y0: number, y1: number, z0: number, h: number, top = ''): Face[] => {
+// a box from (u0,v0) to (u1,v1) in the layout, standing on z0 with height h:
+// the three faces seen from the front, in isometric (a) and straight view (b)
+const boxOn = (flat: (u: number, v: number) => number[]) =>
+  (u0: number, u1: number, v0: number, v1: number, z0: number, h: number, top = ''): Box => {
+    const x0 = toX(u0, v0), x1 = toX(u0, v1), y0 = toY(u1, v0), y1 = toY(u0, v0);
     const faces: { pts: P3[]; cls: string }[] = [
       { pts: [[x0, y1, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x0, y1, z0]], cls: 'f side' },
       { pts: [[x1, y0, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x1, y0, z0]], cls: 'f side' },
       { pts: [[x0, y0, z0 + h], [x1, y0, z0 + h], [x1, y1, z0 + h], [x0, y1, z0 + h]], cls: `f ${top}`.trim() },
     ];
-    return faces.map((f) => ({
-      a: fmt(f.pts.map(([x, y, z]) => iso(x, y, z))),
-      b: fmt(f.pts.map(([x, y]) => flat(x, y))),
-      cls: f.cls,
-    }));
+    return {
+      depth: x0 + x1 + y0 + y1, // painter's order: further back is drawn first
+      faces: faces.map((f) => ({
+        a: fmt(f.pts.map(([x, y, z]) => iso(x, y, z))),
+        b: fmt(f.pts.map(([x, y]) => flat(U - y, x))),
+        cls: f.cls,
+      })),
+    };
   };
+// board first, then its blocks from back to front
+const stack = (board: Box, blocks: Box[]) => [board, ...blocks.sort((a, b) => a.depth - b.depth)].flatMap((b) => b.faces);
 
 const zP = 0, zM = GAP, zS = 2 * GAP;
 const fP = flatOf(zP), fM = flatOf(zM), fS = flatOf(zS);
 const bP = boxOn(fP), bM = boxOn(fM), bS = boxOn(fS);
 
-// main content sits towards the front corner, where the slice above does not cover it
-const product = [
-  ...bP(0, W, 0, D, zP, T),
-  ...bP(8, W - 8, 8, 20, zP + T, 4, 'acc'),                   // top bar of the app screen
-  // the two UI blocks share the top bar's outer edges (8 and W - 8), with a 12 gap
-  ...bP(8, (W - 12) / 2, 32, D - STRIP - 4, zP + T, 8, 'acc'),       // UI block
-  ...bP((W + 12) / 2, W - 8, 32, D - STRIP - 4, zP + T, 14, 'acc'),  // UI block
-];
-const marketing = [
-  ...bM(0, W, 0, D, zM, T),
-  ...bM(12, W - 12, 12, 30, zM + T, 3),                       // headline strip
-  ...bM(12, 62, 40, 46, zM + T, 2, 'ink'),                    // text lines
-  ...bM(12, 54, 52, 58, zM + T, 2, 'ink'),
-  ...bM(12, 46, 64, 70, zM + T, 2, 'ink'),
-  ...bM(74, W - 12, 40, D - STRIP - 4, zM + T, 8, 'acc'),     // content card
-];
-// pipeline bars lie flat like the blocks on the other slices; they grow in
-// length across the board (y), not upwards (z)
-const sales = [
-  ...bS(0, W, 0, D, zS, T),
-  ...bS(20, 40, 50, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...bS(58, 78, 30, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...bS(96, 116, 10, D - STRIP - 4, zS + T, 8, 'acc'),
-];
+const product = stack(bP(0, U, 0, V, zP, T), [
+  bP(8, U - 8, 8, 20, zP + T, 4, 'acc'),                       // top bar of the app screen
+  // the two UI blocks share the top bar's outer edges (8 and U - 8), with a 12 gap
+  bP(8, (U - 12) / 2, 32, V - STRIP - 4, zP + T, 8, 'acc'),        // UI block
+  bP((U + 12) / 2, U - 8, 32, V - STRIP - 4, zP + T, 14, 'acc'),   // UI block
+]);
+const marketing = stack(bM(0, U, 0, V, zM, T), [
+  bM(12, U - 12, 12, 30, zM + T, 3),                           // headline strip
+  bM(12, 62, 40, 46, zM + T, 2, 'ink'),                        // text lines
+  bM(12, 54, 52, 58, zM + T, 2, 'ink'),
+  bM(12, 46, 64, 70, zM + T, 2, 'ink'),
+  bM(74, U - 12, 40, V - STRIP - 4, zM + T, 8, 'acc'),         // content card
+]);
+// pipeline bars lie flat like the blocks on the other slices and grow in length
+const sales = stack(bS(0, U, 0, V, zS, T), [
+  bS(20, 40, 50, V - STRIP - 4, zS + T, 8, 'acc'),
+  bS(58, 78, 30, V - STRIP - 4, zS + T, 8, 'acc'),
+  bS(96, 116, 10, V - STRIP - 4, zS + T, 8, 'acc'),
+]);
 
 // browser dots on the app screen's top bar, in both views
-const dots = [16, 24, 32].map((x) => ({ a: iso(x, 14, zP + T + 4), b: fP(x, 14) }));
+const dots = [16, 24, 32].map((u) => ({ a: iso(toX(u, 14), toY(u, 14), zP + T + 4), b: fP(u, 14) }));
 
-// label printed on the top face along the front edge; the matrix maps the
-// text's axes onto the board (isometric) or keeps it upright (straight view)
-const lab = (z: number, flat: (x: number, y: number) => number[]) => {
-  const [ax, ay] = iso(12, D - 6, z + T);
-  const [bx, by] = flat(12, D - 6);
-  return { a: [C30, S30, -C30, S30, ax, ay].map((n) => +n.toFixed(4)).join(' '), b: [1, 0, 0, 1, bx, by].map((n) => +n.toFixed(4)).join(' ') };
+// label printed on the top face along the bottom edge (straight view). In the
+// isometric view its baseline runs along the board's -y axis (up and to the
+// right) and its height along +x; in the straight view it is upright.
+const lab = (z: number, flat: (u: number, v: number) => number[]) => {
+  const [ax, ay] = iso(toX(12, V - 6), toY(12, V - 6), z + T);
+  const [bx, by] = flat(12, V - 6);
+  return { a: [C30, -S30, C30, S30, ax, ay].map((n) => +n.toFixed(4)).join(' '), b: [1, 0, 0, 1, bx, by].map((n) => +n.toFixed(4)).join(' ') };
 };
 
 // where the text panel sits in the straight view: right of the board, centred on it
-const panelAt = (flat: (x: number, y: number) => number[]) => { const [x, y] = flat(W, D / 2); return { x: x + 14, y }; };
+const panelAt = (flat: (u: number, v: number) => number[]) => { const [x, y] = flat(U, V / 2); return { x: x + 14, y }; };
 
 const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + PAD);
 
