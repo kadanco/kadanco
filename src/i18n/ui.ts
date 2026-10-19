@@ -44,6 +44,8 @@ type Dict = Record<string, string>;
 const en: Dict = {
   // nav
   'nav.glossary': 'Glossary',
+  'nav.usecases': 'Use Cases',
+  'nav.faq': 'FAQ',
   'nav.allusecases': 'All use cases',
   'nav.product': 'Product',
   'nav.marketing': 'Marketing',
@@ -99,6 +101,8 @@ const en: Dict = {
 const de: Dict = {
   // nav
   'nav.glossary': 'Glossar',
+  'nav.usecases': 'Use Cases',
+  'nav.faq': 'FAQ',
   'nav.allusecases': 'Alle Use Cases',
   'nav.product': 'Produkt',
   'nav.marketing': 'Marketing',

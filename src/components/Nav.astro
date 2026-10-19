@@ -25,6 +25,10 @@ const links = [
   { key: 'nav.marketing', href: '/#marketing' },
   { key: 'nav.sales', href: '/#sales' },
   { key: 'nav.about', href: '/#about' },
+  // extra links: hidden on mid-size screens (still in the mobile menu and the footer)
+  { key: 'nav.usecases', href: '/use-cases/', extra: true },
+  { key: 'nav.faq', href: '/#faq', extra: true },
+  { key: 'nav.glossary', href: '/glossary/', extra: true },
 ];
 
 // A language is a real link only where THIS page is translated; otherwise it is
@@ -43,7 +47,7 @@ const langItems = switcherLocales.map((l) => ({
       <img class="brand-logo brand-logo--light" src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" />
     </a>
     <nav class="nav-links" aria-label="Primary">
-      {links.map((l) => <a class="navlink" href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
+      {links.map((l) => <a class:list={['navlink', { 'navlink--extra': l.extra }]} href={localizedHref(locale, l.href)}>{t(l.key)}</a>)}
 
       <span class="nav-lang" aria-label={t('lang.label')}>
         {langItems.map((it, i) => (
@@ -121,6 +125,9 @@ const langItems = switcherLocales.map((l) => ({
   }
 
   @media (max-width: 880px) { .nav-links > .nav-lang, .nav-links > .theme-toggle { display: none; } }
+  /* desktop links never wrap; on mid-size screens the extra links step out */
+  .nav-links .navlink { white-space: nowrap; }
+  @media (max-width: 1180px) { .nav-links { gap: 22px; } .nav-links .navlink--extra { display: none; } }
   /* narrow phones: the logo never shrinks; the CTA gets smaller instead */
   .brand { flex: none; }
   @media (max-width: 480px) {

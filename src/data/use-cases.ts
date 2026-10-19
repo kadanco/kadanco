@@ -22,6 +22,7 @@ interface UseCaseText {
   eyebrow: string;
   name: string;
   summary: string;
+  own?: string;           // what the client ends up with
   bundle?: string[];
   problem?: string;
   approach?: string;
@@ -86,12 +87,14 @@ const entries: UseCase[] = [
       eyebrow: 'Market entry',
       name: 'DACH market entry',
       summary: 'A German-language presence that grows every week, run end to end.',
+      own: 'A German-language presence that gets stronger every week, your existing assets finally working in the market, and a pipeline your sales team does not have to run themselves.',
       bundle: ['Localised positioning', 'A German content engine', 'LinkedIn for the team', 'An events programme', 'Distribution that builds over time'],
     },
     de: {
       eyebrow: 'Markteintritt',
       name: 'DACH-Markteintritt',
       summary: 'Eine deutschsprachige Präsenz, die wächst, End-to-End betrieben.',
+      own: 'Eine deutschsprachige Präsenz, die Woche für Woche stärker wird, Ihre bestehenden Assets, die endlich im Markt wirken, und eine Pipeline, die Ihr Vertrieb nicht selbst betreiben muss.',
       bundle: ['Lokalisierte Positionierung', 'Eine deutschsprachige Content-Produktion', 'LinkedIn für das Team', 'Ein Event-Programm', 'Distribution, die sich aufbaut'],
     },
   },
@@ -104,12 +107,14 @@ const entries: UseCase[] = [
       eyebrow: 'Founder content',
       name: 'Founder-led content & pipeline',
       summary: "A regular publishing schedule in the founder's voice, feeding measurable pipeline.",
+      own: "A steady publishing schedule in the founder's voice that feeds pipeline you can measure, with likes and views as a side effect.",
       bundle: ['Messaging & positioning', 'Ghostwriting & content', 'SEO & GEO', 'Outbound warmed by the content', 'RevOps to track what converts'],
     },
     de: {
       eyebrow: 'Founder-Content',
       name: 'Founder-Content & Pipeline',
       summary: 'Ein Publishing-Programm in der Stimme der Gründer, das messbare Pipeline erzeugt.',
+      own: 'Ein verlässlicher Publishing-Plan in Ihrer Stimme, der messbare Pipeline erzeugt. Likes und Reichweite kommen nebenbei.',
       bundle: ['Messaging & Positionierung', 'Ghostwriting & Content', 'SEO & GEO', 'Outbound, vorgewärmt durch Content', 'RevOps, um Conversions zu messen'],
     },
   },
@@ -122,12 +127,14 @@ const entries: UseCase[] = [
       eyebrow: 'Conversion',
       name: 'Rebuild that lifts conversion',
       summary: 'A site and message that match where the company actually is now.',
+      own: 'A site and story that match the company today, plus a measured funnel you can keep improving.',
       bundle: ['Repositioning around where you are now', 'Brand & website rebuild', 'Sales collateral', 'Conversion-rate optimisation', 'Lifecycle & automation'],
     },
     de: {
       eyebrow: 'Conversion',
       name: 'Relaunch, der die Conversion hebt',
       summary: 'Eine Website und eine Botschaft, die zum heutigen Unternehmen passen.',
+      own: 'Eine Website und eine Story, die zum heutigen Unternehmen passen, plus ein messbarer Funnel, den Sie laufend verbessern können.',
       bundle: ['Neupositionierung auf den Stand von heute', 'Marken- und Website-Relaunch', 'Vertriebsunterlagen', 'Conversion-Optimierung', 'Lifecycle & Automatisierung'],
     },
   },
@@ -159,12 +166,14 @@ const entries: UseCase[] = [
       eyebrow: 'Events',
       name: 'Event pipeline',
       summary: 'Scored events, pre-event ABM, and CFO-grade ROI in 30 days.',
+      own: 'Attendees who know you before they walk in, meetings booked into a held calendar, and a CFO-grade ROI report within 30 days with every meeting tagged.',
       bundle: ['Events scored by ICP overlap and persona density', 'LinkedIn & Meta ABM from four weeks out, with calendar holds', 'Hosted dinners and roundtables where deals close', 'Same-day enrichment, CRM sync and sequenced follow-up'],
     },
     de: {
       eyebrow: 'Events',
       name: 'Event-Pipeline',
       summary: 'Bewertete Events, ABM vor dem Event und ein ROI-Report in 30 Tagen.',
+      own: 'Teilnehmer, die Sie kennen, bevor sie den Raum betreten, Termine in einem gefüllten Kalender und ein ROI-Report innerhalb von 30 Tagen, in dem jeder Termin zugeordnet ist.',
       bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'],
     },
   },

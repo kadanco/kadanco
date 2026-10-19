@@ -20,6 +20,7 @@ import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
 import LiveCompliance from './LiveCompliance.astro';
 import HomeComparison from './HomeComparison.astro';
+import HomeSteps from './HomeSteps.astro';
 import { useCases } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -165,6 +166,9 @@ const logos = [
 
   <!-- ===================== WHO WE ARE: restored exactly as live (LiveFounders.astro) ===================== -->
   <LiveFounders />
+
+  <!-- ===================== HOW WE WORK: the live How We Operate, rewritten (HomeSteps.astro) ===================== -->
+  <HomeSteps />
 
   <!-- ===================== FAQ ===================== -->
   <section class="home-sec home-sec--alt" id="faq">

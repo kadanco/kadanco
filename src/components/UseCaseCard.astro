@@ -18,8 +18,8 @@ const locale = asLocale(Astro.currentLocale);
 const t = uc[locale] ?? uc.en;
 
 const ui = {
-  en: { product: 'Product', marketing: 'Marketing', sales: 'Sales', page: 'Full use case', talk: 'Talk to us about this', problem: 'The problem', approach: 'What we do' },
-  de: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb', page: 'Zum Use Case', talk: 'Sprechen Sie uns darauf an', problem: 'Das Problem', approach: 'Was wir tun' },
+  en: { product: 'Product', marketing: 'Marketing', sales: 'Sales', page: 'Full use case', talk: 'Talk to us about this', own: 'What you get', problem: 'The problem', approach: 'What we do' },
+  de: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb', page: 'Zum Use Case', talk: 'Sprechen Sie uns darauf an', own: 'Was Sie bekommen', problem: 'Das Problem', approach: 'Was wir tun' },
 }[locale];
 
 const hasPage = uc.kind === 'page' && uc.href;
@@ -39,6 +39,7 @@ const showDetail = size === 'full' || featured;
     </div>
     <h3>{t.name}</h3>
     <p class="uc-summary">{t.summary}</p>
+    {t.own && <p class="uc-own"><span>{ui.own}</span>{t.own}</p>}
     {!showDetail && <span class="uc-link">{hasPage ? ui.page : ui.talk} →</span>}
   </div>
 
@@ -77,6 +78,8 @@ const showDetail = size === 'full' || featured;
   .uc-eyebrow { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
   .uc-card h3 { margin: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); }
   .uc-summary { margin: 0; font-size: 17px; line-height: 1.45; color: var(--kd-fg-2); }
+  .uc-own { margin: 0; padding-left: 12px; border-left: 3px solid var(--uc-c); font-size: 15px; line-height: 1.45; color: var(--kd-fg); }
+  .uc-own span { display: block; margin-bottom: 2px; font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
   .uc-link { margin-top: auto; padding-top: 4px; font-size: 17px; font-weight: var(--kd-weight-medium); color: var(--kd-accent); }
 
   .uc-bundle { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }

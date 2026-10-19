@@ -149,7 +149,9 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
         // Anime.js drives the entrances. It is deferred, so it is guaranteed to be
         // parsed by DOMContentLoaded. If it failed to load we fall back to the CSS
         // class path, so content is never left stuck invisible.
-        var REVEAL_SEL = '.section .eyebrow, .section h2, .section .lead, .section .grid, .section .who-top, .section .embed-slot, .section .tags, .section .founders-grid, .section .compliance-row';
+        var REVEAL_SEL = '.section .eyebrow, .section h2, .section .lead, .section .grid, .section .who-top, .section .embed-slot, .section .tags, .section .founders-grid, .section .compliance-row'
+          // homepage sections in the October design
+          + ', .home-head, .home-offers, .home-uc, .home-uc-all, .home-faq, .cmp-text, .cmx, .steps-head, .steps-list';
 
         // Shared motion tokens. Confident but restrained: short travel, quick settle.
         var M = { dur: 620, ease: 'out(3)', rise: 18, stagger: 70 };
