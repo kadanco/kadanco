@@ -15,7 +15,7 @@ export type Menu = { key: string; items: MenuItem[] };
 export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
   const services: MenuItem[] = [
     { label: 'Product Design', href: '/#product', icon: 'layers' },
-    { label: 'Product Marketing', href: '/#marketing', icon: 'target' },
+    { label: 'Marketing & Positioning', href: '/#marketing', icon: 'target' },
     { label: 'Sales', href: '/#sales', icon: 'growth' },
   ];
   // pages link to their detail page; case studies to their card on /use-cases/

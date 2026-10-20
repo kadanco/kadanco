@@ -17,19 +17,19 @@ const locale = asLocale(Astro.currentLocale);
 type Mark = 'has' | 'part' | 'gap';
 const copy = {
   en: {
-    eyebrow: 'The Overhead Problem',
-    h2a: 'Most Outside Help Sells Advice.',
+    eyebrow: 'The Problem',
+    h2a: 'Most Outside Help Sells Consulting.',
     h2b: 'The Work Stays With You.',
-    lead: 'Product, marketing and sales all need people who plan the work and then do it. Every standard way of getting them costs you somewhere: in overhead, in ownership or in time.',
+    lead: 'Product, marketing and sales all need people who plan the work and then do it. Every standard way of getting them costs you somewhere in overhead, in ownership, or in time.',
     cols: ['Strategy', 'Execution', 'Ownership'],
     solution: 'Solution',
     rows: [
-      { route: 'Agency', why: 'Partner rates for work juniors learn on, one discipline at a time.', marks: ['part', 'gap', 'part'] as Mark[] },
-      { route: 'Fractional CPO, CMO or CRO', why: 'Writes the plan for one area, then leaves you to run it.', marks: ['has', 'gap', 'gap'] as Mark[] },
-      { route: 'Freelancers + tools', why: 'Everyone runs a slice; nobody owns the result.', marks: ['gap', 'part', 'gap'] as Mark[] },
-      { route: 'In-house hires', why: 'Slow to find and ramp, one function at a time.', marks: ['part', 'part', 'has'] as Mark[] },
+      { route: 'Agency', why: 'You pay partner rates but get junior-level work.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Fractional CPO, CMO or CRO', why: 'You pay for a plan but get no one to execute it.', marks: ['has', 'gap', 'gap'] as Mark[] },
+      { route: 'Freelancers + tools', why: 'You pay for many specialists but get no one who owns the result.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'In-house hires', why: 'You pay full salaries but get months of hiring and ramp-up first.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
-    kad: { route: 'KADANCO', why: 'Plans and runs product, marketing and sales, and owns the result.' },
+    kad: { route: 'KADANCO', why: 'You pay for operators and get the work planned, done and owned.' },
     legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
     cap: 'No single route covers all three. We do.',
   },

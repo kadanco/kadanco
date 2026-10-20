@@ -27,9 +27,9 @@ function categoryCounts(): [string, number][] {
 
 const header = `# Kadanco
 
-> Kadanco is a two-person senior B2B marketing firm in Berlin that owns your marketing strategy and runs the execution itself: an embedded marketing function for post-product-market-fit B2B companies (roughly EUR 2 to 5M in revenue) with no in-house marketing leader, and a strong German and Dutch language edge into the DACH and Benelux markets.
+> Kadanco is a two-person senior team in Berlin that plans and runs product, marketing and sales for B2B companies: execution as a service for post-product-market-fit companies (roughly EUR 2 to 5M in revenue), with a native German edge for the DACH market.
 
-The same two senior operators who set the strategy do the hands-on work, with no junior handoffs and no agency layer. Engagements cover the full marketing stack: positioning and messaging, brand and website, content, SEO and GEO, paid media, events, demand generation, and revenue operations. Kadanco works with a small number of clients at a time. Its principle is results over activity.`;
+The same two senior operators who set the strategy do the hands-on work, with no junior handoffs and no agency layer. Engagements cover product, marketing and sales: the product experience, design systems and onboarding; positioning, brand and website, content, SEO and GEO, paid media and events; target lists, outreach, the sales process and revenue operations. Kadanco works with a small number of clients at a time. Its principle is results over activity.`;
 
 export const GET: APIRoute = () => {
   const cats = categoryCounts();

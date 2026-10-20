@@ -47,7 +47,7 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <meta property="og:image" content="https://assets.kadanco.com/public/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Kadanco. Stop buying marketing management. Start buying execution." />
+    <meta property="og:image:alt" content="Kadanco | Execution as a Service. Stop buying management, start buying execution." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://assets.kadanco.com/public/og.png" />
 
@@ -100,7 +100,7 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
         var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         // Colour-aware nav (original look): white text over dark grounds, ink
-        // over light ones. Reads the real background just under the nav, so it
+        // over light ones. Reads the real background behind the nav, so it
         // works on every page and in dark mode. A gradient or image counts as
         // dark unless a parent says data-theme="light".
         var nav = document.querySelector('.nav');
@@ -111,7 +111,7 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
             return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
           };
           var groundUnder = function () {
-            var x = window.innerWidth / 2, y = nav.offsetHeight + 4;
+            var x = window.innerWidth / 2, y = Math.round(nav.offsetHeight / 2); // what shows behind the nav
             var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
             for (var i = 0; i < stack.length; i++) {
               var el = stack[i];
