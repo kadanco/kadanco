@@ -10,6 +10,8 @@ import HomeHeroVisual from '../components/HomeHeroVisual.astro';
 import HomeComparison from '../components/HomeComparison.astro';
 import HomeSteps from '../components/HomeSteps.astro';
 import UseCaseCard from '../components/UseCaseCard.astro';
+import UseCaseStack from '../components/UseCaseStack.astro';
+import UseCaseGrid from '../components/UseCaseGrid.astro';
 import LiveFounders from '../components/LiveFounders.astro';
 import LiveFaq from '../components/LiveFaq.astro';
 import LiveCompliance from '../components/LiveCompliance.astro';
@@ -37,7 +39,9 @@ const sections = [
   { id: 'cp-icons', group: 'Foundations', name: 'Animated icons' },
   { id: 'cp-hero', group: 'Homepage', name: 'Hero with slices' },
   { id: 'cp-comparison', group: 'Homepage', name: 'Comparison' },
+  { id: 'cp-stack', group: 'Homepage', name: 'Use cases: stacked cards' },
   { id: 'cp-cards', group: 'Homepage', name: 'Use case cards' },
+  { id: 'cp-grid', group: 'Homepage', name: 'Use cases: grid (previous)' },
   { id: 'cp-founders', group: 'Homepage', name: 'Who We Are' },
   { id: 'cp-steps', group: 'Homepage', name: 'How We Work' },
   { id: 'cp-faq', group: 'Homepage', name: 'FAQ' },
@@ -131,6 +135,11 @@ const groups = [...new Set(sections.map((s) => s.group))];
         <HomeComparison />
       </section>
 
+      <section id="cp-stack" class="cp-sec">
+        <h2>Use cases: stacked cards <span>UseCaseStack, on the homepage since 2026-10-20 · scroll to see the cards stack</span></h2>
+        <UseCaseStack items={useCases} />
+      </section>
+
       <section id="cp-cards" class="cp-sec">
         <h2>Use case cards <span>UseCaseCard: featured, compact, full</span></h2>
         <div class="cp-cards">
@@ -140,6 +149,11 @@ const groups = [...new Set(sections.map((s) => s.group))];
           <UseCaseCard uc={pageCase} size="full" />
           <UseCaseCard uc={caseStudy} size="full" />
         </div>
+      </section>
+
+      <section id="cp-grid" class="cp-sec">
+        <h2>Use cases: grid (previous homepage version) <span>UseCaseGrid, featured card plus a three-column grid, until 2026-10-20</span></h2>
+        <UseCaseGrid items={useCases} />
       </section>
 
       <section id="cp-founders" class="cp-sec cp-sec--full"><h2>Who We Are <span>LiveFounders</span></h2><LiveFounders /></section>

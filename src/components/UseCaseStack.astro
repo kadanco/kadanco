@@ -1,0 +1,85 @@
+---
+// src/components/UseCaseStack.astro
+// Homepage use cases as stacked cards (design/261020_Kadanco_Website_with-detail-page):
+// one large card per use case in its department colour, text on the left and
+// a big animated icon on the right (data-image-slot marks where a photo can
+// replace it later). The cards are sticky, so while scrolling each one slides
+// up and stacks over the previous one, slightly lower each time.
+// With reduced motion they sit in a plain column. Data: src/data/use-cases.ts.
+//
+// Case studies show the problem and what we do and open the contact form;
+// use cases with a page show what you get and link to that page.
+// The 24px corner radius is the design's choice for these cards (owner
+// decision 2026-10-20), an exception to the 5px brand radius.
+import IsoIcon from './IsoIcon.astro';
+import type { UseCase } from '../data/use-cases';
+import { asLocale, localizedHref } from '../i18n/utils';
+
+interface Props { items: UseCase[] }
+const { items } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const ui = {
+  en: { product: 'Product', marketing: 'Marketing', sales: 'Sales', own: 'What you get', problem: 'The problem', approach: 'What we do', page: 'Full use case', talk: 'Talk to us about this' },
+  de: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb', own: 'Was Sie bekommen', problem: 'Das Problem', approach: 'Was wir tun', page: 'Zum Use Case', talk: 'Sprechen Sie uns darauf an' },
+}[locale];
+---
+<div class="sc-stack">
+  {items.map((uc, i) => {
+    const t = uc[locale] ?? uc.en;
+    const hasPage = uc.kind === 'page' && !!uc.href;
+    return (
+      <article class={`sc sc--${uc.dept}`} id={uc.id} data-dept={uc.dept} style={`--i:${i}`}>
+        <div class="sc-text">
+          <div class="sc-labels">
+            <span class="sc-dept">{ui[uc.dept]}</span>
+            <span class="sc-eyebrow">{t.eyebrow}</span>
+          </div>
+          <h3>{t.name}</h3>
+          <p class="sc-sum">{t.summary}</p>
+          {t.problem && <p class="sc-own"><span>{ui.problem}</span>{t.problem}</p>}
+          {t.approach && <p class="sc-own"><span>{ui.approach}</span>{t.approach}</p>}
+          {!t.problem && t.own && <p class="sc-own"><span>{ui.own}</span>{t.own}</p>}
+          {hasPage
+            ? <a class="sc-link" href={localizedHref(locale, uc.href!)}>{ui.page} →</a>
+            : <a class="sc-link" href="#contact" data-open-modal>{ui.talk} →</a>}
+        </div>
+        <div class="sc-media" data-image-slot={uc.id} role="img" aria-label={t.name}>
+          <IsoIcon name={uc.icon} size={160} />
+        </div>
+      </article>
+    );
+  })}
+</div>
+
+<style>
+  .sc-stack { display: flex; flex-direction: column; gap: 32px; padding-bottom: 24px; }
+  .sc {
+    position: sticky; top: calc(96px + var(--i) * 14px);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 440px;
+    border-radius: 24px; overflow: hidden; box-shadow: 0 -8px 40px -12px rgba(26, 1, 117, .28);
+    background: var(--sc-bg); color: var(--sc-fg);
+  }
+  .sc--product { --sc-bg: var(--kd-dept-product); --sc-fg: var(--kd-white); --sc-tag-bg: var(--kd-signal-1); --sc-tag-fg: var(--kd-blue-1); --sc-acc: var(--kd-signal-1); --sc-media: var(--kd-blue-1); }
+  .sc--marketing { --sc-bg: var(--kd-dept-marketing); --sc-fg: var(--kd-blue-1); --sc-tag-bg: var(--kd-blue-2); --sc-tag-fg: var(--kd-white); --sc-acc: var(--kd-blue-2); --sc-media: var(--kd-white); }
+  .sc--sales { --sc-bg: var(--kd-dept-sales); --sc-fg: var(--kd-blue-1); --sc-tag-bg: var(--kd-blue-2); --sc-tag-fg: var(--kd-white); --sc-acc: var(--kd-blue-2); --sc-media: var(--kd-lilac-tint); }
+  .sc-text { display: flex; flex-direction: column; gap: 16px; padding: 48px; }
+  .sc-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .sc-dept { padding: 3px 10px; border-radius: var(--kd-radius); background: var(--sc-tag-bg); color: var(--sc-tag-fg); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .sc-eyebrow { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .8; }
+  .sc h3 { margin: 0; font-size: clamp(28px, 3.4vw, 44px); line-height: 1.1; font-weight: var(--kd-weight-medium); letter-spacing: -.01em; }
+  .sc-sum { margin: 0; font-size: 20px; line-height: 1.4; }
+  .sc-own { margin: 0; padding-left: 12px; border-left: 3px solid var(--sc-acc); font-size: 16px; line-height: 1.45; }
+  .sc-own span { display: block; font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .75; margin-bottom: 2px; }
+  .sc-link { margin-top: auto; align-self: flex-start; padding: 12px 22px; border-radius: var(--kd-radius); background: var(--sc-fg); color: var(--sc-bg); font-weight: var(--kd-weight-medium); text-decoration: none; transition: transform .15s; }
+  .sc-link:hover { transform: translateY(-2px); }
+  .sc-link:focus-visible { outline: 2px solid var(--sc-fg); outline-offset: 3px; }
+  .sc-media { display: flex; align-items: center; justify-content: center; background: var(--sc-media) center / cover no-repeat; color: var(--kd-blue-1); }
+  .sc--product .sc-media { color: var(--kd-white); }
+  @media (max-width: 820px) {
+    .sc { grid-template-columns: 1fr; top: calc(88px + var(--i) * 10px); min-height: 0; }
+    .sc-media { order: -1; min-height: 180px; }
+    .sc-media :global(.iso-ic) { width: 110px !important; height: 110px !important; }
+    .sc-text { padding: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sc { position: relative; top: auto; } .sc-link { transition: none; } }
+</style>

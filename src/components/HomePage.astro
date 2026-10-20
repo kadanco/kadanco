@@ -15,7 +15,7 @@
 // Class names carry a home- prefix so they never collide with global.css.
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
-import UseCaseCard from './UseCaseCard.astro';
+import UseCaseStack from './UseCaseStack.astro';
 import IsoIcon from './IsoIcon.astro';
 import type { IsoIconName } from '../data/iso-icons';
 import LiveFounders from './LiveFounders.astro';
@@ -93,8 +93,6 @@ const copy = {
 const c = copy[locale] ?? copy.en;
 
 // featured case first (wide), then the rest in the grid
-const featuredUc = useCases.find((u) => u.featured);
-const otherUc = useCases.filter((u) => !u.featured);
 
 const logos = [
   { file: 'mercedes-benz', alt: 'Mercedes-Benz' },
@@ -152,7 +150,7 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== USE CASES (all of src/data/use-cases.ts) ===================== -->
+  <!-- ===================== USE CASES: stacked cards (UseCaseStack.astro, all of src/data/use-cases.ts) ===================== -->
   <section class="home-sec home-sec--alt" id="use-cases">
     <div class="container">
       <div class="home-head">
@@ -160,10 +158,7 @@ const logos = [
         <h2>{c.ucH2a} <em>{c.ucH2b}</em></h2>
         <p class="home-lede">{c.ucLede}</p>
       </div>
-      <div class="home-uc">
-        {featuredUc && <UseCaseCard uc={featuredUc} featured />}
-        {otherUc.map((u) => <UseCaseCard uc={u} />)}
-      </div>
+      <UseCaseStack items={useCases} />
       <a class="btn btn-primary home-uc-all" href={localizedHref(locale, '/use-cases/')}>{c.ucAll}</a>
     </div>
   </section>
@@ -235,9 +230,6 @@ const logos = [
   .home-sec--alt { background: var(--kd-surface-2); }
 
   /* ---------- use cases: teaser cards (label, title, body, bundle, arrow link) ---------- */
-  .home-uc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 980px) { .home-uc { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 640px) { .home-uc { grid-template-columns: 1fr; } }
   .home-uc-all { margin-top: 32px; }
 
 

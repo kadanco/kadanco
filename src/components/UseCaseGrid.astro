@@ -1,0 +1,23 @@
+---
+// src/components/UseCaseGrid.astro
+// Previous homepage use cases layout (until 2026-10-20): a three-column grid
+// of UseCaseCard, with the featured case as a wide card on top. Replaced on
+// the homepage by UseCaseStack.astro; kept for reference on /components.
+import UseCaseCard from './UseCaseCard.astro';
+import type { UseCase } from '../data/use-cases';
+
+interface Props { items: UseCase[] }
+const { items } = Astro.props;
+const featured = items.find((u) => u.featured);
+const others = items.filter((u) => !u.featured);
+---
+<div class="uc-grid">
+  {featured && <UseCaseCard uc={featured} featured />}
+  {others.map((u) => <UseCaseCard uc={u} />)}
+</div>
+
+<style>
+  .uc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 980px) { .uc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .uc-grid { grid-template-columns: 1fr; } }
+</style>
