@@ -137,6 +137,10 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
           window.addEventListener('scroll', navTheme, { passive: true });
           window.addEventListener('resize', navTheme);
           window.addEventListener('kd-theme-change', function () { setTimeout(navTheme, 30); });
+          // content can shift while loading (fonts, fade-ins, a jump to #anchor) without a scroll event
+          window.addEventListener('load', navTheme);
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(navTheme);
+          setTimeout(navTheme, 800);
           if (window.matchMedia) { var mqd = window.matchMedia('(prefers-color-scheme: dark)'); if (mqd.addEventListener) mqd.addEventListener('change', navTheme); }
           navTheme();
         }

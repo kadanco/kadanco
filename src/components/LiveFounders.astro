@@ -5,8 +5,8 @@
 //
 // The live look predates the October brand rules (10px radius, filled
 // labels, beige filled tags, paper ground). Those live values are scoped to
-// this section below, so they never leak into the rest of the site. It does
-// not switch in dark mode, exactly like the live page.
+// this section below, so they never leak into the rest of the site. In dark
+// mode it switches to the site's dark theme colours; light stays as live.
 // Note: the live labels and tags use weight 600, which the site no longer
 // loads (brand rule: 400 and 500), so the browser shows them at 500.
 import { asLocale } from '../i18n/utils';
@@ -75,10 +75,16 @@ const c = copy[locale] ?? copy.en;
 
 <style>
   /* live values, scoped to this section only */
-  .live-founders { --radius: 10px; --paper: var(--kd-legacy-paper); position: relative; color: var(--kd-ink); }
+  .live-founders { --radius: 10px; --paper: var(--kd-legacy-paper); position: relative; color: var(--lv-fg, var(--kd-ink)); }
+  .live-founders .hl-indigo, .live-founders .founder .role { color: var(--lv-accent, var(--indigo)); }
+  .live-founders .card { background: var(--lv-card, var(--kd-white)); border-color: var(--lv-line, var(--border)); }
+  .live-founders .card p { color: var(--lv-fg2, var(--muted)); }
   .live-anchor { position: absolute; top: 0; }
   .live-founders .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
   .live-founders .eyebrow.indigo { background: var(--kd-blue-2); color: var(--kd-white); }
   .live-founders .btn { min-height: 0; padding: 13px 24px; }
-  .live-founders .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; padding: 7px 13px; border: 0; background: var(--kd-beige-3); color: var(--kd-ink); }
+  .live-founders .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; padding: 7px 13px; border: 0; background: var(--lv-tag, var(--kd-beige-3)); color: var(--lv-fg, var(--kd-ink)); }
+  /* dark mode: same layout, the site's dark theme colours (light keeps the live look) */
+  :global(:root[data-mode="dark"]) .live-founders { --paper: var(--kd-bg); --lv-fg: var(--kd-fg); --lv-fg2: var(--kd-fg-2); --lv-card: var(--kd-surface); --lv-line: var(--kd-line); --lv-accent: var(--kd-accent); --lv-tag: var(--kd-night-line); }
+  @media (prefers-color-scheme: dark) { :global(:root:not([data-mode])) .live-founders { --paper: var(--kd-bg); --lv-fg: var(--kd-fg); --lv-fg2: var(--kd-fg-2); --lv-card: var(--kd-surface); --lv-line: var(--kd-line); --lv-accent: var(--kd-accent); --lv-tag: var(--kd-night-line); } }
 </style>
