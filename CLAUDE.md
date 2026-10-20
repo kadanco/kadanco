@@ -101,7 +101,7 @@ Done:
 - Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk). Four items: Services, Use Cases and Resources as dropdowns, plus About; then EN / DE, one light/dark toggle icon, CTA. Footer on ink.
 - Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
 - Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
-- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices (Product app screen, Marketing content, Sales pipeline bars lying flat) in the style of the Conversion rebuild hero illustration, with the labels printed on each slice's top face and no legend.
+- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices, read top to bottom: 01 Product (app screen), 02 Marketing (content), 03 Sales (pipeline bars lying flat) in the style of the Conversion rebuild hero illustration, with the labels printed on each slice's top face and no legend.
 - Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
 - Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
 
@@ -167,3 +167,4 @@ Next, in order:
 - 2026-10-20: Founder bios rewritten in third person (EN and DE). Maria: Senior Product Engineer & Design Director, strategic partner for B2B teams. Karan: B2B Go-to-Market & Outbound Lead, positioning and outbound (no hubsell mention, owner shortened it). Roles: "Founder · Product & Marketing" (Maria) and "Founder · Marketing & Sales" (Karan).
 - 2026-10-20: Start time is "within two weeks" everywhere (hero, FAQ, How We Work, DACH page, EN and DE). The hero's "less than 1 week" and the DACH page's "14 days" were aligned.
 - 2026-10-20: Who We Are and FAQ now switch to the dark theme colours in dark mode (night ground, navy cards, lilac accents). Light mode keeps the exact live look. Compliance (lime band) and the final CTA (blue band) stay as they are in both modes.
+- 2026-10-20: Hero slices reordered to read 01, 02, 03 from top to bottom: Product on top, Marketing in the middle, Sales at the bottom. Drawing order and hover areas follow each slice's position. (Use cases keep the Product, Marketing, Sales order.)

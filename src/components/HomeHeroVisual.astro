@@ -3,9 +3,9 @@
 // Homepage hero visual: three isometric boards stacked as slices, drawn in the
 // style of the October "Conversion rebuild" hero illustration
 // (design/04_sections/use-cases/...UseCaseConversion.dc.html): navy outlines,
-// white faces, coloured tops. Product is the foundation (an app screen),
-// Marketing sits on it (a content card and text lines), Sales is on top
-// (pipeline bars lying flat, growing in length). Each slice's label is printed
+// white faces, coloured tops. Read top to bottom: 01 Product on top (an app
+// screen), 02 Marketing in the middle (a content card and text lines), 03
+// Sales at the bottom (pipeline bars lying flat, growing in length). Each slice's label is printed
 // flat on its top face, along the front edge.
 //
 // Interaction: hovering (or tapping, or focusing) a slice turns it from the
@@ -82,7 +82,8 @@ const boxOn = (flat: (x: number, y: number) => number[]) =>
     }));
   };
 
-const zP = 0, zM = GAP, zS = 2 * GAP;
+// read top to bottom: 01 Product on top, 02 Marketing, 03 Sales at the bottom
+const zP = 2 * GAP, zM = GAP, zS = 0;
 const fP = flatOf(zP), fM = flatOf(zM), fS = flatOf(zS);
 const bP = boxOn(fP), bM = boxOn(fM), bS = boxOn(fS);
 
@@ -131,11 +132,13 @@ const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + 
 // so the target does not move while a slice turns
 const centreY = (z: number) => iso(W / 2, D / 2, z + T)[1];
 const cyS = centreY(zS), cyM = centreY(zM), cyP = centreY(zP);
-const bands = [
-  { i: 2, y0: 0, y1: (cyS + cyM) / 2 },
-  { i: 1, y0: (cyS + cyM) / 2, y1: (cyM + cyP) / 2 },
-  { i: 0, y0: (cyM + cyP) / 2, y1: vbH },
-];
+// sorted by where each slice sits on screen, so they follow any stacking order
+const byY = [{ i: 0, cy: cyP }, { i: 1, cy: cyM }, { i: 2, cy: cyS }].sort((a, b) => a.cy - b.cy);
+const bands = byY.map((b, k) => ({
+  i: b.i,
+  y0: k === 0 ? 0 : (byY[k - 1].cy + b.cy) / 2,
+  y1: k === byY.length - 1 ? vbH : (b.cy + byY[k + 1].cy) / 2,
+}));
 
 const ids = ['product', 'marketing', 'sales'] as const;
 const slices = ids.map((id, i) => {
@@ -148,7 +151,7 @@ const slices = ids.map((id, i) => {
   <div class="hv-stage">
     <svg viewBox={`0 0 ${vbW} ${vbH}`} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
       <g class="hv-layers">
-        {slices.map((s) => (
+        {[...slices].sort((a, b) => [zP, zM, zS][a.i] - [zP, zM, zS][b.i]).map((s) => (
           <g class={`slice slice--${s.id}`} style={`--d:${s.i}`} data-slice={s.i}>
             <g class="slice-in">
               {s.faces.map((f) => <polygon points={f.a} data-a={f.a} data-b={f.b} class={f.cls} />)}
@@ -246,9 +249,12 @@ const slices = ids.map((id, i) => {
       var parts = Array.prototype.slice.call(g.querySelectorAll('[data-a]')).map(function (el) {
         return { el: el, a: nums(el.getAttribute('data-a')), b: nums(el.getAttribute('data-b')), tag: el.tagName.toLowerCase() };
       });
-      return { g: g, parts: parts, t: 0, target: 0 };
+      return { g: g, idx: +g.getAttribute('data-slice'), parts: parts, t: 0, target: 0 };
     });
+    // drawing order (lowest slice first) is kept for restacking; lookups use
+    // the slice number, so the drawing order can differ from 01, 02, 03
     var order = slices.map(function (s) { return s.g; });
+    slices.sort(function (a, b) { return a.idx - b.idx; });
     var panels = Array.prototype.slice.call(root.querySelectorAll('[data-panel]'));
     var hits = Array.prototype.slice.call(root.querySelectorAll('.hv-hit'));
 
