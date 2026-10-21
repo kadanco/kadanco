@@ -16,7 +16,6 @@
 // The link groups come from src/data/menus.ts, shared with the footer.
 import { switcherLocales } from '../i18n/ui';
 import { siteMenus } from '../data/menus';
-import IsoIcon from './IsoIcon.astro';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
 
 const { themeable = false } = Astro.props;
@@ -51,7 +50,7 @@ const langItems = switcherLocales.map((l) => ({
             <svg class="nav-caret" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </button>
           <div class="nav-dd-menu" role="menu">
-            {m.items.map((it) => <a class:list={['nav-dd-link', { 'nav-dd-link--all': it.all }]} href={localizedHref(locale, it.href)} role="menuitem">{it.icon && <IsoIcon name={it.icon} size={36} />}<span>{it.label}</span></a>)}
+            {m.items.map((it) => <a class:list={['nav-dd-link', { 'nav-dd-link--all': it.all }]} href={localizedHref(locale, it.href)} role="menuitem">{it.label}</a>)}
           </div>
         </div>
       ))}
@@ -170,11 +169,8 @@ const langItems = switcherLocales.map((l) => ({
   .nav-dd:hover .nav-dd-menu, .nav-dd:focus-within .nav-dd-menu, .nav-dd.open .nav-dd-menu {
     opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(-50%) translateY(0);
   }
-  .nav-dd-link { display: flex; align-items: center; gap: 12px; padding: 7px 12px; border-radius: var(--kd-radius); color: var(--kd-ink); text-decoration: none; font-size: .95rem; white-space: nowrap; }
+  .nav-dd-link { display: block; padding: 9px 12px; border-radius: var(--kd-radius); color: var(--kd-ink); text-decoration: none; font-size: .95rem; white-space: nowrap; }
   .nav-dd-link:hover, .nav-dd-link:focus-visible { background: var(--kd-beige-1); color: var(--kd-blue-2); outline: none; }
-  /* icons move only while their menu is open */
-  .nav-dd-menu :global(.iso-ic *) { animation-play-state: paused; }
-  .nav-dd:hover .nav-dd-menu :global(.iso-ic *), .nav-dd:focus-within .nav-dd-menu :global(.iso-ic *), .nav-dd.open .nav-dd-menu :global(.iso-ic *) { animation-play-state: running; }
   .nav-dd-link--all { margin-top: 5px; padding-top: 12px; border-top: 1px solid var(--kd-beige-3); border-radius: 0 0 var(--kd-radius) var(--kd-radius); font-weight: var(--kd-weight-medium); }
   @media (max-width: 880px) { .nav-dd { display: none; } }
   /* narrow phones: the logo never shrinks; the CTA gets smaller instead */
