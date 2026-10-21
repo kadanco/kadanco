@@ -89,6 +89,8 @@ p { margin: 0 0 1rem; }
    background under the nav. */
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 80; backdrop-filter: saturate(150%) blur(12px); -webkit-backdrop-filter: saturate(150%) blur(12px); transition: color 0.25s ease; color: var(--kd-white); }
 .nav.nav--light { color: var(--kd-ink); }
+/* over lime grounds (data-nav-cta="dark") the lime CTA would vanish: navy instead */
+.nav.nav--cta-dark .btn-lime { background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
 .brandmark { display: inline-flex; align-items: center; font-weight: var(--kd-weight-logo); font-size: 1.25rem; letter-spacing: -0.02em; color: inherit; text-decoration: none; }
 .brandmark .kbox { background: var(--ink); color: #fff; padding: 3px 7px; border-radius: var(--radius); margin-right: 1px; }

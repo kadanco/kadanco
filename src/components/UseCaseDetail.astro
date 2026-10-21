@@ -1,0 +1,277 @@
+---
+// src/components/UseCaseDetail.astro
+// One use case detail page. Layout from the October use case designs
+// (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
+//   breadcrumb, department-coloured hero (text left, icon panel right),
+//   the situation (problem / what we do), optional route comparison
+//   (HomeComparison), three stacked step cards, outcomes, optional native
+//   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
+//   and a department-coloured CTA band.
+// Colours follow the department: product blue, marketing lime, sales lilac.
+// Stacked cards share one height, so each covers the previous one cleanly;
+// on phones they sit in a plain column.
+import HomeComparison from './HomeComparison.astro';
+import CadenceTimeline from './CadenceTimeline.astro';
+import IsoIcon from './IsoIcon.astro';
+import type { UseCasePage } from '../data/use-case-pages/types';
+import { asLocale, localizedHref } from '../i18n/utils';
+
+interface Props { page: UseCasePage }
+const { page } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const c = page[locale] ?? page.en;
+// the nav reads gradients as dark unless told; lime and lilac grounds are light
+const ground = page.dept === 'product' ? 'dark' : 'light';
+const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
+const ui = {
+  en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do' },
+  de: { home: 'Startseite', uc: 'Use Cases', problem: 'Das Problem', solve: 'Was wir tun' },
+}[locale];
+---
+<main id="top" class={`ucd ucd--${page.dept}`}>
+  <div class="ucd-hero" data-theme={ground} data-nav-cta={navCta}>
+    <div class="container ucd-crumb">
+      <a href={localizedHref(locale, '/')}>{ui.home}</a><span aria-hidden="true">·</span><a href={localizedHref(locale, '/use-cases/')}>{ui.uc}</a><span aria-hidden="true">·</span><span aria-current="page">{c.crumb}</span>
+    </div>
+    <section class="container ucd-hero-in">
+      <div class="ucd-hero-copy">
+        <span class="ucd-dept">{c.dept}</span>
+        <h1>{c.h1a} <em>{c.h1b}</em></h1>
+        <p>{c.lead}</p>
+        <div class="ucd-hero-actions">
+          <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.ctaPrimary}</a>
+          <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>
+        </div>
+      </div>
+      <div class="ucd-hero-visual" role="img" aria-label={c.crumb}><IsoIcon name={page.icon} size={200} /></div>
+    </section>
+  </div>
+
+  <section class="ucd-sec" data-theme="light">
+    <div class="container">
+      <div class="ucd-head">
+        <span class="ucd-eyebrow">{c.situation.eyebrow}</span>
+        <h2>{c.situation.h2a} <em>{c.situation.h2b}</em></h2>
+        <p class="ucd-lede">{c.situation.lede}</p>
+      </div>
+      <div class="ucd-split">
+        <div class="ucd-panel"><h3>{ui.problem}</h3><p>{c.situation.problem}</p></div>
+        <div class="ucd-panel ucd-panel--solve"><h3>{ui.solve}</h3><p>{c.situation.solve}</p></div>
+      </div>
+    </div>
+  </section>
+
+  {c.comparison && <HomeComparison content={c.comparison} id="routes" />}
+
+  <section class="ucd-sec ucd-sec--alt" data-theme="light">
+    <div class="container">
+      <div class="ucd-head">
+        <span class="ucd-eyebrow">{c.inside.eyebrow}</span>
+        <h2>{c.inside.h2}</h2>
+        <p class="ucd-lede">{c.inside.lede}</p>
+      </div>
+      <div class="ucd-stack">
+        {c.inside.steps.map((st, i) => (
+          <article class={`ucd-card ucd-card--${(i % 3) + 1}`} style={`--i:${i}`}>
+            <div class="ucd-card-text">
+              <span class="ucd-step">{st.label}</span>
+              <h3>{st.title}</h3>
+              <p>{st.body}</p>
+            </div>
+            <div class="ucd-card-media" role="img" aria-label={st.title} data-image-slot={`${page.id}-${i + 1}`}>
+              <IsoIcon name={page.stepIcons[i % 3]} size={150} />
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="ucd-sec" data-theme="light">
+    <div class="container">
+      <div class="ucd-head">
+        <span class="ucd-eyebrow">{c.outcomes.eyebrow}</span>
+        <h2>{c.outcomes.h2}</h2>
+      </div>
+      <div class="ucd-out">
+        {c.outcomes.items.map((o) => <div class="ucd-out-card"><b>{o.big}</b><p>{o.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  {c.operator && (
+    <section class="ucd-sec ucd-sec--alt" data-theme="light">
+      <div class="container ucd-op">
+        <div class="ucd-head ucd-op-head">
+          <span class="ucd-eyebrow">{c.operator.eyebrow}</span>
+          <h2>{c.operator.h2a} <em>{c.operator.h2b}</em></h2>
+        </div>
+        <div class="ucd-op-body">
+          <div class="ucd-op-faces" aria-hidden="true">
+            <img src="https://assets.kadanco.com/public/maria.jpeg" alt="" width="64" height="64" loading="lazy" />
+            <img src="https://assets.kadanco.com/public/karan.jpeg" alt="" width="64" height="64" loading="lazy" />
+          </div>
+          <p>{c.operator.body}</p>
+          <a class="ucd-link" href={localizedHref(locale, '/#about')}>{c.operator.link} →</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {c.timeline && (
+    <section class="section band-deep ucd-timeline" data-theme="dark">
+      <div class="container">
+        <div class="split">
+          <CadenceTimeline steps={c.timeline.steps} />
+          <div class="content">
+            <span class="eyebrow">{c.timeline.eyebrow}</span>
+            <h2>{c.timeline.h2a} <span class="hl">{c.timeline.h2b}</span></h2>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="ucd-sec ucd-sec--alt" data-theme="light">
+    <div class="container">
+      <div class="ucd-head">
+        <span class="ucd-eyebrow">{c.faq.eyebrow}</span>
+        <h2>{c.faq.h2}</h2>
+      </div>
+      <div class="ucd-faq">
+        {c.faq.items.map((f) => <div class="ucd-faq-item"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="ucd-cta" id="contact" data-theme={ground} data-nav-cta={navCta}>
+    <div class="container">
+      <h2>{c.cta.h2a} <em>{c.cta.h2b}</em></h2>
+      <p>{c.cta.lead}</p>
+      <div class="ucd-cta-actions"><a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.cta.button}</a></div>
+    </div>
+  </section>
+</main>
+
+<style>
+  /* ---------- department themes ---------- */
+  .ucd--marketing { --h-bg: var(--kd-signal-1); --h-ink: var(--kd-blue-1); --h-em: var(--kd-blue-2); --h-mix: 62%;
+    --btn-bg: var(--kd-blue-1); --btn-fg: var(--kd-white); --tag: var(--kd-blue-1);
+    --card-1: var(--kd-signal-1); --card-2: color-mix(in srgb, var(--kd-signal-1) 24%, var(--kd-white)); --card-ink: var(--kd-blue-1); --card-step: var(--kd-blue-2); --accent-line: var(--kd-signal-1); }
+  .ucd--sales { --h-bg: var(--kd-lilac); --h-ink: var(--kd-blue-1); --h-em: var(--kd-blue-2); --h-mix: 55%;
+    --btn-bg: var(--kd-blue-1); --btn-fg: var(--kd-white); --tag: var(--kd-blue-1);
+    --card-1: var(--kd-lilac); --card-2: var(--kd-lilac-tint); --card-ink: var(--kd-blue-1); --card-step: var(--kd-blue-2); --accent-line: var(--kd-lilac); }
+  .ucd--product { --h-bg: var(--kd-blue-2); --h-ink: var(--kd-white); --h-em: var(--kd-signal-1); --h-mix: 82%;
+    --btn-bg: var(--kd-signal-1); --btn-fg: var(--kd-blue-1); --tag: var(--kd-white);
+    --card-1: var(--kd-blue-2); --card-2: var(--kd-blue-3); --card-ink: var(--kd-white); --card-step: var(--kd-signal-1); --accent-line: var(--kd-blue-2); }
+
+  .ucd { background: var(--kd-bg); color: var(--kd-fg); }
+  .ucd h1, .ucd h2, .ucd h3 { margin: 0; font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }
+  .ucd p { margin: 0; }
+  .ucd em { font-style: normal; }
+
+  /* ---------- hero (department colour) ---------- */
+  .ucd-hero { background: radial-gradient(125% 120% at 50% -10%, color-mix(in srgb, var(--h-bg) var(--h-mix), var(--kd-white)), var(--h-bg) 72%); color: var(--h-ink); }
+  .ucd-crumb { padding-top: 112px; font-size: 14px; opacity: .8; }
+  .ucd-crumb a { color: inherit; text-decoration: none; }
+  .ucd-crumb a:hover { text-decoration: underline; }
+  .ucd-crumb span[aria-hidden] { margin: 0 8px; opacity: .6; }
+  .ucd-hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 80px; }
+  .ucd-hero-copy { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .ucd-dept { padding: 4px 12px; border-radius: var(--kd-radius); border: 1.5px solid var(--tag); color: var(--tag); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .ucd-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 17ch; }
+  .ucd-hero h1 em { color: var(--h-em); }
+  .ucd-hero p { font-size: clamp(18px, 1.8vw, 22px); line-height: 1.45; max-width: 46ch; opacity: .9; }
+  .ucd-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+  .ucd-btn { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
+  .ucd-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+  .ucd-btn-ghost { background: transparent; border-color: var(--h-ink); color: var(--h-ink); }
+  .ucd-btn-ghost:hover { background: var(--h-ink); color: var(--h-bg); }
+  .ucd-hero-visual { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .ucd-hero-visual :global(.iso-ic) { color: var(--kd-white); }
+  .ucd-hero-visual :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  @media (max-width: 900px) {
+    .ucd-hero-in { grid-template-columns: 1fr; gap: 32px; padding-bottom: 64px; }
+    .ucd-hero-visual { order: -1; aspect-ratio: 16 / 9; }
+    .ucd-hero-visual :global(.iso-ic) { width: 140px !important; height: 140px !important; }
+  }
+
+  /* ---------- sections ---------- */
+  .ucd-sec { padding: 72px 0; }
+  .ucd-sec--alt { background: var(--kd-surface-2); }
+  .ucd-head { display: flex; flex-direction: column; gap: 12px; max-width: 60ch; margin-bottom: 40px; }
+  .ucd-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
+  .ucd-sec h2 { font-size: var(--kd-text-l); line-height: var(--kd-lh-l); }
+  .ucd-sec h2 em { color: var(--kd-accent); }
+  .ucd-lede { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); }
+
+  .ucd-split { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  @media (max-width: 820px) { .ucd-split { grid-template-columns: 1fr; } }
+  .ucd-panel { padding: 32px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); }
+  .ucd-panel h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); margin-bottom: 10px; }
+  .ucd-panel p { font-size: 18px; line-height: 1.5; color: var(--kd-fg-2); }
+  .ucd-panel--solve { border-left: 4px solid var(--accent-line); }
+
+  /* ---------- stacked step cards (equal heights) ---------- */
+  .ucd-stack { display: flex; flex-direction: column; gap: 28px; padding-bottom: 16px; }
+  .ucd-card {
+    position: sticky; top: calc(96px + var(--i) * 16px);
+    height: clamp(340px, calc(100svh - 200px), 420px);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border-radius: var(--kd-radius); overflow: hidden; box-shadow: 0 -10px 40px -14px rgba(26, 1, 117, .34);
+    background: var(--card-bg); color: var(--card-ink);
+  }
+  .ucd-card--1, .ucd-card--3 { --card-bg: var(--card-1); }
+  .ucd-card--2 { --card-bg: var(--card-2); }
+  .ucd-card-text { display: flex; flex-direction: column; gap: 14px; padding: 44px; }
+  .ucd-step { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--card-step); }
+  .ucd-card h3 { font-size: clamp(26px, 3vw, 38px); line-height: 1.12; }
+  .ucd-card p { font-size: 18px; line-height: 1.45; opacity: .88; }
+  .ucd-card-media { display: flex; align-items: center; justify-content: center; background: var(--kd-blue-1); }
+  .ucd-card-media :global(.iso-ic) { color: var(--kd-white); }
+  .ucd-card-media :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  @media (max-width: 820px) {
+    .ucd-card { grid-template-columns: 1fr; position: relative; top: auto; height: auto; }
+    .ucd-card-media { order: -1; min-height: 170px; }
+    .ucd-card-media :global(.iso-ic) { width: 104px !important; height: 104px !important; }
+    .ucd-card-text { padding: 28px; }
+  }
+
+  /* ---------- outcomes ---------- */
+  .ucd-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 820px) { .ucd-out { grid-template-columns: 1fr; } }
+  .ucd-out-card { padding: 28px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-top: 4px solid var(--accent-line); }
+  .ucd-out-card b { display: block; font-size: 34px; line-height: 1.12; font-weight: var(--kd-weight-medium); color: var(--kd-accent); margin-bottom: 6px; }
+  .ucd-out-card p { font-size: 16px; line-height: 1.45; color: var(--kd-fg-2); }
+
+  /* ---------- native operator ---------- */
+  .ucd-op { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  @media (max-width: 820px) { .ucd-op { grid-template-columns: 1fr; gap: 24px; } }
+  .ucd-op-head { margin-bottom: 0; }
+  .ucd-op-body { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .ucd-op-faces { display: flex; }
+  .ucd-op-faces img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 3px solid var(--kd-surface-2); }
+  .ucd-op-faces img + img { margin-left: -14px; }
+  .ucd-op-body p { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); color: var(--kd-fg-2); }
+  .ucd-link { font-size: 18px; font-weight: var(--kd-weight-medium); color: var(--kd-accent); text-decoration: none; }
+  .ucd-link:hover { text-decoration: underline; }
+
+  /* ---------- first 90 days (live look, like How We Work) ---------- */
+  .ucd-timeline :global(.eyebrow) { color: var(--kd-signal-1); }
+
+  /* ---------- FAQ ---------- */
+  .ucd-faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 820px) { .ucd-faq { grid-template-columns: 1fr; } }
+  .ucd-faq-item { padding: 24px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); }
+  .ucd-faq-item h3 { font-size: 1.02rem; color: var(--kd-accent); margin-bottom: 8px; }
+  .ucd-faq-item p { font-size: 16px; line-height: 1.5; }
+
+  /* ---------- CTA (department colour) ---------- */
+  .ucd-cta { padding: 80px 0; text-align: center; background: radial-gradient(125% 120% at 50% 115%, color-mix(in srgb, var(--h-bg) var(--h-mix), var(--kd-white)), var(--h-bg) 72%); color: var(--h-ink); }
+  .ucd-cta h2 { font-size: var(--kd-text-l); line-height: var(--kd-lh-l); }
+  .ucd-cta h2 em { color: var(--h-em); }
+  .ucd-cta p { max-width: 52ch; margin: 16px auto 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); opacity: .9; }
+  .ucd-cta-actions { margin-top: 32px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  @media (prefers-reduced-motion: reduce) { .ucd-card { position: relative; top: auto; } .ucd-btn { transition: none; } }
+</style>

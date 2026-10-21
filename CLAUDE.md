@@ -37,6 +37,7 @@ src/pages/                  index, imprint, privacy-policy, glossary, use-cases 
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
+src/data/use-case-pages/    one content file per use case detail page (EN and DE), rendered by src/components/UseCaseDetail.astro
 src/data/use-cases.ts       all 7 use cases (EN and DE), read by the homepage and /use-cases/
 src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
@@ -171,3 +172,4 @@ Next, in order:
 - 2026-10-20: Homepage use cases rebuilt as stacked sticky cards from `design/261020_Kadanco_Website_with-detail-page` (`UseCaseStack.astro`): one large card per use case in its department colour, big animated icon on the right (image slot for photos later), 24px card radius by design (exception to the 5px rule). The previous grid lives on as `UseCaseGrid.astro`, shown on /components.
 - 2026-10-21: Homepage use cases are three stacked department cards (`DeptStack.astro`): Product, Marketing, Sales, each listing 3 use cases with direct links (placeholders where fewer exist) and a CTA, with a stock photo of real people on the right. Equal card heights fix the awkward stacking; on phones the cards sit in a plain column. Founder-led content moved from Marketing to Sales. The one-card-per-use-case version is kept on /components.
 - 2026-10-21: Nav dropdowns are text only (icons removed, too busy). Icons stay on the offer cards. "See All Use Cases" is centred.
+- 2026-10-21: Use case detail pages are being rebuilt one at a time from `design/261021_Kadanco_Use_Cases/` (8 files) on a shared template, `UseCaseDetail.astro`, with one content file per case in `src/data/use-case-pages/`. Department colours drive the hero, step cards and CTA band. First: DACH market entry (new 3 moves; the route comparison, native operator and first 90 days sections from the old page kept, owner decision). Headlines in Title Case per our guide; "X, not Y" lines rewritten. Lime grounds set `data-nav-cta="dark"` so the nav CTA turns navy there.

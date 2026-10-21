@@ -135,7 +135,15 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
             [0.2, 0.55, 0.8].forEach(function (f) { if (groundAt(Math.round(w * f), y) === 'light') light++; });
             return light >= 2 ? 'light' : 'dark';
           };
+          // lime grounds mark themselves data-nav-cta="dark": the lime CTA turns navy there
+          var ctaOnLime = function () {
+            var y = Math.round(nav.offsetHeight / 2), w = window.innerWidth;
+            var stack = document.elementsFromPoint ? document.elementsFromPoint(Math.round(w * 0.8), y) : [];
+            for (var i = 0; i < stack.length; i++) { if (!nav.contains(stack[i])) return !!stack[i].closest('[data-nav-cta="dark"]'); }
+            return false;
+          };
           var navTheme = function () {
+            nav.classList.toggle('nav--cta-dark', ctaOnLime());
             var theme = groundUnder();
             nav.classList.toggle('nav--light', theme === 'light');
             nav.classList.toggle('nav--dark', theme !== 'light');

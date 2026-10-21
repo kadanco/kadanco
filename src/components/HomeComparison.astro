@@ -15,7 +15,15 @@ import { asLocale } from '../i18n/utils';
 const locale = asLocale(Astro.currentLocale);
 
 type Mark = 'has' | 'part' | 'gap';
-const copy = {
+// Other pages (use case pages) can pass their own text in the same shape via `content`.
+export interface ComparisonContent {
+  eyebrow: string; h2a: string; h2b: string; lead: string; cols: string[]; solution: string;
+  rows: { route: string; why: string; marks: Mark[] }[];
+  kad: { route: string; why: string }; legend: { has: string; part: string; gap: string }; cap: string;
+}
+interface Props { content?: ComparisonContent; id?: string }
+const { content, id = 'comparison' } = Astro.props;
+const homeCopy = {
   en: {
     eyebrow: 'The Problem',
     h2a: 'Most Outside Help Sells Consulting.',
@@ -51,11 +59,12 @@ const copy = {
     cap: 'Kein einzelner Weg deckt alle drei ab. Wir schon.',
   },
 }[locale];
+const copy: ComparisonContent = content ?? homeCopy;
 const marks: Mark[] = ['has', 'part', 'gap'];
 ---
 <!-- data-theme="light": the nav reads gradients as dark unless told otherwise; in dark
      mode this band is a plain colour, which the nav measures directly -->
-<section class="cmp" id="comparison" data-theme="light">
+<section class="cmp" id={id} data-theme="light">
   <div class="container cmp-in">
     <div class="cmp-text">
       <span class="cmp-eyebrow">{copy.eyebrow}</span>
