@@ -107,7 +107,7 @@ const entries: UseCase[] = [
   {
     id: 'founder-led-content',
     icon: 'rocket',
-    dept: 'marketing',
+    dept: 'sales', // moved from marketing on 2026-10-20 (owner): content that feeds pipeline
     kind: 'page',
     href: '/use-cases/founder-led-content/',
     en: {

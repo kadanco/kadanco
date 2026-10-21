@@ -110,8 +110,7 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
             var c = m.slice(0, 3).map(function (v) { v = v / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
             return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
           };
-          var groundUnder = function () {
-            var x = window.innerWidth / 2, y = Math.round(nav.offsetHeight / 2); // what shows behind the nav
+          var groundAt = function (x, y) {
             var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
             for (var i = 0; i < stack.length; i++) {
               var el = stack[i];
@@ -128,6 +127,13 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
               }
             }
             return 'dark';
+          };
+          // sample behind the logo, the links and the right side, and go with
+          // the majority, so a single edge (card text next to a photo) cannot flip it
+          var groundUnder = function () {
+            var y = Math.round(nav.offsetHeight / 2), w = window.innerWidth, light = 0;
+            [0.2, 0.55, 0.8].forEach(function (f) { if (groundAt(Math.round(w * f), y) === 'light') light++; });
+            return light >= 2 ? 'light' : 'dark';
           };
           var navTheme = function () {
             var theme = groundUnder();

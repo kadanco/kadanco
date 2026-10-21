@@ -68,7 +68,7 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Department colours: Product Blue #3B38DF, Marketing Lime #DAFF02 (dark-blue text, never a large background), Sales Lilac #B2B1FF, Accent/PLG #7270FF.
 - Orange #FE572A is for the single main CTA only, on light grounds. On dark grounds (hero, nav, blue CTA bands) the CTA is lime with navy text (`.btn-lime`), as on the original site.
 - Grounds: ink #201E1F, beige #F3F0EB / #E7E2D9 / #DCD5C8, navy #1A0175.
-- Imagery: 3D isometric icons.
+- Imagery: 3D isometric icons. Exception: the homepage use case cards use photos of real people (Unsplash License, self-hosted in `public/images/use-cases/`, credits in `docs/`).
 
 ## House rules
 
@@ -169,3 +169,4 @@ Next, in order:
 - 2026-10-20: Who We Are and FAQ now switch to the dark theme colours in dark mode (night ground, navy cards, lilac accents). Light mode keeps the exact live look. Compliance (lime band) and the final CTA (blue band) stay as they are in both modes.
 - 2026-10-20: Hero slices reordered to read 01, 02, 03 from top to bottom: Product on top, Marketing in the middle, Sales at the bottom. Drawing order and hover areas follow each slice's position. (Use cases keep the Product, Marketing, Sales order.)
 - 2026-10-20: Homepage use cases rebuilt as stacked sticky cards from `design/261020_Kadanco_Website_with-detail-page` (`UseCaseStack.astro`): one large card per use case in its department colour, big animated icon on the right (image slot for photos later), 24px card radius by design (exception to the 5px rule). The previous grid lives on as `UseCaseGrid.astro`, shown on /components.
+- 2026-10-21: Homepage use cases are three stacked department cards (`DeptStack.astro`): Product, Marketing, Sales, each listing 3 use cases with direct links (placeholders where fewer exist) and a CTA, with a stock photo of real people on the right. Equal card heights fix the awkward stacking; on phones the cards sit in a plain column. Founder-led content moved from Marketing to Sales. The one-card-per-use-case version is kept on /components.

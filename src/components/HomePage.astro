@@ -15,7 +15,7 @@
 // Class names carry a home- prefix so they never collide with global.css.
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
-import UseCaseStack from './UseCaseStack.astro';
+import DeptStack from './DeptStack.astro';
 import IsoIcon from './IsoIcon.astro';
 import type { IsoIconName } from '../data/iso-icons';
 import LiveFounders from './LiveFounders.astro';
@@ -150,7 +150,7 @@ const logos = [
     </div>
   </section>
 
-  <!-- ===================== USE CASES: stacked cards (UseCaseStack.astro, all of src/data/use-cases.ts) ===================== -->
+  <!-- ===================== USE CASES: one stacked card per department (DeptStack.astro) ===================== -->
   <section class="home-sec home-sec--alt" id="use-cases">
     <div class="container">
       <div class="home-head">
@@ -158,7 +158,7 @@ const logos = [
         <h2>{c.ucH2a} <em>{c.ucH2b}</em></h2>
         <p class="home-lede">{c.ucLede}</p>
       </div>
-      <UseCaseStack items={useCases} />
+      <DeptStack cards={c.cards} />
       <a class="btn btn-primary home-uc-all" href={localizedHref(locale, '/use-cases/')}>{c.ucAll}</a>
     </div>
   </section>
