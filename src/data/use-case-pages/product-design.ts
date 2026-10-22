@@ -12,7 +12,7 @@ export const productDesign: UseCasePage = {
   id: 'product-design',
   dept: 'product',
   icon: 'board',
-  stepsLayout: 'expand',
+  stepsLayout: 'ui',
   stepIcons: ['door', 'board', 'layers', 'rocket'],
   en: {
     meta: {

@@ -18,7 +18,7 @@ export interface UseCasePageText {
   comparison?: ComparisonContent;
   why?: { eyebrow: string; h2a: string; h2b: string; items: { title: string; body: string }[] };   // reasons the problem persists
   funnel?: { eyebrow: string; h2a: string; h2b: string; stages: { label: string; leak?: string }[]; end: string };  // last stage is the goal
-  inside: { eyebrow: string; h2: string; lede: string; steps: { label: string; title: string; body: string }[] };
+  inside: { eyebrow: string; h2: string; lede: string; steps: { label: string; title: string; body: string; points?: string[] }[] };  // points: shown on hover in the bento layout
   also?: { eyebrow: string; h2: string; items: { title: string; body: string }[]; tagsHead?: string; tags?: string[] };
   outcomes: { eyebrow: string; h2: string; items: { big: string; text: string }[] };
   operator?: { eyebrow: string; h2a: string; h2b: string; body: string; link: string };
@@ -31,7 +31,7 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  stepsLayout?: 'stack' | 'expand';     // stacked sticky cards (default) or a row of cards that widen on hover
+  stepsLayout?: 'stack' | 'expand' | 'bento' | 'ui';  // stacked cards (default), widening row, mixed-size grid, or the product UI mock
   stepIcons: IsoIconName[];              // one per step, repeats if there are fewer
   en: UseCasePageText;
   de: UseCasePageText;

@@ -5,7 +5,7 @@
 //   breadcrumb, department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
 //   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), the
-//   steps as stacked cards or expanding cards (stepsLayout), optional "also included" cards with tags, outcomes, optional native
+//   steps as stacked cards, expanding cards, a bento grid or the product UI mock (stepsLayout), optional "also included" cards with tags, outcomes, optional native
 //   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
 //   and a department-coloured CTA band.
 // Colours follow the department: product blue, marketing lime, sales lilac.
@@ -14,6 +14,7 @@
 import HomeComparison from './HomeComparison.astro';
 import CadenceTimeline from './CadenceTimeline.astro';
 import IsoIcon from './IsoIcon.astro';
+import StepsProductUI from './StepsProductUI.astro';
 import type { UseCasePage } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -28,8 +29,8 @@ const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and 
 const light = ['situation', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
-  en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do' },
-  de: { home: 'Startseite', uc: 'Use Cases', problem: 'Das Problem', solve: 'Was wir tun' },
+  en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen' },
+  de: { home: 'Startseite', uc: 'Use Cases', problem: 'Das Problem', solve: 'Was wir tun', uiHint: 'Fahren Sie über einen Bereich' },
 }[locale];
 ---
 <main id="top" class={`ucd ucd--${page.dept}`}>
@@ -107,7 +108,25 @@ const ui = {
         <h2>{c.inside.h2}</h2>
         <p class="ucd-lede">{c.inside.lede}</p>
       </div>
-      {page.stepsLayout === 'expand' ? (
+      {page.stepsLayout === 'ui' ? (
+        <StepsProductUI steps={c.inside.steps} hint={ui.uiHint} />
+      ) : page.stepsLayout === 'bento' ? (
+        <div class={`ucd-bento ucd-bento--${c.inside.steps.length}`}>
+          {c.inside.steps.map((st, i) => (
+            <article class={`ucd-tile ucd-tile--${i + 1}`} tabindex="0">
+              <div class="ucd-tile-media" role="img" aria-label={st.title} data-image-slot={`${page.id}-${i + 1}`}>
+                <IsoIcon name={page.stepIcons[i % page.stepIcons.length]} size={i === 0 ? 160 : 110} />
+              </div>
+              <div class="ucd-tile-text">
+                <span class="ucd-step">{st.label}</span>
+                <h3>{st.title}</h3>
+                <p>{st.body}</p>
+                {st.points && <ul class="ucd-tile-more">{st.points.map((p) => <li>{p}</li>)}</ul>}
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : page.stepsLayout === 'expand' ? (
         <div class="ucd-expand">
           {c.inside.steps.map((st, i) => (
             <article class="ucd-xcard" tabindex="0" aria-label={`${st.label}: ${st.title}`}>
@@ -335,6 +354,45 @@ const ui = {
   .ucd-tags-head { margin-bottom: 12px !important; font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
   .ucd-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
   .ucd-tags li { padding: 6px 14px; border-radius: var(--kd-radius); border: 2px solid var(--kd-line); font-size: 15px; font-weight: var(--kd-weight-medium); }
+
+  /* ---------- steps as mixed-size cards (bento) ----------
+     One large card leads, the others sit beside it at different sizes.
+     Hover, focus or a tap shrinks the image and opens the list of what the
+     step includes. Fixed row heights, so nothing around it moves. */
+  .ucd-bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 440px; gap: 20px; }
+  .ucd-bento--3 { grid-auto-rows: 330px; }
+  .ucd-bento--3 .ucd-tile--1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .ucd-bento--4 .ucd-tile--1 { grid-column: 1 / 3; }
+  .ucd-bento--4 .ucd-tile--4 { grid-column: 2 / 4; }
+  .ucd-tile { display: flex; flex-direction: column; border-radius: var(--kd-radius); overflow: hidden; background: var(--card-bg); color: var(--card-ink); outline: none; cursor: pointer; }
+  .ucd-tile:focus-visible { box-shadow: 0 0 0 3px var(--kd-accent); }
+  .ucd-tile--1, .ucd-tile--4 { --card-bg: var(--card-1); }
+  .ucd-tile--2, .ucd-tile--3 { --card-bg: var(--card-2); }
+  .ucd-tile-media { flex: 1 1 auto; min-height: 72px; display: flex; align-items: center; justify-content: center; background: var(--kd-blue-1); transition: flex-grow .45s ease; }
+  .ucd-tile-media :global(.iso-ic) { color: var(--kd-white); transition: transform .45s ease; }
+  .ucd-tile-media :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  .ucd-tile-text { display: flex; flex-direction: column; gap: 10px; padding: 24px 28px 28px; }
+  .ucd-tile h3 { font-size: clamp(21px, 2.1vw, 27px); line-height: 1.15; }
+  .ucd-tile--1 h3 { font-size: clamp(26px, 3vw, 36px); }
+  .ucd-tile p { font-size: 16px; line-height: 1.45; opacity: .88; }
+  .ucd-tile-more { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height .45s ease, opacity .3s ease; }
+  .ucd-tile-more li { position: relative; padding-left: 20px; font-size: 15px; font-weight: var(--kd-weight-medium); }
+  .ucd-tile-more li::before { content: ""; position: absolute; left: 0; top: .5em; width: 9px; height: 9px; border-radius: 2px; background: currentColor; opacity: .7; }
+  .ucd-tile:is(:hover, :focus-visible, :focus-within) .ucd-tile-media { flex-grow: 0; }
+  .ucd-tile:is(:hover, :focus-visible, :focus-within) .ucd-tile-media :global(.iso-ic) { transform: scale(.55); }
+  .ucd-tile:is(:hover, :focus-visible, :focus-within) .ucd-tile-more { max-height: 10em; opacity: 1; transition-delay: .1s; }
+  .ucd-bento:hover .ucd-tile:not(:hover) .ucd-tile-media { flex-grow: 1; }
+  .ucd-bento:hover .ucd-tile:not(:hover) .ucd-tile-media :global(.iso-ic) { transform: none; }
+  .ucd-bento:hover .ucd-tile:not(:hover) .ucd-tile-more { max-height: 0; opacity: 0; transition-delay: 0s; }
+  @media (max-width: 900px) {
+    .ucd-bento, .ucd-bento--3 { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; }
+    .ucd-bento .ucd-tile--1, .ucd-bento--4 .ucd-tile--4 { grid-column: 1 / -1; grid-row: auto; }
+    .ucd-tile-media { flex: none; height: 160px; }
+    .ucd-tile-more { max-height: none; opacity: 1; }
+    .ucd-tile { cursor: default; }
+  }
+  @media (max-width: 640px) { .ucd-bento, .ucd-bento--3 { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .ucd-tile-media, .ucd-tile-more, .ucd-tile-media :global(.iso-ic) { transition: none; } }
 
   /* ---------- steps as expanding cards ----------
      From the "Wähle deine Zahlungsart" row on klarna.com/de (screenshots in

@@ -1,0 +1,163 @@
+---
+// src/components/StepsProductUI.astro
+// The steps of the Product Design use case, drawn as a product interface:
+// an app window where each step is a region of the screen (01 onboarding
+// stepper, 02 screens, 03 component library in the sidebar, 04 code panel).
+// The window starts as a grey wireframe. Hover, keyboard focus or a tap on a
+// region turns it into the finished design and shows that step in the
+// inspector panel on the right, like a design tool. CSS only (:has), no
+// script. Phones: the window stays as a picture and every step is listed.
+interface Step { label: string; title: string; body: string }
+interface Props { steps: Step[]; url?: string; hint: string }
+const { steps, url = 'app.yourproduct.com', hint } = Astro.props;
+// screen regions in step order: onboarding, screens, design system, code
+const area = ['onb', 'scr', 'sys', 'code'];
+---
+<div class="pui">
+  <div class="pui-win" aria-hidden="false">
+    <div class="pui-bar" aria-hidden="true"><i></i><i></i><i></i><span>{url}</span></div>
+    <div class="pui-body">
+      {steps.slice(0, 4).map((st, i) => (
+        <div class={`pui-r pui-r--${area[i]}`} tabindex="0" role="button" aria-label={`${st.label}: ${st.title}`} data-step={i + 1}>
+          <span class="pui-tag" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          {area[i] === 'onb' && (
+            <div class="pui-onb" aria-hidden="true">
+              <div class="pui-stepper"><b class="on"></b><s></s><b class="on"></b><s></s><b></b></div>
+              <div class="pui-lines"><em style="width:46%"></em><em style="width:72%"></em></div>
+              <div class="pui-progress"><u></u></div>
+            </div>
+          )}
+          {area[i] === 'scr' && (
+            <div class="pui-scr" aria-hidden="true">
+              <div class="pui-card"><em style="width:40%"></em><strong></strong><em style="width:80%"></em><em style="width:64%"></em></div>
+              <div class="pui-card"><em style="width:52%"></em><strong class="c2"></strong><em style="width:70%"></em><em style="width:58%"></em></div>
+              <div class="pui-card"><em style="width:34%"></em><strong class="c3"></strong><em style="width:76%"></em><span class="pui-btn"></span></div>
+            </div>
+          )}
+          {area[i] === 'sys' && (
+            <div class="pui-sys" aria-hidden="true">
+              <em style="width:60%"></em>
+              <div class="pui-sw"><i></i><i></i><i></i><i></i></div>
+              <span class="pui-btn"></span>
+              <span class="pui-btn pui-btn--ghost"></span>
+              <span class="pui-input"></span>
+              <span class="pui-toggle"><i></i></span>
+              <em style="width:80%"></em><em style="width:50%"></em>
+            </div>
+          )}
+          {area[i] === 'code' && (
+            <div class="pui-code" aria-hidden="true">
+              <code><span class="k">import</span> {'{ Button }'} <span class="k">from</span> <span class="s">'@your/design-system'</span>;</code>
+              <code>&lt;<span class="t">Button</span> <span class="a">variant</span>=<span class="s">"primary"</span>&gt;Get started&lt;/<span class="t">Button</span>&gt;</code>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <aside class="pui-insp">
+    <p class="pui-insp-head" aria-hidden="true"><span>Inspector</span><span class="pui-hint">{hint}</span></p>
+    {steps.slice(0, 4).map((st, i) => (
+      <div class={`pui-note pui-note--${i + 1}`}>
+        <span class="ucd-step-l">{st.label}</span>
+        <h3>{st.title}</h3>
+        <p>{st.body}</p>
+      </div>
+    ))}
+  </aside>
+</div>
+
+<style>
+  .pui { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+
+  /* ---------- app window ---------- */
+  .pui-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-surface); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(26, 1, 117, .45); }
+  .pui-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--kd-blue-1); }
+  .pui-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .pui-bar span { margin-left: 12px; padding: 3px 12px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 12px; }
+  .pui-body { display: grid; grid-template-columns: minmax(130px, .9fr) minmax(0, 3fr); grid-template-rows: auto 1fr auto; gap: 12px; padding: 14px; min-height: 440px; }
+  .pui-r--sys { grid-column: 1; grid-row: 1 / 4; }
+  .pui-r--onb { grid-column: 2; grid-row: 1; }
+  .pui-r--scr { grid-column: 2; grid-row: 2; }
+  .pui-r--code { grid-column: 2; grid-row: 3; }
+
+  /* a region: grey wireframe at rest, the finished design when active */
+  .pui-r { position: relative; padding: 14px; border: 2px dashed var(--kd-line); border-radius: var(--kd-radius); cursor: pointer; outline: none; transition: border-color .25s ease, background-color .25s ease; --wf: color-mix(in srgb, var(--kd-fg) 14%, transparent); --c1: var(--wf); --c2: var(--wf); --c3: var(--wf); --c4: var(--wf); }
+  .pui-tag { position: absolute; top: -10px; left: 10px; padding: 0 6px; border-radius: var(--kd-radius); background: var(--kd-surface); color: var(--kd-fg-2); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; transition: background-color .25s, color .25s; }
+  /* at rest, region 01 shows as active, matching the inspector */
+  .pui:not(:has(.pui-r:is(:hover, :focus-visible))) .pui-r--onb,
+  .pui-r:is(:hover, :focus-visible) { border-style: solid; border-color: var(--kd-blue-2); background: color-mix(in srgb, var(--kd-blue-2) 5%, var(--kd-surface)); --c1: var(--kd-blue-2); --c2: var(--kd-signal-1); --c3: var(--kd-lilac); --c4: var(--kd-blue-1); }
+  .pui:not(:has(.pui-r:is(:hover, :focus-visible))) .pui-r--onb .pui-tag,
+  .pui-r:is(:hover, :focus-visible) .pui-tag { background: var(--kd-blue-2); color: var(--kd-white); }
+  .pui-r em, .pui-r strong, .pui-r b, .pui-r s, .pui-r u, .pui-btn, .pui-input, .pui-toggle, .pui-sw i { transition: background-color .3s ease, border-color .3s ease; }
+  .pui-r em { display: block; height: 8px; border-radius: 3px; background: var(--wf); }
+  .pui-r:is(:hover, :focus-visible) em { background: color-mix(in srgb, var(--kd-fg) 22%, transparent); }
+
+  .pui-onb { display: flex; flex-direction: column; gap: 10px; }
+  .pui-stepper { display: flex; align-items: center; }
+  .pui-stepper b { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--wf); background: transparent; }
+  .pui-stepper b.on { background: var(--c1); border-color: var(--c1); }
+  .pui-stepper s { flex: 1; height: 2px; background: var(--wf); }
+  .pui-lines { display: flex; flex-direction: column; gap: 6px; }
+  .pui-progress { height: 8px; border-radius: 4px; background: var(--wf); overflow: hidden; }
+  .pui-progress u { display: block; width: 66%; height: 100%; background: var(--c2); }
+
+  .pui-scr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; height: 100%; }
+  .pui-card { display: flex; flex-direction: column; gap: 8px; padding: 10px; border: 1px solid var(--kd-line); border-radius: var(--kd-radius); background: var(--kd-surface); }
+  .pui-card strong { display: block; flex: 1; min-height: 56px; border-radius: 3px; background: var(--c1); }
+  .pui-card strong.c2 { background: var(--c3); }
+  .pui-card strong.c3 { background: var(--c4); }
+
+  .pui-sys { display: flex; flex-direction: column; gap: 12px; }
+  .pui-sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .pui-sw i { aspect-ratio: 1; border-radius: 3px; background: var(--wf); }
+  .pui-r:is(:hover, :focus-visible) .pui-sw i:nth-child(1) { background: var(--kd-blue-1); }
+  .pui-r:is(:hover, :focus-visible) .pui-sw i:nth-child(2) { background: var(--kd-blue-2); }
+  .pui-r:is(:hover, :focus-visible) .pui-sw i:nth-child(3) { background: var(--kd-lilac); }
+  .pui-r:is(:hover, :focus-visible) .pui-sw i:nth-child(4) { background: var(--kd-signal-1); }
+  .pui-btn { display: block; height: 22px; border-radius: var(--kd-radius); background: var(--c1); }
+  .pui-scr .pui-btn { width: 60%; background: var(--c2); }
+  .pui-btn--ghost { background: transparent; border: 2px solid var(--c1); }
+  .pui-r:not(:is(:hover, :focus-visible)) .pui-btn--ghost { border-color: var(--wf); }
+  .pui-input { display: block; height: 22px; border-radius: var(--kd-radius); border: 2px solid var(--wf); }
+  .pui-toggle { display: flex; align-items: center; width: 34px; height: 18px; padding: 2px; border-radius: 9px; background: var(--wf); }
+  .pui-toggle i { width: 14px; height: 14px; border-radius: 50%; background: var(--kd-surface); margin-left: auto; }
+  .pui-r--sys:is(:hover, :focus-visible) .pui-toggle { background: var(--kd-blue-2); }
+
+  .pui-code { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-fg) 8%, transparent); transition: background-color .3s ease; }
+  .pui-code code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; color: var(--kd-fg-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pui-r--code:is(:hover, :focus-visible) .pui-code { background: var(--kd-blue-1); }
+  .pui-r--code:is(:hover, :focus-visible) code { color: var(--kd-white); }
+  .pui-r--code:is(:hover, :focus-visible) .k { color: var(--kd-lilac); }
+  .pui-r--code:is(:hover, :focus-visible) .s { color: var(--kd-signal-1); }
+  .pui-r--code:is(:hover, :focus-visible) .t, .pui-r--code:is(:hover, :focus-visible) .a { color: var(--kd-lilac-tint); }
+
+  /* ---------- inspector: shows the active region's step (step 01 at rest) ---------- */
+  .pui-insp { display: flex; flex-direction: column; gap: 16px; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); }
+  .pui-insp-head { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, .2); font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
+  .pui-hint { opacity: .7; text-transform: none; letter-spacing: 0; font-weight: var(--kd-weight-regular); }
+  .pui-note { display: none; flex-direction: column; gap: 12px; animation: pui-in .3s ease; }
+  .ucd-step-l { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-signal-1); }
+  .pui-note h3 { font-size: clamp(24px, 2.4vw, 32px); line-height: 1.15; }
+  .pui-note p { font-size: 17px; line-height: 1.5; opacity: .92; }
+  @keyframes pui-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .pui:not(:has(.pui-r:is(:hover, :focus-visible))) .pui-note--1,
+  .pui:has([data-step="1"]:is(:hover, :focus-visible)) .pui-note--1,
+  .pui:has([data-step="2"]:is(:hover, :focus-visible)) .pui-note--2,
+  .pui:has([data-step="3"]:is(:hover, :focus-visible)) .pui-note--3,
+  .pui:has([data-step="4"]:is(:hover, :focus-visible)) .pui-note--4 { display: flex; }
+
+  /* phones: the window as a picture, every step listed below */
+  @media (max-width: 900px) {
+    .pui { grid-template-columns: 1fr; }
+    .pui-body { min-height: 0; grid-template-columns: 1fr 2.4fr; }
+    .pui-scr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pui-scr .pui-card:nth-child(3) { display: none; }
+    .pui-hint { display: none; }
+    .pui-note, .pui:not(:has(.pui-r:is(:hover, :focus-visible))) .pui-note { display: flex; animation: none; }
+    .pui-note + .pui-note { padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, .2); }
+  }
+  @media (prefers-reduced-motion: reduce) { .pui-note { animation: none; } .pui-r, .pui-r * { transition: none !important; } }
+</style>

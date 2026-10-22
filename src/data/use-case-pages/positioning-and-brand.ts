@@ -10,6 +10,7 @@ export const positioningAndBrand: UseCasePage = {
   id: 'positioning-and-brand',
   dept: 'marketing',
   icon: 'score',
+  stepsLayout: 'bento',
   stepIcons: ['door', 'posts', 'dice', 'docs'],
   en: {
     meta: {
@@ -36,10 +37,10 @@ export const positioningAndBrand: UseCasePage = {
       h2: 'From A Feature List To A Brand That Sells.',
       lede: 'Four steps that turn what the product can do into a reason to buy, owned and shipped by the operators who scoped them.',
       steps: [
-        { label: '01 · Positioning', title: 'The one thing you own', body: 'We define the outcome you win on, the buyer you win it for and what they compare you to, so every page points at the same promise instead of ten scattered features.' },
-        { label: '02 · Message & voice', title: 'How the company speaks', body: 'A value proposition, key messages and a voice guide, so a headline, an onboarding email and a sales reply all sound like one company.' },
-        { label: '03 · Visual identity', title: 'Logo, colour, type and system', body: 'A logo, palette, typography and layout system that look deliberate and work everywhere, from a pitch deck to a trade fair stand to a 48px favicon. We refine what is worth keeping.' },
-        { label: '04 · Sales story', title: 'One story sales can repeat', body: 'A sales narrative and deck that match the site, so the pitch in the room carries the same promise that brought the buyer in.' },
+        { label: '01 · Positioning', title: 'The one thing you own', body: 'We define the outcome you win on, the buyer you win it for and what they compare you to, so every page points at the same promise instead of ten scattered features.', points: ['Customer and sales interviews', 'Competitor and alternatives review', 'Positioning statement and ideal buyer'] },
+        { label: '02 · Message & voice', title: 'How the company speaks', body: 'A value proposition, key messages and a voice guide, so a headline, an onboarding email and a sales reply all sound like one company.', points: ['Value proposition', 'Key messages by audience', 'Tone of voice guide'] },
+        { label: '03 · Visual identity', title: 'Logo, colour, type and system', body: 'A logo, palette, typography and layout system that look deliberate and work everywhere, from a pitch deck to a trade fair stand to a 48px favicon. We refine what is worth keeping.', points: ['Logo and wordmark', 'Colour palette and typography', 'Layout system and templates'] },
+        { label: '04 · Sales story', title: 'One story sales can repeat', body: 'A sales narrative and deck that match the site, so the pitch in the room carries the same promise that brought the buyer in.', points: ['Sales narrative', 'Sales deck', 'Comparison page'] },
       ],
     },
     also: {
@@ -123,10 +124,10 @@ export const positioningAndBrand: UseCasePage = {
       h2: 'Von der Feature-Liste zur Marke, die verkauft.',
       lede: 'Vier Schritte, die aus dem, was das Produkt kann, einen Kaufgrund machen, verantwortet und umgesetzt von denselben Machern, die sie geplant haben.',
       steps: [
-        { label: '01 · Positionierung', title: 'Das eine, das Ihnen gehört', body: 'Wir legen das Ergebnis fest, mit dem Sie gewinnen, den Käufer, für den Sie es liefern, und womit er Sie vergleicht. So zeigt jede Seite auf dasselbe Versprechen statt auf zehn verstreute Features.' },
-        { label: '02 · Botschaft & Tonalität', title: 'Wie das Unternehmen spricht', body: 'Ein Wertversprechen, Kernbotschaften und ein Tonalitäts-Leitfaden, damit Headline, Onboarding-Mail und Antwort des Vertriebs nach einem Unternehmen klingen.' },
-        { label: '03 · Visuelle Identität', title: 'Logo, Farbe, Schrift und System', body: 'Logo, Farbpalette, Typografie und Layoutsystem, die durchdacht wirken und überall funktionieren, vom Pitch-Deck über den Messestand bis zum 48-Pixel-Favicon. Was sich lohnt, entwickeln wir weiter.' },
-        { label: '04 · Vertriebsstory', title: 'Eine Geschichte, die der Vertrieb wiederholen kann', body: 'Eine Vertriebserzählung und ein Deck, die zur Website passen, damit der Pitch im Termin dasselbe Versprechen trägt, das den Käufer hergebracht hat.' },
+        { label: '01 · Positionierung', title: 'Das eine, das Ihnen gehört', body: 'Wir legen das Ergebnis fest, mit dem Sie gewinnen, den Käufer, für den Sie es liefern, und womit er Sie vergleicht. So zeigt jede Seite auf dasselbe Versprechen statt auf zehn verstreute Features.', points: ['Kunden- und Vertriebsinterviews', 'Wettbewerbs- und Alternativenanalyse', 'Positionierung und ideale Käufer'] },
+        { label: '02 · Botschaft & Tonalität', title: 'Wie das Unternehmen spricht', body: 'Ein Wertversprechen, Kernbotschaften und ein Tonalitäts-Leitfaden, damit Headline, Onboarding-Mail und Antwort des Vertriebs nach einem Unternehmen klingen.', points: ['Wertversprechen', 'Kernbotschaften je Zielgruppe', 'Tonalitäts-Leitfaden'] },
+        { label: '03 · Visuelle Identität', title: 'Logo, Farbe, Schrift und System', body: 'Logo, Farbpalette, Typografie und Layoutsystem, die durchdacht wirken und überall funktionieren, vom Pitch-Deck über den Messestand bis zum 48-Pixel-Favicon. Was sich lohnt, entwickeln wir weiter.', points: ['Logo und Wortmarke', 'Farbpalette und Typografie', 'Layoutsystem und Vorlagen'] },
+        { label: '04 · Vertriebsstory', title: 'Eine Geschichte, die der Vertrieb wiederholen kann', body: 'Eine Vertriebserzählung und ein Deck, die zur Website passen, damit der Pitch im Termin dasselbe Versprechen trägt, das den Käufer hergebracht hat.', points: ['Vertriebserzählung', 'Sales-Deck', 'Vergleichsseite'] },
       ],
     },
     also: {

@@ -9,6 +9,7 @@ export const accountBasedMarketing: UseCasePage = {
   id: 'account-based-marketing',
   dept: 'sales',
   icon: 'network',
+  stepsLayout: 'bento',
   stepIcons: ['score', 'network', 'posts', 'calendar'],
   en: {
     meta: {
@@ -35,10 +36,10 @@ export const accountBasedMarketing: UseCasePage = {
       h2: 'Four Steps From Target List To Booked Meetings.',
       lede: 'Marketing and sales work run as one, by the operators who scoped it.',
       steps: [
-        { label: '01 · Account selection', title: 'The accounts worth winning', body: 'We build the target account list with you from fit, deal size and buying signals, and split it into tiers, so effort goes where the revenue is.' },
-        { label: '02 · Buying group', title: 'Everyone who decides', body: 'We map the decision makers, users and blockers in each account and write messaging for each role, so every person hears why it matters to them.' },
-        { label: '03 · Campaigns', title: 'Seen before the first call', body: 'LinkedIn ads aimed at the account list, content for each stage, and landing pages tailored to the top accounts or their industry, so the buying group knows you before sales reaches out.' },
-        { label: '04 · Outreach & handoff', title: 'Meetings with the right people', body: 'Coordinated outreach by email, LinkedIn and phone, timed with the campaigns, and a clear handoff to sales with the context of every touch.' },
+        { label: '01 · Account selection', title: 'The accounts worth winning', body: 'We build the target account list with you from fit, deal size and buying signals, and split it into tiers, so effort goes where the revenue is.', points: ['Scoring by fit and deal size', 'Buying signals', 'Account tiers'] },
+        { label: '02 · Buying group', title: 'Everyone who decides', body: 'We map the decision makers, users and blockers in each account and write messaging for each role, so every person hears why it matters to them.', points: ['Decision makers, users and blockers', 'Messaging by role', 'Verified contact data'] },
+        { label: '03 · Campaigns', title: 'Seen before the first call', body: 'LinkedIn ads aimed at the account list, content for each stage, and landing pages tailored to the top accounts or their industry, so the buying group knows you before sales reaches out.', points: ['LinkedIn ads to the account list', 'Content for each stage', 'Tailored landing pages'] },
+        { label: '04 · Outreach & handoff', title: 'Meetings with the right people', body: 'Coordinated outreach by email, LinkedIn and phone, timed with the campaigns, and a clear handoff to sales with the context of every touch.', points: ['Email, LinkedIn and phone', 'Timed with the campaigns', 'Handoff with full context'] },
       ],
     },
     also: {
@@ -122,10 +123,10 @@ export const accountBasedMarketing: UseCasePage = {
       h2: 'Vier Schritte von der Zielliste zum gebuchten Termin.',
       lede: 'Marketing- und Vertriebsarbeit aus einem Guss, umgesetzt von den Machern, die sie geplant haben.',
       steps: [
-        { label: '01 · Account-Auswahl', title: 'Die Accounts, die sich lohnen', body: 'Wir erstellen mit Ihnen die Zielaccount-Liste nach Fit, Dealgröße und Kaufsignalen und teilen sie in Stufen, damit der Aufwand dorthin geht, wo der Umsatz ist.' },
-        { label: '02 · Buying Center', title: 'Alle, die entscheiden', body: 'Wir erfassen Entscheider, Nutzer und Bremser in jedem Account und schreiben Botschaften für jede Rolle, damit jede Person hört, warum es für sie zählt.' },
-        { label: '03 · Kampagnen', title: 'Gesehen vor dem ersten Gespräch', body: 'LinkedIn-Anzeigen auf die Account-Liste, Inhalte für jede Phase und Landingpages für die Top-Accounts oder ihre Branche, damit das Buying Center Sie kennt, bevor der Vertrieb sich meldet.' },
-        { label: '04 · Ansprache & Übergabe', title: 'Termine mit den richtigen Menschen', body: 'Abgestimmte Ansprache per E-Mail, LinkedIn und Telefon im Takt der Kampagnen und eine klare Übergabe an den Vertrieb mit dem Kontext jedes Kontakts.' },
+        { label: '01 · Account-Auswahl', title: 'Die Accounts, die sich lohnen', body: 'Wir erstellen mit Ihnen die Zielaccount-Liste nach Fit, Dealgröße und Kaufsignalen und teilen sie in Stufen, damit der Aufwand dorthin geht, wo der Umsatz ist.', points: ['Bewertung nach Fit und Dealgröße', 'Kaufsignale', 'Account-Stufen'] },
+        { label: '02 · Buying Center', title: 'Alle, die entscheiden', body: 'Wir erfassen Entscheider, Nutzer und Bremser in jedem Account und schreiben Botschaften für jede Rolle, damit jede Person hört, warum es für sie zählt.', points: ['Entscheider, Nutzer und Bremser', 'Botschaften je Rolle', 'Geprüfte Kontaktdaten'] },
+        { label: '03 · Kampagnen', title: 'Gesehen vor dem ersten Gespräch', body: 'LinkedIn-Anzeigen auf die Account-Liste, Inhalte für jede Phase und Landingpages für die Top-Accounts oder ihre Branche, damit das Buying Center Sie kennt, bevor der Vertrieb sich meldet.', points: ['LinkedIn-Anzeigen auf die Account-Liste', 'Inhalte für jede Phase', 'Eigene Landingpages'] },
+        { label: '04 · Ansprache & Übergabe', title: 'Termine mit den richtigen Menschen', body: 'Abgestimmte Ansprache per E-Mail, LinkedIn und Telefon im Takt der Kampagnen und eine klare Übergabe an den Vertrieb mit dem Kontext jedes Kontakts.', points: ['E-Mail, LinkedIn und Telefon', 'Im Takt der Kampagnen', 'Übergabe mit vollem Kontext'] },
       ],
     },
     also: {
