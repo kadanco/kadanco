@@ -4,7 +4,7 @@
 // (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
 //   breadcrumb, department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
-//   (HomeComparison), optional funnel (where visitors drop off), three
+//   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), three
 //   stacked step cards, optional "also included" cards with tags, outcomes, optional native
 //   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
 //   and a department-coloured CTA band.
@@ -25,7 +25,7 @@ const c = page[locale] ?? page.en;
 const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
 // light sections alternate page and paper grounds, whichever optional blocks are present
-const light = ['situation', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
+const light = ['situation', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
   en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do' },
@@ -67,6 +67,20 @@ const ui = {
 
   {c.comparison && <HomeComparison content={c.comparison} id="routes" />}
 
+  {c.why && (
+    <section class={sec('why')} data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.why.eyebrow}</span>
+          <h2>{c.why.h2a} <em>{c.why.h2b}</em></h2>
+        </div>
+        <div class="ucd-also">
+          {c.why.items.map((it) => <div class="ucd-also-card"><h3>{it.title}</h3><p>{it.body}</p></div>)}
+        </div>
+      </div>
+    </section>
+  )}
+
   {c.funnel && (
     <section class={sec('funnel')} data-theme="light">
       <div class="container">
@@ -102,7 +116,7 @@ const ui = {
               <p>{st.body}</p>
             </div>
             <div class="ucd-card-media" role="img" aria-label={st.title} data-image-slot={`${page.id}-${i + 1}`}>
-              <IsoIcon name={page.stepIcons[i % 3]} size={150} />
+              <IsoIcon name={page.stepIcons[i % page.stepIcons.length]} size={150} />
             </div>
           </article>
         ))}

@@ -1,0 +1,11 @@
+---
+// Positioning and brand use case (formerly From Feature List To Clear Offer). Content and layout: src/data/use-case-pages/positioning-and-brand.ts
+// rendered by UseCaseDetail.astro.
+import Layout from '../../layouts/Layout.astro';
+import UseCaseDetail from '../../components/UseCaseDetail.astro';
+import { positioningAndBrand as page } from '../../data/use-case-pages/positioning-and-brand';
+const c = page.en;
+---
+<Layout title={c.meta.title} description={c.meta.description}>
+  <UseCaseDetail page={page} />
+</Layout>

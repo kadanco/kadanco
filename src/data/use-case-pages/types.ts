@@ -2,7 +2,7 @@
 // Shape of one use case detail page (EN and DE), rendered by
 // src/components/UseCaseDetail.astro. Layout follows the October use case
 // designs in design/261021_Kadanco_Use_Cases/. Optional blocks
-// (comparison, funnel, also, operator, timeline) only render when present.
+// (comparison, why, funnel, also, operator, timeline) only render when present.
 import type { ComparisonContent } from '../../components/HomeComparison.astro';
 import type { IsoIconName } from '../iso-icons';
 import type { Dept } from '../use-cases';
@@ -16,6 +16,7 @@ export interface UseCasePageText {
   ctaPrimary: string; ctaSecondary: string;
   situation: { eyebrow: string; h2a: string; h2b: string; lede: string; problem: string; solve: string };
   comparison?: ComparisonContent;
+  why?: { eyebrow: string; h2a: string; h2b: string; items: { title: string; body: string }[] };   // reasons the problem persists
   funnel?: { eyebrow: string; h2a: string; h2b: string; stages: { label: string; leak?: string }[]; end: string };  // last stage is the goal
   inside: { eyebrow: string; h2: string; lede: string; steps: { label: string; title: string; body: string }[] };
   also?: { eyebrow: string; h2: string; items: { title: string; body: string }[]; tagsHead?: string; tags?: string[] };
@@ -30,7 +31,7 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  stepIcons: [IsoIconName, IsoIconName, IsoIconName];
+  stepIcons: IsoIconName[];              // one per step, repeats if there are fewer
   en: UseCasePageText;
   de: UseCasePageText;
 }
