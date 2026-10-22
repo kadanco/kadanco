@@ -2,8 +2,9 @@
 // src/components/DeptStack.astro
 // Homepage use cases: three stacked sticky cards, one per department
 // (Product, Marketing, Sales). Each card shows the service (label, title,
-// short text from the offer cards), lists that department's use cases with
-// direct links, then a CTA. The right half is a photo of real people
+// short text from the offer cards), lists the use cases it leads with
+// direct links (each row names the other departments involved, since most
+// use cases span more than one), then a CTA. The right half is a photo of real people
 // (Unsplash License, self-hosted in public/images/use-cases/, credits in docs/).
 //
 // Every card has the same height, so while scrolling each card fully covers
@@ -18,9 +19,11 @@ interface Props { cards: Card[] }
 const { cards } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const ui = {
-  en: { list: 'Use cases', soon: 'More use cases coming soon', all: 'All use cases',
+  en: { list: 'Use cases', soon: 'More use cases coming soon', all: 'All use cases', with: 'with',
+        dept: { product: 'Product', marketing: 'Marketing', sales: 'Sales' },
         alt: { product: 'Woman working on a laptop in a bright office', marketing: 'Two colleagues working together at a laptop', sales: 'Man on a phone call at his laptop in an office' } },
-  de: { list: 'Use Cases', soon: 'Weitere Use Cases folgen', all: 'Alle Use Cases',
+  de: { list: 'Use Cases', soon: 'Weitere Use Cases folgen', all: 'Alle Use Cases', with: 'mit',
+        dept: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb' },
         alt: { product: 'Frau arbeitet am Laptop in einem hellen Büro', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Mann telefoniert am Laptop in einem Büro' } },
 }[locale];
 const PER_CARD = 3;
@@ -28,6 +31,7 @@ const PER_CARD = 3;
 const rows = cards.map((card) => {
   const items = useCases.filter((u) => u.dept === card.id).slice(0, PER_CARD).map((u) => ({
     name: (u[locale] ?? u.en).name,
+    also: u.depts.filter((d) => d !== card.id).map((d) => ui.dept[d]).join(' · '),
     href: localizedHref(locale, u.kind === 'page' && u.href ? u.href : `/use-cases/#${u.id}`),
   }));
   const placeholders = Math.max(0, PER_CARD - items.length);
@@ -43,7 +47,7 @@ const rows = cards.map((card) => {
         <p class="ds-body">{card.body}</p>
         <p class="ds-list-head">{ui.list}</p>
         <ul class="ds-list">
-          {items.map((it) => <li><a href={it.href}><span>{it.name}</span><span aria-hidden="true">→</span></a></li>)}
+          {items.map((it) => <li><a href={it.href}><span>{it.name}{it.also && <small class="ds-also">{ui.with} {it.also}</small>}</span><span aria-hidden="true">→</span></a></li>)}
           {Array.from({ length: placeholders }).map(() => <li class="ds-soon"><span>{ui.soon}</span></li>)}
         </ul>
         <a class="ds-cta" href="#contact" data-open-modal>{card.link} →</a>
@@ -82,6 +86,8 @@ const rows = cards.map((card) => {
   .ds-list a:hover span:first-child { text-decoration: underline; }
   .ds-list a:hover span:last-child { transform: translateX(4px); }
   .ds-list a:focus-visible { outline: 2px solid var(--ds-fg); outline-offset: 2px; border-radius: var(--kd-radius); }
+  .ds-also { margin-left: 10px; font-size: 13px; font-weight: var(--kd-weight-regular); opacity: .7; white-space: nowrap; }
+  .ds-list a:hover .ds-also { text-decoration: none; display: inline-block; }
   .ds-soon span { opacity: .55; font-weight: var(--kd-weight-regular); font-style: italic; }
   .ds-cta { margin-top: auto; align-self: flex-start; padding: 12px 22px; border-radius: var(--kd-radius); background: var(--ds-fg); color: var(--ds-bg); font-weight: var(--kd-weight-medium); text-decoration: none; transition: transform .15s; }
   .ds-cta:hover { transform: translateY(-2px); }

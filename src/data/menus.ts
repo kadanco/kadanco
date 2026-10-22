@@ -13,10 +13,15 @@ export type MenuItem = { label: string; href: string; all?: boolean; icon?: IsoI
 export type Menu = { key: string; items: MenuItem[] };
 
 export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
+  // service names, owner decision 2026-10-22
+  const names = {
+    en: ['Product & Design', 'Digital Marketing & Branding', 'Sales Support & Systems'],
+    de: ['Produkt & Design', 'Digitales Marketing & Branding', 'Vertriebsunterstützung & Systeme'],
+  }[locale] ?? [];
   const services: MenuItem[] = [
-    { label: 'Product Design', href: '/#product', icon: 'layers' },
-    { label: 'Marketing & Positioning', href: '/#marketing', icon: 'target' },
-    { label: 'Sales', href: '/#sales', icon: 'growth' },
+    { label: names[0], href: '/#product', icon: 'layers' },
+    { label: names[1], href: '/#marketing', icon: 'target' },
+    { label: names[2], href: '/#sales', icon: 'growth' },
   ];
   // pages link to their detail page; case studies to their card on /use-cases/
   const cases: MenuItem[] = useCases.map((u) => ({

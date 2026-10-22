@@ -5,7 +5,10 @@
 //
 // size="compact"  label, title, summary, link (homepage grid)
 // size="full"     adds the workstreams, or the problem and what we do (overview)
-// featured        wide card across the whole grid (Adoption Rescue)
+// featured        wide card across the whole grid (Product Design)
+//
+// The labels show every department the use case touches: the lead one
+// filled in its colour, the others outlined.
 //
 // Use cases with a detail page link to it. Case studies without one open the
 // contact modal. Supports dark mode through the theme role tokens.
@@ -32,16 +35,16 @@ const showDetail = size === 'full' || featured;
   href={href}
   id={uc.id}
   data-dept={uc.dept}
+  data-depts={uc.depts.join(' ')}
   data-open-modal={hasPage ? undefined : ''}
 >
   <div class="uc-main">
     <IsoIcon name={uc.icon} size={featured ? 72 : 56} class="uc-icon" />
     <div class="uc-labels">
-      <span class="uc-dept">{ui[uc.dept]}</span>
-      <span class="uc-eyebrow">{t.eyebrow}</span>
+      {uc.depts.map((d, i) => <span class={i === 0 ? 'uc-dept' : 'uc-dept uc-dept--also'}>{ui[d]}</span>)}
     </div>
     <h3>{t.name}</h3>
-    <p class="uc-summary">{t.summary}</p>
+    <p class="uc-summary">{t.tagline}</p>
     {t.own && <p class="uc-own"><span>{ui.own}</span>{t.own}</p>}
     {!showDetail && <span class="uc-link">{hasPage ? ui.page : ui.talk} →</span>}
   </div>
@@ -76,9 +79,9 @@ const showDetail = size === 'full' || featured;
   .uc-card--marketing { --uc-c: var(--kd-dept-marketing); --uc-ink: var(--kd-blue-1); }
   .uc-card--sales { --uc-c: var(--kd-dept-sales); --uc-ink: var(--kd-blue-1); }
 
-  .uc-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .uc-labels { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
   .uc-dept { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--kd-radius); background: var(--uc-c); color: var(--uc-ink); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
-  .uc-eyebrow { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
+  .uc-dept--also { padding: 1px 8px; background: transparent; border: 2px solid var(--kd-line); color: var(--kd-fg-2); }
   .uc-card h3 { margin: 0; font-size: var(--kd-text-s); line-height: var(--kd-lh-s); font-weight: var(--kd-weight-medium); }
   .uc-summary { margin: 0; font-size: 17px; line-height: 1.45; color: var(--kd-fg-2); }
   .uc-own { margin: 0; padding-left: 12px; border-left: 3px solid var(--uc-c); font-size: 15px; line-height: 1.45; color: var(--kd-fg); }

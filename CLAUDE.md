@@ -33,12 +33,12 @@ Internal pages (local and staging only, never on kadanco.com): http://localhost:
 src/layouts/Layout.astro    head, nav, footer, modal, global scripts, consent
 src/components/             Nav, Footer, ContactModal, ComparisonMatrix,
                             UseCaseSpotlight, CadenceTimeline
-src/pages/                  index, imprint, privacy-policy, glossary, use-cases (4)
+src/pages/                  index, imprint, privacy-policy, glossary, use-cases (4 detail pages)
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
 src/data/use-case-pages/    one content file per use case detail page (EN and DE), rendered by src/components/UseCaseDetail.astro
-src/data/use-cases.ts       all 7 use cases (EN and DE), read by the homepage and /use-cases/
+src/data/use-cases.ts       all 9 use cases (EN and DE) with department tags, read by the homepage, nav, footer and /use-cases/
 src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
@@ -173,3 +173,6 @@ Next, in order:
 - 2026-10-21: Homepage use cases are three stacked department cards (`DeptStack.astro`): Product, Marketing, Sales, each listing 3 use cases with direct links (placeholders where fewer exist) and a CTA, with a stock photo of real people on the right. Equal card heights fix the awkward stacking; on phones the cards sit in a plain column. Founder-led content moved from Marketing to Sales. The one-card-per-use-case version is kept on /components.
 - 2026-10-21: Nav dropdowns are text only (icons removed, too busy). Icons stay on the offer cards. "See All Use Cases" is centred.
 - 2026-10-21: Use case detail pages are being rebuilt one at a time from `design/261021_Kadanco_Use_Cases/` (8 files) on a shared template, `UseCaseDetail.astro`, with one content file per case in `src/data/use-case-pages/`. Department colours drive the hero, step cards and CTA band. First: DACH market entry (new 3 moves; the route comparison, native operator and first 90 days sections from the old page kept, owner decision). Headlines in Title Case per our guide; "X, not Y" lines rewritten. Lime grounds set `data-nav-cta="dark"` so the nav CTA turns navy there.
+- 2026-10-22: Services renamed: Product & Design, Digital Marketing & Branding, Sales Support & Systems (DE: Produkt & Design, Digitales Marketing & Branding, Vertriebsunterstützung & Systeme). Used in the nav, footer, offer cards, department cards and hero slices. Short department tags (Product, Marketing, Sales) stay on use case cards, filters and hero labels.
+- 2026-10-22: Use cases framed as one go-to-market team: 9 cases, each led by one department and tagged with every department it involves (`depts` in `src/data/use-cases.ts`). Product: Product Design, Website Production, Software Modernisation. Marketing: DACH Market Entry, Content Production (founder content plus sales decks and one-pagers), Positioning and Messaging (corporate identity folded in). Sales: Outbound Sales Pipeline, Event Lead Generation, Account-Based Marketing. Dropped: PLG, Corporate Identity as its own case, "B2B" in names. Each case has a short name (menus, cards) and a tagline for the full name ("Product Design: UX, Onboarding and ...") in page titles and cards. The /use-cases/ filter shows a case under every department it touches; homepage department cards name the other departments per row.
+- 2026-10-22: URLs renamed with 301s in `public/_redirects` (EN and DE): conversion-rebuild to website-production, founder-led-content to content-production, event-pipeline to event-lead-generation. The moved pages keep their old layout until each is rebuilt on `UseCaseDetail.astro`. Software Modernisation and Account-Based Marketing have draft card text only (no design file yet).

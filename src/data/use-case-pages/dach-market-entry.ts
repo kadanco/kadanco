@@ -12,11 +12,11 @@ export const dachMarketEntry: UseCasePage = {
   stepIcons: ['pin', 'posts', 'growth'],
   en: {
     meta: {
-      title: 'DACH Market Entry for B2B Companies | Kadanco',
+      title: 'DACH Market Entry: A German-Language Presence and Pipeline, Run End to End | Kadanco',
       description: 'Enter the DACH market without hiring a local team. Native German positioning, content and pipeline, run end to end by two senior operators.',
     },
     crumb: 'DACH market entry',
-    dept: 'Marketing · Market entry',
+    dept: 'Marketing · Sales · Product',
     h1a: 'Enter The DACH Market',
     h1b: 'Without Hiring A Local Team.',
     lead: 'A German-language presence that grows every week, your existing assets finally working in the market, and a pipeline your sales team does not have to run themselves. We own it end to end.',
@@ -102,11 +102,11 @@ export const dachMarketEntry: UseCasePage = {
   },
   de: {
     meta: {
-      title: 'DACH-Markteintritt für B2B-Unternehmen | Kadanco',
+      title: 'DACH-Markteintritt: Deutschsprachige Präsenz und Pipeline, End-to-End betrieben | Kadanco',
       description: 'Treten Sie in den DACH-Markt ein, ohne ein lokales Team aufzubauen. Positionierung, Content und Pipeline auf Deutsch, von zwei erfahrenen Machern umgesetzt.',
     },
     crumb: 'DACH-Markteintritt',
-    dept: 'Marketing · Markteintritt',
+    dept: 'Marketing · Vertrieb · Produkt',
     h1a: 'Treten Sie in den DACH-Markt ein,',
     h1b: 'ohne ein lokales Team aufzubauen.',
     lead: 'Eine deutschsprachige Präsenz, die jede Woche wächst, Ihre bestehenden Inhalte, die endlich im Markt wirken, und eine Pipeline, die Ihr Vertrieb nicht selbst betreiben muss. Wir verantworten alles von Anfang bis Ende.',

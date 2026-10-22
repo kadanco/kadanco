@@ -19,7 +19,7 @@ const copy = {
     eyebrow: 'Use Cases',
     h1a: 'The Problems We Solve.',
     h1b: 'Find Yours.',
-    lead: 'Real problems teams bring us, sorted by where they start: the product, the marketing or the sales pipeline.',
+    lead: 'One go-to-market team across product, marketing and sales. Most problems touch all three, so each use case shows every part it involves.',
     filterLabel: 'Filter use cases by department',
     all: 'All', product: 'Product', marketing: 'Marketing', sales: 'Sales',
     ctaH2a: 'Not Listed Here?',
@@ -31,7 +31,7 @@ const copy = {
     eyebrow: 'Use Cases',
     h1a: 'Die Probleme, die wir lösen.',
     h1b: 'Finden Sie Ihres.',
-    lead: 'Echte Probleme, mit denen Teams zu uns kommen, sortiert nach ihrem Ursprung: Produkt, Marketing oder Vertriebspipeline.',
+    lead: 'Ein Go-to-Market-Team für Produkt, Marketing und Vertrieb. Die meisten Probleme berühren alle drei, deshalb zeigt jeder Use Case, welche Bereiche beteiligt sind.',
     filterLabel: 'Use Cases nach Bereich filtern',
     all: 'Alle', product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb',
     ctaH2a: 'Nicht dabei?',
@@ -43,7 +43,7 @@ const copy = {
 const c = copy[locale] ?? copy.en;
 
 const depts: Dept[] = ['product', 'marketing', 'sales'];
-const count = (d: Dept) => useCases.filter((u) => u.dept === d).length;
+const count = (d: Dept) => useCases.filter((u) => u.depts.includes(d)).length;
 const featuredUc = useCases.find((u) => u.featured);
 const otherUc = useCases.filter((u) => !u.featured);
 ---
@@ -83,7 +83,8 @@ const otherUc = useCases.filter((u) => !u.featured);
 </main>
 
 <script is:inline>
-  // Department filter: hides cards from other departments. Every card is
+  // Department filter: shows every use case that involves the department
+  // (data-depts), so a case can appear under several filters. Every card is
   // visible until a filter is chosen, so the page works without JavaScript.
   (function () {
     var btns = Array.prototype.slice.call(document.querySelectorAll('.ucp-filter button'));
@@ -93,7 +94,7 @@ const otherUc = useCases.filter((u) => !u.featured);
       b.addEventListener('click', function () {
         var f = b.getAttribute('data-filter');
         btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-        cards.forEach(function (card) { card.hidden = f !== 'all' && card.getAttribute('data-dept') !== f; });
+        cards.forEach(function (card) { card.hidden = f !== 'all' && (card.getAttribute('data-depts') || '').split(' ').indexOf(f) < 0; });
       });
     });
   })();
