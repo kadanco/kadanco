@@ -15,8 +15,8 @@ export type Menu = { key: string; items: MenuItem[] };
 export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
   // service names, owner decision 2026-10-22
   const names = {
-    en: ['Product & Design', 'Digital Marketing & Branding', 'Sales Support & Systems'],
-    de: ['Produkt & Design', 'Digitales Marketing & Branding', 'Vertriebsunterstützung & Systeme'],
+    en: ['Product Design & Development', 'Digital Marketing & Branding', 'Sales Support & Systems'],
+    de: ['Produktdesign & Entwicklung', 'Digitales Marketing & Branding', 'Vertriebsunterstützung & Systeme'],
   }[locale] ?? [];
   const services: MenuItem[] = [
     { label: names[0], href: '/#product', icon: 'layers' },
