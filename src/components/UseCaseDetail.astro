@@ -4,8 +4,8 @@
 // (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
 //   breadcrumb, department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
-//   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), three
-//   stacked step cards, optional "also included" cards with tags, outcomes, optional native
+//   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), the
+//   steps as stacked cards or a bento grid (stepsLayout), optional "also included" cards with tags, outcomes, optional native
 //   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
 //   and a department-coloured CTA band.
 // Colours follow the department: product blue, marketing lime, sales lilac.
@@ -107,6 +107,22 @@ const ui = {
         <h2>{c.inside.h2}</h2>
         <p class="ucd-lede">{c.inside.lede}</p>
       </div>
+      {page.stepsLayout === 'bento' ? (
+        <div class={`ucd-bento ucd-bento--${c.inside.steps.length}`}>
+          {c.inside.steps.map((st, i) => (
+            <article class={`ucd-tile ucd-tile--${i + 1}`}>
+              <div class="ucd-tile-media" role="img" aria-label={st.title} data-image-slot={`${page.id}-${i + 1}`}>
+                <IsoIcon name={page.stepIcons[i % page.stepIcons.length]} size={i === 0 ? 170 : 120} />
+              </div>
+              <div class="ucd-tile-text">
+                <span class="ucd-step">{st.label}</span>
+                <h3>{st.title}</h3>
+                <p>{st.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
       <div class="ucd-stack">
         {c.inside.steps.map((st, i) => (
           <article class={`ucd-card ucd-card--${(i % 3) + 1}`} style={`--i:${i}`}>
@@ -121,6 +137,7 @@ const ui = {
           </article>
         ))}
       </div>
+      )}
     </div>
   </section>
 
@@ -318,6 +335,38 @@ const ui = {
   .ucd-tags-head { margin-bottom: 12px !important; font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
   .ucd-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
   .ucd-tags li { padding: 6px 14px; border-radius: var(--kd-radius); border: 2px solid var(--kd-line); font-size: 15px; font-weight: var(--kd-weight-medium); }
+
+  /* ---------- steps as mixed-size image cards (bento) ----------
+     Inspired by the image card grid on klarna.com/de ("Wähle deine
+     Zahlungsart"): one large card leads, the others sit beside it at
+     different sizes. Each card is an image slot (icon until photos exist)
+     with the text below, in the department colours. */
+  .ucd-bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .ucd-bento--3 .ucd-tile--1 { grid-column: 1 / 3; grid-row: 1 / 3; }
+  .ucd-bento--4 .ucd-tile--1 { grid-column: 1 / 3; }
+  .ucd-bento--4 .ucd-tile--4 { grid-column: 2 / 4; }
+  .ucd-tile { display: flex; flex-direction: column; border-radius: var(--kd-radius); overflow: hidden; background: var(--card-bg); color: var(--card-ink); transition: transform .18s ease; }
+  .ucd-tile:hover { transform: translateY(-4px); }
+  .ucd-tile--1, .ucd-tile--4 { --card-bg: var(--card-1); }
+  .ucd-tile--2, .ucd-tile--3 { --card-bg: var(--card-2); }
+  .ucd-tile-media { flex: 1 1 auto; min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--kd-blue-1); }
+  .ucd-tile--1 .ucd-tile-media { min-height: 300px; }
+  .ucd-tile-media :global(.iso-ic) { color: var(--kd-white); }
+  .ucd-tile-media :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  .ucd-tile-text { display: flex; flex-direction: column; gap: 10px; padding: 28px 30px 32px; }
+  .ucd-tile h3 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; }
+  .ucd-tile--1 h3 { font-size: clamp(26px, 3vw, 38px); }
+  .ucd-tile p { font-size: 17px; line-height: 1.45; opacity: .88; }
+  @media (max-width: 900px) {
+    .ucd-bento { grid-template-columns: 1fr 1fr; }
+    .ucd-bento .ucd-tile--1 { grid-column: 1 / -1; grid-row: auto; }
+    .ucd-bento--4 .ucd-tile--4 { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .ucd-bento { grid-template-columns: 1fr; }
+    .ucd-tile-media, .ucd-tile--1 .ucd-tile-media { min-height: 170px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ucd-tile { transition: none; } .ucd-tile:hover { transform: none; } }
 
   /* ---------- outcomes ---------- */
   .ucd-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }

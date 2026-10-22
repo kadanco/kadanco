@@ -10,6 +10,7 @@ export const eventLeadGeneration: UseCasePage = {
   id: 'event-lead-generation',
   dept: 'sales',
   icon: 'stage',
+  stepsLayout: 'bento',
   stepIcons: ['score', 'network', 'table', 'report'],
   en: {
     meta: {

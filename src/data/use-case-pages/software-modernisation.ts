@@ -10,6 +10,7 @@ export const softwareModernisation: UseCasePage = {
   id: 'software-modernisation',
   dept: 'product',
   icon: 'seo',
+  stepsLayout: 'bento',
   stepIcons: ['cold', 'board', 'layers', 'rocket'],
   en: {
     meta: {
