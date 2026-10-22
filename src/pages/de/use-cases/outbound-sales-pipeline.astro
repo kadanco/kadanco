@@ -1,0 +1,11 @@
+---
+// Outbound sales pipeline use case (formerly Pipeline Off The Founder). Content and layout: src/data/use-case-pages/outbound-sales-pipeline.ts
+// rendered by UseCaseDetail.astro.
+import Layout from '../../../layouts/Layout.astro';
+import UseCaseDetail from '../../../components/UseCaseDetail.astro';
+import { outboundSalesPipeline as page } from '../../../data/use-case-pages/outbound-sales-pipeline';
+const c = page.de;
+---
+<Layout title={c.meta.title} description={c.meta.description}>
+  <UseCaseDetail page={page} />
+</Layout>

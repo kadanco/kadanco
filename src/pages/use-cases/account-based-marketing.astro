@@ -1,0 +1,11 @@
+---
+// Account-based marketing use case. Content and layout: src/data/use-case-pages/account-based-marketing.ts
+// rendered by UseCaseDetail.astro.
+import Layout from '../../layouts/Layout.astro';
+import UseCaseDetail from '../../components/UseCaseDetail.astro';
+import { accountBasedMarketing as page } from '../../data/use-case-pages/account-based-marketing';
+const c = page.en;
+---
+<Layout title={c.meta.title} description={c.meta.description}>
+  <UseCaseDetail page={page} />
+</Layout>
