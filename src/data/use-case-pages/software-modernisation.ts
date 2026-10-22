@@ -1,0 +1,222 @@
+// src/data/use-case-pages/software-modernisation.ts
+// Software Modernisation. No design file exists for this use case; content
+// drafted 2026-10-22 for owner review, in the same structure as Product
+// Design. Scope follows the phases on iam-mia.de (define, design, develop,
+// distribute): renew legacy tools, customer portals and internal software step
+// by step on top of what works, without a full rewrite.
+import type { UseCasePage } from './types';
+
+export const softwareModernisation: UseCasePage = {
+  id: 'software-modernisation',
+  dept: 'product',
+  icon: 'seo',
+  stepIcons: ['cold', 'board', 'layers', 'rocket'],
+  en: {
+    meta: {
+      title: 'Software Modernisation: Renew Legacy Tools and Portals Without Starting Over | Kadanco',
+      description: 'Legacy software modernisation, step by step: UX audit, redesigned journeys, a design system and a modern front-end for customer portals and internal tools, released in parts without a risky rewrite.',
+    },
+    crumb: 'Software modernisation',
+    dept: 'Product · Sales',
+    h1a: 'Your Software Still Works.',
+    h1b: 'Make It Feel Like Today.',
+    lead: 'Customer portals and internal tools that grew for years, renewed step by step. We redesign the journeys people use most, give them a modern interface and release each part as soon as it is ready, on top of the systems that already run your business.',
+    ctaPrimary: 'Get A Free Software Audit',
+    ctaSecondary: 'Book A Strategy Call',
+    situation: {
+      eyebrow: 'The situation',
+      h2a: 'It Runs The Business.',
+      h2b: 'Nobody Wants To Show It.',
+      lede: 'The software does its job, and it has for years. But customers need training to use it, your team works around it, and sales avoids it in demos.',
+      problem: 'Screens from different decades, workflows nobody fully understands, and a front-end that is hard to change. A full rewrite sounds like the fix, but it takes years, costs a fortune and puts the business at risk while the old system keeps running.',
+      solve: 'We modernise from the outside in. We redesign the journeys that matter most, build a design system, and replace the front-end piece by piece on top of what works, so users get a better tool in months and the business never stops.',
+    },
+    comparison: {
+      eyebrow: 'Why modernisation stalls',
+      h2a: 'Everyone Agrees It Needs Work.',
+      h2b: 'Few Routes Get It Done.',
+      lead: 'Most teams try one of these routes. Each one leaks somewhere: in the user experience, in delivery, or in the risk to the business.',
+      cols: ['Experience', 'Delivery', 'Low risk'],
+      solution: 'Solution',
+      rows: [
+        { route: 'Full rewrite', why: 'A clean start on paper, but years of work before users see anything.', marks: ['part', 'part', 'gap'] },
+        { route: 'Development agency', why: 'Ships code to a spec, and the spec rarely questions the old workflows.', marks: ['gap', 'has', 'part'] },
+        { route: 'Internal team', why: 'Knows the system best, and is busy keeping it running.', marks: ['part', 'gap', 'has'] },
+        { route: 'Leave it', why: 'No risk today, and slowly more churn, more support and harder sales.', marks: ['gap', 'gap', 'part'] },
+      ],
+      kad: { route: 'KADANCO', why: 'Redesigned journeys, released step by step on top of what works, by the operators who design and build them.' },
+      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
+      cap: 'No single route covers all three. That is what we run.',
+    },
+    inside: {
+      eyebrow: "What's inside",
+      h2: 'Four Steps. Released In Parts.',
+      lede: 'Each step is owned and shipped by the operators who scoped it, working alongside your developers and the people who use the software every day.',
+      steps: [
+        { label: '01 · Audit', title: 'What works and what hurts', body: 'We map the users, the journeys and the technical constraints, talk to the people who use the software daily, and agree which journeys to renew first for the biggest effect.' },
+        { label: '02 · Redesign', title: 'The journeys people use most', body: 'Flow charts, wireframes and clickable prototypes for the key journeys, tested with real users, so the new version is faster to learn and harder to get wrong.' },
+        { label: '03 · Rebuild', title: 'A modern front-end, piece by piece', body: 'A design system and component library, then a modern front-end connected to your existing systems. We change the back end only where the new journeys need it.' },
+        { label: '04 · Roll out', title: 'Released while the business runs', body: 'Each part goes live as soon as it is ready, alongside the old screens, with release notes, short guides and a demo version your sales team is proud to show.' },
+      ],
+    },
+    also: {
+      eyebrow: 'Also included',
+      h2: 'So The New Version Sticks.',
+      items: [
+        { title: 'Accessibility', body: 'Contrast, keyboard use and clear forms, so the software works for everyone, including users who were locked out before.' },
+        { title: 'Documentation', body: 'The design system and components documented for your developers, so the new standard holds after we leave.' },
+        { title: 'Usage data', body: 'Analytics on the renewed journeys, so you can see where users are faster and where support tickets drop.' },
+      ],
+      tagsHead: 'What we modernise',
+      tags: ['Customer portals', 'Internal tools', 'Admin backends', 'Dashboards', 'Booking and order flows', 'Forms and workflows', 'Design system', 'Component library', 'Front-end', 'Accessibility'],
+    },
+    outcomes: {
+      eyebrow: 'What you get',
+      h2: 'Software Your Team And Customers Want To Use.',
+      items: [
+        { big: 'Months', text: 'Renewed journeys in users\' hands in months, released one part at a time.' },
+        { big: 'No big bang', text: 'The business keeps running on the systems it trusts while the front-end changes.' },
+        { big: 'Easier to sell', text: 'A product sales can demo with confidence, and customers who need less training and support.' },
+      ],
+    },
+    operator: {
+      eyebrow: 'Who does the work',
+      h2a: 'Design And Engineering',
+      h2b: 'From The Same People.',
+      body: 'Maria is a senior product engineer and design director. She redesigns the journeys, builds the design system and works with your developers on the new front-end. Karan makes sure the renewed product is easier to sell and that sales and customers hear about every improvement.',
+      link: 'Meet the operators',
+    },
+    timeline: {
+      eyebrow: 'The first 90 days',
+      h2a: 'Start With One Journey.',
+      h2b: 'Then Keep Releasing.',
+      steps: [
+        { n: '01', title: 'Map', body: 'We audit the software, talk to users, support and sales, and pick the first journey to renew.' },
+        { n: '02', title: 'Build', body: 'We prototype and test the new journey, start the design system and build the first part of the new front-end.' },
+        { n: '03', title: 'Ship', amp: '& improve', body: 'Work starts within two weeks. The first renewed journey goes live next to the old screens, then the next one follows.' },
+      ],
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      h2: 'Questions, Answered.',
+      items: [
+        { q: 'Do we have to replace our back end?', a: 'Usually not. We renew the journeys and the front-end first and connect them to your existing systems. Back-end changes happen only where a new journey needs them.' },
+        { q: 'Can we keep using the old system meanwhile?', a: 'Yes. New parts go live next to the old screens, so the business never stops and users switch one journey at a time.' },
+        { q: 'Will our users need retraining?', a: 'Far less than today. The renewed journeys are tested with real users, and each release comes with short guides.' },
+        { q: 'Do you work with our developers?', a: 'Yes. We pair with your team, document the design system and components, and hand over code they can maintain.' },
+        { q: 'What kind of software do you modernise?', a: 'Customer portals, internal tools, admin backends, dashboards and the forms and workflows inside them.' },
+        { q: 'Who owns the result?', a: 'You do: the design system, the source files and the code, documented for your team.' },
+      ],
+    },
+    cta: {
+      h2a: 'Tell Us Which Tool',
+      h2b: 'Your Users Struggle With.',
+      lead: "We'll show you which journeys to renew first and how to release them without stopping the business, then we'll build them.",
+      button: 'Get A Free Software Audit',
+    },
+  },
+  de: {
+    meta: {
+      title: 'Software-Modernisierung: Alte Tools und Portale erneuern, ohne bei null anzufangen | Kadanco',
+      description: 'Modernisierung von Bestandssoftware, Schritt für Schritt: UX-Audit, neu gestaltete Abläufe, ein Designsystem und ein modernes Frontend für Kundenportale und interne Tools, in Teilen ausgeliefert, ohne riskanten Neubau.',
+    },
+    crumb: 'Software-Modernisierung',
+    dept: 'Produkt · Vertrieb',
+    h1a: 'Ihre Software funktioniert.',
+    h1b: 'Machen Sie sie zeitgemäß.',
+    lead: 'Kundenportale und interne Tools, die über Jahre gewachsen sind, Schritt für Schritt erneuert. Wir gestalten die meistgenutzten Abläufe neu, geben ihnen eine moderne Oberfläche und liefern jeden Teil aus, sobald er fertig ist, auf den Systemen, mit denen Ihr Geschäft schon läuft.',
+    ctaPrimary: 'Kostenloses Software-Audit',
+    ctaSecondary: 'Strategiegespräch buchen',
+    situation: {
+      eyebrow: 'Die Ausgangslage',
+      h2a: 'Sie trägt das Geschäft.',
+      h2b: 'Zeigen will sie niemand.',
+      lede: 'Die Software tut ihren Job, seit Jahren. Aber Kunden brauchen eine Schulung, Ihr Team arbeitet um sie herum, und der Vertrieb meidet sie in Demos.',
+      problem: 'Screens aus verschiedenen Jahrzehnten, Abläufe, die niemand mehr ganz versteht, und ein Frontend, das sich kaum ändern lässt. Ein kompletter Neubau klingt nach der Lösung, dauert aber Jahre, kostet ein Vermögen und gefährdet das Geschäft, während das alte System weiterläuft.',
+      solve: 'Wir modernisieren von außen nach innen. Wir gestalten die wichtigsten Abläufe neu, bauen ein Designsystem und ersetzen das Frontend Stück für Stück auf dem, was funktioniert. Nutzer bekommen in Monaten ein besseres Werkzeug, und das Geschäft steht nie still.',
+    },
+    comparison: {
+      eyebrow: 'Warum Modernisierung stockt',
+      h2a: 'Alle wissen, dass es nötig ist.',
+      h2b: 'Wenige Wege kommen ans Ziel.',
+      lead: 'Die meisten Teams versuchen einen dieser Wege. Jeder leckt irgendwo: beim Nutzererlebnis, bei der Umsetzung oder beim Risiko fürs Geschäft.',
+      cols: ['Erlebnis', 'Umsetzung', 'Geringes Risiko'],
+      solution: 'Lösung',
+      rows: [
+        { route: 'Kompletter Neubau', why: 'Auf dem Papier ein sauberer Start, aber Jahre Arbeit, bevor Nutzer etwas sehen.', marks: ['part', 'part', 'gap'] },
+        { route: 'Entwicklungsagentur', why: 'Liefert Code nach Lastenheft, und das Lastenheft hinterfragt die alten Abläufe selten.', marks: ['gap', 'has', 'part'] },
+        { route: 'Internes Team', why: 'Kennt das System am besten und ist damit beschäftigt, es am Laufen zu halten.', marks: ['part', 'gap', 'has'] },
+        { route: 'So lassen', why: 'Heute kein Risiko, aber langsam mehr Abwanderung, mehr Support und schwierigerer Vertrieb.', marks: ['gap', 'gap', 'part'] },
+      ],
+      kad: { route: 'KADANCO', why: 'Neu gestaltete Abläufe, Schritt für Schritt auf dem ausgeliefert, was funktioniert, von den Machern, die sie gestalten und bauen.' },
+      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
+      cap: 'Kein einzelner Weg deckt alle drei ab. Genau das setzen wir um.',
+    },
+    inside: {
+      eyebrow: 'Was dazugehört',
+      h2: 'Vier Schritte. In Teilen ausgeliefert.',
+      lede: 'Jeder Schritt wird von den Machern verantwortet und umgesetzt, die ihn geplant haben, gemeinsam mit Ihren Entwicklern und den Menschen, die die Software täglich nutzen.',
+      steps: [
+        { label: '01 · Audit', title: 'Was funktioniert und was schmerzt', body: 'Wir erfassen Nutzer, Abläufe und technische Grenzen, sprechen mit den Menschen, die die Software täglich nutzen, und legen fest, welche Abläufe wir zuerst erneuern, damit es am meisten bewirkt.' },
+        { label: '02 · Neugestaltung', title: 'Die meistgenutzten Abläufe', body: 'Flowcharts, Wireframes und klickbare Prototypen für die wichtigsten Abläufe, getestet mit echten Nutzern, damit die neue Version schneller zu lernen ist und weniger Fehler zulässt.' },
+        { label: '03 · Umbau', title: 'Ein modernes Frontend, Stück für Stück', body: 'Ein Designsystem mit Komponentenbibliothek, dann ein modernes Frontend, angebunden an Ihre bestehenden Systeme. Das Backend ändern wir nur dort, wo die neuen Abläufe es brauchen.' },
+        { label: '04 · Einführung', title: 'Ausgeliefert, während das Geschäft läuft', body: 'Jeder Teil geht live, sobald er fertig ist, neben den alten Screens, mit Release Notes, kurzen Anleitungen und einer Demo-Version, die Ihr Vertrieb gern zeigt.' },
+      ],
+    },
+    also: {
+      eyebrow: 'Ebenfalls enthalten',
+      h2: 'Damit die neue Version bleibt.',
+      items: [
+        { title: 'Barrierefreiheit', body: 'Kontraste, Tastaturbedienung und klare Formulare, damit die Software für alle funktioniert, auch für Nutzer, die vorher ausgeschlossen waren.' },
+        { title: 'Dokumentation', body: 'Designsystem und Komponenten dokumentiert für Ihre Entwickler, damit der neue Standard hält, wenn wir gehen.' },
+        { title: 'Nutzungsdaten', body: 'Analytics für die erneuerten Abläufe, damit Sie sehen, wo Nutzer schneller sind und wo Support-Tickets sinken.' },
+      ],
+      tagsHead: 'Was wir modernisieren',
+      tags: ['Kundenportale', 'Interne Tools', 'Admin-Backends', 'Dashboards', 'Buchungs- und Bestellabläufe', 'Formulare und Workflows', 'Designsystem', 'Komponentenbibliothek', 'Frontend', 'Barrierefreiheit'],
+    },
+    outcomes: {
+      eyebrow: 'Was Sie bekommen',
+      h2: 'Software, die Team und Kunden gern nutzen.',
+      items: [
+        { big: 'Monate', text: 'Erneuerte Abläufe in Monaten bei den Nutzern, Teil für Teil ausgeliefert.' },
+        { big: 'Kein Big Bang', text: 'Das Geschäft läuft auf den bewährten Systemen weiter, während sich das Frontend ändert.' },
+        { big: 'Leichter verkaufbar', text: 'Ein Produkt, das der Vertrieb gern vorführt, und Kunden, die weniger Schulung und Support brauchen.' },
+      ],
+    },
+    operator: {
+      eyebrow: 'Wer die Arbeit macht',
+      h2a: 'Design und Engineering',
+      h2b: 'von denselben Menschen.',
+      body: 'Maria ist Senior Product Engineer und Design Director. Sie gestaltet die Abläufe neu, baut das Designsystem und arbeitet mit Ihren Entwicklern am neuen Frontend. Karan sorgt dafür, dass sich das erneuerte Produkt leichter verkauft und Vertrieb und Kunden von jeder Verbesserung erfahren.',
+      link: 'Die Macher kennenlernen',
+    },
+    timeline: {
+      eyebrow: 'Die ersten 90 Tage',
+      h2a: 'Mit einem Ablauf beginnen.',
+      h2b: 'Dann laufend ausliefern.',
+      steps: [
+        { n: '01', title: 'Verstehen', body: 'Wir prüfen die Software, sprechen mit Nutzern, Support und Vertrieb und wählen den ersten Ablauf, den wir erneuern.' },
+        { n: '02', title: 'Aufbauen', body: 'Wir prototypen und testen den neuen Ablauf, beginnen das Designsystem und bauen den ersten Teil des neuen Frontends.' },
+        { n: '03', title: 'Liefern', amp: '& verbessern', body: 'Die Arbeit startet innerhalb von zwei Wochen. Der erste erneuerte Ablauf geht neben den alten Screens live, dann folgt der nächste.' },
+      ],
+    },
+    faq: {
+      eyebrow: 'FAQ',
+      h2: 'Fragen, beantwortet.',
+      items: [
+        { q: 'Müssen wir unser Backend ersetzen?', a: 'Meist nicht. Wir erneuern zuerst Abläufe und Frontend und binden sie an Ihre bestehenden Systeme an. Das Backend ändern wir nur dort, wo ein neuer Ablauf es braucht.' },
+        { q: 'Können wir das alte System so lange weiter nutzen?', a: 'Ja. Neue Teile gehen neben den alten Screens live, das Geschäft steht nie still, und Nutzer wechseln Ablauf für Ablauf.' },
+        { q: 'Müssen unsere Nutzer neu geschult werden?', a: 'Deutlich weniger als heute. Die erneuerten Abläufe sind mit echten Nutzern getestet, und jedes Release kommt mit kurzen Anleitungen.' },
+        { q: 'Arbeiten Sie mit unseren Entwicklern?', a: 'Ja. Wir arbeiten eng mit Ihrem Team, dokumentieren Designsystem und Komponenten und übergeben Code, den es pflegen kann.' },
+        { q: 'Welche Software modernisieren Sie?', a: 'Kundenportale, interne Tools, Admin-Backends, Dashboards und die Formulare und Abläufe darin.' },
+        { q: 'Wem gehört das Ergebnis?', a: 'Ihnen: das Designsystem, die Quelldateien und der Code, dokumentiert für Ihr Team.' },
+      ],
+    },
+    cta: {
+      h2a: 'Sagen Sie uns, mit welchem Tool',
+      h2b: 'Ihre Nutzer kämpfen.',
+      lead: 'Wir zeigen Ihnen, welche Abläufe Sie zuerst erneuern sollten und wie Sie sie ausliefern, ohne das Geschäft anzuhalten. Dann bauen wir sie.',
+      button: 'Kostenloses Software-Audit',
+    },
+  },
+};

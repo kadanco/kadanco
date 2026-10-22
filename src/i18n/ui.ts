@@ -31,6 +31,8 @@ export const translatedRoutes: Partial<Record<Locale, string[]>> = {
     '/',
     '/use-cases',
     '/use-cases/dach-market-entry',
+    '/use-cases/product-design',
+    '/use-cases/software-modernisation',
     '/use-cases/website-production',
     '/use-cases/content-production',
     '/use-cases/positioning-and-brand',

@@ -1,0 +1,11 @@
+---
+// Product design use case (formerly Adoption Rescue). Content and layout: src/data/use-case-pages/product-design.ts
+// rendered by UseCaseDetail.astro.
+import Layout from '../../layouts/Layout.astro';
+import UseCaseDetail from '../../components/UseCaseDetail.astro';
+import { productDesign as page } from '../../data/use-case-pages/product-design';
+const c = page.en;
+---
+<Layout title={c.meta.title} description={c.meta.description}>
+  <UseCaseDetail page={page} />
+</Layout>

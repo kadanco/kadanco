@@ -1,0 +1,11 @@
+---
+// Software modernisation use case. Content and layout: src/data/use-case-pages/software-modernisation.ts
+// rendered by UseCaseDetail.astro.
+import Layout from '../../layouts/Layout.astro';
+import UseCaseDetail from '../../components/UseCaseDetail.astro';
+import { softwareModernisation as page } from '../../data/use-case-pages/software-modernisation';
+const c = page.en;
+---
+<Layout title={c.meta.title} description={c.meta.description}>
+  <UseCaseDetail page={page} />
+</Layout>
