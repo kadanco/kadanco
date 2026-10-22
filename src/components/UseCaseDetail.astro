@@ -4,7 +4,8 @@
 // (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
 //   breadcrumb, department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
-//   (HomeComparison), three stacked step cards, outcomes, optional native
+//   (HomeComparison), optional funnel (where visitors drop off), three
+//   stacked step cards, optional "also included" cards with tags, outcomes, optional native
 //   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
 //   and a department-coloured CTA band.
 // Colours follow the department: product blue, marketing lime, sales lilac.
@@ -23,6 +24,9 @@ const c = page[locale] ?? page.en;
 // the nav reads gradients as dark unless told; lime and lilac grounds are light
 const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
+// light sections alternate page and paper grounds, whichever optional blocks are present
+const light = ['situation', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
+const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
   en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do' },
   de: { home: 'Startseite', uc: 'Use Cases', problem: 'Das Problem', solve: 'Was wir tun' },
@@ -47,7 +51,7 @@ const ui = {
     </section>
   </div>
 
-  <section class="ucd-sec" data-theme="light">
+  <section class={sec('situation')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
         <span class="ucd-eyebrow">{c.situation.eyebrow}</span>
@@ -63,7 +67,26 @@ const ui = {
 
   {c.comparison && <HomeComparison content={c.comparison} id="routes" />}
 
-  <section class="ucd-sec ucd-sec--alt" data-theme="light">
+  {c.funnel && (
+    <section class={sec('funnel')} data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.funnel.eyebrow}</span>
+          <h2>{c.funnel.h2a} <em>{c.funnel.h2b}</em></h2>
+        </div>
+        <ol class="ucd-funnel">
+          {c.funnel.stages.map((st, i) => (
+            <li style={`--w:${100 - i * (40 / Math.max(1, c.funnel!.stages.length - 1))}%`} class={i === c.funnel!.stages.length - 1 ? 'is-goal' : undefined}>
+              <span class="ucd-funnel-bar">{st.label}</span>
+              <span class="ucd-funnel-note">{st.leak ?? c.funnel!.end}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class={sec('inside')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
         <span class="ucd-eyebrow">{c.inside.eyebrow}</span>
@@ -87,7 +110,27 @@ const ui = {
     </div>
   </section>
 
-  <section class="ucd-sec" data-theme="light">
+  {c.also && (
+    <section class={sec('also')} data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.also.eyebrow}</span>
+          <h2>{c.also.h2}</h2>
+        </div>
+        <div class="ucd-also">
+          {c.also.items.map((it) => <div class="ucd-also-card"><h3>{it.title}</h3><p>{it.body}</p></div>)}
+        </div>
+        {c.also.tags && (
+          <div class="ucd-tags">
+            {c.also.tagsHead && <p class="ucd-tags-head">{c.also.tagsHead}</p>}
+            <ul>{c.also.tags.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <section class={sec('outcomes')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
         <span class="ucd-eyebrow">{c.outcomes.eyebrow}</span>
@@ -100,7 +143,7 @@ const ui = {
   </section>
 
   {c.operator && (
-    <section class="ucd-sec ucd-sec--alt" data-theme="light">
+    <section class={sec('operator')} data-theme="light">
       <div class="container ucd-op">
         <div class="ucd-head ucd-op-head">
           <span class="ucd-eyebrow">{c.operator.eyebrow}</span>
@@ -132,7 +175,7 @@ const ui = {
     </section>
   )}
 
-  <section class="ucd-sec ucd-sec--alt" data-theme="light">
+  <section class={sec('faq')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
         <span class="ucd-eyebrow">{c.faq.eyebrow}</span>
@@ -236,6 +279,31 @@ const ui = {
     .ucd-card-media :global(.iso-ic) { width: 104px !important; height: 104px !important; }
     .ucd-card-text { padding: 28px; }
   }
+
+  /* ---------- funnel: bars narrow towards the goal, leak notes on the right ---------- */
+  .ucd-funnel { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; max-width: 1000px; }
+  .ucd-funnel li { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 24px; align-items: center; }
+  .ucd-funnel-bar { width: var(--w); padding: 18px 22px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 18px; font-weight: var(--kd-weight-medium); }
+  .ucd-funnel li:nth-child(2) .ucd-funnel-bar { opacity: .82; }
+  .ucd-funnel li:nth-child(3) .ucd-funnel-bar { opacity: .64; }
+  .ucd-funnel li.is-goal .ucd-funnel-bar { opacity: 1; background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .ucd-funnel-note { position: relative; padding-left: 18px; font-size: 16px; line-height: 1.4; color: var(--kd-fg-2); }
+  .ucd-funnel-note::before { content: ""; position: absolute; left: 0; top: .6em; width: 10px; border-top: 2px dashed var(--kd-lilac); }
+  .ucd-funnel li.is-goal .ucd-funnel-note { color: var(--kd-accent); font-weight: var(--kd-weight-medium); }
+  @media (max-width: 720px) {
+    .ucd-funnel li { grid-template-columns: 1fr; gap: 6px; }
+    .ucd-funnel-bar { width: 100%; }
+  }
+
+  /* ---------- also included ---------- */
+  .ucd-also { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .ucd-also-card { padding: 28px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-left: 4px solid var(--accent-line); }
+  .ucd-also-card h3 { font-size: var(--kd-text-s); line-height: var(--kd-lh-s); margin-bottom: 8px; }
+  .ucd-also-card p { font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+  .ucd-tags { margin-top: 32px; }
+  .ucd-tags-head { margin-bottom: 12px !important; font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
+  .ucd-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .ucd-tags li { padding: 6px 14px; border-radius: var(--kd-radius); border: 2px solid var(--kd-line); font-size: 15px; font-weight: var(--kd-weight-medium); }
 
   /* ---------- outcomes ---------- */
   .ucd-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }

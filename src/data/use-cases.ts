@@ -75,7 +75,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'website-production',
-    icon: 'build',
+    icon: 'assets',
     dept: 'product',
     depts: ['product', 'marketing', 'sales'],
     kind: 'page',
