@@ -31,7 +31,7 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  stepsLayout?: 'stack' | 'bento';      // stacked sticky cards (default) or a grid of mixed-size image cards
+  stepsLayout?: 'stack' | 'expand';     // stacked sticky cards (default) or a row of cards that widen on hover
   stepIcons: IsoIconName[];              // one per step, repeats if there are fewer
   en: UseCasePageText;
   de: UseCasePageText;

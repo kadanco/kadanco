@@ -5,7 +5,7 @@
 //   breadcrumb, department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
 //   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), the
-//   steps as stacked cards or a bento grid (stepsLayout), optional "also included" cards with tags, outcomes, optional native
+//   steps as stacked cards or expanding cards (stepsLayout), optional "also included" cards with tags, outcomes, optional native
 //   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
 //   and a department-coloured CTA band.
 // Colours follow the department: product blue, marketing lime, sales lilac.
@@ -107,14 +107,14 @@ const ui = {
         <h2>{c.inside.h2}</h2>
         <p class="ucd-lede">{c.inside.lede}</p>
       </div>
-      {page.stepsLayout === 'bento' ? (
-        <div class={`ucd-bento ucd-bento--${c.inside.steps.length}`}>
+      {page.stepsLayout === 'expand' ? (
+        <div class="ucd-expand">
           {c.inside.steps.map((st, i) => (
-            <article class={`ucd-tile ucd-tile--${i + 1}`}>
-              <div class="ucd-tile-media" role="img" aria-label={st.title} data-image-slot={`${page.id}-${i + 1}`}>
-                <IsoIcon name={page.stepIcons[i % page.stepIcons.length]} size={i === 0 ? 170 : 120} />
+            <article class="ucd-xcard" tabindex="0" aria-label={`${st.label}: ${st.title}`}>
+              <div class="ucd-xcard-media" data-image-slot={`${page.id}-${i + 1}`} aria-hidden="true">
+                <IsoIcon name={page.stepIcons[i % page.stepIcons.length]} size={140} />
               </div>
-              <div class="ucd-tile-text">
+              <div class="ucd-xcard-panel">
                 <span class="ucd-step">{st.label}</span>
                 <h3>{st.title}</h3>
                 <p>{st.body}</p>
@@ -336,37 +336,38 @@ const ui = {
   .ucd-tags ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
   .ucd-tags li { padding: 6px 14px; border-radius: var(--kd-radius); border: 2px solid var(--kd-line); font-size: 15px; font-weight: var(--kd-weight-medium); }
 
-  /* ---------- steps as mixed-size image cards (bento) ----------
-     Inspired by the image card grid on klarna.com/de ("Wähle deine
-     Zahlungsart"): one large card leads, the others sit beside it at
-     different sizes. Each card is an image slot (icon until photos exist)
-     with the text below, in the department colours. */
-  .ucd-bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  .ucd-bento--3 .ucd-tile--1 { grid-column: 1 / 3; grid-row: 1 / 3; }
-  .ucd-bento--4 .ucd-tile--1 { grid-column: 1 / 3; }
-  .ucd-bento--4 .ucd-tile--4 { grid-column: 2 / 4; }
-  .ucd-tile { display: flex; flex-direction: column; border-radius: var(--kd-radius); overflow: hidden; background: var(--card-bg); color: var(--card-ink); transition: transform .18s ease; }
-  .ucd-tile:hover { transform: translateY(-4px); }
-  .ucd-tile--1, .ucd-tile--4 { --card-bg: var(--card-1); }
-  .ucd-tile--2, .ucd-tile--3 { --card-bg: var(--card-2); }
-  .ucd-tile-media { flex: 1 1 auto; min-height: 200px; display: flex; align-items: center; justify-content: center; background: var(--kd-blue-1); }
-  .ucd-tile--1 .ucd-tile-media { min-height: 300px; }
-  .ucd-tile-media :global(.iso-ic) { color: var(--kd-white); }
-  .ucd-tile-media :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
-  .ucd-tile-text { display: flex; flex-direction: column; gap: 10px; padding: 28px 30px 32px; }
-  .ucd-tile h3 { font-size: clamp(22px, 2.2vw, 28px); line-height: 1.15; }
-  .ucd-tile--1 h3 { font-size: clamp(26px, 3vw, 38px); }
-  .ucd-tile p { font-size: 17px; line-height: 1.45; opacity: .88; }
-  @media (max-width: 900px) {
-    .ucd-bento { grid-template-columns: 1fr 1fr; }
-    .ucd-bento .ucd-tile--1 { grid-column: 1 / -1; grid-row: auto; }
-    .ucd-bento--4 .ucd-tile--4 { grid-column: 1 / -1; }
+  /* ---------- steps as expanding cards ----------
+     From the "Wähle deine Zahlungsart" row on klarna.com/de (screenshots in
+     design/Klarna example/): equal image cards in one row; hover, focus or a
+     tap widens one card and narrows the others, and its bottom panel opens to
+     show the step text. Solid panel in the department colour (no glass).
+     Phones and reduced motion: a plain column with all text visible. */
+  .ucd-expand { display: flex; gap: 16px; height: clamp(440px, 60vh, 540px); }
+  .ucd-xcard { position: relative; flex: 1 1 0; min-width: 0; border-radius: var(--kd-radius); overflow: hidden; background: var(--kd-blue-1); color: var(--card-ink); cursor: pointer; outline: none; transition: flex-grow .55s cubic-bezier(.2, .7, .2, 1); }
+  .ucd-xcard:is(:hover, :focus-visible, :focus-within) { flex-grow: 3.2; }
+  .ucd-xcard:focus-visible { box-shadow: 0 0 0 3px var(--kd-accent); }
+  /* while the pointer is over the row, only the hovered card is wide (a clicked card keeps focus otherwise) */
+  .ucd-expand:hover .ucd-xcard:not(:hover) { flex-grow: 1; }
+  .ucd-xcard-media { position: absolute; inset: 0 0 96px; display: flex; align-items: center; justify-content: center; }
+  .ucd-xcard-media :global(.iso-ic) { color: var(--kd-white); }
+  .ucd-xcard-media :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  .ucd-xcard-panel { position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: var(--kd-radius); background: var(--card-1); color: var(--card-ink); }
+  .ucd-xcard:nth-child(even) .ucd-xcard-panel { background: var(--card-2); }
+  .ucd-xcard-panel h3 { font-size: 19px; line-height: 1.2; }
+  .ucd-xcard-panel p { max-height: 0; opacity: 0; overflow: hidden; font-size: 16px; line-height: 1.45; transition: max-height .45s ease, opacity .3s ease; }
+  .ucd-xcard:is(:hover, :focus-visible, :focus-within) .ucd-xcard-panel { right: auto; max-width: min(560px, calc(100% - 28px)); }
+  .ucd-xcard:is(:hover, :focus-visible, :focus-within) .ucd-xcard-panel h3 { font-size: clamp(22px, 2.2vw, 28px); }
+  .ucd-xcard:is(:hover, :focus-visible, :focus-within) .ucd-xcard-panel p { max-height: 12em; opacity: .9; transition-delay: .15s; }
+  .ucd-expand:hover .ucd-xcard:not(:hover) .ucd-xcard-panel { right: 14px; max-width: none; }
+  .ucd-expand:hover .ucd-xcard:not(:hover) .ucd-xcard-panel h3 { font-size: 19px; }
+  .ucd-expand:hover .ucd-xcard:not(:hover) .ucd-xcard-panel p { max-height: 0; opacity: 0; transition-delay: 0s; }
+  @media (max-width: 820px), (prefers-reduced-motion: reduce) {
+    .ucd-expand { flex-direction: column; height: auto; }
+    .ucd-xcard, .ucd-xcard:is(:hover, :focus-visible, :focus-within) { flex: none; cursor: default; transition: none; }
+    .ucd-xcard-media { position: relative; inset: auto; height: 180px; }
+    .ucd-xcard-panel, .ucd-xcard:is(:hover, :focus-visible, :focus-within) .ucd-xcard-panel { position: static; max-width: none; border-radius: 0; padding: 24px; }
+    .ucd-xcard-panel p { max-height: none; opacity: .9; }
   }
-  @media (max-width: 640px) {
-    .ucd-bento { grid-template-columns: 1fr; }
-    .ucd-tile-media, .ucd-tile--1 .ucd-tile-media { min-height: 170px; }
-  }
-  @media (prefers-reduced-motion: reduce) { .ucd-tile { transition: none; } .ucd-tile:hover { transform: none; } }
 
   /* ---------- outcomes ---------- */
   .ucd-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
