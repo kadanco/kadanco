@@ -79,7 +79,7 @@ export const websiteProduction: UseCasePage = {
       eyebrow: 'Who builds it',
       h2a: 'Design And Code',
       h2b: 'From The Same People.',
-      body: 'Maria is a senior product engineer and design director: she designs the site and builds it. Karan sharpens the positioning and the copy, and connects the site to your marketing and sales. The two of them do the work themselves, with no hand-offs between a design agency, a copywriter and a developer.',
+      body: 'Maria is a senior product engineer and design director: she designs the site and builds it. Karan sharpens the positioning and the copy, and connects the site to your marketing and sales. They do the work themselves, with no hand-offs between a design agency, a copywriter and a developer.',
       link: 'Meet the operators',
     },
     timeline: {
@@ -177,7 +177,7 @@ export const websiteProduction: UseCasePage = {
       eyebrow: 'Wer sie baut',
       h2a: 'Design und Code',
       h2b: 'von denselben Menschen.',
-      body: 'Maria ist Senior Product Engineer und Design Director: Sie gestaltet die Website und baut sie. Karan schärft Positionierung und Texte und verbindet die Website mit Ihrem Marketing und Vertrieb. Die beiden machen die Arbeit selbst, ohne Übergaben zwischen Designagentur, Texter und Entwickler.',
+      body: 'Maria ist Senior Product Engineer und Design Director: Sie gestaltet die Website und baut sie. Karan schärft Positionierung und Texte und verbindet die Website mit Ihrem Marketing und Vertrieb. Sie machen die Arbeit selbst, ohne Übergaben zwischen Designagentur, Texter und Entwickler.',
       link: 'Die Macher kennenlernen',
     },
     timeline: {

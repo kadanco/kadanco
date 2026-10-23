@@ -14,7 +14,7 @@ export const dachMarketEntry: UseCasePage = {
   en: {
     meta: {
       title: 'DACH Market Entry: A German-Language Presence and Pipeline, Run End to End | Kadanco',
-      description: 'Enter the DACH market without hiring a local team. Native German positioning, content and pipeline, run end to end by two senior operators.',
+      description: 'Enter the DACH market without hiring a local team. Native German positioning, content and pipeline, run end to end by senior operators.',
     },
     crumb: 'DACH market entry',
     dept: 'Marketing · Sales · Product',
@@ -44,7 +44,7 @@ export const dachMarketEntry: UseCasePage = {
         { route: 'German marketing hire', why: 'In-language and experienced, but slow to ramp and one person deep.', marks: ['has', 'part', 'part'] },
         { route: 'Freelancers', why: 'Each runs a slice; positioning, content and follow-up never add up.', marks: ['part', 'part', 'gap'] },
       ],
-      kad: { route: 'KADANCO', why: 'Native German, run end to end and owned by the two operators who do the work.' },
+      kad: { route: 'KADANCO', why: 'Native German, run end to end and owned by the operators who do the work.' },
       legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
       cap: 'No single route covers all three. That is exactly what we run.',
     },
@@ -71,7 +71,7 @@ export const dachMarketEntry: UseCasePage = {
       eyebrow: 'Why Kadanco for DACH',
       h2a: 'A Native Operator.',
       h2b: 'Working In German From Day One.',
-      body: 'Maria is a native German product and brand operator who has built for German companies. Karan runs growth and go-to-market. The two of them own your DACH presence and run it themselves: no junior hand-offs, no agency managing freelancers. You get the actual work, in German, from the people who own it.',
+      body: 'Maria is a native German product and brand operator who has built for German companies. Karan runs growth and go-to-market. Together they own your DACH presence and run it themselves: no junior hand-offs, no agency managing freelancers. You get the actual work, in German, from the people who own it.',
       link: 'Meet the operators',
     },
     timeline: {
@@ -91,7 +91,7 @@ export const dachMarketEntry: UseCasePage = {
         { q: 'Is the content real native German?', a: 'Yes. We write and run everything in native German, built for how DACH buyers evaluate. No machine translation.' },
         { q: 'Do we need a local entity first?', a: 'No. We start with positioning, presence and pipeline. A local entity is not a prerequisite to begin.' },
         { q: 'How fast do we see pipeline?', a: 'First execution is live within two weeks of kickoff, then we run in quarterly cycles that build on each other.' },
-        { q: 'Who does the work?', a: 'The two operators who scope your engagement are the two who do it. No account layer, no junior delivery.' },
+        { q: 'Who does the work?', a: 'The operators who scope your engagement are the ones who do it. No account layer, no junior delivery.' },
       ],
     },
     cta: {
@@ -104,7 +104,7 @@ export const dachMarketEntry: UseCasePage = {
   de: {
     meta: {
       title: 'DACH-Markteintritt: Deutschsprachige Präsenz und Pipeline, End-to-End betrieben | Kadanco',
-      description: 'Treten Sie in den DACH-Markt ein, ohne ein lokales Team aufzubauen. Positionierung, Content und Pipeline auf Deutsch, von zwei erfahrenen Machern umgesetzt.',
+      description: 'Treten Sie in den DACH-Markt ein, ohne ein lokales Team aufzubauen. Positionierung, Content und Pipeline auf Deutsch, von erfahrenen Machern umgesetzt.',
     },
     crumb: 'DACH-Markteintritt',
     dept: 'Marketing · Vertrieb · Produkt',
@@ -134,7 +134,7 @@ export const dachMarketEntry: UseCasePage = {
         { route: 'Deutsche Marketing-Einstellung', why: 'Sprachlich und fachlich stark, aber lange Einarbeitung und nur eine Person tief.', marks: ['has', 'part', 'part'] },
         { route: 'Freelancer', why: 'Jeder macht einen Teil, Positionierung, Content und Follow-up ergeben nie ein Ganzes.', marks: ['part', 'part', 'gap'] },
       ],
-      kad: { route: 'KADANCO', why: 'Muttersprachlich, von Anfang bis Ende umgesetzt und verantwortet von den beiden Machern, die die Arbeit machen.' },
+      kad: { route: 'KADANCO', why: 'Muttersprachlich, von Anfang bis Ende umgesetzt und verantwortet von den Machern, die die Arbeit machen.' },
       legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
       cap: 'Kein einzelner Weg deckt alle drei ab. Genau das betreiben wir.',
     },
@@ -161,7 +161,7 @@ export const dachMarketEntry: UseCasePage = {
       eyebrow: 'Warum Kadanco für DACH',
       h2a: 'Muttersprachliche Umsetzung.',
       h2b: 'Auf Deutsch vom ersten Tag an.',
-      body: 'Maria ist deutsche Muttersprachlerin und hat als Produkt- und Markenverantwortliche für deutsche Unternehmen gearbeitet. Karan verantwortet Growth und Go-to-Market. Die beiden übernehmen Ihre DACH-Präsenz und betreiben sie selbst: keine Übergabe an Junioren, keine Agentur, die Freelancer koordiniert. Sie bekommen die Arbeit selbst, auf Deutsch, von den Menschen, die sie verantworten.',
+      body: 'Maria ist deutsche Muttersprachlerin und hat als Produkt- und Markenverantwortliche für deutsche Unternehmen gearbeitet. Karan verantwortet Growth und Go-to-Market. Gemeinsam übernehmen sie Ihre DACH-Präsenz und betreiben sie selbst: keine Übergabe an Junioren, keine Agentur, die Freelancer koordiniert. Sie bekommen die Arbeit selbst, auf Deutsch, von den Menschen, die sie verantworten.',
       link: 'Die Macher kennenlernen',
     },
     timeline: {
@@ -181,7 +181,7 @@ export const dachMarketEntry: UseCasePage = {
         { q: 'Sind die Inhalte wirklich muttersprachliches Deutsch?', a: 'Ja. Wir schreiben und betreiben alles in muttersprachlichem Deutsch, passend dazu, wie Käufer in DACH bewerten. Keine maschinelle Übersetzung.' },
         { q: 'Brauchen wir zuerst eine lokale Gesellschaft?', a: 'Nein. Wir beginnen mit Positionierung, Präsenz und Pipeline. Eine lokale Gesellschaft ist keine Voraussetzung für den Start.' },
         { q: 'Wie schnell sehen wir Pipeline?', a: 'Die erste Umsetzung ist innerhalb von zwei Wochen nach dem Start live. Danach arbeiten wir in Quartalszyklen, die aufeinander aufbauen.' },
-        { q: 'Wer macht die Arbeit?', a: 'Die beiden Macher, die Ihr Mandat planen, sind die beiden, die es umsetzen. Keine Account-Ebene, keine Junior-Umsetzung.' },
+        { q: 'Wer macht die Arbeit?', a: 'Die Macher, die Ihr Mandat planen, sind dieselben, die es umsetzen. Keine Account-Ebene, keine Junior-Umsetzung.' },
       ],
     },
     cta: {

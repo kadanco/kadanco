@@ -16,8 +16,7 @@
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
 import DeptStack from './DeptStack.astro';
-import IsoIcon from './IsoIcon.astro';
-import type { IsoIconName } from '../data/iso-icons';
+import ServiceBoard from './ServiceBoard.astro';
 import LiveFounders from './LiveFounders.astro';
 import LiveCta from './LiveCta.astro';
 import LiveCompliance from './LiveCompliance.astro';
@@ -33,12 +32,12 @@ const copy = {
   en: {
     offersEyebrow: 'Our Services',
     offersH2a: 'One Team Across Your',
-    offersH2b: 'Entire Funnel.',
+    offersH2b: 'Entire Go To Market.',
     offersLede: 'Each offer is built end to end and handed off ready to run.',
     cards: [
-      { id: 'product', icon: 'layers', tone: 'product', label: '01 · Product', title: 'Product Design & Development', body: 'Audit, design system and redesigned journeys to make the product easy to use and adopt.', link: 'Book a UX Review' },
-      { id: 'marketing', icon: 'target', tone: 'marketing', label: '02 · Marketing', title: 'Digital Marketing & Branding', body: 'Positioning, launch and content that make your story clear and differentiated.', link: 'Book a Strategy Call' },
-      { id: 'sales', icon: 'growth', tone: 'sales', label: '03 · Sales', title: 'Sales Support & Systems', body: 'Methods, tools, and tactics to generate uptick in your sales pipeline.', link: 'Book a Pipeline Audit' },
+      { id: 'product', tone: 'product', label: '01 · Product', title: 'Product Design & Development', body: 'Audit, design system and redesigned journeys to make the product easy to use and adopt.', link: 'Book a UX Review' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digital Marketing & Branding', body: 'Positioning, launch and content that make your story clear and differentiated.', link: 'Book a Strategy Call' },
+      { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales Support & Systems', body: 'Methods, tools, and tactics to generate uptick in your sales pipeline.', link: 'Book a Pipeline Audit' },
     ],
     logosEyebrow: 'Two careers behind the expertise',
     logosNote: 'We bring four decades of collective experience across product, marketing, and sales in enterprise software, services, automotive, pharma, and SaaS.',
@@ -53,7 +52,7 @@ const copy = {
     faqs: [
       { q: 'How do you work with us?', a: 'We work as your product, marketing and sales team on a quarterly engagement: map the product, market, ICP and funnel, agree the few moves that grow revenue most, then do them ourselves. Four clients at a time.' },
       { q: 'How fast do we see results?', a: 'First execution is live inside two weeks of kickoff. From there we run in quarterly cycles, plan, ship, review, and each cycle builds on the last.' },
-      { q: 'Who does the work?', a: 'The two operators who scope your work are the two who do it. No account-management layer, no junior delivery, no markup.' },
+      { q: 'Who does the work?', a: 'The senior operators who scope your work are the ones who do it. No account-management layer, no junior delivery, no markup.' },
       { q: 'What does it cost?', a: 'We scope each engagement to what your pipeline needs, with a predictable floor and a ceiling you control. The fastest way to a number is a short conversation.' },
       { q: 'Only companies entering Germany?', a: 'No. We plan and run product, marketing and sales for B2B companies generally. DACH market entry is one use case among several, and we do it well in native German.' },
       { q: "What's included?", a: 'Product (UX audit, design system, onboarding), marketing (positioning, website, content, SEO and GEO, campaigns, events) and sales (target lists, outreach, sales process, RevOps). We use whichever of these grow your revenue.' },
@@ -62,12 +61,12 @@ const copy = {
   de: {
     offersEyebrow: 'Drei Erfahrungen. Eine Methode.',
     offersH2a: 'Ein Team für Ihren',
-    offersH2b: 'ganzen Funnel.',
+    offersH2b: 'gesamten Go-to-Market.',
     offersLede: 'Jedes Angebot wird von Anfang bis Ende gebaut und einsatzbereit übergeben.',
     cards: [
-      { id: 'product', icon: 'layers', tone: 'product', label: '01 · Produkt', title: 'Produktdesign & Entwicklung', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
-      { id: 'marketing', icon: 'target', tone: 'marketing', label: '02 · Marketing', title: 'Digitales Marketing & Branding', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
-      { id: 'sales', icon: 'growth', tone: 'sales', label: '03 · Vertrieb', title: 'Vertriebsunterstützung & Systeme', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
+      { id: 'product', tone: 'product', label: '01 · Produkt', title: 'Produktdesign & Entwicklung', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digitales Marketing & Branding', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
+      { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Vertriebsunterstützung & Systeme', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
     ],
     logosEyebrow: 'Zwei Karrieren hinter der Arbeit',
     logosNote: 'Wir bringen vier Jahrzehnte gemeinsame Erfahrung aus Enterprise-Software, Services, Automotive, Pharma und SaaS mit, in Produkt, Marketing und Vertrieb.',
@@ -82,7 +81,7 @@ const copy = {
     faqs: [
       { q: 'Wie arbeiten Sie mit uns?', a: 'Wir arbeiten als Ihr Team für Produkt, Marketing und Vertrieb in einem Quartalsmandat: Produkt, Markt, ICP und Funnel verstehen, die wenigen Hebel festlegen, die den Umsatz am stärksten steigern, und sie dann selbst umsetzen. Vier Kunden gleichzeitig.' },
       { q: 'Wie schnell sehen wir Ergebnisse?', a: 'Die erste Umsetzung ist innerhalb von zwei Wochen nach Start live. Danach arbeiten wir in Quartalszyklen: planen, liefern, auswerten, und jeder Zyklus baut auf dem letzten auf.' },
-      { q: 'Wer macht die Arbeit?', a: 'Die beiden Macher, die Ihre Arbeit definieren, sind die beiden, die sie machen. Keine Account-Ebene, keine Junior-Umsetzung, kein Aufschlag.' },
+      { q: 'Wer macht die Arbeit?', a: 'Die erfahrenen Macher, die Ihre Arbeit definieren, sind dieselben, die sie machen. Keine Account-Ebene, keine Junior-Umsetzung, kein Aufschlag.' },
       { q: 'Was kostet das?', a: 'Wir schneiden jedes Mandat auf das zu, was Ihre Pipeline braucht, mit einer planbaren Untergrenze und einer Obergrenze, die Sie steuern. Am schnellsten kommen Sie in einem kurzen Gespräch zu einer Zahl.' },
       { q: 'Nur Unternehmen, die nach Deutschland kommen?', a: 'Nein. Wir planen und verantworten Produkt, Marketing und Vertrieb für B2B-Unternehmen allgemein. Der DACH-Markteintritt ist einer von mehreren Use Cases, und wir setzen ihn auf muttersprachlichem Niveau um.' },
       { q: 'Was gehört dazu?', a: 'Produkt (UX-Audit, Designsystem, Onboarding), Marketing (Positionierung, Website, Content, SEO und GEO, Kampagnen, Events) und Vertrieb (Ziellisten, Ansprache, Vertriebsprozess, RevOps). Wir setzen ein, was Ihren Umsatz steigert.' },
@@ -139,7 +138,7 @@ const logos = [
       <div class="home-offers">
         {c.cards.map((card) => (
           <a class={`home-card home-card--${card.tone}`} id={card.id} href="#contact" data-open-modal>
-            <IsoIcon name={card.icon as IsoIconName} size={72} />
+            <ServiceBoard id={card.id as 'product' | 'marketing' | 'sales'} width={128} />
             <span class="home-lbl">{card.label}</span>
             <h3>{card.title}</h3>
             <p>{card.body}</p>
@@ -210,8 +209,6 @@ const logos = [
 
   .home-card--product { background: var(--kd-dept-product); color: var(--kd-white); }
   /* icon accents per card ground: lime on blue, blue on lime, defaults on lilac */
-  .home-card--product :global(.iso-ic) { --acc: var(--kd-signal-1); }
-  .home-card--marketing :global(.iso-ic) { --acc: var(--kd-blue-2); --acc2: var(--kd-blue-2); }
   .home-card--product .home-lbl { background: var(--kd-signal-1); color: var(--kd-blue-1); }
   .home-card--product p { color: var(--kd-lilac-tint); }
   .home-card--product .home-link { color: var(--kd-signal-1); }

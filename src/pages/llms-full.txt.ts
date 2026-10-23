@@ -31,7 +31,7 @@ const header = `# Kadanco
 
 > Kadanco is a two-person senior team in Berlin that plans and runs product, marketing and sales for B2B companies: execution as a service for post-product-market-fit companies (roughly EUR 2 to 5M in revenue), with a native German edge for the DACH market.
 
-The same two senior operators who set the strategy do the hands-on work, with no junior handoffs and no agency layer. Engagements cover product, marketing and sales: the product experience, design systems and onboarding; positioning, brand and website, content, SEO and GEO, paid media and events; target lists, outreach, the sales process and revenue operations. Kadanco works with a small number of clients at a time. Its principle is results over activity.`;
+The same senior operators who set the strategy do the hands-on work, with no junior handoffs and no agency layer. Engagements cover product, marketing and sales: the product experience, design systems and onboarding; positioning, brand and website, content, SEO and GEO, paid media and events; target lists, outreach, the sales process and revenue operations. Kadanco works with a small number of clients at a time. Its principle is results over activity.`;
 
 export const GET: APIRoute = () => {
   // Group terms by category, categories sorted by size desc, terms alphabetical.

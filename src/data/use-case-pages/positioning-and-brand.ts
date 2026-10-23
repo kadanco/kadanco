@@ -15,7 +15,7 @@ export const positioningAndBrand: UseCasePage = {
   en: {
     meta: {
       title: 'Positioning and Brand: Messaging, Brand Identity and a Clear Offer | Kadanco',
-      description: 'Positioning, messaging and brand identity built around the outcome buyers pay for: value proposition, voice, logo and visual identity, sales story and brand guidelines. Run by two senior operators.',
+      description: 'Positioning, messaging and brand identity built around the outcome buyers pay for: value proposition, voice, logo and visual identity, sales story and brand guidelines. Run by senior operators.',
     },
     crumb: 'Positioning and brand',
     dept: 'Marketing · Product · Sales',
@@ -67,7 +67,7 @@ export const positioningAndBrand: UseCasePage = {
       eyebrow: 'Who does the work',
       h2a: 'Story And Design',
       h2b: 'From The Same Two People.',
-      body: 'Karan finds the positioning and writes the message and the sales story. Maria, a senior product engineer and design director, builds the visual identity and carries it into the website and the product. The two of them do the work themselves, with no hand-offs between a strategy firm, a design studio and a copywriter.',
+      body: 'Karan finds the positioning and writes the message and the sales story. Maria, a senior product engineer and design director, builds the visual identity and carries it into the website and the product. They do the work themselves, with no hand-offs between a strategy firm, a design studio and a copywriter.',
       link: 'Meet the operators',
     },
     timeline: {
@@ -102,7 +102,7 @@ export const positioningAndBrand: UseCasePage = {
   de: {
     meta: {
       title: 'Positionierung und Marke: Messaging, Markenidentität und ein klares Angebot | Kadanco',
-      description: 'Positionierung, Messaging und Markenidentität rund um das Ergebnis, für das Käufer bezahlen: Wertversprechen, Tonalität, Logo und Corporate Design, Vertriebsstory und Markenrichtlinien. Umgesetzt von zwei erfahrenen Machern.',
+      description: 'Positionierung, Messaging und Markenidentität rund um das Ergebnis, für das Käufer bezahlen: Wertversprechen, Tonalität, Logo und Corporate Design, Vertriebsstory und Markenrichtlinien. Umgesetzt von erfahrenen Machern.',
     },
     crumb: 'Positionierung und Marke',
     dept: 'Marketing · Produkt · Vertrieb',
@@ -154,7 +154,7 @@ export const positioningAndBrand: UseCasePage = {
       eyebrow: 'Wer die Arbeit macht',
       h2a: 'Geschichte und Gestaltung',
       h2b: 'von denselben zwei Menschen.',
-      body: 'Karan findet die Positionierung und schreibt Botschaft und Vertriebsstory. Maria, Senior Product Engineer und Design Director, entwickelt die visuelle Identität und bringt sie in Website und Produkt. Die beiden machen die Arbeit selbst, ohne Übergaben zwischen Strategieberatung, Designstudio und Texter.',
+      body: 'Karan findet die Positionierung und schreibt Botschaft und Vertriebsstory. Maria, Senior Product Engineer und Design Director, entwickelt die visuelle Identität und bringt sie in Website und Produkt. Sie machen die Arbeit selbst, ohne Übergaben zwischen Strategieberatung, Designstudio und Texter.',
       link: 'Die Macher kennenlernen',
     },
     timeline: {

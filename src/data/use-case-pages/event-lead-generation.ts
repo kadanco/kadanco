@@ -15,7 +15,7 @@ export const eventLeadGeneration: UseCasePage = {
   en: {
     meta: {
       title: 'Event Lead Generation: Meetings Booked Before the Event, ROI Within 30 Days | Kadanco',
-      description: 'Event lead generation for trade fairs and conferences: events scored by ICP fit, pre-event ABM, hosted dinners, same-day follow-up and a CFO-grade ROI report within 30 days. Run end to end by two senior operators.',
+      description: 'Event lead generation for trade fairs and conferences: events scored by ICP fit, pre-event ABM, hosted dinners, same-day follow-up and a CFO-grade ROI report within 30 days. Run end to end by senior operators.',
     },
     crumb: 'Event lead generation',
     dept: 'Sales · Marketing',
@@ -94,7 +94,7 @@ export const eventLeadGeneration: UseCasePage = {
   de: {
     meta: {
       title: 'Event-Leadgenerierung: Termine vor dem Event, ROI in 30 Tagen | Kadanco',
-      description: 'Leadgenerierung auf Messen und Konferenzen: Events bewertet nach ICP-Fit, ABM vor dem Event, Dinners, Follow-up am selben Tag und ein ROI-Report innerhalb von 30 Tagen. End-to-End umgesetzt von zwei erfahrenen Machern.',
+      description: 'Leadgenerierung auf Messen und Konferenzen: Events bewertet nach ICP-Fit, ABM vor dem Event, Dinners, Follow-up am selben Tag und ein ROI-Report innerhalb von 30 Tagen. End-to-End umgesetzt von erfahrenen Machern.',
     },
     crumb: 'Event-Leadgenerierung',
     dept: 'Vertrieb · Marketing',

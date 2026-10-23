@@ -21,6 +21,7 @@
 //
 // Geometry: true isometric (30 degrees), the same angles as the design file.
 import { asLocale } from '../i18n/utils';
+import { W, D, T, boardBlocks, productDots } from '../data/service-boards';
 
 const locale = asLocale(Astro.currentLocale);
 const copy = {
@@ -45,10 +46,8 @@ const copy = {
 }[locale];
 
 // ---------- geometry ----------
-const W = 136, D = 100, T = 6;     // board size (x length, y depth, thickness)
 const GAP = 100;                   // vertical distance between slices
 const PAD = 16;
-const STRIP = 18;                  // label strip along the front edge of each board
 const C30 = Math.cos(Math.PI / 6), S30 = 0.5;
 const TOP = 2 * GAP + T + 16;      // highest point (top slice plus its tallest block)
 const ox = PAD + D * C30, oy = PAD + TOP;
@@ -87,33 +86,17 @@ const zP = 2 * GAP, zM = GAP, zS = 0;
 const fP = flatOf(zP), fM = flatOf(zM), fS = flatOf(zS);
 const bP = boxOn(fP), bM = boxOn(fM), bS = boxOn(fS);
 
-// main content sits towards the front corner, where the slice above does not cover it
-const product = [
-  ...bP(0, W, 0, D, zP, T),
-  ...bP(8, W - 8, 8, 20, zP + T, 4, 'acc'),                   // top bar of the app screen
-  // the two UI blocks share the top bar's outer edges (8 and W - 8), with a 12 gap
-  ...bP(8, (W - 12) / 2, 32, D - STRIP - 4, zP + T, 8, 'acc'),       // UI block
-  ...bP((W + 12) / 2, W - 8, 32, D - STRIP - 4, zP + T, 14, 'acc'),  // UI block
+// board plus its blocks (shapes shared with the service cards, src/data/service-boards.ts)
+const board = (b: ReturnType<typeof boxOn>, z: number, id: keyof typeof boardBlocks) => [
+  ...b(0, W, 0, D, z, T),
+  ...boardBlocks[id].flatMap(([x0, x1, y0, y1, h, top]) => b(x0, x1, y0, y1, z + T, h, top)),
 ];
-const marketing = [
-  ...bM(0, W, 0, D, zM, T),
-  ...bM(12, W - 12, 12, 30, zM + T, 3),                       // headline strip
-  ...bM(12, 62, 40, 46, zM + T, 2, 'ink'),                    // text lines
-  ...bM(12, 54, 52, 58, zM + T, 2, 'ink'),
-  ...bM(12, 46, 64, 70, zM + T, 2, 'ink'),
-  ...bM(74, W - 12, 40, D - STRIP - 4, zM + T, 8, 'acc'),     // content card
-];
-// pipeline bars lie flat like the blocks on the other slices; they grow in
-// length across the board (y), not upwards (z)
-const sales = [
-  ...bS(0, W, 0, D, zS, T),
-  ...bS(20, 40, 50, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...bS(58, 78, 30, D - STRIP - 4, zS + T, 8, 'acc'),
-  ...bS(96, 116, 10, D - STRIP - 4, zS + T, 8, 'acc'),
-];
+const product = board(bP, zP, 'product');
+const marketing = board(bM, zM, 'marketing');
+const sales = board(bS, zS, 'sales');
 
 // browser dots on the app screen's top bar, in both views
-const dots = [16, 24, 32].map((x) => ({ a: iso(x, 14, zP + T + 4), b: fP(x, 14) }));
+const dots = productDots.map((x) => ({ a: iso(x, 14, zP + T + 4), b: fP(x, 14) }));
 
 // label printed on the top face along the front edge; the matrix maps the
 // text's axes onto the board (isometric) or keeps it upright (straight view)

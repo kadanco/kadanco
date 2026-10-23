@@ -1,0 +1,52 @@
+---
+// src/components/ServiceBoard.astro
+// One service board from the homepage hero, drawn on its own as a small
+// isometric picture: used on the service cards so each service shows the
+// same picture as its hero slice. Shapes come from src/data/service-boards.ts.
+// Navy outlines and white faces as in the hero; tops take --acc (department
+// colour, set by the card) and the board floats gently like the hero slices.
+import { W, D, T, boardBlocks, productDots, type ServiceId } from '../data/service-boards';
+
+interface Props { id: ServiceId; width?: number }
+const { id, width = 120 } = Astro.props;
+
+const C30 = Math.cos(Math.PI / 6), S30 = 0.5, PAD = 4;
+const TOP = T + 16; // board plus its tallest block
+const ox = PAD + D * C30, oy = PAD + TOP;
+const iso = (x: number, y: number, z: number) => [ox + (x - y) * C30, oy + (x + y) * S30 - z];
+const fmt = (pts: number[][]) => pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+
+// the three faces seen from the front, as in the hero
+const box = (x0: number, x1: number, y0: number, y1: number, z0: number, h: number, top = '') => [
+  { pts: [[x0, y1, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x0, y1, z0]], cls: 'f' },
+  { pts: [[x1, y0, z0 + h], [x1, y1, z0 + h], [x1, y1, z0], [x1, y0, z0]], cls: 'f' },
+  { pts: [[x0, y0, z0 + h], [x1, y0, z0 + h], [x1, y1, z0 + h], [x0, y1, z0 + h]], cls: `f ${top}`.trim() },
+].map((f) => ({ points: fmt(f.pts.map(([x, y, z]) => iso(x, y, z))), cls: f.cls }));
+
+const faces = [
+  ...box(0, W, 0, D, 0, T),
+  ...boardBlocks[id].flatMap(([x0, x1, y0, y1, h, top]) => box(x0, x1, y0, y1, T, h, top)),
+];
+const dots = id === 'product' ? productDots.map((x) => iso(x, 14, T + 4)) : [];
+const vbW = Math.ceil(ox + W * C30 + PAD), vbH = Math.ceil(oy + (W + D) * S30 + PAD);
+---
+<svg class={`sb sb--${id}`} viewBox={`0 0 ${vbW} ${vbH}`} width={width} height={Math.round((width * vbH) / vbW)} fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+  <g class="sb-in">
+    {faces.map((f) => <polygon points={f.points} class={f.cls} />)}
+    {dots.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="1.8" class="dot" />)}
+  </g>
+</svg>
+
+<style>
+  .sb { display: block; overflow: visible; color: var(--kd-blue-1); }
+  .sb--product { --acc: var(--kd-dept-product); }
+  .sb--marketing { --acc: var(--kd-dept-marketing); }
+  .sb--sales { --acc: var(--kd-dept-sales); }
+  .f { fill: var(--kd-white); }
+  .acc { fill: var(--acc); }
+  .ink { fill: var(--kd-blue-1); }
+  .dot { fill: var(--kd-white); stroke: none; }
+  .sb-in { animation: sb-float 5s ease-in-out infinite; }
+  @keyframes sb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+  @media (prefers-reduced-motion: reduce) { .sb-in { animation: none; } }
+</style>

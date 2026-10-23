@@ -17,7 +17,7 @@ export const productDesign: UseCasePage = {
   en: {
     meta: {
       title: 'Product Design: UX, Onboarding and a Design System Your Team Builds On | Kadanco',
-      description: 'Product design for software teams: UX and onboarding, UI design, a design system and component library as the single source of truth, and a clean handover to your front-end. Run by two senior operators.',
+      description: 'Product design for software teams: UX and onboarding, UI design, a design system and component library as the single source of truth, and a clean handover to your front-end. Run by senior operators.',
     },
     crumb: 'Product design',
     dept: 'Product · Marketing · Sales',
@@ -104,7 +104,7 @@ export const productDesign: UseCasePage = {
   de: {
     meta: {
       title: 'Produktdesign: UX, Onboarding und ein Designsystem, auf dem Ihr Team aufbaut | Kadanco',
-      description: 'Produktdesign für Software-Teams: UX und Onboarding, UI-Design, ein Designsystem mit Komponentenbibliothek als zentrale Quelle und eine saubere Übergabe ans Frontend. Umgesetzt von zwei erfahrenen Machern.',
+      description: 'Produktdesign für Software-Teams: UX und Onboarding, UI-Design, ein Designsystem mit Komponentenbibliothek als zentrale Quelle und eine saubere Übergabe ans Frontend. Umgesetzt von erfahrenen Machern.',
     },
     crumb: 'Produktdesign',
     dept: 'Produkt · Marketing · Vertrieb',

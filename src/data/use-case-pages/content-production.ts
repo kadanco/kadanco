@@ -16,7 +16,7 @@ export const contentProduction: UseCasePage = {
   en: {
     meta: {
       title: 'Content Production: Founder-Led LinkedIn, Articles, Sales Decks and One-Pagers | Kadanco',
-      description: "Content production in the founder's voice: LinkedIn ghostwriting, SEO and GEO articles, sales decks, one-pagers and case studies, tracked through to pipeline. Run by two senior operators.",
+      description: "Content production in the founder's voice: LinkedIn ghostwriting, SEO and GEO articles, sales decks, one-pagers and case studies, tracked through to pipeline. Run by senior operators.",
     },
     crumb: 'Content production',
     dept: 'Marketing · Sales',
@@ -105,7 +105,7 @@ export const contentProduction: UseCasePage = {
   de: {
     meta: {
       title: 'Content-Produktion: Founder-Content, Artikel, Sales-Decks und One-Pager | Kadanco',
-      description: 'Content-Produktion in der Stimme der Gründer: LinkedIn-Ghostwriting, Artikel für SEO und GEO, Sales-Decks, One-Pager und Case Studies, gemessen bis zur Pipeline. Umgesetzt von zwei erfahrenen Machern.',
+      description: 'Content-Produktion in der Stimme der Gründer: LinkedIn-Ghostwriting, Artikel für SEO und GEO, Sales-Decks, One-Pager und Case Studies, gemessen bis zur Pipeline. Umgesetzt von erfahrenen Machern.',
     },
     crumb: 'Content-Produktion',
     dept: 'Marketing · Vertrieb',

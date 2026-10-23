@@ -66,7 +66,7 @@ export const accountBasedMarketing: UseCasePage = {
       eyebrow: 'Who does the work',
       h2a: 'Marketing And Sales',
       h2b: 'From The Same Two People.',
-      body: 'Karan runs the account selection, the messaging and the outreach. Maria designs the tailored pages and the sales material, so every account sees a product story that fits. The two of them do the work themselves, so the campaigns and the outreach never drift apart.',
+      body: 'Karan runs the account selection, the messaging and the outreach. Maria designs the tailored pages and the sales material, so every account sees a product story that fits. They do the work themselves, so the campaigns and the outreach never drift apart.',
       link: 'Meet the operators',
     },
     timeline: {
@@ -153,7 +153,7 @@ export const accountBasedMarketing: UseCasePage = {
       eyebrow: 'Wer die Arbeit macht',
       h2a: 'Marketing und Vertrieb',
       h2b: 'von denselben zwei Menschen.',
-      body: 'Karan verantwortet Account-Auswahl, Botschaften und Ansprache. Maria gestaltet die eigenen Seiten und Vertriebsunterlagen, damit jeder Account eine passende Produktgeschichte sieht. Die beiden machen die Arbeit selbst, damit Kampagnen und Ansprache nie auseinanderlaufen.',
+      body: 'Karan verantwortet Account-Auswahl, Botschaften und Ansprache. Maria gestaltet die eigenen Seiten und Vertriebsunterlagen, damit jeder Account eine passende Produktgeschichte sieht. Sie machen die Arbeit selbst, damit Kampagnen und Ansprache nie auseinanderlaufen.',
       link: 'Die Macher kennenlernen',
     },
     timeline: {

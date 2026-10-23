@@ -83,7 +83,7 @@ export const outboundSalesPipeline: UseCasePage = {
       eyebrow: 'Who does the work',
       h2a: 'An Operator Who Has Built',
       h2b: 'Outbound Before.',
-      body: 'Karan leads go-to-market and outbound: he sharpens who you sell to and what you say, builds the systems and runs the outreach. Maria makes sure the product, the demo and the sales material hold up when the meetings land. The two of them do the work themselves, with no junior SDR team in between.',
+      body: 'Karan leads go-to-market and outbound: he sharpens who you sell to and what you say, builds the systems and runs the outreach. Maria makes sure the product, the demo and the sales material hold up when the meetings land. They do the work themselves, with no junior SDR team in between.',
       link: 'Meet the operators',
     },
     timeline: {
@@ -186,7 +186,7 @@ export const outboundSalesPipeline: UseCasePage = {
       eyebrow: 'Wer die Arbeit macht',
       h2a: 'Ein Macher, der Outbound',
       h2b: 'schon aufgebaut hat.',
-      body: 'Karan verantwortet Go-to-Market und Outbound: Er schärft, an wen Sie verkaufen und was Sie sagen, baut die Systeme und betreibt die Ansprache. Maria sorgt dafür, dass Produkt, Demo und Vertriebsunterlagen halten, wenn die Termine kommen. Die beiden machen die Arbeit selbst, ohne Junior-SDR-Team dazwischen.',
+      body: 'Karan verantwortet Go-to-Market und Outbound: Er schärft, an wen Sie verkaufen und was Sie sagen, baut die Systeme und betreibt die Ansprache. Maria sorgt dafür, dass Produkt, Demo und Vertriebsunterlagen halten, wenn die Termine kommen. Sie machen die Arbeit selbst, ohne Junior-SDR-Team dazwischen.',
       link: 'Die Macher kennenlernen',
     },
     timeline: {
