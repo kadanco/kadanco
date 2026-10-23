@@ -31,7 +31,9 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  stepsLayout?: 'stack' | 'expand' | 'bento' | 'ui';  // stacked cards (default), widening row, mixed-size grid, or the product UI mock
+  // how "What's inside" shows the steps: stacked cards (default), widening row, mixed-size grid,
+  // the product UI mock, or a contextual scene from StepsScene.astro
+  stepsLayout?: 'stack' | 'expand' | 'bento' | 'ui' | 'web' | 'slider' | 'fan' | 'map' | 'board' | 'calendar' | 'sequence' | 'org';
   stepIcons: IsoIconName[];              // one per step, repeats if there are fewer
   en: UseCasePageText;
   de: UseCasePageText;

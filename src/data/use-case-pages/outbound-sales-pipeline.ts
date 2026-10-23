@@ -10,6 +10,7 @@ export const outboundSalesPipeline: UseCasePage = {
   id: 'outbound-sales-pipeline',
   dept: 'sales',
   icon: 'plane',
+  stepsLayout: 'sequence',
   stepIcons: ['docs', 'seo', 'plane', 'calendar'],
   en: {
     meta: {

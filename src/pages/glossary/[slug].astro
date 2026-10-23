@@ -22,7 +22,6 @@ const related = (entry.related || []).map((slug) => ({
   <main>
     <section class="gl-term-hero" data-theme="light">
       <div class="container">
-        <nav class="gl-crumb" aria-label="Breadcrumb"><a href="/glossary/">Glossary</a> <span class="sep">/</span> <span>{entry.category}</span></nav>
         <span class={`gl-tag ${owned ? 'owned' : ''}`}>{owned && <span class="d" aria-hidden="true"></span>}{entry.category}</span>
         <h1>{entry.term}</h1>
         {entry.aliases && <p class="gl-alias">Also: {entry.aliases}</p>}
@@ -84,10 +83,6 @@ const related = (entry.related || []).map((slug) => ({
 
   <style>
     .gl-term-hero { padding: 120px 0 38px; background: #fff; border-bottom: 1px solid var(--border); }
-    .gl-crumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
-    .gl-crumb a { color: var(--indigo); text-decoration: none; }
-    .gl-crumb a:hover { text-decoration: underline; }
-    .gl-crumb .sep { opacity: 0.5; margin: 0 4px; }
     .gl-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--field); border: 1px solid var(--border); border-radius: var(--radius); padding: 5px 12px; }
     .gl-tag.owned { color: var(--indigo); }
     .gl-tag .d { width: 7px; height: 7px; border-radius: 2px; background: var(--lime); display: inline-block; }

@@ -2,7 +2,7 @@
 // src/components/UseCaseDetail.astro
 // One use case detail page. Layout from the October use case designs
 // (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
-//   breadcrumb, department-coloured hero (text left, icon panel right),
+//   department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
 //   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), the
 //   steps as stacked cards, expanding cards, a bento grid or the product UI mock (stepsLayout), optional "also included" cards with tags, outcomes, optional native
@@ -15,6 +15,7 @@ import HomeComparison from './HomeComparison.astro';
 import CadenceTimeline from './CadenceTimeline.astro';
 import IsoIcon from './IsoIcon.astro';
 import StepsProductUI from './StepsProductUI.astro';
+import StepsScene from './StepsScene.astro';
 import type { UseCasePage } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -27,17 +28,16 @@ const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
 // light sections alternate page and paper grounds, whichever optional blocks are present
 const light = ['situation', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
+const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 'org'] as const;
+const scene = SCENES.find((k) => k === page.stepsLayout);
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
-  en: { home: 'Home', uc: 'Use Cases', problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen' },
-  de: { home: 'Startseite', uc: 'Use Cases', problem: 'Das Problem', solve: 'Was wir tun', uiHint: 'Fahren Sie über einen Bereich' },
+  en: { problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen', sceneHint: 'Hover the picture or a step to see how it works.' },
+  de: { problem: 'Das Problem', solve: 'Was wir tun', uiHint: 'Fahren Sie über einen Bereich', sceneHint: 'Fahren Sie über das Bild oder einen Schritt, um zu sehen, wie es funktioniert.' },
 }[locale];
 ---
 <main id="top" class={`ucd ucd--${page.dept}`}>
   <div class="ucd-hero" data-theme={ground} data-nav-cta={navCta}>
-    <div class="container ucd-crumb">
-      <a href={localizedHref(locale, '/')}>{ui.home}</a><span aria-hidden="true">·</span><a href={localizedHref(locale, '/use-cases/')}>{ui.uc}</a><span aria-hidden="true">·</span><span aria-current="page">{c.crumb}</span>
-    </div>
     <section class="container ucd-hero-in">
       <div class="ucd-hero-copy">
         <span class="ucd-dept">{c.dept}</span>
@@ -108,7 +108,9 @@ const ui = {
         <h2>{c.inside.h2}</h2>
         <p class="ucd-lede">{c.inside.lede}</p>
       </div>
-      {page.stepsLayout === 'ui' ? (
+      {scene ? (
+        <StepsScene kind={scene} steps={c.inside.steps} hint={ui.sceneHint} />
+      ) : page.stepsLayout === 'ui' ? (
         <StepsProductUI steps={c.inside.steps} hint={ui.uiHint} />
       ) : page.stepsLayout === 'bento' ? (
         <div class={`ucd-bento ucd-bento--${c.inside.steps.length}`}>
@@ -265,11 +267,7 @@ const ui = {
 
   /* ---------- hero (department colour) ---------- */
   .ucd-hero { background: radial-gradient(125% 120% at 50% -10%, color-mix(in srgb, var(--h-bg) var(--h-mix), var(--kd-white)), var(--h-bg) 72%); color: var(--h-ink); }
-  .ucd-crumb { padding-top: 112px; font-size: 14px; opacity: .8; }
-  .ucd-crumb a { color: inherit; text-decoration: none; }
-  .ucd-crumb a:hover { text-decoration: underline; }
-  .ucd-crumb span[aria-hidden] { margin: 0 8px; opacity: .6; }
-  .ucd-hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-top: 40px; padding-bottom: 80px; }
+  .ucd-hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-top: calc(80px + 64px); padding-bottom: 80px; } /* clears the fixed 80px nav (no breadcrumbs, owner decision) */
   .ucd-hero-copy { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
   .ucd-dept { padding: 4px 12px; border-radius: var(--kd-radius); border: 1.5px solid var(--tag); color: var(--tag); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
   .ucd-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 17ch; }

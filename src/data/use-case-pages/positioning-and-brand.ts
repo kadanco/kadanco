@@ -10,7 +10,7 @@ export const positioningAndBrand: UseCasePage = {
   id: 'positioning-and-brand',
   dept: 'marketing',
   icon: 'score',
-  stepsLayout: 'bento',
+  stepsLayout: 'board',
   stepIcons: ['door', 'posts', 'dice', 'docs'],
   en: {
     meta: {

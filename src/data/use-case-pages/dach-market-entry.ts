@@ -9,6 +9,7 @@ export const dachMarketEntry: UseCasePage = {
   id: 'dach-market-entry',
   dept: 'marketing',
   icon: 'pin',
+  stepsLayout: 'map',
   stepIcons: ['pin', 'posts', 'growth'],
   en: {
     meta: {

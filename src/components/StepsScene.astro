@@ -1,0 +1,612 @@
+---
+// src/components/StepsScene.astro
+// Contextual "What's inside" steps for the use case pages: a scene that fits
+// the use case on the left, the list of steps on the right. Hovering, focusing
+// or tapping a part of the scene or a step in the list makes both react: the
+// scene shows that step's state and the list opens that step's text.
+//
+// kinds:
+//   web       Website Production       a website in a browser (story, build, hosting)
+//   slider    Software Modernisation   before/after slider moving from today to renewed
+//   fan       Content Production       interview notes, LinkedIn post, article, deck in a fan
+//   map       DACH Market Entry        Germany, Austria and Switzerland with pins
+//   board     Positioning and Brand    brand board that turns from sketch to final
+//   calendar  Event Lead Generation    weeks before, the event, the 30 days after
+//   sequence  Outbound Sales Pipeline  playbook, CRM, sequence, booked meeting
+//   org       Account-Based Marketing  target accounts and the buying group of one
+//
+// State: a small inline script sets data-active on the root and the class
+// "on" on every element whose data-s lists the active step (data-s="2 3"
+// means steps 2 and 3). The last step stays active, so nothing flickers.
+// Without JavaScript every step's text is shown. Colours from tokens only.
+import { asLocale } from '../i18n/utils';
+
+type Kind = 'web' | 'slider' | 'fan' | 'map' | 'board' | 'calendar' | 'sequence' | 'org';
+interface Step { label: string; title: string; body: string }
+interface Props { kind: Kind; steps: Step[]; hint: string }
+const { kind, steps, hint } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+
+const t = {
+  en: {
+    url: 'yourcompany.com', pages: ['Home', 'Product', 'Pricing', 'About'], online: 'Online', speed: 'Speed', leads: 'Leads',
+    today: 'Today', renewed: 'Renewed', live: 'Live',
+    notes: 'Interview notes', quote: '“Our buyers do not need more features. They need fewer steps.”', post: 'Founder · now', likes: '128', article: 'Guide', deck: 'Sales deck', slide: '01 / 12',
+    cities: ['Berlin', 'Zürich', 'Wien'],
+    pos: ['For', 'ops teams', 'who', 'lose hours to manual work,', 'we are the', 'one platform', 'that', 'gives them the time back.'],
+    weSay: 'We say', weDont: 'We avoid', voice: ['Clear', 'Direct', 'Warm'], brand: 'Your brand',
+    weeks: ['6 wks before', '4 wks before', '2 wks before', 'Event week', 'After'], days: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    chip: { score: 'Score', ads: 'Ads', invite: 'Invite', meet: 'Meeting', dinner: 'Dinner', event: 'Event', follow: 'Follow-up', roi: 'ROI report' },
+    seq: { play: 'Playbook', crm: 'CRM', seq: 'Sequence', meet: 'Meeting', email: 'Email', li: 'LinkedIn', call: 'Call', day: 'Day', booked: 'Booked', deals: 'Deals' },
+    org: { acc: 'Account', tier: 'Tier', cfo: 'CFO', ops: 'VP Operations', it: 'Head of IT', user: 'User', decides: 'Decides', uses: 'Uses', checks: 'Checks', ad: 'Ad', sales: 'Your sales team', meet: 'Meeting' },
+  },
+  de: {
+    url: 'ihrunternehmen.de', pages: ['Start', 'Produkt', 'Preise', 'Über uns'], online: 'Online', speed: 'Tempo', leads: 'Leads',
+    today: 'Heute', renewed: 'Erneuert', live: 'Live',
+    notes: 'Interview-Notizen', quote: '„Unsere Käufer brauchen nicht mehr Features. Sie brauchen weniger Schritte.“', post: 'Gründerin · jetzt', likes: '128', article: 'Leitfaden', deck: 'Sales-Deck', slide: '01 / 12',
+    cities: ['Berlin', 'Zürich', 'Wien'],
+    pos: ['Für', 'Ops-Teams,', 'die', 'Stunden mit Handarbeit verlieren,', 'sind wir die', 'eine Plattform,', 'die', 'ihnen die Zeit zurückgibt.'],
+    weSay: 'Wir sagen', weDont: 'Wir meiden', voice: ['Klar', 'Direkt', 'Nahbar'], brand: 'Ihre Marke',
+    weeks: ['6 Wo. vorher', '4 Wo. vorher', '2 Wo. vorher', 'Eventwoche', 'Danach'], days: ['M', 'D', 'M', 'D', 'F', 'S', 'S'],
+    chip: { score: 'Bewerten', ads: 'Anzeigen', invite: 'Einladung', meet: 'Termin', dinner: 'Dinner', event: 'Event', follow: 'Follow-up', roi: 'ROI-Report' },
+    seq: { play: 'Playbook', crm: 'CRM', seq: 'Sequenz', meet: 'Termin', email: 'E-Mail', li: 'LinkedIn', call: 'Anruf', day: 'Tag', booked: 'Gebucht', deals: 'Deals' },
+    org: { acc: 'Account', tier: 'Stufe', cfo: 'CFO', ops: 'Leitung Operations', it: 'Leitung IT', user: 'Nutzer', decides: 'Entscheidet', uses: 'Nutzt', checks: 'Prüft', ad: 'Anzeige', sales: 'Ihr Vertrieb', meet: 'Termin' },
+  },
+}[locale];
+
+// ---------- map geometry (lon/lat, simple projection) ----------
+const proj = ([lon, lat]: number[]) => [(lon - 5.6) * 6.43, (55.2 - lat) * 10];
+const pts = (list: number[][]) => list.map((p) => proj(p).map((n) => n.toFixed(1)).join(',')).join(' ');
+const DE = pts([[6.0, 51.9], [6.8, 53.5], [8.6, 53.9], [8.9, 54.9], [10.0, 54.8], [11.0, 54.0], [12.5, 54.5], [14.2, 53.9], [14.4, 53.3], [14.8, 52.1], [14.6, 51.0], [13.3, 50.6], [12.1, 50.3], [13.0, 49.3], [13.8, 48.8], [12.8, 47.6], [10.4, 47.3], [9.6, 47.5], [7.6, 47.6], [7.6, 48.5], [8.2, 49.0], [6.4, 49.5], [6.1, 50.4], [5.9, 51.0]]);
+const AT = pts([[9.5, 47.3], [9.6, 47.5], [12.8, 47.6], [13.0, 48.3], [14.6, 48.6], [15.0, 49.0], [16.9, 48.7], [17.1, 48.0], [16.4, 47.0], [15.6, 46.7], [13.7, 46.5], [12.1, 47.0], [10.4, 46.9]]);
+const CH = pts([[6.0, 46.2], [6.8, 47.3], [7.6, 47.6], [9.6, 47.5], [9.5, 47.0], [10.4, 46.6], [9.0, 45.9], [7.0, 45.9]]);
+const city = [[13.4, 52.52], [8.54, 47.37], [16.37, 48.21]].map(proj);
+const VBW = 76, VBH = 95;
+
+// ---------- calendar: 5 weeks x 7 days, chips per day ----------
+type Chip = { day: number; key: keyof typeof t.chip; s: string };
+const chips: Chip[] = [
+  { day: 1, key: 'score', s: '1' }, { day: 3, key: 'score', s: '1' },
+  { day: 7, key: 'ads', s: '2' }, { day: 9, key: 'invite', s: '2' }, { day: 15, key: 'ads', s: '2' }, { day: 16, key: 'meet', s: '2' }, { day: 18, key: 'meet', s: '2' },
+  { day: 22, key: 'event', s: '3' }, { day: 23, key: 'dinner', s: '3' }, { day: 24, key: 'event', s: '3' },
+  { day: 25, key: 'follow', s: '4' }, { day: 29, key: 'follow', s: '4' }, { day: 31, key: 'meet', s: '4' },
+];
+const chipAt = (d: number) => chips.find((c) => c.day === d);
+---
+<div class={`scn scn--${kind}`} data-scn>
+  <div class="scn-stage" aria-hidden="true">
+
+    {kind === 'web' && (
+      <div class="w-win">
+        <div class="w-bar"><i></i><i></i><i></i><span>{t.url}</span></div>
+        <div class="w-page">
+          <div class="w-band w-b1" data-step="1" data-s="1">
+            <span class="tag">01</span>
+            <div class="w-map">
+              <b class="w-node w-root">{t.pages[0]}</b>
+              <div class="w-kids">{t.pages.slice(1).map((p) => <b class="w-node">{p}</b>)}</div>
+            </div>
+            <div class="w-copy"><em class="hl" style="width:78%"></em><em style="width:92%"></em><em style="width:64%"></em></div>
+          </div>
+          <div class="w-band w-b2" data-step="2" data-s="2">
+            <span class="tag">02</span>
+            <div class="w-hero">
+              <div class="w-hero-txt"><strong style="width:86%"></strong><strong style="width:60%"></strong><em style="width:90%"></em><span class="w-btn"></span></div>
+              <div class="w-img"></div>
+            </div>
+            <div class="w-phone"><strong style="width:80%"></strong><em style="width:90%"></em><span class="w-btn"></span><div class="w-img"></div></div>
+          </div>
+          <div class="w-band w-b3" data-step="3" data-s="3">
+            <span class="tag">03</span>
+            <div class="w-ops">
+              <span class="w-pill"><i class="dot"></i>{t.online}</span>
+              <span class="w-pill">HTTPS</span>
+              <span class="w-pill">{t.speed} <b>98</b></span>
+              <div class="w-chart"><i style="height:30%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:62%"></i><i style="height:74%"></i><i style="height:88%"></i><span>{t.leads}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {kind === 'slider' && (
+      <div class="sl-frame">
+        <div class="sl-old">
+          <div class="sl-old-bar">{Array.from({ length: 9 }).map(() => <i></i>)}</div>
+          <div class="sl-table">{Array.from({ length: 48 }).map(() => <i></i>)}</div>
+          <span class="sl-mark" data-s="1" style="left:18%;top:24%">!</span>
+          <span class="sl-mark" data-s="1" style="left:62%;top:52%">!</span>
+          <span class="sl-mark" data-s="1" style="left:34%;top:78%">!</span>
+        </div>
+        <div class="sl-new">
+          <div class="sl-nav"><b></b><em></em><em></em><em></em><em></em></div>
+          <div class="sl-main">
+            <strong></strong>
+            <div class="sl-cards"><div></div><div></div><div></div></div>
+            <span class="sl-btn"></span>
+          </div>
+        </div>
+        <div class="sl-handle"><span></span></div>
+        <span class="sl-tag sl-tag--old">{t.today}</span>
+        <span class="sl-tag sl-tag--new">{t.renewed}</span>
+        <span class="sl-live" data-s="4"><i class="dot"></i>{t.live}</span>
+      </div>
+    )}
+
+    {kind === 'fan' && (
+      <div class="f-fan">
+        <div class="f-card f-c1" data-step="1" data-s="1">
+          <span class="f-kind">{t.notes}</span>
+          <p class="f-quote">{t.quote}</p>
+          <em style="width:90%"></em><em style="width:70%"></em><em style="width:82%"></em>
+        </div>
+        <div class="f-card f-c2" data-step="2" data-s="2">
+          <div class="f-head"><i class="f-ava"></i><span>{t.post}</span></div>
+          <em style="width:94%"></em><em style="width:88%"></em><em style="width:60%"></em>
+          <div class="f-img"></div>
+          <div class="f-react"><i></i><i></i><i></i><span>{t.likes}</span></div>
+        </div>
+        <div class="f-card f-c3" data-step="3" data-s="3">
+          <span class="f-kind">{t.article}</span>
+          <div class="f-search"><i></i><em style="width:70%"></em></div>
+          <strong style="width:90%"></strong><strong style="width:66%"></strong>
+          <em style="width:94%"></em><em style="width:90%"></em><em style="width:84%"></em><em style="width:58%"></em>
+          <span class="f-seo">SEO · GEO</span>
+        </div>
+        <div class="f-card f-c4" data-step="4" data-s="4">
+          <span class="f-kind">{t.deck}</span>
+          <div class="f-slide"><strong style="width:70%"></strong><div class="f-bars"><i style="height:35%"></i><i style="height:55%"></i><i style="height:80%"></i></div><span>{t.slide}</span></div>
+          <em style="width:86%"></em><em style="width:62%"></em>
+        </div>
+      </div>
+    )}
+
+    {kind === 'map' && (
+      <div class="m-wrap" style={`aspect-ratio:${VBW}/${VBH}`}>
+        <svg viewBox={`0 0 ${VBW} ${VBH}`} class="m-svg">
+          <polygon class="m-land m-de" points={DE} data-s="1"></polygon>
+          <polygon class="m-land m-at" points={AT} data-s="3"></polygon>
+          <polygon class="m-land m-ch" points={CH} data-s="2"></polygon>
+          <line class="m-route" data-s="2 3" x1={city[0][0]} y1={city[0][1]} x2={city[1][0]} y2={city[1][1]}></line>
+          <line class="m-route" data-s="3" x1={city[1][0]} y1={city[1][1]} x2={city[2][0]} y2={city[2][1]}></line>
+          <text x="28" y="44" class="m-code">DE</text><text x="52" y="80" class="m-code">AT</text><text x="11" y="88" class="m-code">CH</text>
+        </svg>
+        {city.map((c, i) => (
+          <span class="m-pin" data-step={i + 1} data-s={`${i + 1}`} style={`left:${(c[0] / VBW * 100).toFixed(1)}%;top:${(c[1] / VBH * 100).toFixed(1)}%`}>
+            <i></i><b>{String(i + 1).padStart(2, '0')} · {t.cities[i]}</b>
+          </span>
+        ))}
+      </div>
+    )}
+
+    {kind === 'board' && (
+      <div class="b-grid">
+        <div class="b-tile b-t1" data-step="1" data-s="1">
+          <span class="tag">01</span>
+          <p class="b-pos">{t.pos.map((w, i) => (i % 2 ? <mark>{w}</mark> : <span>{w} </span>))}</p>
+        </div>
+        <div class="b-tile b-t2" data-step="2" data-s="2">
+          <span class="tag">02</span>
+          <div class="b-voice"><span class="b-say">{t.weSay}</span><em style="width:90%"></em><em style="width:70%"></em></div>
+          <div class="b-voice b-voice--no"><span class="b-say">{t.weDont}</span><em style="width:76%"></em></div>
+          <div class="b-chips">{t.voice.map((v) => <b>{v}</b>)}</div>
+        </div>
+        <div class="b-tile b-t3" data-step="3" data-s="3">
+          <span class="tag">03</span>
+          <div class="b-id">
+            <div class="b-logo"><span>{t.brand}</span></div>
+            <div class="b-sw"><i></i><i></i><i></i><i></i></div>
+            <p class="b-type">Aa <span>Bb Cc</span></p>
+          </div>
+        </div>
+        <div class="b-tile b-t4" data-step="4" data-s="4">
+          <span class="tag">04</span>
+          <div class="b-deck"><strong style="width:72%"></strong><em style="width:50%"></em><div class="b-bars"><i style="height:30%"></i><i style="height:52%"></i><i style="height:76%"></i><i style="height:94%"></i></div><span>{t.slide}</span></div>
+        </div>
+      </div>
+    )}
+
+    {kind === 'calendar' && (
+      <div class="c-cal">
+        <div class="c-row c-head"><span></span>{t.days.map((d) => <b>{d}</b>)}</div>
+        {t.weeks.map((w, r) => (
+          <div class="c-row">
+            <span class="c-week">{w}</span>
+            {Array.from({ length: 7 }).map((_, d) => {
+              const n = r * 7 + d;
+              const ch = chipAt(n);
+              return (
+                <div class={`c-day${ch ? ' has' : ''}`} data-s={ch?.s} data-step={ch?.s}>
+                  {ch && <span class={`c-chip c-chip--${ch.key}`}>{t.chip[ch.key]}</span>}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+        <div class="c-roi" data-step="4" data-s="4"><b>{t.chip.roi}</b><span>30</span></div>
+      </div>
+    )}
+
+    {kind === 'sequence' && (
+      <div class="q-flow">
+        <div class="q-line"><i class="q-dot"></i></div>
+        <div class="q-node q-n1" data-step="1" data-s="1">
+          <span class="tag">01</span><b class="q-name">{t.seq.play}</b>
+          <div class="q-doc"><em style="width:80%"></em><em style="width:92%"></em><em style="width:60%"></em><em style="width:74%"></em></div>
+        </div>
+        <div class="q-node q-n2" data-step="2" data-s="2">
+          <span class="tag">02</span><b class="q-name">{t.seq.crm}</b>
+          <div class="q-db"><i></i><i></i><i></i></div>
+        </div>
+        <div class="q-node q-n3" data-step="3" data-s="3">
+          <span class="tag">03</span><b class="q-name">{t.seq.seq}</b>
+          <div class="q-steps">
+            <span><i>{t.seq.day} 1</i>{t.seq.email}</span>
+            <span><i>{t.seq.day} 3</i>{t.seq.li}</span>
+            <span><i>{t.seq.day} 7</i>{t.seq.call}</span>
+          </div>
+        </div>
+        <div class="q-node q-n4" data-step="4" data-s="4">
+          <span class="tag">04</span><b class="q-name">{t.seq.meet}</b>
+          <div class="q-meet"><div class="q-cal"><i></i><i></i><i></i><i class="on-slot"></i><i></i><i></i></div><span class="q-booked">✓ {t.seq.booked}</span></div>
+        </div>
+      </div>
+    )}
+
+    {kind === 'org' && (
+      <div class="o-wrap">
+        <div class="o-accounts" data-step="1">
+          {['A', 'B', 'C', 'D'].map((a, i) => (
+            <span class={`o-acc${i === 0 ? ' o-acc--pick' : ''}`} data-s={i === 0 ? '1 2 3 4' : '1'}>{t.org.acc} {a}<b>{t.org.tier} {i < 2 ? 1 : 2}</b></span>
+          ))}
+        </div>
+        <div class="o-tree" data-step="2">
+          <div class="o-lvl">
+            <span class="o-p o-cfo" data-s="2 3 4"><i></i>{t.org.cfo}<b class="o-role" data-s="2 3 4">{t.org.decides}</b><b class="o-ad" data-s="3">{t.org.ad}</b><b class="o-meet" data-s="4">{t.org.meet}</b></span>
+          </div>
+          <div class="o-lvl">
+            <span class="o-p" data-s="2 3 4"><i></i>{t.org.ops}<b class="o-role" data-s="2 3 4">{t.org.decides}</b><b class="o-ad" data-s="3">{t.org.ad}</b></span>
+            <span class="o-p" data-s="2 3 4"><i></i>{t.org.it}<b class="o-role" data-s="2 3 4">{t.org.checks}</b><b class="o-ad" data-s="3">{t.org.ad}</b></span>
+          </div>
+          <div class="o-lvl">
+            <span class="o-p o-p--sm" data-s="2 3 4"><i></i>{t.org.user}<b class="o-role" data-s="2 3 4">{t.org.uses}</b></span>
+            <span class="o-p o-p--sm" data-s="2 3 4"><i></i>{t.org.user}<b class="o-role" data-s="2 3 4">{t.org.uses}</b></span>
+          </div>
+        </div>
+        <div class="o-sales" data-step="4" data-s="4"><span>→</span>{t.org.sales}</div>
+      </div>
+    )}
+  </div>
+
+  <div class="scn-side">
+    <p class="scn-hint">{hint}</p>
+    <ol class="scn-list">
+      {steps.map((st, i) => (
+        <li class="scn-item" data-step={i + 1} data-s={`${i + 1}`} tabindex="0">
+          <span class="scn-label">{st.label}</span>
+          <h3>{st.title}</h3>
+          <p>{st.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var roots = document.querySelectorAll('[data-scn]:not([data-scn-ready])');
+    Array.prototype.forEach.call(roots, function (root) {
+      root.setAttribute('data-scn-ready', '');
+      var marked = root.querySelectorAll('[data-s]');
+      function set(n) {
+        if (root.getAttribute('data-active') === n) return;
+        root.setAttribute('data-active', n);
+        Array.prototype.forEach.call(marked, function (el) {
+          el.classList.toggle('on', (' ' + el.getAttribute('data-s') + ' ').indexOf(' ' + n + ' ') > -1);
+        });
+      }
+      Array.prototype.forEach.call(root.querySelectorAll('[data-step]'), function (el) {
+        var n = el.getAttribute('data-step');
+        if (!n) return;
+        el.addEventListener('pointerenter', function () { set(n); });
+        el.addEventListener('focus', function () { set(n); });
+        el.addEventListener('click', function () { set(n); });
+      });
+      set('1');
+    });
+  })();
+</script>
+
+<style>
+  @property --split { syntax: '<percentage>'; inherits: true; initial-value: 0%; }
+
+  .scn { --wf: color-mix(in srgb, var(--kd-fg) 13%, transparent); --wf2: color-mix(in srgb, var(--kd-fg) 22%, transparent); display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+  .scn-stage { position: relative; min-height: 460px; padding: 22px; border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-surface); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(26, 1, 117, .45); display: flex; align-items: center; justify-content: center; }
+  .scn em, .scn strong { display: block; height: 7px; border-radius: 3px; background: var(--wf); transition: background-color .3s ease; }
+  .scn strong { height: 11px; }
+  .scn [data-step] { cursor: pointer; }
+  .tag { position: absolute; top: -9px; left: 10px; z-index: 2; padding: 0 6px; border-radius: var(--kd-radius); background: var(--kd-surface); color: var(--kd-fg-2); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; transition: background-color .25s, color .25s; }
+  .on > .tag { background: var(--kd-blue-2); color: var(--kd-white); }
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--kd-signal-1); margin-right: 6px; }
+
+  /* ---------- side: hint and the list of steps ---------- */
+  .scn-side { display: flex; flex-direction: column; gap: 10px; }
+  .scn-hint { margin: 0; font-size: 13px; color: var(--kd-fg-2); }
+  .scn-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .scn-item { padding: 16px 20px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-left: 4px solid var(--kd-line); outline: none; transition: background-color .25s, border-color .25s, color .25s; }
+  .scn-item:focus-visible { box-shadow: 0 0 0 3px var(--kd-accent); }
+  .scn-label { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .05em; text-transform: uppercase; color: var(--kd-accent); }
+  .scn-item h3 { margin-top: 4px; font-size: 19px; line-height: 1.25; }
+  .scn-item p { display: none; margin-top: 8px; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+  .scn-item.on { background: var(--card-1); border-color: var(--card-1); color: var(--card-ink); }
+  .scn-item.on .scn-label { color: var(--card-step); }
+  .scn-item.on p { display: block; color: inherit; opacity: .9; animation: scn-in .3s ease; }
+  .scn:not([data-active]) .scn-item p { display: block; }
+  @keyframes scn-in { from { opacity: 0; transform: translateY(4px); } to { opacity: .9; transform: none; } }
+
+  /* ---------- web: a website in a browser ---------- */
+  .w-win { width: 100%; align-self: stretch; display: flex; flex-direction: column; border: 2px solid var(--kd-line); border-radius: var(--kd-radius); overflow: hidden; }
+  .w-bar { display: flex; align-items: center; gap: 6px; padding: 8px 12px; background: var(--kd-blue-1); }
+  .w-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .w-bar span { margin-left: 10px; padding: 2px 10px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 11px; }
+  .w-page { flex: 1; display: flex; flex-direction: column; gap: 14px; padding: 16px; }
+  .w-band { position: relative; padding: 14px; border: 2px dashed var(--kd-line); border-radius: var(--kd-radius); transition: border-color .25s, background-color .25s; }
+  .w-band.on { border-style: solid; border-color: var(--kd-blue-2); background: color-mix(in srgb, var(--kd-blue-2) 5%, var(--kd-surface)); }
+  .w-b1 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; align-items: center; }
+  .w-map { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .w-node { padding: 3px 8px; border: 1.5px solid var(--wf2); border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .25s; }
+  .w-kids { display: flex; gap: 6px; padding-top: 10px; border-top: 1.5px solid var(--wf2); }
+  .w-copy { display: flex; flex-direction: column; gap: 7px; }
+  .w-b1.on .w-node { border-color: var(--kd-blue-2); color: var(--kd-blue-2); }
+  .w-b1.on .w-root { background: var(--kd-blue-2); color: var(--kd-white); }
+  .w-b1.on em.hl { background: var(--kd-signal-1); height: 10px; }
+  .w-b2 { flex: 1; display: grid; grid-template-columns: 1fr 90px; gap: 16px; }
+  .w-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; align-items: center; }
+  .w-hero-txt, .w-phone { display: flex; flex-direction: column; gap: 8px; }
+  .w-img { min-height: 90px; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .w-btn { display: block; width: 46%; height: 18px; border-radius: var(--kd-radius); background: var(--wf2); transition: background-color .3s; }
+  .w-phone { padding: 8px; border: 2px solid var(--wf2); border-radius: 10px; }
+  .w-phone .w-img { min-height: 40px; }
+  .w-phone .w-btn { width: 70%; }
+  .w-b2.on strong { background: var(--kd-blue-1); }
+  .w-b2.on .w-img { background: var(--kd-blue-2); }
+  .w-b2.on .w-btn { background: var(--kd-signal-1); }
+  .w-b2.on .w-phone { border-color: var(--kd-blue-1); }
+  .w-ops { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+  .w-pill { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf2); font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .25s; }
+  .w-pill .dot { background: var(--wf2); margin-right: 2px; }
+  .w-chart { margin-left: auto; position: relative; display: flex; align-items: flex-end; gap: 4px; height: 46px; padding-right: 40px; }
+  .w-chart i { width: 10px; border-radius: 2px 2px 0 0; background: var(--wf); transition: background-color .3s; }
+  .w-chart span { position: absolute; right: 0; bottom: 0; font-size: 11px; color: var(--kd-fg-2); }
+  .w-b3.on .w-pill { border-color: var(--kd-blue-2); color: var(--kd-blue-2); }
+  .w-b3.on .w-pill .dot { background: var(--kd-signal-1); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kd-signal-1) 35%, transparent); }
+  .w-b3.on .w-chart i { background: var(--kd-blue-2); }
+  .w-b3.on .w-chart i:last-of-type { background: var(--kd-signal-1); }
+
+  /* ---------- slider: today vs renewed ---------- */
+  .sl-frame { position: relative; width: 100%; align-self: stretch; min-height: 400px; border: 2px solid var(--kd-line); border-radius: var(--kd-radius); overflow: hidden; --split: 4%; transition: --split .7s cubic-bezier(.2, .7, .2, 1); }
+  .scn--slider[data-active="2"] .sl-frame { --split: 38%; }
+  .scn--slider[data-active="3"] .sl-frame { --split: 72%; }
+  .scn--slider[data-active="4"] .sl-frame { --split: 100%; }
+  .sl-old, .sl-new { position: absolute; inset: 0; padding: 14px; }
+  .sl-old { background: color-mix(in srgb, var(--kd-fg) 6%, var(--kd-surface)); }
+  .sl-old-bar { display: flex; gap: 3px; margin-bottom: 8px; }
+  .sl-old-bar i { width: 26px; height: 14px; border: 1px solid var(--wf2); background: var(--kd-surface); }
+  .sl-table { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--wf2); border: 1px solid var(--wf2); }
+  .sl-table i { height: 22px; background: var(--kd-surface); }
+  .sl-table i:nth-child(-n+6) { background: var(--wf); }
+  .sl-mark { position: absolute; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: var(--kd-lilac); color: var(--kd-blue-1); font-size: 13px; font-weight: var(--kd-weight-medium); opacity: 0; transform: scale(.6); transition: opacity .3s, transform .3s; }
+  .sl-mark.on { opacity: 1; transform: none; }
+  .sl-new { display: grid; grid-template-columns: 110px 1fr; gap: 14px; background: var(--kd-surface); clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+  .sl-nav { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: var(--kd-radius); background: var(--kd-blue-1); }
+  .sl-nav b { height: 14px; width: 60%; border-radius: 3px; background: var(--kd-signal-1); }
+  .sl-nav em { background: rgba(255, 255, 255, .25); }
+  .sl-main { display: flex; flex-direction: column; gap: 14px; padding: 6px 4px; }
+  .sl-main strong { width: 50%; height: 14px; background: var(--kd-blue-1); }
+  .sl-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; flex: 1; }
+  .sl-cards div { border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-blue-2) 10%, var(--kd-surface)); border: 1px solid var(--kd-line); }
+  .sl-cards div:first-child { background: var(--kd-blue-2); }
+  .sl-btn { width: 140px; height: 26px; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
+  .sl-handle { position: absolute; top: 0; bottom: 0; left: var(--split); width: 3px; margin-left: -1.5px; background: var(--kd-blue-2); }
+  .sl-handle span { position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: var(--kd-blue-2); box-shadow: 0 0 0 4px var(--kd-surface); }
+  .sl-tag { position: absolute; bottom: 12px; padding: 3px 10px; border-radius: var(--kd-radius); font-size: 12px; font-weight: var(--kd-weight-medium); }
+  .sl-tag--old { right: 12px; background: var(--kd-surface); color: var(--kd-fg-2); border: 1px solid var(--kd-line); }
+  .sl-tag--new { left: 12px; background: var(--kd-blue-2); color: var(--kd-white); }
+  .sl-live { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; padding: 4px 10px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 12px; font-weight: var(--kd-weight-medium); opacity: 0; transition: opacity .3s .4s; }
+  .sl-live.on { opacity: 1; }
+
+  /* ---------- fan: content pieces ---------- */
+  .f-fan { position: relative; width: 100%; height: 400px; }
+  .f-card { position: absolute; top: 48px; left: 50%; width: 34%; max-width: 210px; height: 290px; margin-left: min(-17%, -105px); display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1.5px solid var(--kd-line); box-shadow: 0 10px 24px -16px rgba(26, 1, 117, .5); transform-origin: 50% 120%; transition: transform .45s cubic-bezier(.2, .7, .2, 1), border-color .25s, box-shadow .3s; }
+  .f-c1 { transform: translateX(-84%) rotate(-8deg); z-index: 1; }
+  .f-c2 { transform: translateX(-28%) rotate(-3deg); z-index: 2; }
+  .f-c3 { transform: translateX(28%) rotate(3deg); z-index: 3; }
+  .f-c4 { transform: translateX(84%) rotate(8deg); z-index: 4; }
+  .f-card.on { z-index: 5; border-color: var(--kd-blue-2); box-shadow: 0 24px 40px -18px rgba(26, 1, 117, .55); }
+  .f-c1.on { transform: translateX(-84%) translateY(-26px) rotate(-3deg) scale(1.05); }
+  .f-c2.on { transform: translateX(-28%) translateY(-26px) rotate(-1deg) scale(1.05); }
+  .f-c3.on { transform: translateX(28%) translateY(-26px) rotate(1deg) scale(1.05); }
+  .f-c4.on { transform: translateX(84%) translateY(-26px) rotate(3deg) scale(1.05); }
+  .f-kind { font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .05em; text-transform: uppercase; color: var(--kd-fg-2); }
+  .f-quote { margin: 4px 0; font-size: 14px; line-height: 1.35; color: var(--kd-fg-2); }
+  .f-c1.on .f-quote { color: var(--kd-fg); }
+  .f-c1.on .f-quote { background: linear-gradient(transparent 55%, color-mix(in srgb, var(--kd-signal-1) 80%, transparent) 55%); }
+  .f-head { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--kd-fg-2); }
+  .f-ava { width: 26px; height: 26px; border-radius: 50%; background: var(--wf2); }
+  .f-img { flex: 1; min-height: 60px; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .f-react { display: flex; align-items: center; gap: 3px; font-size: 11px; color: var(--kd-fg-2); }
+  .f-react i { width: 12px; height: 12px; border-radius: 50%; background: var(--wf2); }
+  .f-react span { margin-left: 6px; }
+  .f-c2.on .f-ava { background: var(--kd-blue-2); }
+  .f-c2.on .f-img { background: var(--kd-blue-1); }
+  .f-c2.on .f-react i:nth-child(1) { background: var(--kd-blue-2); }
+  .f-c2.on .f-react i:nth-child(2) { background: var(--kd-lilac); }
+  .f-c2.on .f-react i:nth-child(3) { background: var(--kd-signal-1); }
+  .f-search { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border: 1.5px solid var(--wf2); border-radius: 14px; }
+  .f-search i { width: 9px; height: 9px; border: 2px solid var(--wf2); border-radius: 50%; }
+  .f-seo { align-self: flex-start; margin-top: auto; padding: 2px 8px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf2); font-size: 10px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); }
+  .f-c3.on strong { background: var(--kd-blue-1); }
+  .f-c3.on .f-search { border-color: var(--kd-blue-2); }
+  .f-c3.on .f-seo { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .f-slide { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 12px; aspect-ratio: 4 / 3; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .f-slide strong { background: var(--wf2); }
+  .f-slide span { position: absolute; right: 8px; bottom: 6px; font-size: 9px; color: var(--kd-fg-2); }
+  .f-bars { flex: 1; display: flex; align-items: flex-end; gap: 6px; }
+  .f-bars i { flex: 1; border-radius: 2px 2px 0 0; background: var(--wf2); transition: background-color .3s; }
+  .f-c4.on .f-slide { background: var(--kd-blue-1); }
+  .f-c4.on .f-slide strong { background: var(--kd-white); }
+  .f-c4.on .f-slide span { color: var(--kd-lilac-tint); }
+  .f-c4.on .f-bars i { background: var(--kd-lilac); }
+  .f-c4.on .f-bars i:last-child { background: var(--kd-signal-1); }
+
+  /* ---------- map: DACH ---------- */
+  .m-wrap { position: relative; height: 420px; max-width: 100%; }
+  .m-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .m-land { fill: color-mix(in srgb, var(--kd-fg) 8%, var(--kd-surface)); stroke: var(--wf2); stroke-width: .5; stroke-linejoin: round; transition: fill .35s ease, stroke .35s ease; }
+  .m-land.on { fill: var(--kd-signal-1); stroke: var(--kd-blue-1); }
+  .m-route { stroke: var(--wf2); stroke-width: .6; stroke-dasharray: 1.5 1.5; transition: stroke .3s; }
+  .m-route.on { stroke: var(--kd-blue-2); }
+  .m-code { font-size: 4px; font-weight: 500; fill: var(--kd-fg-2); }
+  .m-pin { position: absolute; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 8px; }
+  .m-pin i { position: relative; width: 16px; height: 16px; border-radius: 50%; background: var(--kd-surface); border: 3px solid var(--kd-blue-1); transition: background-color .25s, transform .25s; }
+  .m-pin b { padding: 3px 9px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1.5px solid var(--kd-line); font-size: 12px; font-weight: var(--kd-weight-medium); white-space: nowrap; transition: all .25s; }
+  .m-pin.on i { background: var(--kd-blue-2); transform: scale(1.25); }
+  .m-pin.on i::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 2px solid var(--kd-blue-2); animation: m-pulse 1.6s ease-out infinite; }
+  .m-pin.on b { background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
+  @keyframes m-pulse { from { opacity: .8; transform: scale(.6); } to { opacity: 0; transform: scale(1.5); } }
+
+  /* ---------- board: brand board, sketch to final ---------- */
+  .b-grid { width: 100%; align-self: stretch; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; }
+  .b-tile { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 18px; border: 2px dashed var(--kd-line); border-radius: var(--kd-radius); transition: border-color .25s, background-color .3s; }
+  .b-tile.on { border-style: solid; border-color: var(--kd-blue-2); }
+  .b-pos { margin: 0; font-size: 15px; line-height: 1.6; color: var(--kd-fg-2); }
+  .b-pos mark { padding: 0 3px; border-radius: 3px; background: var(--wf); color: transparent; transition: all .3s; }
+  .b-t1.on .b-pos { color: var(--kd-fg); }
+  .b-t1.on .b-pos mark { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .b-voice { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .b-say { font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); }
+  .b-voice em { background: var(--wf2); }
+  .b-chips { display: flex; gap: 6px; }
+  .b-chips b { padding: 2px 9px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf2); font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .3s; }
+  .b-t2.on .b-voice { background: color-mix(in srgb, var(--kd-blue-2) 12%, var(--kd-surface)); }
+  .b-t2.on .b-voice--no { background: color-mix(in srgb, var(--kd-fg) 6%, var(--kd-surface)); }
+  .b-t2.on .b-chips b { background: var(--kd-blue-2); border-color: var(--kd-blue-2); color: var(--kd-white); }
+  .b-id { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; gap: 10px 14px; align-items: center; }
+  .b-logo { grid-row: 1 / 3; width: 76px; height: 76px; display: grid; place-items: center; border-radius: var(--kd-radius); border: 2px dashed var(--wf2); text-align: center; transition: all .3s; }
+  .b-logo span { font-size: 11px; font-weight: 800; line-height: 1.1; color: var(--kd-fg-2); text-transform: uppercase; padding: 4px; }
+  .b-sw { display: flex; gap: 5px; }
+  .b-sw i { width: 22px; height: 22px; border-radius: 3px; background: var(--wf); transition: background-color .3s; }
+  .b-type { margin: 0; font-size: 28px; font-weight: var(--kd-weight-medium); color: var(--wf2); transition: color .3s; }
+  .b-type span { font-size: 16px; }
+  .b-t3.on .b-logo { border: 0; background: var(--kd-blue-2); }
+  .b-t3.on .b-logo span { color: var(--kd-signal-1); }
+  .b-t3.on .b-sw i:nth-child(1) { background: var(--kd-blue-1); }
+  .b-t3.on .b-sw i:nth-child(2) { background: var(--kd-blue-2); }
+  .b-t3.on .b-sw i:nth-child(3) { background: var(--kd-lilac); }
+  .b-t3.on .b-sw i:nth-child(4) { background: var(--kd-signal-1); }
+  .b-t3.on .b-type { color: var(--kd-fg); }
+  .b-deck { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 14px; aspect-ratio: 16 / 9; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .b-deck strong, .b-deck em { background: var(--wf2); }
+  .b-bars { flex: 1; display: flex; align-items: flex-end; gap: 6px; width: 60%; }
+  .b-bars i { flex: 1; border-radius: 2px 2px 0 0; background: var(--wf2); transition: background-color .3s; }
+  .b-deck span { position: absolute; right: 10px; bottom: 6px; font-size: 10px; color: var(--kd-fg-2); }
+  .b-t4.on .b-deck { background: var(--kd-blue-1); }
+  .b-t4.on .b-deck strong { background: var(--kd-white); }
+  .b-t4.on .b-deck em { background: var(--kd-lilac); }
+  .b-t4.on .b-bars i { background: var(--kd-lilac); }
+  .b-t4.on .b-bars i:last-child { background: var(--kd-signal-1); }
+  .b-t4.on .b-deck span { color: var(--kd-lilac-tint); }
+
+  /* ---------- calendar: before, during, after the event ---------- */
+  .c-cal { position: relative; width: 100%; display: flex; flex-direction: column; gap: 6px; }
+  .c-row { display: grid; grid-template-columns: 88px repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .c-head b { font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); text-align: center; }
+  .c-week { align-self: center; font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); }
+  .c-day { min-height: 58px; padding: 4px; border-radius: var(--kd-radius); border: 1px solid var(--kd-line); background: var(--kd-surface); display: flex; align-items: flex-end; transition: background-color .3s, border-color .3s; }
+  .c-chip { width: 100%; padding: 3px 4px; border-radius: 3px; background: var(--wf); color: var(--kd-fg-2); font-size: 10px; font-weight: var(--kd-weight-medium); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: background-color .3s, color .3s; }
+  .c-day.on { border-color: var(--kd-blue-2); }
+  .c-day.on .c-chip { background: var(--kd-blue-2); color: var(--kd-white); }
+  .c-day.on .c-chip--event, .c-day.on .c-chip--dinner { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .c-day.on .c-chip--meet { background: var(--kd-blue-1); }
+  .c-roi { align-self: flex-end; margin-top: 8px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1.5px solid var(--kd-line); font-size: 12px; box-shadow: 0 10px 24px -16px rgba(26, 1, 117, .5); transition: all .3s; }
+  .c-roi span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--wf2); font-weight: var(--kd-weight-medium); }
+  .c-roi.on { background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); transform: translateY(-6px); }
+  .c-roi.on span { border-color: var(--kd-signal-1); color: var(--kd-signal-1); }
+
+  /* ---------- sequence: playbook to booked meeting ---------- */
+  .q-flow { position: relative; width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: center; }
+  .q-line { position: absolute; left: 6%; right: 6%; top: 50%; height: 2px; background: repeating-linear-gradient(90deg, var(--wf2) 0 6px, transparent 6px 12px); }
+  .q-dot { position: absolute; top: -5px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--kd-signal-1); box-shadow: 0 0 0 3px var(--kd-blue-2); animation: q-move 4s linear infinite; }
+  @keyframes q-move { from { left: 0; } to { left: calc(100% - 12px); } }
+  .q-node { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; min-height: 190px; padding: 18px 14px 14px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 2px dashed var(--kd-line); transition: border-color .25s, transform .3s, box-shadow .3s; }
+  .q-node.on { border-style: solid; border-color: var(--kd-blue-2); transform: translateY(-8px); box-shadow: 0 18px 30px -18px rgba(26, 1, 117, .55); }
+  .q-name { font-size: 13px; font-weight: var(--kd-weight-medium); }
+  .q-doc { display: flex; flex-direction: column; gap: 6px; padding: 10px; border-radius: var(--kd-radius); background: var(--wf); transition: background-color .3s; }
+  .q-doc em { background: var(--wf2); }
+  .q-n1.on .q-doc { background: color-mix(in srgb, var(--kd-blue-2) 12%, var(--kd-surface)); }
+  .q-n1.on .q-doc em:first-child { background: var(--kd-blue-2); }
+  .q-db { display: flex; flex-direction: column; gap: 4px; align-items: center; padding-top: 6px; }
+  .q-db i { width: 70%; height: 18px; border-radius: 50% / 40%; background: var(--wf); border: 1.5px solid var(--wf2); transition: all .3s; }
+  .q-n2.on .q-db i { background: var(--kd-blue-2); border-color: var(--kd-blue-1); }
+  .q-n2.on .q-db i:first-child { background: var(--kd-signal-1); }
+  .q-steps { display: flex; flex-direction: column; gap: 5px; }
+  .q-steps span { display: flex; justify-content: space-between; gap: 6px; padding: 4px 7px; border-radius: 3px; background: var(--wf); font-size: 10.5px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .3s; }
+  .q-steps i { font-style: normal; opacity: .7; }
+  .q-n3.on .q-steps span { background: var(--kd-blue-2); color: var(--kd-white); }
+  .q-meet { display: flex; flex-direction: column; gap: 8px; }
+  .q-cal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .q-cal i { height: 18px; border-radius: 3px; background: var(--wf); transition: background-color .3s; }
+  .q-booked { align-self: flex-start; padding: 2px 8px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf2); font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .3s; }
+  .q-n4.on .q-cal i.on-slot { background: var(--kd-signal-1); }
+  .q-n4.on .q-booked { background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
+
+  /* ---------- org: target accounts and one buying group ---------- */
+  .o-wrap { position: relative; width: 100%; display: flex; flex-direction: column; gap: 22px; }
+  .o-accounts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .o-acc { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: var(--kd-radius); border: 1.5px dashed var(--wf2); font-size: 12px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .3s; }
+  .o-acc b { padding: 1px 6px; border-radius: 3px; background: var(--wf); font-size: 10px; }
+  .o-acc.on { border-style: solid; border-color: var(--kd-blue-2); color: var(--kd-blue-2); }
+  .o-acc.on b { background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .o-acc--pick.on { background: var(--kd-blue-2); color: var(--kd-white); }
+  .o-tree { display: flex; flex-direction: column; gap: 18px; padding: 18px; border-radius: var(--kd-radius); border: 1.5px solid var(--kd-line); }
+  .o-lvl { display: flex; justify-content: center; gap: 14px; }
+  .o-p { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1.5px solid var(--kd-line); font-size: 13px; font-weight: var(--kd-weight-medium); transition: all .3s; }
+  .o-p--sm { font-size: 12px; padding: 8px 12px; }
+  .o-p i { width: 22px; height: 22px; border-radius: 50%; background: var(--wf2); transition: background-color .3s; }
+  .o-p.on { border-color: var(--kd-blue-2); }
+  .o-p.on i { background: var(--kd-blue-2); }
+  .o-role, .o-ad, .o-meet { position: absolute; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: var(--kd-weight-medium); opacity: 0; transform: scale(.7); transition: opacity .3s, transform .3s; }
+  .o-role { left: 10px; bottom: -9px; background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .o-ad { right: -10px; top: -9px; background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .o-meet { right: -12px; bottom: -9px; background: var(--kd-blue-1); color: var(--kd-white); }
+  .o-role.on, .o-ad.on, .o-meet.on { opacity: 1; transform: none; }
+  .o-sales { align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--kd-radius); border: 1.5px dashed var(--wf2); font-size: 13px; font-weight: var(--kd-weight-medium); color: var(--kd-fg-2); transition: all .3s; }
+  .o-sales.on { border-style: solid; background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
+
+  /* ---------- small screens ---------- */
+  @media (max-width: 980px) {
+    .scn { grid-template-columns: 1fr; }
+    .scn-item p { display: block; }
+    .scn-hint { display: none; }
+  }
+  @media (max-width: 640px) {
+    .scn-stage { min-height: 0; padding: 14px; }
+    .w-b1, .w-b2 { grid-template-columns: 1fr; }
+    .w-phone { display: none; }
+    .f-fan { height: 330px; }
+    .f-card { height: 250px; width: 46%; }
+    .m-wrap { height: 320px; }
+    .m-pin b { font-size: 11px; }
+    .c-row { grid-template-columns: 56px repeat(7, minmax(0, 1fr)); gap: 3px; }
+    .c-week { font-size: 9px; }
+    .c-day { min-height: 40px; padding: 2px; }
+    .c-chip { font-size: 8px; padding: 2px; }
+    .q-flow { grid-template-columns: 1fr 1fr; }
+    .q-line { display: none; }
+    .b-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+    .o-lvl { flex-wrap: wrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scn *, .sl-frame { transition: none !important; animation: none !important; }
+  }
+</style>

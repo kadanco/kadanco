@@ -9,7 +9,7 @@ export const accountBasedMarketing: UseCasePage = {
   id: 'account-based-marketing',
   dept: 'sales',
   icon: 'network',
-  stepsLayout: 'bento',
+  stepsLayout: 'org',
   stepIcons: ['score', 'network', 'posts', 'calendar'],
   en: {
     meta: {

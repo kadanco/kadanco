@@ -11,6 +11,7 @@ export const websiteProduction: UseCasePage = {
   id: 'website-production',
   dept: 'product',
   icon: 'assets',
+  stepsLayout: 'web',
   stepIcons: ['posts', 'board', 'seo'],
   en: {
     meta: {

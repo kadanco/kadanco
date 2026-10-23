@@ -11,7 +11,7 @@ export const contentProduction: UseCasePage = {
   id: 'content-production',
   dept: 'marketing',
   icon: 'posts',
-  stepsLayout: 'expand',
+  stepsLayout: 'fan',
   stepIcons: ['rocket', 'posts', 'seo', 'docs'],
   en: {
     meta: {
