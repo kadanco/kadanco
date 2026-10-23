@@ -2,7 +2,7 @@
 // src/components/LiveCompliance.astro
 // The compliance section, restored exactly as it is live on kadanco.com
 // (branch main): lime band, filled ink "Compliance" label, three badges.
-// EN and DE alt texts as live. The live look is scoped to this section and
+// EN and DE alt texts as live, plus a short line under each badge (owner request 2026-10-23). The live look is scoped to this section and
 // does not switch in dark mode, exactly like the live page.
 // Note: the live label uses weight 600, which the site no longer loads
 // (brand rule: 400 and 500), so the browser shows it at 500.
@@ -12,14 +12,14 @@ const locale = asLocale(Astro.currentLocale);
 
 const badges = {
   en: [
-    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'GDPR compliant' },
-    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
-    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'GDPR compliant', text: 'Your data and your customers\' data handled under the GDPR, with consent before any tracking.' },
+    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU', text: 'A company registered in the EU, working under EU law and EU contracts.' },
+    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany', text: 'Planned and done by our own team in Berlin, in German and English.' },
   ],
   de: [
-    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'DSGVO-konform' },
-    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU' },
-    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany' },
+    { src: 'https://assets.kadanco.com/badges/gdpr.svg', alt: 'DSGVO-konform', text: 'Ihre Daten und die Ihrer Kunden nach DSGVO verarbeitet, mit Einwilligung vor jedem Tracking.' },
+    { src: 'https://assets.kadanco.com/badges/eu.svg', alt: 'EU', text: 'Ein Unternehmen mit Sitz in der EU, nach EU-Recht und mit EU-Verträgen.' },
+    { src: 'https://assets.kadanco.com/badges/made-in-germany.svg', alt: 'Made in Germany', text: 'Geplant und umgesetzt von unserem eigenen Team in Berlin, auf Deutsch und Englisch.' },
   ],
 }[locale];
 ---
@@ -27,7 +27,12 @@ const badges = {
   <div class="container">
     <span class="eyebrow dark">Compliance</span>
     <div class="compliance-row">
-      {badges.map((b) => <img class="badge" src={b.src} alt={b.alt} />)}
+      {badges.map((b) => (
+        <figure class="comp-item">
+          <img class="badge" src={b.src} alt={b.alt} />
+          <figcaption>{b.text}</figcaption>
+        </figure>
+      ))}
     </div>
   </div>
 </section>
@@ -37,4 +42,7 @@ const badges = {
   .live-compliance { --radius: 10px; }
   .live-compliance .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
   .live-compliance .eyebrow.dark { background: var(--kd-ink); color: var(--kd-white); }
+  .live-compliance .compliance-row { align-items: flex-start; }
+  .comp-item { margin: 0; width: 220px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .comp-item figcaption { font-size: 0.95rem; line-height: 1.45; color: var(--kd-ink); }
 </style>

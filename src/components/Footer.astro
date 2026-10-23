@@ -8,6 +8,8 @@
 //
 // Columns: Services, Use Cases and Resources (the same groups as the nav,
 // from src/data/menus.ts), then Company with About and contact details.
+// The columns sit in two rows: Services and Use Cases (its list in two
+// columns) on top, Resources and Company below. The claim sits under the logo.
 import { asLocale, useTranslations, localizedHref } from '../i18n/utils';
 import { siteMenus } from '../data/menus';
 
@@ -25,12 +27,13 @@ const menus = siteMenus(locale, t);
         <a class="brand" href={localizedHref(locale, '/')} aria-label={t('nav.home')}>
           <img class="brand-logo" src="https://assets.kadanco.com/logo/wordmark-light.svg" alt="Kadanco" />
         </a>
+        <p class="foot-claim">{t('footer.claim')}</p>
         <p class="foot-tag">{t('footer.tagline')}</p>
       </div>
 
       <nav class="foot-cols" aria-label="Footer">
         {menus.map((m) => (
-          <div class="foot-col">
+          <div class:list={['foot-col', { 'foot-col--wide': m.key === 'nav.usecases' }]}>
             <p class="foot-colhead">{t(m.key)}</p>
             <ul>
               {m.items.map((it) => <li><a class:list={{ 'is-all': it.all }} href={localizedHref(locale, it.href)}>{it.label}</a></li>)}
@@ -70,19 +73,29 @@ const menus = siteMenus(locale, t);
     grid-template-columns: minmax(220px, 1.1fr) 3fr;
     gap: 40px clamp(24px, 4vw, 56px);
   }
-  .foot-tag {
+  .foot-claim {
     margin-top: 14px;
+    font-size: 1.05rem;
+    font-weight: var(--kd-weight-medium);
+    color: var(--kd-signal-1);
+  }
+  .foot-tag {
+    margin-top: 8px;
     max-width: 34ch;
     font-size: 0.92rem;
     line-height: 1.5;
     color: var(--kd-beige-3);
   }
 
+  /* two rows on three tracks: Services | Use Cases (two tracks wide), then Resources | Company */
   .foot-cols {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 30px 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px 24px;
   }
+  .foot-col--wide { grid-column: span 2; }
+  /* fills top to bottom, then the second column */
+  .foot-col.foot-col--wide ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; gap: 11px 24px; }
   .foot-colhead {
     font-size: 0.7rem;
     font-weight: 500;
@@ -137,5 +150,9 @@ const menus = siteMenus(locale, t);
 
   @media (max-width: 820px) {
     .foot-top { grid-template-columns: 1fr; gap: 34px; }
+  }
+  @media (max-width: 560px) {
+    .foot-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .foot-col.foot-col--wide ul { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
   }
 </style>

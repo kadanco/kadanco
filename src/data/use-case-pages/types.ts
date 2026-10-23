@@ -3,9 +3,17 @@
 // src/components/UseCaseDetail.astro. Layout follows the October use case
 // designs in design/261021_Kadanco_Use_Cases/. Optional blocks
 // (comparison, why, funnel, also, operator, timeline) only render when present.
-import type { ComparisonContent } from '../../components/HomeComparison.astro';
 import type { IsoIconName } from '../iso-icons';
 import type { Dept } from '../use-cases';
+
+// route comparison: the usual ways to solve the problem against three criteria,
+// shown as route cards with a highlighted Kadanco card (own design, not the homepage matrix)
+export type Mark = 'has' | 'part' | 'gap';
+export interface ComparisonContent {
+  eyebrow: string; h2a: string; h2b: string; lead: string; cols: string[]; solution: string;
+  rows: { route: string; why: string; marks: Mark[] }[];
+  kad: { route: string; why: string }; legend: { has: string; part: string; gap: string }; cap: string;
+}
 
 export interface UseCasePageText {
   meta: { title: string; description: string };

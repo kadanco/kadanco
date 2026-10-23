@@ -15,14 +15,12 @@ import { asLocale } from '../i18n/utils';
 const locale = asLocale(Astro.currentLocale);
 
 type Mark = 'has' | 'part' | 'gap';
-// Other pages (use case pages) can pass their own text in the same shape via `content`.
-export interface ComparisonContent {
+// Homepage only: use case pages show their routes in their own design (UseCaseDetail.astro).
+interface ComparisonContent {
   eyebrow: string; h2a: string; h2b: string; lead: string; cols: string[]; solution: string;
   rows: { route: string; why: string; marks: Mark[] }[];
   kad: { route: string; why: string }; legend: { has: string; part: string; gap: string }; cap: string;
 }
-interface Props { content?: ComparisonContent; id?: string }
-const { content, id = 'comparison' } = Astro.props;
 const homeCopy = {
   en: {
     eyebrow: 'The Problem',
@@ -33,7 +31,6 @@ const homeCopy = {
     solution: 'Solution',
     rows: [
       { route: 'Agency', why: 'You pay partner rates but get junior-level work.', marks: ['part', 'gap', 'part'] as Mark[] },
-      { route: 'Fractional CPO, CMO or CRO', why: 'You pay for a plan but get no one to execute it.', marks: ['has', 'gap', 'gap'] as Mark[] },
       { route: 'Freelancers + tools', why: 'You pay for many specialists but get no one who owns the result.', marks: ['gap', 'part', 'gap'] as Mark[] },
       { route: 'In-house hires', why: 'You pay full salaries but get months of hiring and ramp-up first.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
@@ -50,7 +47,6 @@ const homeCopy = {
     solution: 'Lösung',
     rows: [
       { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen, eine Disziplin nach der anderen.', marks: ['part', 'gap', 'part'] as Mark[] },
-      { route: 'Fractional CPO, CMO oder CRO', why: 'Schreibt den Plan für einen Bereich und überlässt Ihnen die Umsetzung.', marks: ['has', 'gap', 'gap'] as Mark[] },
       { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet das Ergebnis.', marks: ['gap', 'part', 'gap'] as Mark[] },
       { route: 'Inhouse-Einstellungen', why: 'Langsam gefunden und eingearbeitet, eine Funktion nach der anderen.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
@@ -59,12 +55,12 @@ const homeCopy = {
     cap: 'Kein einzelner Weg deckt alle drei ab. Wir schon.',
   },
 }[locale];
-const copy: ComparisonContent = content ?? homeCopy;
+const copy: ComparisonContent = homeCopy;
 const marks: Mark[] = ['has', 'part', 'gap'];
 ---
 <!-- data-theme="light": the nav reads gradients as dark unless told otherwise; in dark
      mode this band is a plain colour, which the nav measures directly -->
-<section class="cmp" id={id} data-theme="light">
+<section class="cmp" id="comparison" data-theme="light">
   <div class="container cmp-in">
     <div class="cmp-text">
       <span class="cmp-eyebrow">{copy.eyebrow}</span>
@@ -168,7 +164,7 @@ const marks: Mark[] = ['has', 'part', 'gap'];
 
   /* the solution row */
   .cmx-kad { position: relative; margin-top: 26px; box-shadow: inset 0 0 0 2px var(--c-accent); }
-  .cmx-kad::before { content: attr(data-solution); position: absolute; top: -11px; left: 14px; height: 22px; padding: 0 9px; display: flex; align-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; line-height: 1; }
+  .cmx-kad::before { content: attr(data-solution); position: absolute; top: -11px; right: 14px; height: 22px; padding: 0 9px; display: flex; align-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; line-height: 1; }
   .cmx-kad .cmx-route { letter-spacing: .02em; }
 
   .cmx-legend { display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap; }

@@ -76,6 +76,7 @@ const en: Dict = {
   'lang.label': 'Change language',
 
   // footer
+  'footer.claim': 'Execution as a Service',
   'footer.tagline': 'One senior team across product, marketing and sales for B2B companies. We own the plan and run it ourselves.',
   'footer.head.usecases': 'Use cases',
   'footer.head.company': 'Company',
@@ -135,6 +136,7 @@ const de: Dict = {
   'lang.label': 'Sprache wechseln',
 
   // footer
+  'footer.claim': 'Execution as a Service',
   'footer.tagline': 'Ein erfahrenes Team für Produkt, Marketing und Vertrieb in B2B-Unternehmen. Wir verantworten den Plan und setzen ihn selbst um.',
   'footer.head.usecases': 'Use Cases',
   'footer.head.company': 'Unternehmen',

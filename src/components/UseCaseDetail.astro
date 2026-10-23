@@ -4,19 +4,19 @@
 // (design/261021_Kadanco_Use_Cases/), built with our tokens and components:
 //   department-coloured hero (text left, icon panel right),
 //   the situation (problem / what we do), optional route comparison
-//   (HomeComparison), optional reasons it stalls (why), optional funnel (where visitors drop off), the
+//   (route cards), optional reasons it stalls (why), optional funnel (where visitors drop off), the
 //   steps as stacked cards, expanding cards, a bento grid or the product UI mock (stepsLayout), optional "also included" cards with tags, outcomes, optional native
-//   operator block, optional first-90-days timeline (CadenceTimeline), FAQ,
+//   operator block, optional first-90-days timeline (horizontal row), FAQ,
 //   and a department-coloured CTA band.
 // Colours follow the department: product blue, marketing lime, sales lilac.
+// The route cards and the 90-day row have their own designs, so no section
+// repeats the homepage (matrix and How We Work timeline stay homepage only).
 // Stacked cards share one height, so each covers the previous one cleanly;
 // on phones they sit in a plain column.
-import HomeComparison from './HomeComparison.astro';
-import CadenceTimeline from './CadenceTimeline.astro';
 import IsoIcon from './IsoIcon.astro';
 import StepsProductUI from './StepsProductUI.astro';
 import StepsScene from './StepsScene.astro';
-import type { UseCasePage } from '../data/use-case-pages/types';
+import type { UseCasePage, Mark } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
 interface Props { page: UseCasePage }
@@ -27,9 +27,11 @@ const c = page[locale] ?? page.en;
 const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
 // light sections alternate page and paper grounds, whichever optional blocks are present
-const light = ['situation', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', 'faq'].filter(Boolean);
+const light = ['situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', c.timeline && 'timeline', 'faq'].filter(Boolean);
 const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 'org'] as const;
 const scene = SCENES.find((k) => k === page.stepsLayout);
+// route card marks: check, half, cross
+const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
   en: { problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen', sceneHint: 'Hover the picture or a step to see how it works.' },
@@ -66,7 +68,49 @@ const ui = {
     </div>
   </section>
 
-  {c.comparison && <HomeComparison content={c.comparison} id="routes" />}
+  {c.comparison && (
+    <section class={sec('routes')} id="routes" data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.comparison.eyebrow}</span>
+          <h2>{c.comparison.h2a} <em>{c.comparison.h2b}</em></h2>
+          <p class="ucd-lede">{c.comparison.lead}</p>
+        </div>
+        <ul class="ucd-routes">
+          {c.comparison.rows.map((r) => (
+            <li class="ucd-route">
+              <h3>{r.route}</h3>
+              <p>{r.why}</p>
+              <ul class="ucd-checks">
+                {r.marks.map((m, k) => (
+                  <li class={`ucd-chk ucd-chk--${m}`}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d={MARK_PATH[m]} /></svg>
+                    {c.comparison!.cols[k]}<span class="ucd-sr">: {c.comparison!.legend[m]}</span>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+        <div class="ucd-route-kad">
+          <div class="ucd-route-kad-text">
+            <span class="ucd-route-tag">{c.comparison.solution}</span>
+            <h3>{c.comparison.kad.route}</h3>
+            <p>{c.comparison.kad.why}</p>
+          </div>
+          <ul class="ucd-checks">
+            {c.comparison.cols.map((col) => (
+              <li class="ucd-chk ucd-chk--has">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d={MARK_PATH.has} /></svg>
+                {col}<span class="ucd-sr">: {c.comparison!.legend.has}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p class="ucd-route-cap">{c.comparison.cap}</p>
+      </div>
+    </section>
+  )}
 
   {c.why && (
     <section class={sec('why')} data-theme="light">
@@ -214,15 +258,21 @@ const ui = {
   )}
 
   {c.timeline && (
-    <section class="section band-deep ucd-timeline" data-theme="dark">
+    <section class={sec('timeline')} data-theme="light">
       <div class="container">
-        <div class="split">
-          <CadenceTimeline steps={c.timeline.steps} />
-          <div class="content">
-            <span class="eyebrow">{c.timeline.eyebrow}</span>
-            <h2>{c.timeline.h2a} <span class="hl">{c.timeline.h2b}</span></h2>
-          </div>
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.timeline.eyebrow}</span>
+          <h2>{c.timeline.h2a} <em>{c.timeline.h2b}</em></h2>
         </div>
+        <ol class="ucd-days">
+          {c.timeline.steps.map((s) => (
+            <li class="ucd-day">
+              <span class="ucd-day-n">{s.n}</span>
+              <h3>{s.title}{s.amp && <span class="ucd-day-amp"> {s.amp}</span>}</h3>
+              <p>{s.body}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   )}
@@ -444,8 +494,47 @@ const ui = {
   .ucd-link { font-size: 18px; font-weight: var(--kd-weight-medium); color: var(--kd-accent); text-decoration: none; }
   .ucd-link:hover { text-decoration: underline; }
 
-  /* ---------- first 90 days (live look, like How We Work) ---------- */
-  .ucd-timeline :global(.eyebrow) { color: var(--kd-signal-1); }
+  /* ---------- route comparison: cards, Kadanco card on navy with department-coloured marks ---------- */
+  .ucd-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .ucd-routes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .ucd-route { display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); }
+  .ucd-route h3 { font-size: 20px; line-height: 1.25; }
+  .ucd-route p { flex: 1; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+  .ucd-checks { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .ucd-chk { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 6px; border-radius: var(--kd-radius); font-size: 13px; font-weight: var(--kd-weight-medium); line-height: 1.3; }
+  .ucd-chk svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .ucd-chk--has { background: var(--kd-blue-1); color: var(--kd-white); }
+  .ucd-chk--part { background: var(--kd-surface-2); color: var(--kd-fg); box-shadow: inset 0 0 0 1px var(--kd-line); }
+  .ucd-chk--gap { color: var(--kd-fg-2); text-decoration: line-through; opacity: .7; box-shadow: inset 0 0 0 1px var(--kd-line); }
+  .ucd-route-kad { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px 32px; align-items: center; margin-top: 16px; padding: 28px 32px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .ucd-route-kad-text { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .ucd-route-tag { padding: 3px 10px; border-radius: var(--kd-radius); border: 1.5px solid var(--accent-line); color: var(--accent-line); font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
+  .ucd--product .ucd-route-tag { border-color: var(--kd-lilac); color: var(--kd-lilac); } /* blue on navy is too faint */
+  .ucd-route-kad h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); letter-spacing: .04em; }
+  .ucd-route-kad p { font-size: 18px; line-height: 1.45; max-width: 52ch; }
+  .ucd-route-kad .ucd-checks { margin: 0; justify-content: flex-end; }
+  .ucd-route-kad .ucd-chk--has { background: var(--card-1); color: var(--card-ink); }
+  .ucd .ucd-route-cap { margin-top: 20px; font-size: 18px; font-weight: var(--kd-weight-medium); }
+  @media (max-width: 820px) {
+    .ucd-route-kad { grid-template-columns: 1fr; padding: 24px; }
+    .ucd-route-kad .ucd-checks { justify-content: flex-start; }
+  }
+
+  /* ---------- first 90 days: one horizontal row (How We Work keeps the vertical timeline) ---------- */
+  .ucd-days { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .ucd-days::before { content: ''; position: absolute; top: 22px; left: 22px; right: 22px; height: 2px; background: var(--accent-line); }
+  .ucd-day { position: relative; display: flex; flex-direction: column; gap: 10px; }
+  .ucd-day-n { width: 44px; height: 44px; margin-bottom: 8px; display: grid; place-items: center; border-radius: 50%; background: var(--card-1); color: var(--card-ink); font-size: 15px; font-weight: var(--kd-weight-medium); box-shadow: 0 0 0 6px var(--sec-bg, var(--kd-bg)); }
+  .ucd-sec--alt .ucd-day-n { box-shadow: 0 0 0 6px var(--kd-surface-2); }
+  .ucd-day h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
+  .ucd-day-amp { color: var(--kd-accent); }
+  .ucd-day p { font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
+  @media (max-width: 820px) {
+    .ucd-days { grid-template-columns: 1fr; gap: 28px; padding-left: 64px; }
+    .ucd-days::before { top: 22px; bottom: 22px; left: 21px; right: auto; width: 2px; height: auto; }
+    .ucd-day-n { position: absolute; left: -64px; top: 0; margin: 0; }
+    .ucd-day h3 { margin-top: 8px; }
+  }
 
   /* ---------- FAQ ---------- */
   .ucd-faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
