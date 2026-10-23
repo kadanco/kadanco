@@ -18,9 +18,8 @@ type Mark = 'has' | 'part' | 'gap';
 // Homepage only: use case pages show their routes in their own design (UseCaseDetail.astro).
 interface ComparisonContent {
   eyebrow: string; h2a: string; h2b: string; lead: string; cols: string[]; solution: string;
-  // more: one line per column (strategy, execution, ownership), shown on hover, focus or tap
-  rows: { route: string; why: string; marks: Mark[]; more: string[] }[];
-  kad: { route: string; why: string; more: string[] }; legend: { has: string; part: string; gap: string }; cap: string; hint: string;
+  rows: { route: string; why: string; marks: Mark[] }[];
+  kad: { route: string; why: string }; legend: { has: string; part: string; gap: string }; cap: string;
 }
 const homeCopy = {
   en: {
@@ -31,18 +30,13 @@ const homeCopy = {
     cols: ['Strategy', 'Execution', 'Ownership'],
     solution: 'Solution',
     rows: [
-      { route: 'Agency', why: 'You pay partner rates but get junior-level work.', marks: ['part', 'gap', 'part'] as Mark[],
-        more: ['Partners pitch the plan, then hand it to account managers.', 'Juniors do the work, one discipline at a time, billed by the hour.', 'They own the deliverables. Your pipeline and revenue stay with you.'] },
-      { route: 'Freelancers + tools', why: 'You pay for many specialists but get no one who owns the result.', marks: ['gap', 'part', 'gap'] as Mark[],
-        more: ['Nobody sets the plan. You brief every specialist yourself.', 'Good individual work that rarely fits together.', 'Every gap between them lands back on your desk.'] },
-      { route: 'In-house hires', why: 'You pay full salaries but get months of hiring and ramp-up first.', marks: ['part', 'part', 'has'] as Mark[],
-        more: ['Strong once they know the business, after months of ramp-up.', 'One person per function, so the backlog grows faster than they ship.', 'Full ownership, at full salary, with hiring risk on every seat.'] },
+      { route: 'Agency', why: 'You pay partner rates but get junior-level work.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Freelancers + tools', why: 'You pay for many specialists but get no one who owns the result.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'In-house hires', why: 'You pay full salaries but get months of hiring and ramp-up first.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
-    kad: { route: 'KADANCO', why: 'You pay for operators and get the work planned, done and owned.',
-      more: ['Senior operators map your product, market and funnel, then agree the few moves that matter.', 'The same people do the work. First results go live within two weeks.', 'We own the outcome across product, marketing and sales, measured in revenue.'] },
+    kad: { route: 'KADANCO', why: 'You pay for operators and get the work planned, done and owned.' },
     legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
     cap: 'No single route covers all three. We do.',
-    hint: 'Hover or tap a row for the details.',
   },
   de: {
     eyebrow: 'Das Overhead-Problem',
@@ -52,18 +46,13 @@ const homeCopy = {
     cols: ['Strategie', 'Umsetzung', 'Verantwortung'],
     solution: 'Lösung',
     rows: [
-      { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen, eine Disziplin nach der anderen.', marks: ['part', 'gap', 'part'] as Mark[],
-        more: ['Partner präsentieren den Plan und geben ihn an Account Manager weiter.', 'Junioren machen die Arbeit, eine Disziplin nach der anderen, nach Stunden abgerechnet.', 'Sie verantworten die Lieferungen. Pipeline und Umsatz bleiben bei Ihnen.'] },
-      { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet das Ergebnis.', marks: ['gap', 'part', 'gap'] as Mark[],
-        more: ['Niemand setzt den Plan. Sie briefen jeden Spezialisten selbst.', 'Gute Einzelarbeit, die selten zusammenpasst.', 'Jede Lücke zwischen ihnen landet wieder bei Ihnen.'] },
-      { route: 'Inhouse-Einstellungen', why: 'Langsam gefunden und eingearbeitet, eine Funktion nach der anderen.', marks: ['part', 'part', 'has'] as Mark[],
-        more: ['Stark, sobald sie das Geschäft kennen, nach Monaten der Einarbeitung.', 'Eine Person pro Funktion, der Rückstand wächst schneller, als geliefert wird.', 'Volle Verantwortung, zum vollen Gehalt, mit Recruiting-Risiko für jede Stelle.'] },
+      { route: 'Agentur', why: 'Partner-Sätze für Arbeit, an der Junioren lernen, eine Disziplin nach der anderen.', marks: ['part', 'gap', 'part'] as Mark[] },
+      { route: 'Freelancer + Tools', why: 'Jeder macht einen Teil, niemand verantwortet das Ergebnis.', marks: ['gap', 'part', 'gap'] as Mark[] },
+      { route: 'Inhouse-Einstellungen', why: 'Langsam gefunden und eingearbeitet, eine Funktion nach der anderen.', marks: ['part', 'part', 'has'] as Mark[] },
     ],
-    kad: { route: 'KADANCO', why: 'Plant und macht Produkt, Marketing und Vertrieb und verantwortet das Ergebnis.',
-      more: ['Erfahrene Macher verstehen Produkt, Markt und Funnel und legen die wenigen Hebel fest, die zählen.', 'Dieselben Leute machen die Arbeit. Erste Ergebnisse sind innerhalb von zwei Wochen live.', 'Wir verantworten das Ergebnis über Produkt, Marketing und Vertrieb, gemessen am Umsatz.'] },
+    kad: { route: 'KADANCO', why: 'Plant und macht Produkt, Marketing und Vertrieb und verantwortet das Ergebnis.' },
     legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
     cap: 'Kein einzelner Weg deckt alle drei ab. Wir schon.',
-    hint: 'Fahren Sie über eine Zeile oder tippen Sie darauf, um Details zu sehen.',
   },
 }[locale];
 const copy: ComparisonContent = homeCopy;
@@ -87,7 +76,6 @@ const marks: Mark[] = ['has', 'part', 'gap'];
       {copy.rows.map((r) => (
         <>
           <div class="cmx-rule" aria-hidden="true"></div>
-          <div class="cmx-item" tabindex="0">
           <div class="cmx-row" role="row">
             <span class="cmx-route" role="rowheader">{r.route}<span class="cmx-why">{r.why}</span></span>
             {r.marks.map((m, k) => (
@@ -100,12 +88,9 @@ const marks: Mark[] = ['has', 'part', 'gap'];
               </span>
             ))}
           </div>
-          <div class="cmx-more"><ul>{r.more.map((t, k) => <li><b>{copy.cols[k]}</b> {t}</li>)}</ul></div>
-          </div>
         </>
       ))}
-      <div class="cmx-item cmx-kad" tabindex="0" data-solution={copy.solution}>
-      <div class="cmx-row" role="row">
+      <div class="cmx-row cmx-kad" role="row" data-solution={copy.solution}>
         <span class="cmx-route" role="rowheader">{copy.kad.route}<span class="cmx-why">{copy.kad.why}</span></span>
         {copy.cols.map((c) => (
           <span class="cmx-cell" role="cell" aria-label={`${c}: ${copy.legend.has}`}>
@@ -113,13 +98,10 @@ const marks: Mark[] = ['has', 'part', 'gap'];
           </span>
         ))}
       </div>
-      <div class="cmx-more"><ul>{copy.kad.more.map((t, k) => <li><b>{copy.cols[k]}</b> {t}</li>)}</ul></div>
-      </div>
       <div class="cmx-legend">
         {marks.map((m) => <span class="cmx-lg"><span class={`cmx-dot cmx-${m}`}></span>{copy.legend[m]}</span>)}
       </div>
       <p class="cmx-cap">{copy.cap}</p>
-      <p class="cmx-hint">{copy.hint}</p>
     </div>
   </div>
 </section>
@@ -170,20 +152,8 @@ const marks: Mark[] = ['has', 'part', 'gap'];
   /* long German headings (VERANTWORTUNG) fit: smaller caps, and hyphenation as a last resort */
   .cmx-colh { width: 104px; flex: none; text-align: center; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .7; hyphens: auto; overflow-wrap: anywhere; }
   .cmx-rule { height: 1px; background: var(--c-rule); }
-  .cmx-row { display: flex; align-items: center; }
-  /* a row plus its detail; hover, keyboard focus or a tap opens the detail */
-  .cmx-item { border-radius: var(--kd-radius); transition: background .15s; outline: none; }
-  .cmx-item:hover, .cmx-item:focus-within { background: var(--c-row-hover); }
-  .cmx-item:focus-visible { box-shadow: inset 0 0 0 2px var(--c-accent); }
-  .cmx-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
-  .cmx-more > ul { overflow: hidden; min-height: 0; list-style: none; margin: 0; padding: 0 12px; display: grid; gap: 6px; }
-  .cmx-item:hover .cmx-more, .cmx-item:focus-within .cmx-more { grid-template-rows: 1fr; }
-  .cmx-more li { font-size: 14px; line-height: 1.45; color: var(--c-fg-2); }
-  .cmx-more li:last-child { padding-bottom: 14px; }
-  .cmx-more b { font-weight: var(--kd-weight-medium); color: var(--c-fg); }
-  .cmx-more b::after { content: ':'; }
-  .cmx-hint { margin: 6px 0 0; font-size: 13px; opacity: .7; }
-  @media (prefers-reduced-motion: reduce) { .cmx-more { transition: none; } }
+  .cmx-row { display: flex; align-items: center; border-radius: var(--kd-radius); transition: background .15s; }
+  .cmx-row:hover { background: var(--c-row-hover); }
   .cmx-route { flex: 1; min-width: 0; padding: 12px 10px 12px 12px; font-size: 17px; font-weight: var(--kd-weight-medium); line-height: 1.35; }
   .cmx-why { display: block; margin-top: 3px; font-size: 14px; font-weight: var(--kd-weight-regular); line-height: 1.4; opacity: .72; }
   .cmx-cell { width: 104px; flex: none; display: flex; justify-content: center; padding: 14px 0; }
@@ -193,7 +163,7 @@ const marks: Mark[] = ['has', 'part', 'gap'];
   .cmx-gap { background: var(--c-gap-bg); color: var(--c-gap-fg); box-shadow: inset 0 0 0 1px var(--c-gap-ring); }
 
   /* the solution row */
-  .cmx-kad, .cmx-kad:focus-visible { position: relative; margin-top: 26px; box-shadow: inset 0 0 0 2px var(--c-accent); }
+  .cmx-kad { position: relative; margin-top: 26px; box-shadow: inset 0 0 0 2px var(--c-accent); }
   .cmx-kad::before { content: attr(data-solution); position: absolute; top: -11px; right: 14px; height: 22px; padding: 0 9px; display: flex; align-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; line-height: 1; }
   .cmx-kad .cmx-route { letter-spacing: .02em; }
 
