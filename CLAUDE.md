@@ -2,6 +2,8 @@
 
 Read this first in every session. Update the "Status" and "Decision log" sections at the end of each work session.
 
+`docs/HANDOFF.md` is the short "where we stopped" file. A new chat starts with "Read docs/HANDOFF.md". At the end of every work session (or when the owner asks for a summary), update it: current state, latest commit, what waits on the owner, next steps, and one line in its session log. Keep its name fixed (exception to the timestamp rule, so the start prompt always works).
+
 ## What this is
 
 - Marketing website for **Kadanco UG (haftungsbeschränkt)**, Berlin. Live at https://kadanco.com.
@@ -46,6 +48,7 @@ src/dev/                    internal pages: /styleguide, /icons, /components (lo
 src/data/iso-icons.ts       22 animated isometric icons from the designs; render with src/components/IsoIcon.astro
 design/                     October 2026 design files (source of truth for new work)
 docs/masterplan.md          group-wide plan for Kadanco and its brands (decisions D1 to D39)
+docs/HANDOFF.md             session handoff: where we stopped, open items, next steps
 ```
 
 ## Design source of truth
