@@ -88,7 +88,11 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 
 Every page must work from 360px to 1600px wide. Check at 360, 390, 768, 1024, 1280 and 1600.
 
-- Breakpoints: 560px (phones), 880px (tablet: nav switches to the menu button, two-column splits stack), 980px (hero and wide two-column sections stack), 1200px (desktop). Use these; do not invent new ones.
+- Breakpoints: 560px (phones), 880px (tablet: nav switches to the menu button, two-column splits stack), 980px (hero and wide two-column sections stack), 1200px (desktop). Use these; do not invent new ones (old 640, 820 and 900 rules were moved onto them on 2026-10-24).
+- Side margin: `.container` uses `--gutter` (32px, 24px on phones). Anything that bleeds to the screen edge uses the same variable.
+- Grid and flex columns that hold long unbreakable content (code, URLs) use `minmax(0, 1fr)`, or they widen past the screen. Clipped content (overflow hidden) does not show up in the overflow check, so look at the screenshots too.
+- Sticky bars sit below the fixed 80px nav (`top: 80px`), have a solid ground (no glass) and stay compact on phones: one row of chips or links that scrolls sideways inside its own strip.
+- Long lists on phones: shorten repeated text (for example two-line definitions) when the full text is one tap away.
 - No sideways scrolling at any width. Hidden or absolutely placed elements (hover panels, tooltips) count: they must fit inside the screen or switch to an in-flow or overlay layout below the width where they fit.
 - Section padding scales: `--pad` is `clamp(64px, 10vw, 120px)`. Use `.section` or that variable; no fixed 120px.
 - When a split stacks, the heading and text come first, the visual or timeline after it.
@@ -210,3 +214,4 @@ Next, in order:
 - 2026-10-23: Service cards show the hero's boards (`ServiceBoard.astro`) in place of the layers, target and growth icons. Board shapes live in `src/data/service-boards.ts`, shared with the hero, so the same picture always means the same service.
 - 2026-10-24: No nav CTA on small screens (880px and below, where the menu button takes over): the bar shows only the logo and the menu. Every page has CTAs within one screen of scrolling. The line under the homepage logo row is removed.
 - 2026-10-24: Homepage made responsive from 360 to 1600px; the rules are now in the "Responsive rules" section above and apply to every page.
+- 2026-10-24: Responsive pass on the use case pages, /use-cases/ and the glossary: use case heroes put text first with full-width buttons on phones; the Product Design app mock fits phones; the glossary filter bar sits below the nav, has a solid ground and scrolls sideways in one row on tablets and phones (it covered two thirds of a phone screen); 24px side margins on phones; all breakpoints moved onto 560, 880, 980 and 1200.

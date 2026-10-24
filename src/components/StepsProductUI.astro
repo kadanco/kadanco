@@ -150,9 +150,10 @@ const area = ['onb', 'scr', 'sys', 'code'];
   .pui:has([data-step="4"]:is(:hover, :focus-visible)) .pui-note--4 { display: flex; }
 
   /* phones: the window as a picture, every step listed below */
-  @media (max-width: 900px) {
-    .pui { grid-template-columns: 1fr; }
-    .pui-body { min-height: 0; grid-template-columns: 1fr 2.4fr; }
+  @media (max-width: 880px) {
+    /* minmax(0, ...) so the line of code cannot widen the window past the screen */
+    .pui { grid-template-columns: minmax(0, 1fr); }
+    .pui-body { min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); }
     .pui-scr { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .pui-scr .pui-card:nth-child(3) { display: none; }
     .pui-hint { display: none; }

@@ -109,7 +109,7 @@ const total = terms.length;
     .gl-count-pill { display: inline-flex; align-items: baseline; gap: 8px; margin: 30px 0 0; padding: 9px 16px; border-radius: var(--radius); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); }
     .gl-count-pill b { font-size: 1.25rem; font-weight: 500; color: var(--lime); }
 
-    .gl-controls { position: sticky; top: 0; z-index: 60; background: rgba(241,240,237,0.94); backdrop-filter: saturate(140%) blur(8px); -webkit-backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--border); padding: 16px 0; }
+    .gl-controls { position: sticky; top: 80px; z-index: 60; background: var(--kd-beige-1); border-bottom: 1px solid var(--border); padding: 16px 0; } /* sits under the fixed 80px nav; solid ground (no glass outside the nav) */
     .gl-controls-in { display: flex; flex-direction: column; gap: 14px; }
     .gl-search { position: relative; }
     .gl-search input { width: 100%; font-family: inherit; font-size: 1rem; color: var(--ink); background: var(--field); border: 1px solid var(--border); border-radius: var(--radius); padding: 13px 16px 13px 42px; }
@@ -132,12 +132,12 @@ const total = terms.length;
     .gl-meta { font-size: 0.85rem; color: var(--muted); margin: 0 0 22px; }
     .gl-empty { padding: 56px 0; text-align: center; color: var(--muted); }
     .gl-empty strong { display: block; color: var(--ink); font-size: 1.2rem; margin-bottom: 6px; }
-    .gl-group { margin-bottom: 34px; scroll-margin-top: 168px; }
+    .gl-group { margin-bottom: 34px; scroll-margin-top: 340px; } /* nav plus the sticky filters */
     .gl-group-h { display: flex; align-items: baseline; gap: 10px; padding-bottom: 10px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
     .gl-group-h .gl-ltr { font-size: 1.5rem; font-weight: 500; color: var(--ink); }
     .gl-group-h .gl-gn { font-size: 0.78rem; color: var(--muted); }
     .gl-cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
-    @media (min-width: 640px) { .gl-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 561px) { .gl-cards { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 980px) { .gl-cards { grid-template-columns: repeat(3, 1fr); } }
     .gl-card { display: block; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; text-decoration: none; color: var(--ink); transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.12s ease; }
     .gl-card:hover { border-color: #c9c9dd; box-shadow: 0 6px 22px rgba(26,1,117,0.06); transform: translateY(-1px); }
@@ -148,6 +148,23 @@ const total = terms.length;
     .gl-card-cat.owned::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 2px; background: var(--lime); margin-right: 5px; vertical-align: middle; }
     .gl-card-def { display: block; margin-top: 7px; font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
     .gl-hide { display: none !important; }
+
+    /* tablets and phones: the sticky filters stay compact. Category chips and
+       letters each scroll sideways in one row, inside their own strip. */
+    @media (max-width: 880px) {
+      .gl-controls { padding: 12px 0; }
+      .gl-controls-in { gap: 10px; }
+      .gl-search input { padding-top: 10px; padding-bottom: 10px; }
+      .gl-chips, .gl-az { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter); scroll-padding-inline: var(--gutter); }
+      .gl-chips::-webkit-scrollbar, .gl-az::-webkit-scrollbar { display: none; }
+      .gl-chip { flex: none; }
+      .gl-az a, .gl-az span { flex: none; }
+      .gl-group { scroll-margin-top: 250px; }
+    }
+    /* phones: definitions shortened to two lines; the full text is one tap away */
+    @media (max-width: 560px) {
+      .gl-card-def { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    }
   </style>
 
   <script is:inline>
