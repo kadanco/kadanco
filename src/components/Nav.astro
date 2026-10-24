@@ -173,12 +173,14 @@ const langItems = switcherLocales.map((l) => ({
   .nav-dd-link:hover, .nav-dd-link:focus-visible { background: var(--kd-beige-1); color: var(--kd-blue-2); outline: none; }
   .nav-dd-link--all { margin-top: 5px; padding-top: 12px; border-top: 1px solid var(--kd-beige-3); border-radius: 0 0 var(--kd-radius) var(--kd-radius); font-weight: var(--kd-weight-medium); }
   @media (max-width: 880px) { .nav-dd { display: none; } }
-  /* narrow phones: the logo never shrinks; the CTA gets smaller instead */
+  /* the logo never shrinks */
   .brand { flex: none; }
+  /* small screens: no CTA in the bar, just logo and menu (owner decision
+     2026-10-24: every page has CTAs within one screen of scrolling) */
+  @media (max-width: 880px) { .nav-cta { display: none; } }
   @media (max-width: 480px) {
     .nav-inner { gap: 12px; }
     .nav-links { gap: 16px; }
-    .nav-cta { min-height: 38px; padding: 0 14px; font-size: 0.85rem; }
   }
 
   /* ===================== MOBILE MENU ===================== */

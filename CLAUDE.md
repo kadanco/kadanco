@@ -194,3 +194,4 @@ Next, in order:
 - 2026-10-23: Hero label "End to End Go To Market", outlined like the use case hero labels. Services headline "One Team Across Your Entire Go To Market."
 - 2026-10-23: No number for the team: "two operators", "the two of them" and similar removed sitewide (Who We Are headline is now "Operators That Take Ownership."), EN and DE, including llms.txt.
 - 2026-10-23: Service cards show the hero's boards (`ServiceBoard.astro`) in place of the layers, target and growth icons. Board shapes live in `src/data/service-boards.ts`, shared with the hero, so the same picture always means the same service.
+- 2026-10-24: No nav CTA on small screens (880px and below, where the menu button takes over): the bar shows only the logo and the menu. Every page has CTAs within one screen of scrolling. The line under the homepage logo row is removed.
