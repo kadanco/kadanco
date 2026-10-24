@@ -28,9 +28,11 @@ import { isoIcons, type IsoIconName } from '../data/iso-icons';
 // colour tokens, read live from tokens.css
 const colours = [...tokensRaw.matchAll(/--(kd-[a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})\s*;(?:[ \t]*\/\*\s*(.*?)\s*\*\/)?/g)].map((m) => ({ name: m[1], value: m[2], note: m[3] || '' }));
 const iconNames = Object.keys(isoIcons) as IsoIconName[];
-const featured = useCases.find((u) => u.featured)!;
-const pageCase = useCases.find((u) => u.kind === 'page')!;
-const caseStudy = useCases.find((u) => u.kind === 'case' && !u.featured)!;
+// samples; since all use cases have detail pages (2026-10-22) there may be no
+// featured case or case study, so fall back to the first entries
+const featured = useCases.find((u) => u.featured) ?? useCases[0];
+const pageCase = useCases.find((u) => u.kind === 'page') ?? useCases[0];
+const caseStudy = useCases.find((u) => u.kind === 'case' && !u.featured) ?? useCases[1];
 
 const sections = [
   { id: 'cp-colours', group: 'Foundations', name: 'Colours' },
