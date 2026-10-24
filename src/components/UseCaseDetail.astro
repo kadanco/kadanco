@@ -316,13 +316,18 @@ const ui = {
   .ucd em { font-style: normal; }
 
   /* ---------- hero (department colour) ---------- */
-  .ucd-hero { background: radial-gradient(125% 120% at 50% -10%, color-mix(in srgb, var(--h-bg) var(--h-mix), var(--kd-white)), var(--h-bg) 72%); color: var(--h-ink); }
-  .ucd-hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-top: calc(80px + 64px); padding-bottom: 80px; } /* clears the fixed 80px nav (no breadcrumbs, owner decision) */
+  /* Hero rule (owner, 2026-10-24): on laptops and up every use case hero has the same
+     height, follows the screen height and never runs past the first screen, so the
+     CTAs are always visible. Copy budget: headline about 50 characters (German 60),
+     lead 160 to 200 (German up to 230). Phones and tablets stack (see below). */
+  .ucd-hero { display: flex; align-items: center; min-height: clamp(560px, calc(100svh - 64px), 780px); background: radial-gradient(125% 120% at 50% -10%, color-mix(in srgb, var(--h-bg) var(--h-mix), var(--kd-white)), var(--h-bg) 72%); color: var(--h-ink); }
+  .ucd-hero-in { width: 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 48px; align-items: center; padding-top: calc(80px + 32px); padding-bottom: 48px; } /* clears the fixed 80px nav (no breadcrumbs, owner decision) */
   .ucd-hero-copy { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
   .ucd-dept { padding: 4px 12px; border-radius: var(--kd-radius); border: 1.5px solid var(--tag); color: var(--tag); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
-  .ucd-hero h1 { font-size: var(--kd-text-xl); line-height: var(--kd-lh-xl); max-width: 17ch; }
+  /* the headline also scales with the screen height, so short laptop screens keep the CTAs in view */
+  .ucd-hero h1 { font-size: clamp(36px, min(7vw, 7svh), 70px); line-height: var(--kd-lh-xl); max-width: 18ch; }
   .ucd-hero h1 em { color: var(--h-em); }
-  .ucd-hero p { font-size: clamp(18px, 1.8vw, 22px); line-height: 1.45; max-width: 46ch; opacity: .9; }
+  .ucd-hero p { font-size: clamp(17px, min(1.8vw, 2.5svh), 22px); line-height: 1.45; max-width: 46ch; opacity: .9; }
   .ucd-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
   .ucd-btn { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
   .ucd-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -332,7 +337,8 @@ const ui = {
   .ucd-hero-visual :global(.iso-ic) { color: var(--kd-white); }
   .ucd-hero-visual :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
   @media (max-width: 880px) {
-    .ucd-hero-in { grid-template-columns: 1fr; gap: 32px; padding-bottom: 64px; }
+    .ucd-hero { min-height: 0; } /* stacked: height follows the content */
+    .ucd-hero-in { grid-template-columns: 1fr; gap: 32px; padding-top: calc(80px + 48px); padding-bottom: 64px; }
     .ucd-hero-visual { aspect-ratio: 5 / 2; } /* after the text (text first when stacked); short so it stays a picture, not a block */
     .ucd-hero-visual :global(.iso-ic) { width: 140px !important; height: 140px !important; }
   }

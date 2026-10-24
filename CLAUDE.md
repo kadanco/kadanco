@@ -139,11 +139,8 @@ Next, in order:
 
 ## Open questions
 
-- Glossary still uses "engineer" loosely in about 9 entries, including the term and URL `/glossary/event-pipeline-engineering/`. Rename (with a redirect) or leave until the glossary moves to accessDACH?
 - Fonts still load from Google Fonts. Self-host before launch (GDPR).
-- Missing docs mentioned in the context notes: `Kadanco_Chat_Summary_2026-10-10.md`, `Kadanco_Website_Blueprint_2026-10-12.md`, `Kadanco_Finanzen_Chat_Summary_2026-10-10.md`.
-- Official logo asset (SVG) is still pending.
-- Delete or merge the old branches `homepage-v2` and `cloudflare/workers-autoconfig`?
+- Everything else that is open lives in `docs/OPEN-TASKS-20261024-1053.md`.
 
 ## Decision log
 
@@ -215,3 +212,6 @@ Next, in order:
 - 2026-10-24: No nav CTA on small screens (880px and below, where the menu button takes over): the bar shows only the logo and the menu. Every page has CTAs within one screen of scrolling. The line under the homepage logo row is removed.
 - 2026-10-24: Homepage made responsive from 360 to 1600px; the rules are now in the "Responsive rules" section above and apply to every page.
 - 2026-10-24: Responsive pass on the use case pages, /use-cases/ and the glossary: use case heroes put text first with full-width buttons on phones; the Product Design app mock fits phones; the glossary filter bar sits below the nav, has a solid ground and scrolls sideways in one row on tablets and phones (it covered two thirds of a phone screen); 24px side margins on phones; all breakpoints moved onto 560, 880, 980 and 1200.
+- 2026-10-24: Logo `assets.kadanco.com/logo/wordmark-light.svg` is final. Old branches `homepage-v2` and `cloudflare/workers-autoconfig` deleted. Glossary "engineer" wording stays. Open tasks now live in `docs/OPEN-TASKS-20261024-1053.md`.
+- 2026-10-24: Use case pages get a style per department: Product uses wireframes and UI; Marketing a bold PR and agency style; Sales dashboards and graphs. Worked one department at a time: Product, Marketing, Sales.
+- 2026-10-24: Hero rule for use case pages: on laptops and up (1280x720 and larger) every hero has the same height (follows the screen height, at most 780px), never runs past the first screen and always shows the CTAs; the headline also scales with the screen height. Copy budget: headline about 50 characters (German 60), lead 160 to 200 (German up to 230). Product Design and Software Modernisation hero copy shortened (EN and DE; German for Maria to review).

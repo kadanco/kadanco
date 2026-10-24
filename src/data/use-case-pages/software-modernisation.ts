@@ -21,7 +21,7 @@ export const softwareModernisation: UseCasePage = {
     dept: 'Product · Sales',
     h1a: 'Your Software Still Works.',
     h1b: 'Make It Feel Like Today.',
-    lead: 'Customer portals and internal tools that grew for years, renewed step by step. We redesign the journeys people use most, give them a modern interface and release each part as soon as it is ready, on top of the systems that already run your business.',
+    lead: 'Portals and internal tools that grew for years, renewed step by step: the journeys people use most get a modern interface, released part by part on the systems you already run.',
     ctaPrimary: 'Get A Free Software Audit',
     ctaSecondary: 'Book A Strategy Call',
     situation: {
@@ -125,7 +125,7 @@ export const softwareModernisation: UseCasePage = {
     dept: 'Produkt · Vertrieb',
     h1a: 'Ihre Software funktioniert.',
     h1b: 'Machen Sie sie zeitgemäß.',
-    lead: 'Kundenportale und interne Tools, die über Jahre gewachsen sind, Schritt für Schritt erneuert. Wir gestalten die meistgenutzten Abläufe neu, geben ihnen eine moderne Oberfläche und liefern jeden Teil aus, sobald er fertig ist, auf den Systemen, mit denen Ihr Geschäft schon läuft.',
+    lead: 'Kundenportale und interne Tools, über Jahre gewachsen, Schritt für Schritt erneuert: Die meistgenutzten Abläufe bekommen eine moderne Oberfläche, Teil für Teil auf den Systemen, die Sie schon betreiben.',
     ctaPrimary: 'Kostenloses Software-Audit',
     ctaSecondary: 'Strategiegespräch buchen',
     situation: {
