@@ -20,7 +20,7 @@
   --field: #F4F4FB;
   --radius: var(--kd-radius);
   --ctrl-h: var(--kd-control-h);
-  --pad: 120px;
+  --pad: clamp(64px, 10vw, 120px); /* section padding: 64px on phones, 120px from 1200px wide */
   --container: 1200px;
   --shadow-md: 0 20px 44px -20px rgba(26, 1, 117, 0.30);
   --font: var(--kd-font-sans);
@@ -143,6 +143,8 @@ p { margin: 0 0 1rem; }
 .logo { width: 150px; height: 44px; object-fit: contain; object-position: center; flex: 0 0 auto; display: block; margin-right: 28px; }
 @keyframes logo-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (max-width: 880px) { .logos { min-height: 0; padding: 56px 0; } }
+/* phones: smaller logos so three show at a time in the moving row */
+@media (max-width: 560px) { .logo { width: 100px; height: 34px; margin-right: 22px; } }
 
 /* ---------- split + embed slot ---------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
@@ -250,7 +252,8 @@ p { margin: 0 0 1rem; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .js .hero .container > * { opacity: 1 !important; }
   svg[data-anim] * { opacity: 1 !important; }
-  .logo-track { animation: none; flex-wrap: wrap; justify-content: center; }
+  .logo-track { animation: none; display: grid; width: 100%; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 24px 28px; justify-items: center; }
+  .logo-track .logo { margin-right: 0; max-width: 100%; }
   .logo-marquee { overflow: visible; mask-image: none; -webkit-mask-image: none; }
   .logo--dupe { display: none; }
   .bubble { animation: none; }

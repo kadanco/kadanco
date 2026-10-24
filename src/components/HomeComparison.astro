@@ -173,6 +173,11 @@ const marks: Mark[] = ['has', 'part', 'gap'];
   .cmx-cap { margin: 16px 0 0; font-size: 17px; line-height: 1.5; font-weight: var(--kd-weight-medium); }
 
   @media (max-width: 560px) {
+    /* the route text takes the full row; the marks sit underneath, right-aligned under their headings */
+    .cmx-row { flex-wrap: wrap; }
+    .cmx-route { flex: 1 0 100%; padding-bottom: 2px; }
+    .cmx-route + .cmx-cell { margin-left: auto; }
+    .cmx-cell { padding: 6px 0 12px; }
     .cmx-colh, .cmx-cell { width: 66px; }
     .cmx-colh { font-size: 9px; letter-spacing: 0; }
     .cmx-route { font-size: 15px; }

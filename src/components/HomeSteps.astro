@@ -35,7 +35,7 @@ const copy = {
 ---
 
 <!-- original look: same markup and classes as the live How We Operate section -->
-<section class="section band-deep" id="how-we-work" data-theme="dark">
+<section class="section band-deep home-steps" id="how-we-work" data-theme="dark">
   <div class="container">
     <div class="split">
       <CadenceTimeline steps={copy.steps} />
@@ -47,3 +47,8 @@ const copy = {
     </div>
   </div>
 </section>
+
+<style>
+  /* stacked (880px and below): heading and text before the timeline */
+  @media (max-width: 880px) { .home-steps .content { order: -1; } }
+</style>

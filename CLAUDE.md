@@ -84,6 +84,20 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Every new German page must be added to `translatedRoutes.de` in `src/i18n/ui.ts`.
 - GDPR: self-host fonts (Google Fonts is a risk in Germany), consent before analytics, real Imprint and Privacy.
 
+## Responsive rules (set on the homepage, 2026-10-24)
+
+Every page must work from 360px to 1600px wide. Check at 360, 390, 768, 1024, 1280 and 1600.
+
+- Breakpoints: 560px (phones), 880px (tablet: nav switches to the menu button, two-column splits stack), 980px (hero and wide two-column sections stack), 1200px (desktop). Use these; do not invent new ones.
+- No sideways scrolling at any width. Hidden or absolutely placed elements (hover panels, tooltips) count: they must fit inside the screen or switch to an in-flow or overlay layout below the width where they fit.
+- Section padding scales: `--pad` is `clamp(64px, 10vw, 120px)`. Use `.section` or that variable; no fixed 120px.
+- When a split stacks, the heading and text come first, the visual or timeline after it.
+- Phones (560px and below): hero buttons full width and stacked; big drawings stay under about half a screen; tables turn into rows where the text takes the full width and the marks sit underneath; badge or icon lists become compact rows (icon left, text right).
+- Nav: no CTA in the bar at 880px and below; logo and menu button only.
+- Moving rows (logo marquee) show at least three items on a phone; with reduced motion they become a tidy grid.
+- Hover effects need a tap or focus equivalent, or must be pure decoration. Nothing important may be hover only.
+- Test: the overflow and screenshot script used on 2026-10-24 (Playwright with the local Chrome) at the widths above, plus the reduced motion setting.
+
 ## Working with the owner
 
 - Clarify before any multi-step task.
@@ -195,3 +209,4 @@ Next, in order:
 - 2026-10-23: No number for the team: "two operators", "the two of them" and similar removed sitewide (Who We Are headline is now "Operators That Take Ownership."), EN and DE, including llms.txt.
 - 2026-10-23: Service cards show the hero's boards (`ServiceBoard.astro`) in place of the layers, target and growth icons. Board shapes live in `src/data/service-boards.ts`, shared with the hero, so the same picture always means the same service.
 - 2026-10-24: No nav CTA on small screens (880px and below, where the menu button takes over): the bar shows only the logo and the menu. Every page has CTAs within one screen of scrolling. The line under the homepage logo row is removed.
+- 2026-10-24: Homepage made responsive from 360 to 1600px; the rules are now in the "Responsive rules" section above and apply to every page.

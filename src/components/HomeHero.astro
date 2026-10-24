@@ -76,5 +76,11 @@ const hasVisual = Astro.slots.has('visual');
     .home-hero--split .home-hero-in { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-top: calc(80px + 56px); }
   }
 
+  /* phones: buttons full width, one under the other */
+  @media (max-width: 560px) {
+    .home-hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
+    .home-hero-actions .btn { justify-content: center; }
+  }
+
   .home-hero :where(a):focus-visible { outline: 2px solid var(--kd-white); outline-offset: 2px; }
 </style>

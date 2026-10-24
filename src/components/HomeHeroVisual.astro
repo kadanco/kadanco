@@ -171,6 +171,8 @@ const slices = ids.map((id, i) => {
   /* height follows the window so the hero stays short enough to show the logo row */
   .hv-stage svg { display: block; height: clamp(360px, calc(100svh - 300px), 560px); width: auto; max-width: 100%; overflow: visible; }
   @media (max-width: 980px) { .hv-stage { width: 100%; max-width: 420px; } .hv-stage svg { height: auto; width: 100%; } }
+  /* phones: the drawing stays below about half a screen */
+  @media (max-width: 560px) { .hv-stage { max-width: 300px; } }
 
   /* faces: white with navy outline, coloured tops per department */
   .f { fill: var(--kd-white); }
@@ -205,8 +207,9 @@ const slices = ids.map((id, i) => {
   .hv-panel p { margin: 0; font-size: 16px; line-height: 1.45; color: var(--kd-lilac-soft); }
   .hv-panel a { margin-top: 4px; font-size: 16px; font-weight: var(--kd-weight-medium); color: var(--kd-signal-1); text-decoration: none; }
   .hv-panel a:hover { text-decoration: underline; }
-  /* narrow screens: the panel sits over the bottom of the drawing on a solid card */
-  @media (max-width: 980px) {
+  /* up to 1200px there is no room right of the drawing (the panel would push the
+     page sideways), so the panel sits over the bottom of the drawing on a solid card */
+  @media (max-width: 1200px) {
     .hv-panel { left: 0 !important; top: auto !important; bottom: 0; width: 100%; padding: 16px 18px; border-radius: var(--kd-radius); background: var(--kd-blue-1); transform: translateY(8px); }
     .hv-panel.is-on { transform: none; }
   }
