@@ -1,0 +1,179 @@
+---
+// src/components/MeasuresDash.astro
+// "What we measure" as a wireframe analytics app, in the same style as the
+// hero slider and the self-check (white app window, navy outline, wireframe
+// lines, department colours). Each measure gets its own kind of picture so
+// the tiles do not repeat:
+//   funnel    activation rate: stages from signup to paid, before and after bars
+//   path      time to first result: a long path that becomes a short one
+//   columns   trial to paid: monthly columns that rise after the start line
+//   inbox     support tickets: a busy inbox next to a quiet one
+//   build     time to ship a screen: library parts that come together into a screen
+// No figures: the pictures show direction only, and a note says they are examples.
+// The parts grow in when the window scrolls into view (the inline script in
+// UseCaseDetail.astro adds .is-in to [data-dash]); reduced motion shows the end state.
+type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build';
+interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz }
+interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string } }
+const { items, labels } = Astro.props;
+const ORDER: Viz[] = ['funnel', 'path', 'columns', 'inbox', 'build'];
+const tiles = items.map((it, i) => ({ ...it, viz: it.viz ?? ORDER[i % ORDER.length] }));
+const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five after the start line
+---
+<div class="md" data-dash>
+  <div class="md-bar"><i></i><i></i><i></i><span>{labels.app}</span></div>
+  <div class="md-body">
+    <div class="md-side" aria-hidden="true"><b></b><em class="on"></em><em></em><em></em><em></em><em></em></div>
+    <div class="md-grid">
+      {tiles.map((t) => (
+        <section class={`md-tile md-tile--${t.viz}`}>
+          <header class="md-head">
+            <h3>{t.title}</h3>
+            {t.dir && <span class="md-goal">{t.dir === 'up' ? `↑ ${labels.goalUp}` : `↓ ${labels.goalDown}`}</span>}
+          </header>
+
+          <div class="md-viz" aria-hidden="true">
+            {t.viz === 'funnel' && (
+              <div class="v-funnel">
+                {[[100, 100], [62, 82], [34, 66], [18, 44]].map(([b, a]) => (
+                  <div class="v-stage"><em></em><div class="v-pair"><span class="v-b" style={`--w:${b}%`}></span><span class="v-a" style={`--w:${a}%`}></span></div></div>
+                ))}
+                <div class="v-key"><span class="v-key-b">{labels.before}</span><span class="v-key-a">{labels.after}</span></div>
+              </div>
+            )}
+            {t.viz === 'path' && (
+              <div class="v-path">
+                <div class="v-track v-track--b"><span class="v-lbl">{labels.before}</span><div class="v-line"><i></i><i></i><i></i><i></i><i></i><i></i><b>!</b></div></div>
+                <div class="v-track v-track--a"><span class="v-lbl">{labels.after}</span><div class="v-line"><i></i><i></i><b>✓</b></div></div>
+              </div>
+            )}
+            {t.viz === 'columns' && (
+              <div class="v-cols">
+                {cols.map((h, i) => <span class={i >= 3 ? 'a' : ''} style={`--h:${h * 10}%;--d:${i * 60}ms`}></span>)}
+                <i class="v-start"></i>
+              </div>
+            )}
+            {t.viz === 'inbox' && (
+              <div class="v-inbox">
+                <div class="v-list"><span class="v-lbl">{labels.before}</span>{Array.from({ length: 5 }).map(() => <div class="v-row"><b>?</b><em></em></div>)}</div>
+                <div class="v-list v-list--a"><span class="v-lbl">{labels.after}</span>{Array.from({ length: 2 }).map(() => <div class="v-row"><b>?</b><em></em></div>)}<div class="v-empty">✓</div></div>
+              </div>
+            )}
+            {t.viz === 'build' && (
+              <div class="v-build">
+                <div class="v-lib"><u class="p1"></u><u class="p2"></u><u class="p3"></u><u class="p4"></u><u class="p5"></u><u class="p6"></u></div>
+                <span class="v-arrow"></span>
+                <div class="v-screen"><u class="p1"></u><u class="p4"></u><u class="p5"></u><u class="p6"></u><u class="p2"></u></div>
+              </div>
+            )}
+          </div>
+
+          <p>{t.body}</p>
+        </section>
+      ))}
+    </div>
+  </div>
+  <p class="md-note">{labels.note}</p>
+</div>
+
+<style>
+  .md { --wf: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(26, 1, 117, .45); }
+  .md-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--kd-blue-1); }
+  .md-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .md-bar span { margin-left: 12px; padding: 3px 12px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 12px; }
+  .md-body { display: flex; }
+  .md-side { flex: none; width: 150px; display: grid; align-content: start; gap: 12px; padding: 20px 16px; background: color-mix(in srgb, var(--kd-blue-1) 5%, transparent); }
+  .md-side b { width: 60%; height: 12px; margin-bottom: 8px; border-radius: 3px; background: var(--kd-blue-1); }
+  .md-side em { height: 8px; border-radius: 4px; background: var(--wf); }
+  .md-side em.on { background: var(--kd-blue-2); }
+  @media (max-width: 880px) { .md-side { display: none; } }
+
+  /* mixed tile sizes: funnel wide, inbox tall */
+  .md-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "funnel funnel path" "columns inbox build"; gap: 14px; padding: 18px; }
+  .md-tile--funnel { grid-area: funnel; } .md-tile--path { grid-area: path; } .md-tile--columns { grid-area: columns; } .md-tile--inbox { grid-area: inbox; } .md-tile--build { grid-area: build; }
+  @media (max-width: 1100px) { .md-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "funnel funnel" "path columns" "inbox build"; } }
+  @media (max-width: 560px) { .md-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "funnel" "path" "columns" "inbox" "build"; padding: 12px; } }
+
+  .md-tile { display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: var(--kd-radius); border: 1px solid var(--wf); background: var(--kd-white); }
+  .md-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .md-head h3 { margin: 0; font-size: 17px; line-height: 1.3; font-weight: var(--kd-weight-medium); }
+  .md-goal { flex: none; padding: 1px 8px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; white-space: nowrap; }
+  .md-viz { flex: 1; display: flex; align-items: center; min-height: 120px; }
+  .md-viz > * { width: 100%; }
+  .md-tile p { margin: 0; font-size: 15px; line-height: 1.45; color: var(--kd-fg-2); }
+  .v-lbl { display: block; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .65; }
+
+  /* growth: parts start small and grow in once the window is in view */
+  .md :is(.v-b, .v-a) { width: var(--w); transition: width 1s cubic-bezier(.2, .7, .2, 1) .2s; }
+  .md .v-cols span { height: var(--h); transition: height .7s cubic-bezier(.2, .7, .2, 1) var(--d); }
+  .md .v-track--a .v-line { clip-path: inset(0 0 0 0); transition: clip-path 1s ease .4s; }
+  .md .v-list--a .v-row, .md .v-empty { transition: opacity .4s ease .6s; }
+  .md .v-screen u { transition: opacity .4s ease, transform .4s ease; }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .md:not(.is-in) :is(.v-b, .v-a) { width: 0; }
+    :global(.js) .md:not(.is-in) .v-cols span { height: 0; }
+    :global(.js) .md:not(.is-in) .v-track--a .v-line { clip-path: inset(0 100% 0 0); }
+    :global(.js) .md:not(.is-in) .v-screen u { opacity: 0; transform: translateY(6px); }
+  }
+  .md .v-screen u:nth-child(2) { transition-delay: .5s; } .md .v-screen u:nth-child(3) { transition-delay: .65s; } .md .v-screen u:nth-child(4) { transition-delay: .8s; } .md .v-screen u:nth-child(5) { transition-delay: .95s; }
+
+  /* funnel: each stage has a before bar (grey) and an after bar (blue); later stages keep more users */
+  .v-funnel { display: grid; gap: 8px; }
+  .v-stage { display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 10px; }
+  .v-stage em { height: 7px; border-radius: 4px; background: var(--wf); }
+  .v-pair { display: grid; gap: 3px; }
+  .v-b, .v-a { display: block; height: 8px; border-radius: 3px; }
+  .v-b { background: color-mix(in srgb, var(--kd-blue-1) 22%, transparent); }
+  .v-a { background: var(--kd-blue-2); }
+  .v-key { display: flex; gap: 14px; margin-top: 4px; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .v-key span::before { content: ''; display: inline-block; width: 10px; height: 8px; margin-right: 6px; border-radius: 2px; vertical-align: middle; }
+  .v-key-b::before { background: color-mix(in srgb, var(--kd-blue-1) 22%, transparent); }
+  .v-key-a::before { background: var(--kd-blue-2); }
+
+  /* path: many steps and a warning before, few steps and a check after */
+  .v-path { display: grid; gap: 16px; }
+  .v-track { display: grid; gap: 6px; }
+  .v-line { position: relative; display: flex; align-items: center; justify-content: space-between; height: 18px; }
+  .v-line::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--wf); }
+  .v-line i { position: relative; width: 10px; height: 10px; border-radius: 50%; background: var(--kd-white); border: 2px solid color-mix(in srgb, var(--kd-blue-1) 30%, transparent); }
+  .v-line b { position: relative; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; font-size: 11px; }
+  .v-track--b .v-line b { background: var(--kd-lilac); }
+  .v-track--a .v-line { width: 46%; }
+  .v-track--a .v-line::before { background: var(--kd-blue-2); }
+  .v-track--a .v-line i { border-color: var(--kd-blue-2); background: var(--kd-blue-2); }
+  .v-track--a .v-line b { background: var(--kd-signal-1); }
+
+  /* columns: months, a dashed start line, blue columns rising after it */
+  .v-cols { position: relative; display: flex; align-items: flex-end; gap: 6px; height: 120px; padding-bottom: 2px; border-bottom: 2px solid var(--wf); }
+  .v-cols span { flex: 1; border-radius: 3px 3px 0 0; background: color-mix(in srgb, var(--kd-blue-1) 20%, transparent); }
+  .v-cols span.a { background: var(--kd-blue-2); }
+  .v-start { position: absolute; top: 0; bottom: 0; left: calc(3 / 8 * 100% - 1px); border-left: 2px dashed var(--kd-signal-1); }
+
+  /* inbox: a busy list of questions before, a short one after */
+  .v-inbox { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
+  .v-list { display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); border: 1px solid var(--wf); }
+  .v-list--a { border-color: var(--kd-blue-2); }
+  .v-row { display: flex; align-items: center; gap: 6px; }
+  .v-row b { flex: none; display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; background: var(--kd-lilac); font-size: 9px; }
+  .v-row em { flex: 1; height: 6px; border-radius: 3px; background: var(--wf); }
+  .v-empty { display: grid; place-items: center; height: 34px; border-radius: var(--kd-radius); border: 1.5px dashed var(--kd-blue-2); color: var(--kd-blue-2); font-size: 14px; }
+  @media (prefers-reduced-motion: no-preference) { :global(.js) .md:not(.is-in) :is(.v-list--a .v-row, .v-empty) { opacity: 0; } }
+
+  /* build: parts from the library come together into a screen */
+  .v-build { display: grid; grid-template-columns: 1fr auto 1.3fr; align-items: center; gap: 10px; }
+  .v-lib { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px; border-radius: var(--kd-radius); border: 1px dashed var(--wf); }
+  .v-build u { display: block; border-radius: 3px; }
+  .v-build .p1 { height: 10px; background: var(--kd-blue-1); }
+  .v-build .p2 { height: 14px; background: var(--kd-blue-2); }
+  .v-build .p3 { height: 14px; box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .v-build .p4 { height: 6px; background: var(--wf); }
+  .v-build .p5 { height: 22px; background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); }
+  .v-build .p6 { height: 10px; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--kd-blue-1) 25%, transparent); }
+  .v-arrow { width: 16px; height: 2px; position: relative; background: var(--kd-blue-1); }
+  .v-arrow::after { content: ''; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left-color: var(--kd-blue-1); border-right: 0; }
+  .v-screen { display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); }
+  .v-screen .p1 { width: 60%; } .v-screen .p2 { width: 46%; }
+
+  .md-note { margin: 0; padding: 0 18px 16px; font-size: 13px; color: var(--kd-fg-2); }
+  @media (min-width: 881px) { .md-note { padding-left: 168px; } }
+</style>

@@ -35,7 +35,7 @@ export interface UseCasePageText {
     tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[] }[] };
   // what we measure: the measures only, no invented numbers
   // dir: which way the number should move; drawn as a small chart that improves after the start line
-  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string; dir?: 'up' | 'down' }[] };
+  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string; dir?: 'up' | 'down'; viz?: 'funnel' | 'path' | 'columns' | 'inbox' | 'build' }[] };  // viz: picture in MeasuresDash.astro (defaults by order)
   // success stories: one card per client story. Until real stories are approved the
   // entries are placeholders and say so (placeholder: true shows a "Placeholder" tag)
   stories?: { eyebrow: string; h2a: string; h2b: string; lede: string;
