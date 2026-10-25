@@ -16,6 +16,8 @@
 import IsoIcon from './IsoIcon.astro';
 import StepsProductUI from './StepsProductUI.astro';
 import StepsScene from './StepsScene.astro';
+import SelfCheck from './SelfCheck.astro';
+import DeliverableTabs from './DeliverableTabs.astro';
 import type { UseCasePage, Mark } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -27,7 +29,7 @@ const c = page[locale] ?? page.en;
 const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
 // light sections alternate page and paper grounds, whichever optional blocks are present
-const light = ['situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', 'inside', c.also && 'also', 'outcomes', c.operator && 'operator', c.timeline && 'timeline', 'faq'].filter(Boolean);
+const light = [c.check && 'check', 'situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', c.deliverables && 'deliverables', 'inside', c.also && 'also', c.outcomes && 'outcomes', c.measures && 'measures', c.ways && 'ways', c.operator && 'operator', c.timeline && 'timeline', 'faq'].filter(Boolean);
 const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 'org'] as const;
 const scene = SCENES.find((k) => k === page.stepsLayout);
 // route card marks: check, half, cross
@@ -47,12 +49,41 @@ const ui = {
         <p>{c.lead}</p>
         <div class="ucd-hero-actions">
           <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.ctaPrimary}</a>
-          <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>
+          {c.ctaSecondaryHref
+            ? <a href={c.ctaSecondaryHref} class="btn btn-lg ucd-btn-ghost">{c.ctaSecondary}</a>
+            : <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>}
         </div>
       </div>
-      <div class="ucd-hero-visual" role="img" aria-label={c.crumb}><IsoIcon name={page.icon} size={200} /></div>
+      {page.heroVisual === 'app' ? (
+        <div class="ucd-hero-visual ucd-app" role="img" aria-label={c.crumb}>
+          <div class="ucd-app-win">
+            <div class="ucd-app-bar"><i></i><i></i><i></i></div>
+            <div class="ucd-app-body">
+              <div class="ucd-app-steps"><b class="on"></b><s class="on"></s><b class="on"></b><s></s><b></b></div>
+              <span class="ucd-app-h"></span><span class="ucd-app-l"></span><span class="ucd-app-l ucd-app-l--s"></span>
+              <div class="ucd-app-card"><span class="ucd-app-l"></span><div class="ucd-app-prog"><u></u></div></div>
+              <span class="ucd-app-btn"></span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="ucd-hero-visual" role="img" aria-label={c.crumb}><IsoIcon name={page.icon} size={200} /></div>
+      )}
     </section>
   </div>
+
+  {c.check && (
+    <section class={sec('check')} id="check" data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.check.eyebrow}</span>
+          <h2>{c.check.h2a} <em>{c.check.h2b}</em></h2>
+          <p class="ucd-lede">{c.check.lede}</p>
+        </div>
+        <SelfCheck items={c.check.items} results={c.check.results} />
+      </div>
+    </section>
+  )}
 
   <section class={sec('situation')} data-theme="light">
     <div class="container">
@@ -145,6 +176,19 @@ const ui = {
     </section>
   )}
 
+  {c.deliverables && (
+    <section class={sec('deliverables')} id="deliverables" data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.deliverables.eyebrow}</span>
+          <h2>{c.deliverables.h2a} <em>{c.deliverables.h2b}</em></h2>
+          <p class="ucd-lede">{c.deliverables.lede}</p>
+        </div>
+        <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />
+      </div>
+    </section>
+  )}
+
   <section class={sec('inside')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
@@ -226,17 +270,57 @@ const ui = {
     </section>
   )}
 
-  <section class={sec('outcomes')} data-theme="light">
-    <div class="container">
-      <div class="ucd-head">
-        <span class="ucd-eyebrow">{c.outcomes.eyebrow}</span>
-        <h2>{c.outcomes.h2}</h2>
+  {c.outcomes && (
+    <section class={sec('outcomes')} data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.outcomes.eyebrow}</span>
+          <h2>{c.outcomes.h2}</h2>
+        </div>
+        <div class="ucd-out">
+          {c.outcomes.items.map((o) => <div class="ucd-out-card"><b>{o.big}</b><p>{o.text}</p></div>)}
+        </div>
       </div>
-      <div class="ucd-out">
-        {c.outcomes.items.map((o) => <div class="ucd-out-card"><b>{o.big}</b><p>{o.text}</p></div>)}
+    </section>
+  )}
+
+  {c.measures && (
+    <section class={sec('measures')} data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.measures.eyebrow}</span>
+          <h2>{c.measures.h2a} <em>{c.measures.h2b}</em></h2>
+          <p class="ucd-lede">{c.measures.lede}</p>
+        </div>
+        <ol class="ucd-measures">
+          {c.measures.items.map((m) => <li><h3>{m.title}</h3><p>{m.body}</p></li>)}
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
+
+  {c.ways && (
+    <section class={sec('ways')} id="ways" data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.ways.eyebrow}</span>
+          <h2>{c.ways.h2a} <em>{c.ways.h2b}</em></h2>
+        </div>
+        <div class="ucd-ways">
+          {c.ways.options.map((o, i) => (
+            <div class:list={['ucd-way', { 'ucd-way--alt': i % 2 === 1 }]}>
+              <span class="ucd-way-tag">{o.tag}</span>
+              <h3>{o.title}</h3>
+              <span class="ucd-way-len">{o.length}</span>
+              <p>{o.body}</p>
+              <ul>{o.points.map((pt) => <li>{pt}</li>)}</ul>
+              <a href="#contact" class="btn ucd-way-btn" data-open-modal>{o.cta}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   {c.operator && (
     <section class={sec('operator')} data-theme="light">
@@ -336,6 +420,24 @@ const ui = {
   .ucd-hero-visual { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
   .ucd-hero-visual :global(.iso-ic) { color: var(--kd-white); }
   .ucd-hero-visual :global(.iso-ic polygon) { fill: var(--kd-blue-1); }
+  /* Product heroes: a small app window in the wireframe style of the step scenes */
+  .ucd-app { padding: 9%; }
+  .ucd-app-win { width: 100%; max-width: 380px; border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; box-shadow: 0 24px 48px -24px rgba(0, 0, 0, .5); }
+  .ucd-app-bar { display: flex; gap: 6px; padding: 10px 12px; background: var(--kd-blue-2); }
+  .ucd-app-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .5); }
+  .ucd-app-body { display: grid; gap: 10px; padding: 18px; }
+  .ucd-app-steps { display: flex; align-items: center; margin-bottom: 6px; }
+  .ucd-app-steps b { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--kd-lilac); }
+  .ucd-app-steps b.on { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
+  .ucd-app-steps s { flex: 1; height: 2px; background: var(--kd-lilac); }
+  .ucd-app-steps s.on { background: var(--kd-blue-2); }
+  .ucd-app-h { display: block; width: 70%; height: 14px; border-radius: 3px; background: var(--kd-blue-1); }
+  .ucd-app-l { display: block; width: 90%; height: 8px; border-radius: 3px; background: var(--kd-lilac-tint); }
+  .ucd-app-l--s { width: 60%; }
+  .ucd-app-card { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--kd-lilac); border-radius: var(--kd-radius); }
+  .ucd-app-prog { height: 8px; border-radius: 4px; background: var(--kd-lilac-tint); overflow: hidden; }
+  .ucd-app-prog u { display: block; width: 66%; height: 100%; background: var(--kd-signal-1); }
+  .ucd-app-btn { display: block; width: 45%; height: 30px; margin-top: 4px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
   @media (max-width: 880px) {
     .ucd-hero { min-height: 0; } /* stacked: height follows the content */
     .ucd-hero-in { grid-template-columns: 1fr; gap: 32px; padding-top: calc(80px + 48px); padding-bottom: 64px; }
@@ -351,6 +453,7 @@ const ui = {
   /* ---------- sections ---------- */
   .ucd-sec { padding: clamp(56px, 7vw, 72px) 0; }
   .ucd-sec--alt { background: var(--kd-surface-2); }
+  .ucd-sec[id] { scroll-margin-top: 80px; } /* in-page links land below the fixed nav */
   .ucd-head { display: flex; flex-direction: column; gap: 12px; max-width: 60ch; margin-bottom: 40px; }
   .ucd-eyebrow { font-size: var(--kd-text-xs); line-height: var(--kd-lh-xs); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; color: var(--kd-accent); }
   .ucd-sec h2 { font-size: var(--kd-text-l); line-height: var(--kd-lh-l); }
@@ -546,6 +649,32 @@ const ui = {
     .ucd-day-n { position: absolute; left: -64px; top: 0; margin: 0; }
     .ucd-day h3 { margin-top: 8px; }
   }
+
+  /* ---------- what we measure: measures only, no numbers ---------- */
+  .ucd-measures { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; counter-reset: m; }
+  .ucd-measures li { counter-increment: m; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-top: 4px solid var(--accent-line); }
+  .ucd-measures li::before { content: counter(m, decimal-leading-zero); display: block; margin-bottom: 10px; font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; color: var(--kd-accent); }
+  .ucd-measures h3 { font-size: 20px; line-height: 1.25; margin-bottom: 8px; }
+  .ucd-measures p { font-size: 16px; line-height: 1.45; color: var(--kd-fg-2); }
+
+  /* ---------- ways to work: two engagement cards, the second on navy ---------- */
+  .ucd-ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 880px) { .ucd-ways { grid-template-columns: minmax(0, 1fr); } }
+  .ucd-way { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 32px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 2px solid var(--kd-blue-1); }
+  .ucd-way--alt { background: var(--kd-blue-1); color: var(--kd-white); }
+  .ucd-way-tag { padding: 3px 10px; border-radius: var(--kd-radius); border: 1.5px solid currentColor; font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
+  .ucd-way h3 { font-size: var(--kd-text-m); line-height: var(--kd-lh-m); }
+  .ucd-way-len { font-size: 15px; font-weight: var(--kd-weight-medium); color: var(--kd-accent); }
+  .ucd-way--alt .ucd-way-len { color: var(--kd-signal-1); }
+  .ucd-way p { font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
+  .ucd-way--alt p { color: var(--kd-lilac-soft); }
+  .ucd-way ul { list-style: none; margin: 6px 0 8px; padding: 0; display: grid; gap: 8px; }
+  .ucd-way li { position: relative; padding-left: 24px; font-size: 16px; line-height: 1.45; }
+  .ucd-way li::before { content: ''; position: absolute; left: 2px; top: .3em; width: 6px; height: 11px; border: solid var(--kd-blue-2); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .ucd-way--alt li::before { border-color: var(--kd-signal-1); }
+  .ucd-way-btn { margin-top: auto; background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
+  .ucd-way--alt .ucd-way-btn { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .ucd-way-btn:hover { transform: translateY(-2px); }
 
   /* ---------- FAQ ---------- */
   .ucd-faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }

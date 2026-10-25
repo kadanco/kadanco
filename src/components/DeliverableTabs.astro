@@ -1,0 +1,171 @@
+---
+// src/components/DeliverableTabs.astro
+// "What you get" as tabs (idea from valubyl.com's deliverables): one tab per
+// deliverable, each with a small UI picture in the Product department style
+// (wireframe lines, navy outlines, department colours) and a list of what it
+// includes. The section shell and heading come from UseCaseDetail.astro.
+// Keyboard: arrow keys move between tabs. Without JavaScript the tabs hide and
+// every panel shows, one under the other.
+interface Tab { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[] }
+interface Props { tabs: Tab[]; id?: string }
+const { tabs, id = 'dt' } = Astro.props;
+---
+<div class="dt" data-dt>
+  <div class="dt-tabs" role="tablist" aria-orientation="vertical">
+    {tabs.map((t, i) => (
+      <button type="button" class="dt-tab" role="tab" id={`${id}-tab-${t.key}`} aria-controls={`${id}-panel-${t.key}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+        <span class="dt-n">{String(i + 1).padStart(2, '0')}</span>{t.label}
+      </button>
+    ))}
+  </div>
+  <div class="dt-panels">
+    {tabs.map((t, i) => (
+      <div class="dt-panel" role="tabpanel" id={`${id}-panel-${t.key}`} aria-labelledby={`${id}-tab-${t.key}`} data-active={i === 0 ? '' : undefined}>
+        <div class={`dt-pic dt-pic--${t.key}`} aria-hidden="true">
+          {t.key === 'audit' && (
+            <div class="p-funnel">
+              {[100, 78, 46, 30, 22].map((w, k) => <span style={`--w:${w}%`} class={k === 2 ? 'drop' : ''}><i></i></span>)}
+              <div class="p-rank"><em>1</em><em>2</em><em>3</em></div>
+            </div>
+          )}
+          {t.key === 'screens' && (
+            <div class="p-screens">
+              <div class="p-scr"><b></b><i></i><i></i><i class="s"></i><u></u></div>
+              <div class="p-scr p-scr--empty"><span class="p-circle"></span><i></i><i class="s"></i><u></u></div>
+            </div>
+          )}
+          {t.key === 'prototype' && (
+            <div class="p-proto">
+              <div class="p-mini"><i></i><i class="s"></i><u></u></div><span class="p-arrow"></span>
+              <div class="p-mini p-mini--on"><i></i><i class="s"></i><u></u><span class="p-cursor"></span></div><span class="p-arrow"></span>
+              <div class="p-mini"><i></i><i class="s"></i><u></u></div>
+            </div>
+          )}
+          {t.key === 'system' && (
+            <div class="p-sys">
+              <div class="p-sw"><i></i><i></i><i></i><i></i></div>
+              <div class="p-btns"><u></u><u class="ghost"></u></div>
+              <div class="p-type">Aa</div>
+              <div class="p-ctrl"><span class="p-toggle"><i></i></span><span class="p-input"></span></div>
+            </div>
+          )}
+          {t.key === 'code' && (
+            <pre class="p-code"><code><span class="k">import</span> {'{'} Button {'}'} <span class="k">from</span> <span class="s">'@your/design-system'</span>;
+<span class="t">&lt;Button</span> <span class="a">variant</span>=<span class="s">"primary"</span><span class="t">&gt;</span>Get started<span class="t">&lt;/Button&gt;</span></code></pre>
+          )}
+        </div>
+        <div class="dt-text">
+          <h3>{t.title}</h3>
+          <p>{t.body}</p>
+          <ul>{t.points.map((pt) => <li>{pt}</li>)}</ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .dt { display: grid; grid-template-columns: minmax(200px, .8fr) minmax(0, 3fr); gap: 28px; align-items: start; }
+  .dt:not(.is-js) { grid-template-columns: minmax(0, 1fr); }
+  .dt:not(.is-js) .dt-tabs { display: none; }
+  .dt:not(.is-js) .dt-panels { display: grid; gap: 20px; }
+  @media (max-width: 880px) { .dt { grid-template-columns: minmax(0, 1fr); } }
+
+  /* tabs: a list on the left; one row that scrolls sideways on tablets and phones */
+  .dt-tabs { display: flex; flex-direction: column; gap: 6px; }
+  @media (max-width: 880px) {
+    .dt-tabs { flex-direction: row; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * var(--gutter)); padding: 0 var(--gutter) 4px; }
+    .dt-tabs::-webkit-scrollbar { display: none; }
+    .dt-tab { flex: none; }
+  }
+  .dt-tab { display: flex; align-items: center; gap: 12px; min-height: var(--kd-control-h); padding: 0 16px; border: 2px solid var(--kd-line); border-radius: var(--kd-radius); background: var(--kd-surface); color: var(--kd-fg); font: inherit; font-size: 16px; font-weight: var(--kd-weight-medium); text-align: left; cursor: pointer; transition: border-color .15s ease, background-color .15s ease, color .15s ease; }
+  .dt-tab:hover { border-color: var(--kd-blue-2); }
+  .dt-tab[aria-selected="true"] { background: var(--kd-blue-2); border-color: var(--kd-blue-2); color: var(--kd-white); }
+  .dt-tab:focus-visible { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
+  .dt-n { font-size: 12px; letter-spacing: .04em; opacity: .7; }
+
+  /* panel: picture left, text right; stacked on phones */
+  .dt.is-js .dt-panel:not([data-active]) { display: none; }
+  .dt-panel { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: center; padding: 28px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); }
+  @media (max-width: 560px) { .dt-panel { grid-template-columns: minmax(0, 1fr); padding: 20px; gap: 20px; } }
+  .dt-text h3 { margin: 0; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
+  .dt-text p { margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: var(--kd-fg-2); }
+  .dt-text ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+  .dt-text li { position: relative; padding-left: 22px; font-size: 16px; line-height: 1.45; }
+  .dt-text li::before { content: ''; position: absolute; left: 0; top: .45em; width: 10px; height: 10px; border-radius: 2px; background: var(--kd-blue-2); }
+
+  /* pictures: wireframe style, navy outline, department colours */
+  .dt-pic { min-height: 220px; display: flex; align-items: center; justify-content: center; padding: 24px; border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-surface-2); --wf: color-mix(in srgb, var(--kd-fg) 16%, transparent); }
+  .dt-pic i, .dt-pic u { display: block; height: 8px; border-radius: 3px; background: var(--wf); }
+  .dt-pic i.s { width: 60%; }
+  .dt-pic u { height: 22px; width: 50%; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+
+  .p-funnel { width: 100%; display: grid; gap: 8px; }
+  .p-funnel span { display: block; width: var(--w); height: 22px; border-radius: 3px; background: var(--kd-lilac); }
+  .p-funnel span.drop { background: var(--kd-blue-2); box-shadow: 0 0 0 3px var(--kd-signal-1); }
+  .p-funnel span i { display: none; }
+  .p-rank { display: flex; gap: 6px; margin-top: 10px; }
+  .p-rank em { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--kd-blue-1); color: var(--kd-white); font-style: normal; font-size: 12px; font-weight: var(--kd-weight-medium); }
+
+  .p-screens { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .p-scr { display: grid; gap: 8px; align-content: start; padding: 14px; min-height: 160px; border: 1px solid var(--kd-line); border-radius: var(--kd-radius); background: var(--kd-surface); }
+  .p-scr b { height: 56px; border-radius: 3px; background: var(--kd-lilac); }
+  .p-scr--empty { justify-items: center; align-content: center; text-align: center; }
+  .p-scr--empty i { width: 80%; }
+  .p-circle { width: 40px; height: 40px; border-radius: 50%; border: 2px dashed var(--kd-blue-2); }
+
+  .p-proto { width: 100%; display: flex; align-items: center; gap: 8px; }
+  .p-mini { position: relative; flex: 1; display: grid; gap: 7px; align-content: start; padding: 12px; min-height: 130px; border: 1px solid var(--kd-line); border-radius: var(--kd-radius); background: var(--kd-surface); }
+  .p-mini u { width: 70%; height: 18px; margin-top: auto; }
+  .p-mini--on { border: 2px solid var(--kd-blue-2); }
+  .p-arrow { flex: none; width: 18px; height: 2px; background: var(--kd-blue-1); position: relative; }
+  .p-arrow::after { content: ''; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left-color: var(--kd-blue-1); border-right: 0; }
+  .p-cursor { position: absolute; right: 18px; bottom: 14px; width: 14px; height: 14px; border-radius: 50%; background: var(--kd-signal-1); box-shadow: 0 0 0 4px color-mix(in srgb, var(--kd-signal-1) 40%, transparent); }
+
+  .p-sys { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: center; }
+  .p-sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .p-sw i { height: auto; aspect-ratio: 1; }
+  .p-sw i:nth-child(1) { background: var(--kd-blue-1); }
+  .p-sw i:nth-child(2) { background: var(--kd-blue-2); }
+  .p-sw i:nth-child(3) { background: var(--kd-lilac); }
+  .p-sw i:nth-child(4) { background: var(--kd-signal-1); }
+  .p-btns { display: grid; gap: 8px; }
+  .p-btns u { width: 100%; }
+  .p-btns u.ghost { background: transparent; border: 2px solid var(--kd-blue-2); }
+  .p-type { font-size: 44px; line-height: 1; font-weight: var(--kd-weight-medium); color: var(--kd-blue-1); }
+  .p-ctrl { display: grid; gap: 8px; justify-items: start; }
+  .p-toggle { display: flex; width: 38px; height: 20px; padding: 2px; border-radius: 10px; background: var(--kd-blue-2); }
+  .p-toggle i { width: 16px; height: 16px; border-radius: 50%; background: var(--kd-white); margin-left: auto; }
+  .p-input { display: block; width: 100%; height: 24px; border: 2px solid var(--wf); border-radius: var(--kd-radius); background: var(--kd-surface); }
+
+  .p-code { width: 100%; margin: 0; padding: 18px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .p-code .k { color: var(--kd-lilac); }
+  .p-code .s { color: var(--kd-signal-1); }
+  .p-code .t, .p-code .a { color: var(--kd-lilac-tint); }
+</style>
+
+<script is:inline>
+  // Tabs: click or arrow keys switch the panel. Without this script every panel shows.
+  document.querySelectorAll('[data-dt]').forEach(function (root) {
+    root.classList.add('is-js');
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('.dt-tab'));
+    var panels = Array.prototype.slice.call(root.querySelectorAll('.dt-panel'));
+    function show(i, focus) {
+      tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+      panels.forEach(function (p, k) { if (k === i) p.setAttribute('data-active', ''); else p.removeAttribute('data-active'); });
+      if (focus) tabs[i].focus();
+      tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { show(i, false); });
+      t.addEventListener('keydown', function (e) {
+        var n = tabs.length, j = -1;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') j = (i + 1) % n;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') j = (i - 1 + n) % n;
+        if (e.key === 'Home') j = 0;
+        if (e.key === 'End') j = n - 1;
+        if (j > -1) { e.preventDefault(); show(j, true); }
+      });
+    });
+  });
+</script>

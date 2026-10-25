@@ -1,0 +1,74 @@
+---
+// src/components/SelfCheck.astro
+// Self-check for a use case page (idea from valubyl.com's activation
+// diagnostic): statements to tick, and a result that changes with how many
+// are ticked: none, one or two, three or more. The last result carries the CTA.
+// The section shell and heading come from UseCaseDetail.astro; this is the body.
+// Without JavaScript the statements show and the result card stays hidden.
+interface Props {
+  items: string[];
+  results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string; cta: string } };
+}
+const { items, results } = Astro.props;
+---
+<div class="sc" data-sc>
+  <ul class="sc-list">
+    {items.map((t) => (
+      <li><label class="sc-item"><input type="checkbox" class="sc-box" /><span>{t}</span></label></li>
+    ))}
+  </ul>
+  <div class="sc-result" aria-live="polite">
+    <div class="sc-meter" aria-hidden="true">{items.map(() => <i></i>)}</div>
+    <div class="sc-r" data-r="none"><b>{results.none.title}</b><p>{results.none.body}</p></div>
+    <div class="sc-r" data-r="some" hidden><b>{results.some.title}</b><p>{results.some.body}</p></div>
+    <div class="sc-r" data-r="many" hidden>
+      <b>{results.many.title}</b><p>{results.many.body}</p>
+      <a href="#contact" class="btn sc-cta" data-open-modal>{results.many.cta}</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sc { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 880px) { .sc { grid-template-columns: minmax(0, 1fr); } }
+
+  .sc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .sc-item { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); cursor: pointer; font-size: 17px; line-height: 1.45; transition: border-color .15s ease; }
+  .sc-item:hover { border-color: var(--kd-blue-2); }
+  .sc-item:has(.sc-box:checked) { border-color: var(--kd-blue-2); box-shadow: inset 4px 0 0 var(--kd-blue-2); }
+  .sc-box { appearance: none; flex: none; width: 22px; height: 22px; margin: 1px 0 0; border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-surface); display: grid; place-items: center; cursor: pointer; }
+  .sc-box:checked { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
+  .sc-box:checked::after { content: ''; width: 6px; height: 11px; margin-top: -2px; border: solid var(--kd-white); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .sc-box:focus-visible { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
+
+  /* result card: only with JavaScript, sticky beside the list on wide screens */
+  .sc-result { display: none; position: sticky; top: 112px; padding: 28px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .sc.is-js .sc-result { display: block; }
+  @media (max-width: 880px) { .sc-result { position: static; } }
+  .sc-meter { display: flex; gap: 6px; margin-bottom: 20px; }
+  .sc-meter i { flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .18); transition: background-color .2s ease; }
+  .sc-meter i.on { background: var(--kd-signal-1); }
+  .sc-r b { display: block; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
+  .sc-r p { margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: var(--kd-lilac-soft); }
+  .sc-cta { margin-top: 20px; background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .sc-cta:hover { transform: translateY(-2px); }
+</style>
+
+<script is:inline>
+  // Counts the ticked statements and shows the matching result.
+  document.querySelectorAll('[data-sc]').forEach(function (root) {
+    root.classList.add('is-js');
+    var boxes = root.querySelectorAll('.sc-box');
+    var bars = root.querySelectorAll('.sc-meter i');
+    var results = root.querySelectorAll('.sc-r');
+    function update() {
+      var n = 0;
+      boxes.forEach(function (b) { if (b.checked) n++; });
+      bars.forEach(function (bar, i) { bar.classList.toggle('on', i < n); });
+      var key = n === 0 ? 'none' : n < 3 ? 'some' : 'many';
+      results.forEach(function (r) { r.hidden = r.getAttribute('data-r') !== key; });
+    }
+    boxes.forEach(function (b) { b.addEventListener('change', update); });
+    update();
+  });
+</script>
