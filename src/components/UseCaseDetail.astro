@@ -20,6 +20,7 @@ import SelfCheck from './SelfCheck.astro';
 import DeliverableTabs from './DeliverableTabs.astro';
 import HeroMorph from './HeroMorph.astro';
 import MeasuresDash from './MeasuresDash.astro';
+import StepsDetail from './StepsDetail.astro';
 import type { UseCasePage, Mark } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -190,7 +191,17 @@ const ui = {
           <h2>{c.deliverables.h2a} <em>{c.deliverables.h2b}</em></h2>
           <p class="ucd-lede">{c.deliverables.lede}</p>
         </div>
-        <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />
+        {c.deliverables.layout === 'steps'
+          ? <StepsDetail steps={c.deliverables.tabs} cta={c.deliverables.cta} labels={locale === 'de'
+              ? { step: 'Schritt', doing: 'Was wir tun', get: 'Was Sie bekommen', you: 'Von Ihnen:', outcome: 'Nach diesem Schritt',
+                  report: 'UX-Audit', impact: ['Hoch', 'Mittel', 'Niedrig'], drop: 'Größter Abbruch', test: 'Test 5 von 6 bestanden',
+                  states: ['Standard', 'Lädt', 'Leer', 'Fehler'], tokens: 'Tokens', components: 'Komponenten', doLbl: 'So', dontLbl: 'Nicht so',
+                  passed: 'Tests bestanden', ready: 'Bereit zum Mergen', preview: 'Vorschau' }
+              : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:', outcome: 'After this step',
+                  report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
+                  states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
+                  passed: 'Tests passed', ready: 'Ready to merge', preview: 'Preview' }} />
+          : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>
   )}

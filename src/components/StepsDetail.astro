@@ -1,0 +1,323 @@
+---
+// src/components/StepsDetail.astro
+// "What you get" in full: one tall row per step, alternating sides, each with
+// its own wireframe picture in the Product style (white app windows, navy
+// outline, department colours):
+//   audit      a UX audit report: funnel with the biggest drop, ranked fixes, interview notes
+//   prototype  a flow chart with a removed step, and tested prototype screens
+//   screens    a design canvas with one screen in every state (default, loading, empty, error)
+//   system     tokens (colour, type, spacing) and a component library with do / don't
+//   code       a code editor with the component, a live preview and passed checks
+// Each row: when it happens, what we do, what you get, what we need from you,
+// and what you have after the step. One CTA closes the section. Section shell and heading come
+// from UseCaseDetail.astro.
+type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code';
+interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string; outcome?: string }
+interface Labels {
+  step: string; doing: string; get: string; you: string; outcome: string;
+  report: string; impact: [string, string, string]; drop: string; test: string;
+  states: [string, string, string, string]; tokens: string; components: string; doLbl: string; dontLbl: string;
+  passed: string; ready: string; preview: string;
+}
+interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string } }
+const { steps, labels, cta } = Astro.props;
+---
+<div class="sd" data-sd>
+  <div class="sd-steps">
+    {steps.map((s, i) => (
+      <article class:list={['sd-step', { 'sd-step--flip': i % 2 === 1 }]} id={`sd-${s.key}`} data-sd-step={s.key}>
+        <div class="sd-text">
+          <div class="sd-meta">
+            <span class="sd-num">{labels.step} {String(i + 1).padStart(2, '0')} · {s.label}</span>
+            {s.when && <span class="sd-when">{s.when}</span>}
+          </div>
+          <h3>{s.title}</h3>
+          <p class="sd-body">{s.body}</p>
+          <div class="sd-cols">
+            {s.doing && (
+              <div><h4>{labels.doing}</h4><ul class="sd-list sd-list--do">{s.doing.map((d) => <li>{d}</li>)}</ul></div>
+            )}
+            <div><h4>{labels.get}</h4><ul class="sd-list sd-list--get">{s.points.map((d) => <li>{d}</li>)}</ul></div>
+          </div>
+          {s.you && <p class="sd-you"><b>{labels.you}</b> {s.you}</p>}
+          {s.outcome && <p class="sd-outcome"><span>{labels.outcome}</span>{s.outcome}</p>}
+        </div>
+
+        <div class="sd-pic" aria-hidden="true">
+          <div class="sd-win">
+            <div class="sd-bar"><i></i><i></i><i></i><span>{s.label}</span></div>
+            <div class={`sd-canvas sd-canvas--${s.key}`}>
+
+              {s.key === 'audit' && (
+                <div class="p-audit">
+                  <div class="p-card p-funnel2">
+                    <b class="p-h">{labels.report}</b>
+                    {[100, 72, 30, 22, 16].map((w, k) => (
+                      <div class="p-frow"><em></em><span class:list={['p-fbar', { drop: k === 2 }]} style={`--w:${w}%`}></span></div>
+                    ))}
+                    <span class="p-dropnote">{labels.drop}</span>
+                  </div>
+                  <div class="p-card p-fixes">
+                    {[0, 1, 1, 2].map((lvl, k) => (
+                      <div class="p-fix"><span class="p-rank">{k + 1}</span><em></em><span class={`p-imp p-imp--${lvl}`}>{labels.impact[lvl]}</span></div>
+                    ))}
+                  </div>
+                  <div class="p-notes">
+                    <div class="p-card p-note"><span class="p-av"></span><div><b>“</b><em></em><em class="s"></em></div></div>
+                    <div class="p-card p-note"><span class="p-av p-av--2"></span><div><b>“</b><em></em><em class="s"></em></div></div>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'prototype' && (
+                <div class="p-proto2">
+                  <div class="p-flow">
+                    <span class="p-node">1</span><i></i>
+                    <span class="p-node">2</span><i></i>
+                    <span class="p-node p-node--gone">3</span><i class="gone"></i>
+                    <span class="p-node">3</span><i></i>
+                    <span class="p-node p-node--goal">✓</span>
+                  </div>
+                  <div class="p-phones">
+                    {[0, 1, 2].map((k) => (
+                      <div class:list={['p-phone', { on: k === 1 }]}>
+                        <div class="p-steps">{[0, 1, 2].map((d) => <b class={d <= k ? 'on' : ''}></b>)}</div>
+                        <em></em><em class="s"></em>
+                        <span class="p-field"></span><span class="p-field"></span>
+                        <u></u>
+                        {k === 1 && <span class="p-cursor2"></span>}
+                      </div>
+                    ))}
+                  </div>
+                  <span class="p-test">✓ {labels.test}</span>
+                </div>
+              )}
+
+              {s.key === 'screens' && (
+                <div class="p-figma">
+                  <div class="p-tools"><i></i><i></i><i></i><i></i><span></span></div>
+                  <div class="p-frames">
+                    {labels.states.map((st, k) => (
+                      <div class="p-frame">
+                        <span class="p-flabel">{st}</span>
+                        <div class={`p-fs p-fs--${k}`}>
+                          <em class="t"></em>
+                          {k === 0 && <><div class="p-grid2"><span></span><span></span></div><u></u></>}
+                          {k === 1 && <><em class="sk"></em><em class="sk s"></em><div class="p-grid2 sk"><span></span><span></span></div></>}
+                          {k === 2 && <div class="p-empty"><span></span><em class="s"></em><u></u></div>}
+                          {k === 3 && <><div class="p-err">!</div><em></em><em class="s"></em><u></u></>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'system' && (
+                <div class="p-sys2">
+                  <div class="p-card p-tokens">
+                    <b class="p-h">{labels.tokens}</b>
+                    <div class="p-sw2"><i></i><i></i><i></i><i></i><i></i></div>
+                    <div class="p-type2"><span class="a">Aa</span><span class="b">Aa</span><span class="c">Aa</span></div>
+                    <div class="p-space">{[6, 10, 16, 24, 36].map((w) => <i style={`width:${w}px`}></i>)}</div>
+                  </div>
+                  <div class="p-card p-comps">
+                    <b class="p-h">{labels.components}</b>
+                    <div class="p-btnrow"><u class="pri"></u><u class="sec"></u><u class="gho"></u></div>
+                    <div class="p-input2"><em class="s"></em><span></span></div>
+                    <div class="p-ctl"><span class="p-tog"><i></i></span><span class="p-chk">✓</span><span class="p-badge"></span></div>
+                    <div class="p-dodont">
+                      <div class="do"><span>✓ {labels.doLbl}</span><u class="pri"></u></div>
+                      <div class="dont"><span>✕ {labels.dontLbl}</span><u class="bad"></u></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'code' && (
+                <div class="p-ide">
+                  <div class="p-tree"><em></em><em class="s in"></em><em class="in on"></em><em class="s in"></em><em></em><em class="s in"></em></div>
+                  <pre class="p-code2"><code><span class="k">export function</span> <span class="f">Button</span>({'{'} variant, children {'}'}) {'{'}
+  <span class="k">return</span> <span class="t">&lt;button</span> <span class="a">className</span>={'{'}<span class="s">`btn btn-${'{'}variant{'}'}`</span>{'}'}<span class="t">&gt;</span>
+    {'{'}children{'}'}
+  <span class="t">&lt;/button&gt;</span>;
+{'}'}</code></pre>
+                  <div class="p-prev"><span class="p-prevl">{labels.preview}</span><u class="pri"></u><u class="sec"></u></div>
+                  <div class="p-status"><span>✓ {labels.passed}</span><span>✓ {labels.ready}</span></div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      </article>
+    ))}
+
+    {cta && (
+      <div class="sd-cta">
+        <div><h3>{cta.h3}</h3><p>{cta.body}</p></div>
+        <a href="#contact" class="btn btn-lg sd-cta-btn" data-open-modal>{cta.button}</a>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .sd { --wf: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); }
+
+  /* rows: text and picture, alternating sides, each about a screen tall */
+  .sd-steps { display: grid; }
+  .sd-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; min-height: min(640px, 82svh); padding: 56px 0; border-top: 1px solid var(--kd-line); scroll-margin-top: 80px; }
+  .sd-step:first-child { border-top: 0; padding-top: 8px; }
+  .sd-step--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } /* the picture stays the larger side */
+  .sd-step--flip .sd-text { order: 2; }
+  @media (max-width: 880px) { .sd-step, .sd-step--flip { grid-template-columns: minmax(0, 1fr); gap: 28px; min-height: 0; padding: 44px 0; } .sd-step--flip .sd-text { order: 0; } }
+
+  .sd-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .sd-num { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-accent); }
+  .sd-when { padding: 2px 10px; border-radius: var(--kd-radius); border: 1.5px solid var(--kd-blue-2); color: var(--kd-blue-2); font-size: 12px; font-weight: var(--kd-weight-medium); }
+  .sd-text h3 { margin: 0; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.15; font-weight: var(--kd-weight-medium); text-wrap: balance; }
+  .sd .sd-body { margin: 14px 0 0; font-size: 18px; line-height: 1.5; color: var(--kd-fg-2); }
+  .sd-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+  @media (max-width: 560px) { .sd-cols { grid-template-columns: 1fr; } }
+  .sd-cols h4 { margin: 0 0 10px; font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-fg); }
+  .sd-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .sd-list li { position: relative; padding-left: 22px; font-size: 15px; line-height: 1.45; }
+  .sd-list--do li::before { content: ''; position: absolute; left: 2px; top: .55em; width: 8px; height: 2px; background: var(--kd-blue-2); }
+  .sd-list--get li::before { content: ''; position: absolute; left: 3px; top: .25em; width: 5px; height: 10px; border: solid var(--kd-blue-2); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .sd .sd-you { margin: 20px 0 0; font-size: 15px; line-height: 1.5; color: var(--kd-fg-2); }
+  .sd-you b { color: var(--kd-fg); font-weight: var(--kd-weight-medium); }
+  .sd .sd-outcome { margin: 20px 0 0; display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 17px; line-height: 1.4; font-weight: var(--kd-weight-medium); }
+  .sd-outcome span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--kd-signal-1); }
+
+  /* the picture window */
+  .sd-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); overflow: hidden; box-shadow: 0 24px 48px -28px rgba(26, 1, 117, .5); }
+  .sd-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--kd-blue-1); }
+  .sd-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .sd-bar span { margin-left: 12px; padding: 3px 12px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 12px; }
+  .sd-canvas { position: relative; padding: 20px; font-size: 12px; }
+  .sd-canvas em { display: block; height: 7px; border-radius: 4px; background: var(--wf); }
+  .sd-canvas em.s { width: 60%; }
+  .sd-canvas u { display: block; height: 22px; width: 42%; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .p-card { padding: 14px; border-radius: var(--kd-radius); border: 1px solid var(--wf); background: var(--kd-white); }
+  .p-h { display: block; margin-bottom: 10px; font-size: 13px; font-weight: var(--kd-weight-medium); }
+
+  /* 1 audit report */
+  .p-audit { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; }
+  .p-funnel2 { position: relative; display: grid; gap: 8px; }
+  .p-frow { display: grid; grid-template-columns: 50px 1fr; align-items: center; gap: 8px; }
+  .p-fbar { display: block; width: var(--w); height: 16px; border-radius: 3px; background: var(--kd-lilac); }
+  .p-fbar.drop { background: var(--kd-blue-2); box-shadow: 0 0 0 3px var(--kd-signal-1); }
+  .p-dropnote { justify-self: start; margin-top: 4px; padding: 2px 8px; border-radius: var(--kd-radius); background: var(--kd-signal-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .p-fixes { display: grid; gap: 9px; align-content: start; }
+  .p-fix { display: grid; grid-template-columns: 20px 1fr auto; align-items: center; gap: 8px; }
+  .p-rank { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--kd-blue-1); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .p-imp { padding: 1px 7px; border-radius: var(--kd-radius); font-size: 10px; font-weight: var(--kd-weight-medium); }
+  .p-imp--0 { background: var(--kd-blue-2); color: var(--kd-white); }
+  .p-imp--1 { background: var(--kd-lilac); }
+  .p-imp--2 { box-shadow: inset 0 0 0 1px var(--kd-lilac); }
+  .p-notes { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .p-note { display: flex; gap: 10px; align-items: flex-start; }
+  .p-note > div { flex: 1; display: grid; gap: 6px; }
+  .p-note b { font-size: 22px; line-height: .8; color: var(--kd-blue-2); }
+  .p-av { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--kd-lilac); }
+  .p-av--2 { background: var(--kd-blue-2); }
+
+  /* 2 flow chart and prototype */
+  .p-proto2 { display: grid; gap: 18px; }
+  .p-flow { display: flex; align-items: center; padding: 14px; border-radius: var(--kd-radius); border: 1px dashed var(--wf); }
+  .p-flow i { flex: 1; height: 2px; background: var(--kd-blue-1); }
+  .p-flow i.gone { background: none; border-top: 2px dashed var(--kd-lilac); }
+  .p-node { flex: none; display: grid; place-items: center; width: 34px; height: 26px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .p-node--gone { border-style: dashed; border-color: var(--kd-lilac); color: var(--kd-lilac); text-decoration: line-through; }
+  .p-node--goal { background: var(--kd-signal-1); border-color: var(--kd-signal-1); }
+  .p-phones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .p-phone { position: relative; display: grid; gap: 8px; align-content: start; padding: 14px 10px; min-height: 190px; border-radius: 12px; border: 2px solid var(--wf); }
+  .p-phone.on { border-color: var(--kd-blue-2); box-shadow: 0 10px 24px -14px rgba(26, 1, 117, .5); }
+  .p-steps { display: flex; gap: 4px; margin-bottom: 4px; }
+  .p-steps b { flex: 1; height: 4px; border-radius: 2px; background: var(--wf); }
+  .p-steps b.on { background: var(--kd-blue-2); }
+  .p-field { display: block; height: 18px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf); }
+  .p-phone u { width: 100%; margin-top: 6px; }
+  .p-cursor2 { position: absolute; right: 22px; bottom: 18px; width: 14px; height: 14px; border-radius: 50%; background: var(--kd-signal-1); box-shadow: 0 0 0 5px color-mix(in srgb, var(--kd-signal-1) 35%, transparent); }
+  .p-test { justify-self: start; padding: 3px 10px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 12px; font-weight: var(--kd-weight-medium); }
+
+  /* 3 design canvas with states */
+  .p-figma { display: grid; gap: 12px; margin: -20px; padding: 0 0 18px; background-image: radial-gradient(color-mix(in srgb, var(--kd-blue-1) 14%, transparent) 1px, transparent 1px); background-size: 14px 14px; }
+  .p-tools { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--kd-white); border-bottom: 1px solid var(--wf); }
+  .p-tools i { width: 16px; height: 16px; border-radius: 3px; background: var(--wf); }
+  .p-tools i:first-child { background: var(--kd-blue-2); }
+  .p-tools span { margin-left: auto; width: 60px; height: 8px; border-radius: 4px; background: var(--wf); }
+  .p-frames { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; padding: 4px 22px 0; }
+  .p-flabel { display: block; margin-bottom: 4px; font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-blue-2); }
+  .p-fs { display: grid; gap: 7px; align-content: start; min-height: 140px; padding: 12px; border-radius: 3px; background: var(--kd-white); box-shadow: 0 0 0 1px var(--wf), 0 8px 18px -12px rgba(26, 1, 117, .35); }
+  .p-fs em.t { width: 50%; height: 9px; background: var(--kd-blue-1); }
+  .p-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .p-grid2 span { height: 34px; border-radius: 3px; background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); }
+  .p-fs--1 em.sk, .p-grid2.sk span { background: linear-gradient(90deg, var(--wf), color-mix(in srgb, var(--kd-blue-1) 6%, transparent), var(--wf)); box-shadow: none; }
+  .p-empty { display: grid; justify-items: center; gap: 7px; padding-top: 4px; }
+  .p-empty span { width: 34px; height: 34px; border-radius: 50%; border: 2px dashed var(--kd-blue-2); }
+  .p-empty em { width: 70%; }
+  .p-empty u { width: 50%; }
+  .p-err { display: grid; place-items: center; height: 22px; border-radius: 3px; background: var(--kd-lilac-tint); box-shadow: inset 3px 0 0 var(--kd-blue-2); color: var(--kd-blue-2); font-weight: var(--kd-weight-medium); }
+
+  /* 4 design system */
+  .p-sys2 { display: grid; grid-template-columns: 1fr 1.2fr; gap: 12px; }
+  .p-tokens, .p-comps { display: grid; gap: 12px; align-content: start; }
+  .p-sw2 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .p-sw2 i { aspect-ratio: 1; border-radius: 3px; }
+  .p-sw2 i:nth-child(1) { background: var(--kd-blue-1); } .p-sw2 i:nth-child(2) { background: var(--kd-blue-2); } .p-sw2 i:nth-child(3) { background: var(--kd-lilac); } .p-sw2 i:nth-child(4) { background: var(--kd-lilac-tint); } .p-sw2 i:nth-child(5) { background: var(--kd-signal-1); }
+  .p-type2 { display: flex; align-items: baseline; gap: 12px; font-weight: var(--kd-weight-medium); }
+  .p-type2 .a { font-size: 34px; } .p-type2 .b { font-size: 22px; } .p-type2 .c { font-size: 14px; }
+  .p-space { display: flex; align-items: flex-end; gap: 6px; }
+  .p-space i { height: 12px; border-radius: 2px; background: var(--kd-lilac); }
+  .p-btnrow { display: flex; gap: 6px; }
+  .p-btnrow u, .p-dodont u, .p-prev u { width: 30%; height: 22px; }
+  .sd-canvas u.sec { background: var(--kd-lilac); }
+  .sd-canvas u.gho { background: transparent; box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .p-input2 { display: grid; gap: 5px; }
+  .p-input2 em { width: 30%; }
+  .p-input2 span { height: 24px; border-radius: var(--kd-radius); border: 1.5px solid color-mix(in srgb, var(--kd-blue-1) 25%, transparent); }
+  .p-ctl { display: flex; align-items: center; gap: 10px; }
+  .p-tog { display: flex; width: 34px; height: 18px; padding: 2px; border-radius: 9px; background: var(--kd-blue-2); }
+  .p-tog i { width: 14px; height: 14px; border-radius: 50%; background: var(--kd-white); margin-left: auto; }
+  .p-chk { display: grid; place-items: center; width: 18px; height: 18px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; }
+  .p-badge { width: 40px; height: 16px; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
+  .p-dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .p-dodont > div { display: grid; gap: 6px; padding: 8px; border-radius: var(--kd-radius); border: 1px solid var(--wf); }
+  .p-dodont span { font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .p-dodont .do span { color: var(--kd-blue-2); }
+  .p-dodont u { width: 70%; }
+  .sd-canvas u.bad { background: var(--kd-lilac); border-radius: 12px; height: 16px; width: 50%; }
+
+  /* 5 code editor */
+  .p-ide { display: grid; grid-template-columns: 110px 1fr; grid-template-rows: auto auto auto; margin: -20px; }
+  .p-tree { grid-row: 1 / 4; display: grid; align-content: start; gap: 9px; padding: 16px 12px; background: color-mix(in srgb, var(--kd-blue-1) 6%, transparent); }
+  .p-tree em.in { margin-left: 10px; }
+  .p-tree em.on { background: var(--kd-blue-2); }
+  .p-code2 { margin: 0; padding: 18px; font-size: 13px; background: var(--kd-blue-1); color: var(--kd-white); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .p-code2 .k { color: var(--kd-lilac); } .p-code2 .f { color: var(--kd-signal-1); } .p-code2 .s { color: var(--kd-signal-1); } .p-code2 .t, .p-code2 .a { color: var(--kd-lilac-tint); }
+  .p-prev { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 14px 16px; border-top: 1px solid var(--wf); }
+  .p-prevl { width: 100%; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .65; }
+  .p-status { grid-column: 2; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; padding: 0 16px 16px; }
+  .p-status span { padding: 3px 10px; border-radius: var(--kd-radius); background: var(--kd-signal-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+
+  /* phones: pictures stack tighter */
+  @media (max-width: 560px) {
+    .p-audit, .p-sys2 { grid-template-columns: 1fr; }
+    .p-notes { grid-template-columns: 1fr; }
+    .sd-canvas { min-height: 0; padding: 14px; }
+    .p-ide { grid-template-columns: 1fr; margin: -14px; min-height: 0; }
+    .p-tree { display: none; }
+    .p-status { grid-column: 1; }
+    .p-figma { margin: -14px; }
+    .p-frames { padding: 4px 14px 0; gap: 10px; }
+  }
+
+  /* closing CTA */
+  .sd-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: 24px; padding: 32px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); }
+  .sd-cta h3 { margin: 0; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
+  .sd .sd-cta p { margin: 6px 0 0; font-size: 17px; line-height: 1.45; color: var(--kd-lilac-tint); }
+  .sd-cta-btn { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .sd-cta-btn:hover { transform: translateY(-2px); }
+</style>

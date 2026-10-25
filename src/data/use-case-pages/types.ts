@@ -30,9 +30,12 @@ export interface UseCasePageText {
     items: { text: string; revenue: string; cost: string; weight: [number, number] }[];
     labels: { revenue: string; cost: string; latest: string };
     results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } } };
-  // what you get, as tabs; key picks the small picture in DeliverableTabs.astro
-  deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string;
-    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[] }[] };
+  // what you get: tabs (DeliverableTabs.astro) or, with layout 'steps', one tall row per step with its own
+  // picture and full detail (StepsDetail.astro). key picks the picture.
+  deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';
+    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[];
+      when?: string; doing?: string[]; you?: string; outcome?: string }[];
+    cta?: { h3: string; body: string; button: string } };
   // what we measure: the measures only, no invented numbers
   // dir: which way the number should move; drawn as a small chart that improves after the start line
   measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string; dir?: 'up' | 'down'; viz?: 'funnel' | 'path' | 'columns' | 'inbox' | 'build'; change?: string; cause?: string }[] };  // viz: picture in MeasuresDash.astro (defaults by order); change and cause show on hover, focus or tap
