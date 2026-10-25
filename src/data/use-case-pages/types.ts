@@ -23,9 +23,13 @@ export interface UseCasePageText {
   lead: string;
   ctaPrimary: string; ctaSecondary: string;
   ctaSecondaryHref?: string;             // e.g. '#deliverables': the second button scrolls instead of opening the contact form
-  // self-check: statements to tick; the result depends on how many are ticked (0, 1 to 2, 3 or more)
-  check?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: string[];
-    results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string; cta: string } } };
+  // self-check: statements to tick. Each statement says what it costs in revenue and in cost,
+  // with a weight [revenue, cost] from 1 to 3 for the two bars (no invented figures).
+  // The title follows how many are ticked (0, 1 to 2, 3 or more). No CTA (owner, 2026-10-25).
+  check?: { eyebrow: string; h2a: string; h2b: string; lede: string;
+    items: { text: string; revenue: string; cost: string; weight: [number, number] }[];
+    labels: { revenue: string; cost: string; latest: string };
+    results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } } };
   // what you get, as tabs; key picks the small picture in DeliverableTabs.astro
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string;
     tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[] }[] };

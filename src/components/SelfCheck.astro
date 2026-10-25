@@ -1,52 +1,71 @@
 ---
 // src/components/SelfCheck.astro
 // Self-check for a use case page (idea from valubyl.com's activation
-// diagnostic): statements to tick, and a result that changes with how many
-// are ticked: none, one or two, three or more. The last result carries the CTA.
+// diagnostic). Statements to tick; the result card beside them changes with
+// every tick:
+//   - a small app wireframe gets worse, one realistic flaw per statement
+//     (1 users leave, 2 a "book a demo" pop-up, 3 help hints, 4 a feature
+//     that looks different, 5 duplicate buttons, 6 inconsistent type and spacing),
+//   - two bars, "Revenue at risk" and "Added cost", grow by each statement's weight,
+//   - the text shows what the statement just ticked costs you, in revenue and in cost,
+//   - the title follows how many are ticked.
+// No CTA here (owner decision 2026-10-25) and no invented figures: the costs are
+// described in words and shown as relative bars.
 // The section shell and heading come from UseCaseDetail.astro; this is the body.
-// Above the result sits a small app wireframe that gets worse with every ticked
-// statement: statement 1 makes users leave, 2 adds a "book a demo" wall, 3 help
-// bubbles, 4 mismatched cards, 5 duplicate buttons, 6 a drifting layout.
 // Without JavaScript the statements show and the result card stays hidden.
+interface Item { text: string; revenue: string; cost: string; weight: [number, number] }
 interface Props {
-  items: string[];
-  results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string; cta: string } };
+  items: Item[];
+  results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } };
+  labels: { revenue: string; cost: string; latest: string };
 }
-const { items, results } = Astro.props;
+const { items, results, labels } = Astro.props;
+const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], [0, 0]);
 ---
-<div class="sc" data-sc>
+<div class="sc" data-sc data-max={max.join(',')}>
   <ul class="sc-list">
-    {items.map((t) => (
-      <li><label class="sc-item"><input type="checkbox" class="sc-box" /><span>{t}</span></label></li>
+    {items.map((it, i) => (
+      <li><label class="sc-item"><input type="checkbox" class="sc-box" data-i={i} data-w={it.weight.join(',')} /><span>{it.text}</span></label></li>
     ))}
   </ul>
-  <div class="sc-result" aria-live="polite">
+  <div class="sc-result">
     <div class="sc-wf" aria-hidden="true">
       <div class="sc-wf-bar"><i></i><i></i><i></i></div>
       <div class="sc-wf-body">
         <div class="sc-wf-steps"><b></b><s></s><b></b><s></s><b></b></div>
         <span class="sc-wf-h"></span><span class="sc-wf-l"></span><span class="sc-wf-l sc-wf-l--s"></span>
-        <div class="sc-wf-cards"><span class="sc-wf-card"></span><span class="sc-wf-card sc-wf-card--b"></span></div>
+        <div class="sc-wf-cards"><span class="sc-wf-card"><i></i><i></i></span><span class="sc-wf-card sc-wf-card--b"><i></i><i></i></span></div>
         <div class="sc-wf-row">
           <span class="sc-wf-btn"></span><span class="sc-wf-btn sc-wf-btn--x1"></span><span class="sc-wf-btn sc-wf-btn--x2"></span>
           <span class="sc-wf-users"><em></em><em></em><em></em></span>
         </div>
-        <span class="sc-wf-help sc-wf-help--1">?</span><span class="sc-wf-help sc-wf-help--2">?</span><span class="sc-wf-help sc-wf-help--3">?</span>
-        <div class="sc-wf-wall"><span></span><u></u></div>
+        <span class="sc-wf-help sc-wf-help--1">?</span><span class="sc-wf-help sc-wf-help--2">?</span><span class="sc-wf-help sc-wf-help--3">!</span>
+        <div class="sc-wf-pop"><span></span><span class="s"></span><u></u></div>
       </div>
     </div>
-    <div class="sc-meter" aria-hidden="true">{items.map(() => <i></i>)}</div>
-    <div class="sc-r" data-r="none"><b>{results.none.title}</b><p>{results.none.body}</p></div>
-    <div class="sc-r" data-r="some" hidden><b>{results.some.title}</b><p>{results.some.body}</p></div>
-    <div class="sc-r" data-r="many" hidden>
-      <b>{results.many.title}</b><p>{results.many.body}</p>
-      <a href="#contact" class="btn sc-cta" data-open-modal>{results.many.cta}</a>
+
+    <div class="sc-bars" aria-hidden="true">
+      <div class="sc-bar sc-bar--rev"><span>{labels.revenue}</span><div><i></i></div></div>
+      <div class="sc-bar sc-bar--cost"><span>{labels.cost}</span><div><i></i></div></div>
+    </div>
+
+    <div class="sc-text" aria-live="polite">
+      <div class="sc-r" data-r="none"><b>{results.none.title}</b><p>{results.none.body}</p></div>
+      <div class="sc-r" data-r="some" hidden><b>{results.some.title}</b><p>{results.some.body}</p></div>
+      <div class="sc-r" data-r="many" hidden><b>{results.many.title}</b><p>{results.many.body}</p></div>
+      {items.map((it, i) => (
+        <div class="sc-impact" data-impact={i} hidden>
+          <span class="sc-impact-h">{labels.latest}</span>
+          <p class="sc-impact-l sc-impact-l--rev"><span>{labels.revenue}</span>{it.revenue}</p>
+          <p class="sc-impact-l sc-impact-l--cost"><span>{labels.cost}</span>{it.cost}</p>
+        </div>
+      ))}
     </div>
   </div>
 </div>
 
 <style>
-  .sc { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .sc { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 28px; align-items: start; }
   @media (max-width: 880px) { .sc { grid-template-columns: minmax(0, 1fr); } }
 
   .sc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -59,81 +78,113 @@ const { items, results } = Astro.props;
   .sc-box:focus-visible { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
 
   /* result card: only with JavaScript, sticky beside the list on wide screens */
-  .sc-result { display: none; position: sticky; top: 112px; padding: 28px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .sc-result { display: none; position: sticky; top: 104px; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
   .sc.is-js .sc-result { display: block; }
   @media (max-width: 880px) { .sc-result { position: static; } }
-  /* the wireframe: clean at rest, each ticked statement (d1 to d6) adds its flaw */
-  .sc-wf { margin-bottom: 20px; border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; --wf: color-mix(in srgb, var(--kd-blue-1) 16%, transparent); }
+
+  /* the wireframe: a tidy app at rest; each ticked statement (d1 to d6) adds a realistic flaw */
+  .sc-wf { border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; --wf: color-mix(in srgb, var(--kd-blue-1) 16%, transparent); }
   .sc-wf-bar { display: flex; gap: 5px; padding: 8px 10px; background: var(--kd-blue-2); }
   .sc-wf-bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .5); }
   .sc-wf-body { position: relative; display: grid; gap: 8px; padding: 14px; }
-  .sc-wf-body > *, .sc-wf-card, .sc-wf-btn, .sc-wf-users em { transition: transform .35s ease, opacity .35s ease, background-color .35s ease, border-radius .35s ease; }
+  .sc-wf-body *, .sc-wf-body { transition: opacity .3s ease, background-color .3s ease, height .3s ease, width .3s ease, margin .3s ease, box-shadow .3s ease, color .3s ease, gap .3s ease; }
   .sc-wf-steps { display: flex; align-items: center; margin-bottom: 2px; }
   .sc-wf-steps b { width: 10px; height: 10px; border-radius: 50%; background: var(--kd-blue-2); }
-  .sc-wf-steps s { flex: 1; height: 2px; background: var(--kd-blue-2); transition: background-color .35s ease; }
-  .sc-wf-h { display: block; width: 62%; height: 10px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-wf-steps s { flex: 1; height: 2px; background: var(--kd-blue-2); }
+  .sc-wf-h { display: block; width: 58%; height: 10px; border-radius: 3px; background: var(--kd-blue-1); }
   .sc-wf-l { display: block; width: 88%; height: 6px; border-radius: 3px; background: var(--wf); }
   .sc-wf-l--s { width: 60%; }
-  .sc-wf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .sc-wf-card { height: 44px; border-radius: 3px; background: var(--kd-lilac-tint); border: 1px solid var(--kd-lilac); }
+  .sc-wf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
+  .sc-wf-card { display: grid; gap: 5px; align-content: start; height: 44px; padding: 8px; border-radius: 3px; background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); }
+  .sc-wf-card i { display: block; height: 5px; border-radius: 3px; background: var(--wf); }
+  .sc-wf-card i:first-child { width: 60%; height: 7px; background: var(--kd-lilac); }
   .sc-wf-row { display: flex; align-items: center; gap: 6px; }
-  .sc-wf-btn { width: 70px; height: 18px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .sc-wf-btn { height: 18px; width: 70px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
   .sc-wf-btn--x1, .sc-wf-btn--x2 { width: 0; opacity: 0; }
   .sc-wf-users { display: flex; margin-left: auto; }
   .sc-wf-users em { width: 16px; height: 16px; margin-left: -4px; border-radius: 50%; background: var(--kd-lilac); border: 2px solid var(--kd-white); }
-  .sc-wf-help { position: absolute; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .3s ease; }
-  .sc-wf-help--1 { top: 30px; right: 18px; } .sc-wf-help--2 { top: 74px; left: 46%; } .sc-wf-help--3 { bottom: 14px; left: 92px; }
-  .sc-wf-wall { position: absolute; top: 34px; right: 12px; width: 44%; padding: 10px 0; display: grid; place-content: center; gap: 6px; justify-items: center; /* small pop-up so the other flaws stay visible */ border-radius: var(--kd-radius); background: var(--kd-blue-1); opacity: 0; transform: translateY(10px); transition: opacity .3s ease, transform .3s ease; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .5); }
-  .sc-wf-wall span { width: 70px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .5); }
-  .sc-wf-wall u { width: 60px; height: 16px; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
-  /* 1: users leave, progress stalls */
-  .sc-wf.d1 .sc-wf-users em { opacity: .15; transform: translateY(6px); }
-  .sc-wf.d1 .sc-wf-steps s:last-of-type, .sc-wf.d1 .sc-wf-steps s { background: var(--wf); }
-  /* 2: a "book a demo" wall over the product */
-  .sc-wf.d2 .sc-wf-wall { opacity: 1; transform: none; }
-  /* 3: help bubbles everywhere */
-  .sc-wf.d3 .sc-wf-help { opacity: 1; transform: none; }
-  /* 4: cards that do not match */
-  .sc-wf.d4 .sc-wf-card--b { transform: rotate(4deg) translateY(4px); background: var(--kd-signal-1); border-radius: 12px; }
-  .sc-wf.d4 .sc-wf-card:first-child { border-radius: 0; background: var(--kd-lilac); }
-  /* 5: the same button rebuilt in different styles */
-  .sc-wf.d5 .sc-wf-btn--x1 { width: 54px; opacity: 1; background: var(--kd-lilac); border-radius: 9px; }
-  .sc-wf.d5 .sc-wf-btn--x2 { width: 44px; opacity: 1; background: transparent; box-shadow: inset 0 0 0 2px var(--kd-signal-1); border-radius: 0; }
-  /* 6: no shared system, the layout drifts */
-  .sc-wf.d6 .sc-wf-h { transform: translateX(14px) rotate(-2deg); }
-  .sc-wf.d6 .sc-wf-l { transform: translateX(-6px) rotate(1.5deg); }
-  .sc-wf.d6 .sc-wf-row { transform: translateX(10px) rotate(-1.5deg); }
-  @media (prefers-reduced-motion: reduce) { .sc-wf *, .sc-wf-body > * { transition: none !important; } }
+  .sc-wf-help { position: absolute; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; }
+  .sc-wf-help--1 { top: 34px; right: 16px; } .sc-wf-help--2 { top: 96px; left: 44%; } .sc-wf-help--3 { bottom: 12px; left: 90px; }
+  .sc-wf-pop { position: absolute; top: 30px; right: 12px; width: 42%; display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 8px 20px -6px rgba(10, 0, 60, .45), 0 0 0 1.5px var(--kd-blue-1); opacity: 0; }
+  .sc-wf-pop span { display: block; height: 6px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-wf-pop span.s { width: 70%; background: var(--wf); }
+  .sc-wf-pop u { display: block; width: 60%; height: 14px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  /* 1: users leave, the onboarding progress stalls after the first step */
+  .sc-wf.d1 .sc-wf-users em { opacity: .15; }
+  .sc-wf.d1 .sc-wf-steps s, .sc-wf.d1 .sc-wf-steps b:not(:first-child) { background: var(--wf); }
+  /* 2: a "book a demo" pop-up over the product */
+  .sc-wf.d2 .sc-wf-pop { opacity: 1; }
+  /* 3: help hints everywhere */
+  .sc-wf.d3 .sc-wf-help { opacity: 1; }
+  /* 4: one feature looks different: other colours, shadow instead of border, other height */
+  .sc-wf.d4 .sc-wf-card--b { height: 56px; background: var(--kd-white); box-shadow: 0 6px 14px -6px rgba(10, 0, 60, .45); }
+  .sc-wf.d4 .sc-wf-card--b i:first-child { background: var(--kd-signal-1); }
+  /* 5: the same button rebuilt in other styles */
+  .sc-wf.d5 .sc-wf-btn--x1 { width: 56px; opacity: 1; height: 22px; background: var(--kd-lilac); }
+  .sc-wf.d5 .sc-wf-btn--x2 { width: 46px; opacity: 1; height: 14px; background: transparent; box-shadow: inset 0 0 0 2px var(--kd-blue-1); }
+  /* 6: no shared system: headings, text and spacing stop matching */
+  .sc-wf.d6 .sc-wf-h { width: 44%; height: 13px; background: var(--kd-blue-2); }
+  .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
+  .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
+  .sc-wf.d6 .sc-wf-cards { gap: 14px; }
 
-  .sc-meter { display: flex; gap: 6px; margin-bottom: 20px; }
-  .sc-meter i { flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .18); transition: background-color .2s ease; }
-  .sc-meter i.on { background: var(--kd-signal-1); }
+  /* revenue at risk and added cost: relative bars, no figures */
+  .sc-bars { display: grid; gap: 8px; margin: 18px 0 16px; }
+  .sc-bar { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 10px; font-size: 13px; color: var(--kd-lilac-soft); }
+  .sc-bar div { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .14); overflow: hidden; }
+  .sc-bar i { display: block; height: 100%; width: 0; border-radius: 4px; transition: width .4s ease; }
+  .sc-bar--rev i { background: var(--kd-signal-1); }
+  .sc-bar--cost i { background: var(--kd-lilac); }
+
   .sc-r b { display: block; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
-  .sc-r p { margin: 10px 0 0; font-size: 17px; line-height: 1.5; color: var(--kd-lilac-soft); }
-  .sc-cta { margin-top: 20px; background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
-  .sc-cta:hover { transform: translateY(-2px); }
+  .sc-r p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--kd-lilac-soft); }
+  .sc-impact { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .16); display: grid; gap: 8px; }
+  .sc-impact[hidden], .sc-r[hidden] { display: none; }
+  .sc-impact-h { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-lilac); }
+  .sc-impact-l { margin: 0; display: grid; grid-template-columns: 112px 1fr; gap: 10px; font-size: 15px; line-height: 1.45; }
+  .sc-impact-l span { font-size: 13px; font-weight: var(--kd-weight-medium); }
+  .sc-impact-l--rev span { color: var(--kd-signal-1); }
+  .sc-impact-l--cost span { color: var(--kd-lilac); }
+  @media (max-width: 560px) { .sc-bar, .sc-impact-l { grid-template-columns: 96px 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .sc-wf-body *, .sc-wf-body, .sc-bar i { transition: none !important; } }
 </style>
 
 <script is:inline>
-  // Counts the ticked statements and shows the matching result.
+  // Each tick: the wireframe gains that statement's flaw, both bars grow by its
+  // weight, the text shows what the latest ticked statement costs, and the
+  // title follows the count.
   document.querySelectorAll('[data-sc]').forEach(function (root) {
     root.classList.add('is-js');
-    var boxes = root.querySelectorAll('.sc-box');
-    var bars = root.querySelectorAll('.sc-meter i');
-    var results = root.querySelectorAll('.sc-r');
+    var boxes = Array.prototype.slice.call(root.querySelectorAll('.sc-box'));
+    var max = root.getAttribute('data-max').split(',').map(Number);
     var wf = root.querySelector('.sc-wf');
-    function update() {
-      var n = 0;
+    var revBar = root.querySelector('.sc-bar--rev i'), costBar = root.querySelector('.sc-bar--cost i');
+    var results = root.querySelectorAll('.sc-r');
+    var impacts = root.querySelectorAll('.sc-impact');
+    var order = []; // tick order, newest last
+    function update(changed) {
+      var n = 0, rev = 0, cost = 0;
+      if (changed) {
+        var k = +changed.getAttribute('data-i');
+        order = order.filter(function (x) { return x !== k; });
+        if (changed.checked) order.push(k);
+      }
       boxes.forEach(function (b, i) {
-        if (b.checked) n++;
-        // statement i adds flaw i+1 to the wireframe
+        if (b.checked) {
+          n++;
+          var w = b.getAttribute('data-w').split(',').map(Number);
+          rev += w[0]; cost += w[1];
+        }
         if (wf && i < 6) wf.classList.toggle('d' + (i + 1), b.checked);
       });
-      bars.forEach(function (bar, i) { bar.classList.toggle('on', i < n); });
+      revBar.style.width = (max[0] ? (rev / max[0]) * 100 : 0) + '%';
+      costBar.style.width = (max[1] ? (cost / max[1]) * 100 : 0) + '%';
       var key = n === 0 ? 'none' : n < 3 ? 'some' : 'many';
       results.forEach(function (r) { r.hidden = r.getAttribute('data-r') !== key; });
+      var latest = order.length ? order[order.length - 1] : -1;
+      impacts.forEach(function (el) { el.hidden = +el.getAttribute('data-impact') !== latest; });
     }
-    boxes.forEach(function (b) { b.addEventListener('change', update); });
-    update();
+    boxes.forEach(function (b) { b.addEventListener('change', function () { update(b); }); });
+    update(null);
   });
 </script>
