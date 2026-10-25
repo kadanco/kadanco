@@ -67,11 +67,11 @@ export const productDesign: UseCasePage = {
       h2b: 'Where Users Stop, What They Reach.',
       lede: 'We agree the numbers that matter at kickoff and track them with every release.',
       items: [
-        { title: 'Activation rate', body: 'How many new users reach their first real result.', dir: 'up' },
-        { title: 'Time to first result', body: 'How long it takes from signup to that result.', dir: 'down' },
-        { title: 'Trial to paid', body: 'How many trials turn into customers without a sales call.', dir: 'up' },
-        { title: 'Support tickets per new user', body: 'How often new users need help to get going.', dir: 'down' },
-        { title: 'Time to ship a screen', body: 'How fast your team builds a new screen from the system.', dir: 'down' },
+        { title: 'Activation rate', body: 'How many new users reach their first real result.', dir: 'up', change: 'More new users reach their first result on their own.', cause: 'The guided first run removes the steps where they used to drop off.' },
+        { title: 'Time to first result', body: 'How long it takes from signup to that result.', dir: 'down', change: 'Fewer steps between signup and the first result.', cause: 'We cut and merge setup steps and show the next action on every screen.' },
+        { title: 'Trial to paid', body: 'How many trials turn into customers without a sales call.', dir: 'up', change: 'More trials turn into customers without a sales call.', cause: 'Users see the value during the trial, so the product makes the case itself.' },
+        { title: 'Support tickets per new user', body: 'How often new users need help to get going.', dir: 'down', change: 'Fewer "how do I" questions from new users.', cause: 'Clear screens, helpful empty states and in-app guidance answer them first.' },
+        { title: 'Time to ship a screen', body: 'How fast your team builds a new screen from the system.', dir: 'down', change: 'New screens go from idea to release faster.', cause: 'Developers build new screens from ready components in the library.' },
       ],
     },
     ways: {
@@ -174,11 +174,11 @@ export const productDesign: UseCasePage = {
       h2b: 'Wo Nutzer aufhören, was sie erreichen.',
       lede: 'Zum Start legen wir die Zahlen fest, die zählen, und verfolgen sie mit jedem Release.',
       items: [
-        { title: 'Aktivierungsrate', body: 'Wie viele neue Nutzer ihr erstes echtes Ergebnis erreichen.', dir: 'up' },
-        { title: 'Zeit bis zum ersten Ergebnis', body: 'Wie lange es von der Anmeldung bis dahin dauert.', dir: 'down' },
-        { title: 'Test zu Kunde', body: 'Wie viele Testphasen ohne Vertriebsgespräch zu Kunden werden.', dir: 'up' },
-        { title: 'Support-Tickets pro neuem Nutzer', body: 'Wie oft neue Nutzer Hilfe brauchen, um loszulegen.', dir: 'down' },
-        { title: 'Zeit pro neuem Screen', body: 'Wie schnell Ihr Team einen neuen Screen aus dem System baut.', dir: 'down' },
+        { title: 'Aktivierungsrate', body: 'Wie viele neue Nutzer ihr erstes echtes Ergebnis erreichen.', dir: 'up', change: 'Mehr neue Nutzer erreichen ihr erstes Ergebnis allein.', cause: 'Der geführte Einstieg entfernt die Schritte, an denen sie früher abgesprungen sind.' },
+        { title: 'Zeit bis zum ersten Ergebnis', body: 'Wie lange es von der Anmeldung bis dahin dauert.', dir: 'down', change: 'Weniger Schritte zwischen Anmeldung und erstem Ergebnis.', cause: 'Wir kürzen und bündeln die Einrichtung und zeigen auf jedem Screen den nächsten Schritt.' },
+        { title: 'Test zu Kunde', body: 'Wie viele Testphasen ohne Vertriebsgespräch zu Kunden werden.', dir: 'up', change: 'Mehr Testphasen werden ohne Vertriebsgespräch zu Kunden.', cause: 'Nutzer sehen den Wert schon im Test, so überzeugt das Produkt selbst.' },
+        { title: 'Support-Tickets pro neuem Nutzer', body: 'Wie oft neue Nutzer Hilfe brauchen, um loszulegen.', dir: 'down', change: 'Weniger „Wie mache ich …“-Fragen von neuen Nutzern.', cause: 'Klare Screens, hilfreiche Leerzustände und Hinweise im Produkt beantworten sie vorher.' },
+        { title: 'Zeit pro neuem Screen', body: 'Wie schnell Ihr Team einen neuen Screen aus dem System baut.', dir: 'down', change: 'Neue Screens gehen schneller von der Idee bis zum Release.', cause: 'Entwickler bauen neue Screens aus fertigen Komponenten der Bibliothek.' },
       ],
     },
     ways: {

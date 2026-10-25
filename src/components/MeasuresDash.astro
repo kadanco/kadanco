@@ -10,11 +10,14 @@
 //   inbox     support tickets: a busy inbox next to a quiet one
 //   build     time to ship a screen: library parts that come together into a screen
 // No figures: the pictures show direction only, and a note says they are examples.
+// Each tile can explain itself: hover, keyboard focus or a tap opens a panel with
+// what changes and why (the cause: what we do). A small script toggles it on tap,
+// so touch screens without hover work too.
 // The parts grow in when the window scrolls into view (the inline script in
 // UseCaseDetail.astro adds .is-in to [data-dash]); reduced motion shows the end state.
 type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build';
-interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz }
-interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string } }
+interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz; change?: string; cause?: string }
+interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string; change: string; cause: string; hint: string } }
 const { items, labels } = Astro.props;
 const ORDER: Viz[] = ['funnel', 'path', 'columns', 'inbox', 'build'];
 const tiles = items.map((it, i) => ({ ...it, viz: it.viz ?? ORDER[i % ORDER.length] }));
@@ -26,7 +29,7 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
     <div class="md-side" aria-hidden="true"><b></b><em class="on"></em><em></em><em></em><em></em><em></em></div>
     <div class="md-grid">
       {tiles.map((t) => (
-        <section class={`md-tile md-tile--${t.viz}`}>
+        <section class:list={['md-tile', `md-tile--${t.viz}`, { 'md-tile--why': t.change }]} tabindex={t.change ? 0 : undefined}>
           <header class="md-head">
             <h3>{t.title}</h3>
             {t.dir && <span class="md-goal">{t.dir === 'up' ? `↑ ${labels.goalUp}` : `↓ ${labels.goalDown}`}</span>}
@@ -69,11 +72,19 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
           </div>
 
           <p>{t.body}</p>
+
+          {t.change && (
+            <div class="md-why">
+              <h4>{t.title}</h4>
+              <span class="md-why-l">{labels.change}</span><p>{t.change}</p>
+              <span class="md-why-l md-why-l--cause">{labels.cause}</span><p>{t.cause}</p>
+            </div>
+          )}
         </section>
       ))}
     </div>
   </div>
-  <p class="md-note">{labels.note}</p>
+  <p class="md-note">{labels.note} {tiles.some((t) => t.change) && labels.hint}</p>
 </div>
 
 <style>
@@ -174,6 +185,34 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
   .v-screen { display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); }
   .v-screen .p1 { width: 60%; } .v-screen .p2 { width: 46%; }
 
+  /* why panel: slides up over the tile on hover, keyboard focus or tap */
+  .md-tile--why { position: relative; overflow: hidden; cursor: pointer; outline: none; }
+  .md-tile--why:focus-visible { box-shadow: 0 0 0 2px var(--kd-blue-2); }
+  .md-why { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 22px; background: var(--kd-blue-1); color: var(--kd-white); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+  .md-why h4 { margin: 0 0 8px; font-size: 17px; line-height: 1.3; font-weight: var(--kd-weight-medium); }
+  .md-why-l { font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-signal-1); }
+  .md-why-l--cause { margin-top: 8px; color: var(--kd-lilac); }
+  .md .md-why p { margin: 0; font-size: 16px; line-height: 1.45; color: var(--kd-white); }
+  .md-tile--why:focus-visible .md-why, .md-tile--why.is-open .md-why { opacity: 1; transform: none; }
+  /* hover only where there is a real pointer; touch screens use the tap toggle (no sticky hover) */
+  @media (hover: hover) { .md-tile--why:hover .md-why { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .md-why { transition: none; transform: none; } }
+
   .md-note { margin: 0; padding: 0 18px 16px; font-size: 13px; color: var(--kd-fg-2); }
   @media (min-width: 881px) { .md-note { padding-left: 168px; } }
 </style>
+
+<script is:inline>
+  // Tap (or click) a tile to open its explanation; tapping again or another tile closes it.
+  document.querySelectorAll('[data-dash]').forEach(function (root) {
+    var tiles = root.querySelectorAll('.md-tile--why');
+    tiles.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var open = !t.classList.contains('is-open');
+        tiles.forEach(function (o) { o.classList.remove('is-open'); });
+        if (open) t.classList.add('is-open');
+      });
+      t.addEventListener('keydown', function (e) { if (e.key === 'Escape') t.blur(); });
+    });
+  });
+</script>
