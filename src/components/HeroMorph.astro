@@ -3,9 +3,10 @@
 // Product hero picture (heroVisual: 'morph'): the same app before and after.
 // Before is a realistic cluttered product: many CTAs, "?" and "!" hints, a
 // banner, a tour pop-up and a chat bubble. After is clean: one clear next step.
-// The after state wipes in from the left behind a lime line, holds, then the
-// loop starts again. With reduced motion both show side by side, split in the
-// middle. Wireframe style of the Product department: navy outline, white faces,
+// A slider compares them: before on the left, after on the right, split in the
+// middle at first. Drag the lime handle, tap or click the picture, or use the
+// arrow keys (a native range input sits over the picture, so touch, mouse and
+// keyboard all work). Without JavaScript the picture stays split in the middle. Wireframe style of the Product department: navy outline, white faces,
 // department colours. Decorative; the labels are short and follow the locale.
 import { asLocale } from '../i18n/utils';
 
@@ -13,14 +14,14 @@ interface Props { label: string }
 const { label } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const t = {
-  en: { before: 'Before', after: 'After', upgrade: 'Upgrade', demo: 'Book demo', invite: 'Invite', tour: 'Take the tour', isNew: 'New', next: 'Continue', step: 'Step 2 of 3' },
-  de: { before: 'Vorher', after: 'Nachher', upgrade: 'Upgrade', demo: 'Demo buchen', invite: 'Einladen', tour: 'Tour starten', isNew: 'Neu', next: 'Weiter', step: 'Schritt 2 von 3' },
+  en: { slider: 'Compare before and after', before: 'Before', after: 'After', upgrade: 'Upgrade', demo: 'Book demo', invite: 'Invite', tour: 'Take the tour', isNew: 'New', next: 'Continue', step: 'Step 2 of 3' },
+  de: { slider: 'Vorher und nachher vergleichen', before: 'Vorher', after: 'Nachher', upgrade: 'Upgrade', demo: 'Demo buchen', invite: 'Einladen', tour: 'Tour starten', isNew: 'Neu', next: 'Weiter', step: 'Schritt 2 von 3' },
 }[locale];
 ---
-<div class="hm" role="img" aria-label={label}>
+<div class="hm" data-hm>
   <div class="hm-win">
-    <div class="hm-bar"><i></i><i></i><i></i><span class="hm-tag hm-tag--b">{t.before}</span><span class="hm-tag hm-tag--a">{t.after}</span></div>
-    <div class="hm-stage">
+    <div class="hm-bar"><i></i><i></i><i></i></div>
+    <div class="hm-stage" role="img" aria-label={label}>
 
       <!-- BEFORE: cluttered -->
       <div class="hm-layer hm-before" aria-hidden="true">
@@ -80,7 +81,10 @@ const t = {
         </div>
       </div>
 
-      <span class="hm-wipe" aria-hidden="true"></span>
+      <span class="hm-tag hm-tag--b" aria-hidden="true">{t.before}</span>
+      <span class="hm-tag hm-tag--a" aria-hidden="true">{t.after}</span>
+      <span class="hm-handle" aria-hidden="true"><span class="hm-grip"><i></i><i></i></span></span>
+      <input class="hm-range" type="range" min="0" max="100" value="50" step="1" aria-label={t.slider} />
     </div>
   </div>
 </div>
@@ -90,11 +94,13 @@ const t = {
   .hm-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; box-shadow: 0 28px 56px -28px rgba(10, 0, 60, .6); color: var(--kd-blue-1); }
   .hm-bar { position: relative; display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--kd-blue-1); }
   .hm-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
-  .hm-tag { position: absolute; right: 10px; padding: 1px 9px; border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
-  .hm-tag--b { background: var(--kd-lilac); color: var(--kd-blue-1); }
-  .hm-tag--a { background: var(--kd-signal-1); color: var(--kd-blue-1); opacity: 0; }
+  .hm-tag { position: absolute; top: 8px; z-index: 3; padding: 1px 9px; border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; transition: opacity .2s ease; }
+  .hm-tag--b { left: 8px; background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .hm-tag--a { right: 8px; background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  /* hide a tag when its side is almost closed */
+  .hm-stage[data-edge="left"] .hm-tag--b, .hm-stage[data-edge="right"] .hm-tag--a { opacity: 0; }
 
-  .hm-stage { position: relative; aspect-ratio: 10 / 7; overflow: hidden; container-type: inline-size; }
+  .hm-stage { position: relative; aspect-ratio: 10 / 7; overflow: hidden; container-type: inline-size; --split: 50%; }
   .hm-layer { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--kd-white); font-size: clamp(7px, 2cqi, 11px); }
   .hm-layer em, .hm-layer b { display: block; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); }
   .hm-layer em.s { width: 60%; }
@@ -159,24 +165,33 @@ const t = {
   .hm-quiet { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .hm-quiet div { height: 54px; border-radius: var(--kd-radius); border: 1px solid color-mix(in srgb, var(--kd-blue-1) 12%, transparent); }
 
-  /* the wipe: after slides in from the left behind a lime line, holds, then the loop restarts */
-  .hm-after { clip-path: inset(0 0 0 0); }
-  .hm-wipe { position: absolute; top: 0; bottom: 0; left: 100%; width: 3px; margin-left: -1.5px; background: var(--kd-signal-1); box-shadow: 0 0 12px var(--kd-signal-1); opacity: 0; }
-  @media (prefers-reduced-motion: no-preference) {
-    .hm-after { animation: hm-after 8s cubic-bezier(.65, 0, .35, 1) infinite; }
-    .hm-wipe { animation: hm-wipe 8s cubic-bezier(.65, 0, .35, 1) infinite; }
-    .hm-tag--b { animation: hm-tag-b 8s infinite; }
-    .hm-tag--a { animation: hm-tag-a 8s infinite; }
-  }
-  @keyframes hm-after { 0%, 34% { clip-path: inset(0 100% 0 0); opacity: 1; } 52%, 88% { clip-path: inset(0 0 0 0); opacity: 1; } 96% { clip-path: inset(0 0 0 0); opacity: 0; } 100% { clip-path: inset(0 100% 0 0); opacity: 0; } }
-  @keyframes hm-wipe { 0%, 34% { left: 0%; opacity: 0; } 36% { opacity: 1; } 52% { left: 100%; opacity: 1; } 54%, 100% { left: 100%; opacity: 0; } }
-  @keyframes hm-tag-b { 0%, 42% { opacity: 1; } 46%, 94% { opacity: 0; } 100% { opacity: 1; } }
-  @keyframes hm-tag-a { 0%, 44% { opacity: 0; } 50%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
-  /* reduced motion: before and after side by side, split in the middle */
-  @media (prefers-reduced-motion: reduce) {
-    .hm-after { clip-path: inset(0 0 0 50%); }
-    .hm-wipe { left: 50%; opacity: 1; }
-    .hm-tag--b { right: auto; left: 60px; }
-    .hm-tag--a { opacity: 1; }
-  }
+  /* the slider: after shows right of the split line */
+  .hm-after { clip-path: inset(0 0 0 var(--split)); }
+  .hm-handle { position: absolute; top: 0; bottom: 0; left: var(--split); z-index: 2; width: 3px; margin-left: -1.5px; background: var(--kd-signal-1); box-shadow: 0 0 10px rgba(10, 0, 60, .35); pointer-events: none; }
+  .hm-grip { position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 50%; background: var(--kd-signal-1); box-shadow: 0 4px 12px -2px rgba(10, 0, 60, .45); }
+  .hm-grip i { width: 0; height: 0; border: 5px solid transparent; }
+  .hm-grip i:first-child { border-right-color: var(--kd-blue-1); border-left: 0; }
+  .hm-grip i:last-child { border-left-color: var(--kd-blue-1); border-right: 0; }
+  /* the native range input covers the picture: drag, tap and arrow keys all work */
+  .hm-range { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; -webkit-appearance: none; appearance: none; background: none; }
+  /* a 44px thumb on top of the lime handle, so touch screens that only drag the thumb work too */
+  .hm-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 44px; height: 44px; border-radius: 50%; cursor: ew-resize; }
+  .hm-range::-moz-range-thumb { width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: ew-resize; }
+  .hm-range::-webkit-slider-runnable-track { height: 100%; }
+  .hm-stage:has(.hm-range:focus-visible) .hm-grip { outline: 2px solid var(--kd-white); outline-offset: 2px; }
 </style>
+
+<script is:inline>
+  // Moves the split line with the slider; a tag hides when its side is almost closed.
+  document.querySelectorAll('[data-hm]').forEach(function (root) {
+    var stage = root.querySelector('.hm-stage');
+    var range = root.querySelector('.hm-range');
+    function set() {
+      var v = +range.value;
+      stage.style.setProperty('--split', v + '%');
+      stage.setAttribute('data-edge', v < 12 ? 'left' : v > 88 ? 'right' : '');
+    }
+    range.addEventListener('input', set);
+    set();
+  });
+</script>
