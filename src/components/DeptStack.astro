@@ -10,7 +10,7 @@
 // the one before it and only a slim edge of the earlier cards stays visible.
 // Each card lists exactly three entries; missing ones are placeholders.
 // The 24px card radius follows the design (exception to the 5px rule).
-import { useCases, type Dept } from '../data/use-cases';
+import { navCases, type Dept } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
 
 interface Card { id: Dept; label: string; title: string; body: string; link: string }
@@ -23,14 +23,14 @@ const ui = {
   de: { list: 'Use Cases', soon: 'Weitere Use Cases folgen', all: 'Alle Use Cases',
         alt: { product: 'Frau arbeitet am Laptop in einem hellen Büro', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Mann telefoniert am Laptop in einem Büro' } },
 }[locale];
-const PER_CARD = 3;
+const PER_CARD = 3; // most cases a card lists; cards list only the nav use cases, without placeholders
 
 const rows = cards.map((card) => {
-  const items = useCases.filter((u) => u.dept === card.id).slice(0, PER_CARD).map((u) => ({
+  const items = navCases.filter((u) => u.dept === card.id).slice(0, PER_CARD).map((u) => ({
     name: (u[locale] ?? u.en).name,
-    href: localizedHref(locale, u.kind === 'page' && u.href ? u.href : `/use-cases/#${u.id}`),
+    href: localizedHref(locale, u.href ?? '/'),
   }));
-  const placeholders = Math.max(0, PER_CARD - items.length);
+  const placeholders = 0;
   return { card, items, placeholders };
 });
 ---

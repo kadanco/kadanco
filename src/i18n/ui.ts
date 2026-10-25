@@ -29,10 +29,8 @@ export const localeNames: Record<Locale, string> = {
 export const translatedRoutes: Partial<Record<Locale, string[]>> = {
   de: [
     '/',
-    '/use-cases',
     '/use-cases/dach-market-entry',
     '/use-cases/product-design',
-    '/use-cases/software-modernisation',
     '/use-cases/website-production',
     '/use-cases/content-production',
     '/use-cases/positioning-and-brand',

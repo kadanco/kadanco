@@ -12,3 +12,8 @@
 /de/use-cases/founder-led-content/ /de/use-cases/content-production/     301
 /de/use-cases/event-pipeline       /de/use-cases/event-lead-generation/  301
 /de/use-cases/event-pipeline/      /de/use-cases/event-lead-generation/  301
+# the use case overview is hidden for now (owner, 2026-10-25); 302 so it can come back
+/use-cases              /                  302
+/use-cases/             /                  302
+/de/use-cases           /de/               302
+/de/use-cases/          /de/               302

@@ -19,6 +19,14 @@
 // the hero stack read from the foundation up. Within a department the order
 // below is kept.
 // Voice rules from masterplan D29 apply to every string.
+//
+// Where a use case shows (owner decision 2026-10-25): `show` lists the places.
+//   'nav'     the Use Cases dropdown and mobile menu, and the homepage department cards
+//   'footer'  the footer Use Cases column
+// A use case with neither (Software Modernisation) is hidden everywhere; its page file
+// is renamed with a leading underscore so Astro does not build it. Some use cases are
+// landing pages only (in the footer, not the nav): DACH Market Entry, Event Lead Generation.
+// Use navCases / footerCases below; useCases is the full list (hidden ones left out).
 
 import type { IsoIconName } from './iso-icons';
 
@@ -43,6 +51,7 @@ export interface UseCase {
   href?: string; // English path; localized by the page
   featured?: boolean;
   icon: IsoIconName;       // animated icon, also used in the nav
+  show: ('nav' | 'footer')[];  // where it is listed; empty = hidden everywhere
   en: UseCaseText;
   de: UseCaseText;
 }
@@ -51,6 +60,7 @@ const entries: UseCase[] = [
   // ---------- Product ----------
   {
     id: 'product-design',
+    show: ['nav', 'footer'],
     icon: 'board',
     dept: 'product',
     depts: ['product', 'marketing', 'sales'],
@@ -76,6 +86,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'website-production',
+    show: ['nav', 'footer'],
     icon: 'assets',
     dept: 'product',
     depts: ['product', 'marketing', 'sales'],
@@ -100,6 +111,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'software-modernisation',
+    show: [],
     icon: 'seo',
     dept: 'product',
     depts: ['product', 'sales'],
@@ -125,6 +137,7 @@ const entries: UseCase[] = [
   // ---------- Marketing ----------
   {
     id: 'dach-market-entry',
+    show: ['footer'],
     icon: 'pin',
     dept: 'marketing',
     depts: ['marketing', 'sales', 'product'],
@@ -149,6 +162,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'content-production',
+    show: ['nav', 'footer'],
     icon: 'posts',
     dept: 'marketing',
     depts: ['marketing', 'sales'],
@@ -173,6 +187,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'positioning-and-brand',
+    show: ['nav', 'footer'],
     icon: 'score',
     dept: 'marketing',
     depts: ['marketing', 'product', 'sales'],
@@ -197,7 +212,33 @@ const entries: UseCase[] = [
   },
   // ---------- Sales ----------
   {
+    id: 'account-based-marketing',
+    show: ['nav', 'footer'],
+    icon: 'network',
+    dept: 'sales',
+    depts: ['sales', 'marketing', 'product'],
+    kind: 'page',
+    href: '/use-cases/account-based-marketing/',
+    en: {
+      eyebrow: 'Target accounts',
+      name: 'Account-Based Marketing',
+      tagline: 'Campaigns and Outreach Aimed at Your Target Accounts',
+      summary: 'Ads, content and outreach focused on the few accounts you most want to win.',
+      own: 'Marketing and sales working one list of target accounts, with every decision maker reached and reporting that shows which accounts are moving.',
+      bundle: ['Target accounts & tiers', 'Buying group & messaging by role', 'LinkedIn ads & tailored pages', 'Coordinated outreach & handoff'],
+    },
+    de: {
+      eyebrow: 'Zielaccounts',
+      name: 'Account-Based Marketing',
+      tagline: 'Kampagnen und Ansprache für Ihre Zielaccounts',
+      summary: 'Anzeigen, Content und Ansprache, gebündelt auf die wenigen Accounts, die Sie am meisten gewinnen wollen.',
+      own: 'Marketing und Vertrieb arbeiten an einer Liste von Zielaccounts, erreichen jeden Entscheider und sehen im Reporting, welche Accounts sich bewegen.',
+      bundle: ['Zielaccounts & Stufen', 'Buying Center & Botschaften je Rolle', 'LinkedIn-Anzeigen & eigene Seiten', 'Abgestimmte Ansprache & Übergabe'],
+    },
+  },
+  {
     id: 'outbound-sales-pipeline',
+    show: ['nav', 'footer'],
     icon: 'plane',
     dept: 'sales',
     depts: ['sales', 'marketing'],
@@ -222,6 +263,7 @@ const entries: UseCase[] = [
   },
   {
     id: 'event-lead-generation',
+    show: ['footer'],
     icon: 'stage',
     dept: 'sales',
     depts: ['sales', 'marketing'],
@@ -244,33 +286,13 @@ const entries: UseCase[] = [
       bundle: ['Events, bewertet nach ICP-Überschneidung und Personendichte', 'LinkedIn- und Meta-ABM ab vier Wochen vorher, mit Kalender-Slots', 'Dinners und Roundtables, auf denen Deals entstehen', 'Anreicherung am selben Tag, CRM-Sync und sequenziertes Follow-up'],
     },
   },
-  {
-    id: 'account-based-marketing',
-    icon: 'network',
-    dept: 'sales',
-    depts: ['sales', 'marketing', 'product'],
-    kind: 'page',
-    href: '/use-cases/account-based-marketing/',
-    en: {
-      eyebrow: 'Target accounts',
-      name: 'Account-Based Marketing',
-      tagline: 'Campaigns and Outreach Aimed at Your Target Accounts',
-      summary: 'Ads, content and outreach focused on the few accounts you most want to win.',
-      own: 'Marketing and sales working one list of target accounts, with every decision maker reached and reporting that shows which accounts are moving.',
-      bundle: ['Target accounts & tiers', 'Buying group & messaging by role', 'LinkedIn ads & tailored pages', 'Coordinated outreach & handoff'],
-    },
-    de: {
-      eyebrow: 'Zielaccounts',
-      name: 'Account-Based Marketing',
-      tagline: 'Kampagnen und Ansprache für Ihre Zielaccounts',
-      summary: 'Anzeigen, Content und Ansprache, gebündelt auf die wenigen Accounts, die Sie am meisten gewinnen wollen.',
-      own: 'Marketing und Vertrieb arbeiten an einer Liste von Zielaccounts, erreichen jeden Entscheider und sehen im Reporting, welche Accounts sich bewegen.',
-      bundle: ['Zielaccounts & Stufen', 'Buying Center & Botschaften je Rolle', 'LinkedIn-Anzeigen & eigene Seiten', 'Abgestimmte Ansprache & Übergabe'],
-    },
-  },
 ];
 
 const deptOrder: Dept[] = ['product', 'marketing', 'sales'];
 
 // Array.prototype.sort is stable, so entries keep their order within a department.
-export const useCases: UseCase[] = [...entries].sort((a, b) => deptOrder.indexOf(a.dept) - deptOrder.indexOf(b.dept));
+export const useCases: UseCase[] = [...entries].filter((u) => u.show.length).sort((a, b) => deptOrder.indexOf(a.dept) - deptOrder.indexOf(b.dept));
+// listed in the nav and on the homepage department cards
+export const navCases = useCases.filter((u) => u.show.includes('nav'));
+// listed in the footer (nav cases plus the landing-page-only ones)
+export const footerCases = useCases.filter((u) => u.show.includes('footer'));

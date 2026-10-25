@@ -5,14 +5,15 @@
 // Use cases come from src/data/use-cases.ts. To add a resource (for example
 // blog posts later), add one entry to `resources` below.
 
-import { useCases } from './use-cases';
+import { navCases, footerCases } from './use-cases';
 import type { Locale } from '../i18n/ui';
 import type { IsoIconName } from './iso-icons';
 
 export type MenuItem = { label: string; href: string; all?: boolean; icon?: IsoIconName };
 export type Menu = { key: string; items: MenuItem[] };
 
-export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
+// place: 'nav' lists the nav use cases, 'footer' the footer ones (see src/data/use-cases.ts)
+export function siteMenus(locale: Locale, t: (key: string) => string, place: 'nav' | 'footer' = 'nav'): Menu[] {
   // service names, owner decision 2026-10-22
   const names = {
     en: ['Product Design & Development', 'Digital Marketing & Branding', 'Sales Support & Systems'],
@@ -23,10 +24,9 @@ export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
     { label: names[1], href: '/#marketing', icon: 'target' },
     { label: names[2], href: '/#sales', icon: 'growth' },
   ];
-  // pages link to their detail page; case studies to their card on /use-cases/
-  const cases: MenuItem[] = useCases.map((u) => ({
+  const cases: MenuItem[] = (place === 'nav' ? navCases : footerCases).map((u) => ({
     label: (u[locale] ?? u.en).name,
-    href: u.kind === 'page' && u.href ? u.href : `/use-cases/#${u.id}`,
+    href: u.href ?? '/',
     icon: u.icon,
   }));
   const resources: MenuItem[] = [
@@ -35,7 +35,7 @@ export function siteMenus(locale: Locale, t: (key: string) => string): Menu[] {
   ];
   return [
     { key: 'nav.services', items: services },
-    { key: 'nav.usecases', items: [...cases, { label: t('nav.allusecases'), href: '/use-cases/', all: true }] },
+    { key: 'nav.usecases', items: cases }, // no "All use cases": the overview page is hidden for now
     { key: 'nav.resources', items: resources },
   ];
 }

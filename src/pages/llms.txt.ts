@@ -41,7 +41,7 @@ export const GET: APIRoute = () => {
 ## Core pages
 
 - [Home](${SITE}/): What Kadanco does, the three services (Product Design & Development, Digital Marketing & Branding, Sales Support & Systems), the use cases it delivers, the founders, and answers to common questions.
-- [Use cases](${SITE}/use-cases/): Nine use cases across product, marketing and sales: Product Design, Website Production, Software Modernisation, DACH Market Entry, Content Production, Positioning and Brand, Outbound Sales Pipeline, Event Lead Generation and Account-Based Marketing. Most touch more than one department, and the page filters by each.
+- Use cases across product, marketing and sales: [Product Design](${SITE}/use-cases/product-design/), [Website Production](${SITE}/use-cases/website-production/), [Content Production](${SITE}/use-cases/content-production/), [Positioning and Brand](${SITE}/use-cases/positioning-and-brand/), [Account-Based Marketing](${SITE}/use-cases/account-based-marketing/), [Outbound Sales Pipeline](${SITE}/use-cases/outbound-sales-pipeline/), [DACH Market Entry](${SITE}/use-cases/dach-market-entry/), [Event Lead Generation](${SITE}/use-cases/event-lead-generation/).
 - [Marketing glossary](${SITE}/glossary/): A reference library of ${total} B2B marketing terms across ${cats.length} categories. Each entry has a plain definition, why it matters, what good looks like, and an operator's take.
 - [Imprint and privacy](${SITE}/imprint/): Legal information (Impressum) and privacy policy.
 

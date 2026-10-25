@@ -17,7 +17,7 @@ const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 const year = new Date().getFullYear();
 
-const menus = siteMenus(locale, t);
+const menus = siteMenus(locale, t, 'footer');
 ---
 <footer class="footer">
   <div class="container">
