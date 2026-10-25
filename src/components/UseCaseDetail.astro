@@ -18,6 +18,7 @@ import StepsProductUI from './StepsProductUI.astro';
 import StepsScene from './StepsScene.astro';
 import SelfCheck from './SelfCheck.astro';
 import DeliverableTabs from './DeliverableTabs.astro';
+import HeroMorph from './HeroMorph.astro';
 import type { UseCasePage, Mark } from '../data/use-case-pages/types';
 import { asLocale, localizedHref } from '../i18n/utils';
 
@@ -32,23 +33,6 @@ const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and 
 const light = [c.check && 'check', c.situation && 'situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', c.deliverables && 'deliverables', c.inside && 'inside', c.also && 'also', c.outcomes && 'outcomes', c.measures && 'measures', c.ways && 'ways', c.operator && 'operator', c.timeline && 'timeline', c.stories && 'stories', 'faq'].filter(Boolean);
 const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 'org'] as const;
 const scene = SCENES.find((k) => k === page.stepsLayout);
-// hero 'morph' picture: each block has a cluttered state (b) and a clean state (g):
-// left, top, width, height in % of the app body, rotation, colour, opacity
-const MORPH = [
-  { b: [6, 6, 58, 8, -3, 'var(--kd-lilac)'], g: [8, 8, 52, 8, 0, 'var(--kd-blue-1)'] },              // title
-  { b: [34, 21, 60, 4, 4, 'var(--mo-wf)'], g: [8, 22, 78, 4, 0, 'var(--mo-wf)'] },                    // text
-  { b: [3, 30, 40, 4, -7, 'var(--mo-wf)'], g: [8, 29, 56, 4, 0, 'var(--mo-wf)'] },                    // text
-  { b: [50, 34, 46, 26, 6, 'var(--kd-signal-1)'], g: [8, 40, 40, 30, 0, 'var(--kd-lilac-tint)'] },    // card
-  { b: [5, 44, 34, 36, -5, 'var(--kd-lilac)'], g: [52, 40, 40, 30, 0, 'var(--kd-lilac-tint)'] },      // card
-  { b: [58, 68, 32, 10, 9, 'var(--kd-blue-2)'], g: [8, 80, 32, 10, 0, 'var(--kd-blue-2)'] },          // main button
-  { b: [12, 85, 26, 9, -11, 'var(--kd-signal-1)'], g: [44, 80, 24, 10, 0, 'transparent'], ghost: true }, // second button
-  { b: [40, 58, 22, 9, 14, 'var(--kd-lilac)'], g: [44, 58, 10, 9, 0, 'var(--kd-lilac)'], o: [1, 0] },  // extra button, removed
-  { b: [78, 6, 14, 18, 0, 'var(--kd-signal-1)'], g: [80, 8, 12, 16, 0, 'var(--kd-signal-1)'], o: [1, 0], round: true }, // help bubble, removed
-];
-const morphStyle = (m: (typeof MORPH)[number]) => {
-  const [bl, bt, bw, bh, br, bc] = m.b, [gl, gt, gw, gh, gr, gc] = m.g, [bo, go] = m.o ?? [1, 1];
-  return `--bl:${bl}%;--bt:${bt}%;--bw:${bw}%;--bh:${bh}%;--br:${br}deg;--bc:${bc};--bo:${bo};--gl:${gl}%;--gt:${gt}%;--gw:${gw}%;--gh:${gh}%;--gr:${gr}deg;--gc:${gc};--go:${go}`;
-};
 // route card marks: check, half, cross
 const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
@@ -72,14 +56,7 @@ const ui = {
         </div>
       </div>
       {page.heroVisual === 'morph' ? (
-        <div class="ucd-hero-visual ucd-app" role="img" aria-label={locale === 'de' ? 'Eine unübersichtliche App wird zu einer klaren App' : 'A cluttered app turning into a clear one'}>
-          <div class="ucd-app-win ucd-mo">
-            <div class="ucd-app-bar"><i></i><i></i><i></i><span class="ucd-mo-tag ucd-mo-tag--b">{locale === 'de' ? 'Vorher' : 'Before'}</span><span class="ucd-mo-tag ucd-mo-tag--g">{locale === 'de' ? 'Nachher' : 'After'}</span></div>
-            <div class="ucd-mo-body">
-              {MORPH.map((m) => <span class:list={['ucd-mo-el', { 'ucd-mo-el--ghost': m.ghost, 'ucd-mo-el--round': m.round }]} style={morphStyle(m)}></span>)}
-            </div>
-          </div>
-        </div>
+        <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroMorph label={locale === 'de' ? 'Dieselbe App vorher, unübersichtlich, und nachher, klar' : 'The same app before, cluttered, and after, clear'} /></div>
       ) : page.heroVisual === 'app' ? (
         <div class="ucd-hero-visual ucd-app" role="img" aria-label={c.crumb}>
           <div class="ucd-app-win">
@@ -525,26 +502,8 @@ const ui = {
   .ucd-app-card { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--kd-lilac); border-radius: var(--kd-radius); }
   .ucd-app-prog { height: 8px; border-radius: 4px; background: var(--kd-lilac-tint); overflow: hidden; }
   .ucd-app-prog u { display: block; width: 66%; height: 100%; background: var(--kd-signal-1); }
-  /* 'morph': every block moves from its cluttered state to its clean state and back */
-  .ucd-mo { --mo-wf: color-mix(in srgb, var(--kd-blue-1) 18%, transparent); }
-  .ucd-mo .ucd-app-bar { position: relative; align-items: center; }
-  .ucd-mo-tag { position: absolute; right: 10px; padding: 1px 8px; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; opacity: 0; }
-  .ucd-mo-tag--g { opacity: 1; }
-  .ucd-mo-body { position: relative; aspect-ratio: 4 / 3.2; }
-  .ucd-mo-el { position: absolute; border-radius: 3px; left: var(--gl); top: var(--gt); width: var(--gw); height: var(--gh); transform: rotate(var(--gr)); background: var(--gc); opacity: var(--go); }
-  .ucd-mo-el--ghost { box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
-  .ucd-mo-el--round { border-radius: 50%; }
-  @media (prefers-reduced-motion: no-preference) {
-    .ucd-mo-el { animation: ucd-morph 7s cubic-bezier(.65, 0, .35, 1) infinite; }
-    .ucd-mo-tag--b { animation: ucd-mo-b 7s infinite; }
-    .ucd-mo-tag--g { animation: ucd-mo-g 7s infinite; }
-  }
-  @keyframes ucd-morph {
-    0%, 30%, 100% { left: var(--bl); top: var(--bt); width: var(--bw); height: var(--bh); transform: rotate(var(--br)); background: var(--bc); opacity: var(--bo); }
-    48%, 86% { left: var(--gl); top: var(--gt); width: var(--gw); height: var(--gh); transform: rotate(var(--gr)); background: var(--gc); opacity: var(--go); }
-  }
-  @keyframes ucd-mo-b { 0%, 32% { opacity: 1; } 38%, 92% { opacity: 0; } 100% { opacity: 1; } }
-  @keyframes ucd-mo-g { 0%, 40% { opacity: 0; } 48%, 86% { opacity: 1; } 92%, 100% { opacity: 0; } }
+  /* 'morph': no navy box, the before/after app (HeroMorph.astro) fills the space */
+  .ucd-hero-visual.ucd-hero-visual--bare { display: block; aspect-ratio: auto; padding: 0; background: none; }
   .ucd-app-btn { display: block; width: 45%; height: 30px; margin-top: 4px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
   @media (max-width: 880px) {
     .ucd-hero { min-height: 0; } /* stacked: height follows the content */

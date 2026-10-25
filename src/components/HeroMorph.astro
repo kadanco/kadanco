@@ -1,0 +1,182 @@
+---
+// src/components/HeroMorph.astro
+// Product hero picture (heroVisual: 'morph'): the same app before and after.
+// Before is a realistic cluttered product: many CTAs, "?" and "!" hints, a
+// banner, a tour pop-up and a chat bubble. After is clean: one clear next step.
+// The after state wipes in from the left behind a lime line, holds, then the
+// loop starts again. With reduced motion both show side by side, split in the
+// middle. Wireframe style of the Product department: navy outline, white faces,
+// department colours. Decorative; the labels are short and follow the locale.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string }
+const { label } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { before: 'Before', after: 'After', upgrade: 'Upgrade', demo: 'Book demo', invite: 'Invite', tour: 'Take the tour', isNew: 'New', next: 'Continue', step: 'Step 2 of 3' },
+  de: { before: 'Vorher', after: 'Nachher', upgrade: 'Upgrade', demo: 'Demo buchen', invite: 'Einladen', tour: 'Tour starten', isNew: 'Neu', next: 'Weiter', step: 'Schritt 2 von 3' },
+}[locale];
+---
+<div class="hm" role="img" aria-label={label}>
+  <div class="hm-win">
+    <div class="hm-bar"><i></i><i></i><i></i><span class="hm-tag hm-tag--b">{t.before}</span><span class="hm-tag hm-tag--a">{t.after}</span></div>
+    <div class="hm-stage">
+
+      <!-- BEFORE: cluttered -->
+      <div class="hm-layer hm-before" aria-hidden="true">
+        <div class="hm-top">
+          <span class="hm-logo"></span>
+          <span class="hm-nav"><em></em><em></em><em></em><em></em><em></em></span>
+          <span class="hm-btn hm-btn--lime">{t.upgrade}</span>
+          <span class="hm-btn hm-btn--blue">{t.demo}</span>
+          <span class="hm-btn hm-btn--line">{t.invite}</span>
+          <span class="hm-bell">!</span>
+        </div>
+        <div class="hm-banner"><span class="hm-chip">{t.isNew}</span><em></em><em class="s"></em><span class="hm-x">×</span></div>
+        <div class="hm-main">
+          <div class="hm-side">
+            {Array.from({ length: 9 }).map((_, i) => <em class={i === 2 || i === 6 ? 'n' : ''}></em>)}
+          </div>
+          <div class="hm-content">
+            <div class="hm-head"><span class="hm-title"></span><span class="hm-btn hm-btn--sm"></span><span class="hm-btn hm-btn--sm"></span><span class="hm-btn hm-btn--sm hm-btn--line"></span></div>
+            <div class="hm-kpis">
+              {Array.from({ length: 4 }).map(() => <div class="hm-kpi"><b></b><em></em><span class="hm-q">?</span></div>)}
+            </div>
+            <div class="hm-table">
+              {Array.from({ length: 6 }).map(() => <div class="hm-row"><em></em><em></em><em></em><em></em></div>)}
+            </div>
+          </div>
+        </div>
+        <div class="hm-pop">
+          <span class="hm-pop-x">×</span>
+          <b>{t.tour}</b><em></em><em class="s"></em>
+          <span class="hm-btn hm-btn--blue">{t.tour}</span>
+        </div>
+        <span class="hm-hint hm-hint--1">!</span>
+        <span class="hm-hint hm-hint--2">?</span>
+        <span class="hm-hint hm-hint--3">?</span>
+        <span class="hm-chat">?</span>
+      </div>
+
+      <!-- AFTER: clean and clear -->
+      <div class="hm-layer hm-after" aria-hidden="true">
+        <div class="hm-top hm-top--clean">
+          <span class="hm-logo"></span>
+          <span class="hm-search"></span>
+          <span class="hm-avatar"></span>
+        </div>
+        <div class="hm-main">
+          <div class="hm-side hm-side--clean"><em class="on"></em><em></em><em></em><em></em></div>
+          <div class="hm-content hm-content--clean">
+            <span class="hm-title hm-title--lg"></span>
+            <em class="hm-sub"></em>
+            <div class="hm-steps"><b class="on"></b><s class="on"></s><b class="on"></b><s></s><b></b><span>{t.step}</span></div>
+            <div class="hm-next">
+              <div><span class="hm-title"></span><em></em><em class="s"></em></div>
+              <span class="hm-btn hm-btn--blue hm-btn--lg">{t.next}</span>
+            </div>
+            <div class="hm-quiet"><div></div><div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <span class="hm-wipe" aria-hidden="true"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hm { width: 100%; }
+  .hm-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; box-shadow: 0 28px 56px -28px rgba(10, 0, 60, .6); color: var(--kd-blue-1); }
+  .hm-bar { position: relative; display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--kd-blue-1); }
+  .hm-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .hm-tag { position: absolute; right: 10px; padding: 1px 9px; border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
+  .hm-tag--b { background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .hm-tag--a { background: var(--kd-signal-1); color: var(--kd-blue-1); opacity: 0; }
+
+  .hm-stage { position: relative; aspect-ratio: 10 / 7; overflow: hidden; container-type: inline-size; }
+  .hm-layer { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--kd-white); font-size: clamp(7px, 2cqi, 11px); }
+  .hm-layer em, .hm-layer b { display: block; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); }
+  .hm-layer em.s { width: 60%; }
+
+  /* shared pieces */
+  .hm-top { display: flex; align-items: center; gap: 5px; padding: 7px 9px; border-bottom: 1px solid color-mix(in srgb, var(--kd-blue-1) 14%, transparent); }
+  .hm-logo { flex: none; width: 9%; height: 12px; border-radius: 3px; background: var(--kd-blue-1); }
+  .hm-btn { flex: none; display: inline-flex; align-items: center; justify-content: center; padding: 3px 7px; border-radius: var(--kd-radius); white-space: nowrap; font-weight: var(--kd-weight-medium); line-height: 1.2; }
+  .hm-btn--lime { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .hm-btn--blue { background: var(--kd-blue-2); color: var(--kd-white); }
+  .hm-btn--line { box-shadow: inset 0 0 0 1.5px var(--kd-blue-2); color: var(--kd-blue-2); }
+  .hm-btn--sm { width: 9%; height: 13px; padding: 0; background: var(--kd-lilac); }
+  .hm-main { flex: 1; display: flex; min-height: 0; }
+  .hm-side { flex: none; width: 17%; display: grid; align-content: start; gap: 6px; padding: 9px 8px; background: color-mix(in srgb, var(--kd-blue-1) 5%, transparent); }
+  .hm-content { flex: 1; min-width: 0; display: grid; align-content: start; gap: 7px; padding: 9px; }
+  .hm-title { display: block; width: 30%; height: 9px; border-radius: 3px; background: var(--kd-blue-1); }
+
+  /* BEFORE: busy */
+  .hm-nav { flex: 1; display: flex; gap: 4px; }
+  .hm-nav em { flex: 1; }
+  .hm-bell { flex: none; width: 15px; height: 15px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-blue-1); color: var(--kd-signal-1); font-weight: var(--kd-weight-medium); }
+  .hm-banner { display: flex; align-items: center; gap: 6px; padding: 5px 9px; background: var(--kd-lilac-tint); }
+  .hm-banner em { flex: 1; }
+  .hm-chip { padding: 1px 6px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-weight: var(--kd-weight-medium); }
+  .hm-x, .hm-pop-x { font-size: 1.3em; line-height: 1; color: var(--kd-blue-1); opacity: .6; }
+  .hm-side em.n { background: var(--kd-signal-1); }
+  .hm-head { display: flex; align-items: center; gap: 4px; }
+  .hm-head .hm-title { margin-right: auto; }
+  .hm-kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+  .hm-kpi { position: relative; display: grid; gap: 4px; padding: 6px; border-radius: 3px; border: 1px solid var(--kd-lilac); }
+  .hm-kpi b { width: 50%; height: 9px; background: var(--kd-lilac); }
+  .hm-q, .hm-hint, .hm-chat { display: grid; place-items: center; border-radius: 50%; font-weight: var(--kd-weight-medium); line-height: 1; }
+  .hm-q { position: absolute; top: 3px; right: 3px; width: 11px; height: 11px; background: var(--kd-blue-2); color: var(--kd-white); font-size: .85em; }
+  .hm-table { display: grid; gap: 4px; }
+  .hm-row { display: grid; grid-template-columns: 2fr 1fr 1fr .6fr; gap: 5px; padding: 3px 0; border-bottom: 1px solid color-mix(in srgb, var(--kd-blue-1) 8%, transparent); }
+  .hm-pop { position: absolute; right: 7%; bottom: 13%; width: 34%; display: grid; gap: 5px; padding: 9px; border-radius: var(--kd-radius); background: var(--kd-white); border: 1.5px solid var(--kd-blue-1); box-shadow: 0 10px 22px -10px rgba(10, 0, 60, .45); }
+  .hm-pop b { width: auto; height: auto; background: none; font-weight: var(--kd-weight-medium); }
+  .hm-pop-x { position: absolute; top: 4px; right: 6px; }
+  .hm-pop .hm-btn { justify-self: start; }
+  .hm-hint { position: absolute; width: 16px; height: 16px; background: var(--kd-signal-1); color: var(--kd-blue-1); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kd-signal-1) 35%, transparent); }
+  .hm-hint--1 { top: 34%; left: 44%; } .hm-hint--2 { top: 58%; left: 12%; } .hm-hint--3 { top: 20%; right: 30%; }
+  .hm-chat { position: absolute; left: 4%; bottom: 5%; width: 22px; height: 22px; background: var(--kd-blue-2); color: var(--kd-white); font-size: 1.2em; }
+
+  /* AFTER: clean */
+  .hm-top--clean { gap: 10px; }
+  .hm-search { flex: 1; max-width: 40%; height: 13px; margin: 0 auto; border-radius: var(--kd-radius); border: 1.5px solid color-mix(in srgb, var(--kd-blue-1) 18%, transparent); }
+  .hm-avatar { flex: none; width: 15px; height: 15px; border-radius: 50%; background: var(--kd-lilac); }
+  .hm-side--clean { gap: 9px; padding-top: 14px; }
+  .hm-side--clean em.on { background: var(--kd-blue-2); }
+  .hm-content--clean { gap: 10px; padding: 16px 18px; }
+  .hm-title--lg { width: 46%; height: 13px; }
+  .hm-after .hm-sub { width: 64%; }
+  .hm-steps { display: flex; align-items: center; gap: 0; margin-top: 4px; }
+  .hm-steps b { width: 10px; height: 10px; border-radius: 50%; background: none; border: 2px solid var(--kd-lilac); }
+  .hm-steps b.on { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
+  .hm-steps s { width: 12%; height: 2px; background: var(--kd-lilac); }
+  .hm-steps s.on { background: var(--kd-blue-2); }
+  .hm-steps span { margin-left: 8px; color: var(--kd-blue-1); opacity: .7; }
+  .hm-next { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-2); background: color-mix(in srgb, var(--kd-blue-2) 5%, var(--kd-white)); }
+  .hm-next > div { flex: 1; display: grid; gap: 6px; }
+  .hm-btn--lg { padding: 5px 12px; }
+  .hm-quiet { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .hm-quiet div { height: 54px; border-radius: var(--kd-radius); border: 1px solid color-mix(in srgb, var(--kd-blue-1) 12%, transparent); }
+
+  /* the wipe: after slides in from the left behind a lime line, holds, then the loop restarts */
+  .hm-after { clip-path: inset(0 0 0 0); }
+  .hm-wipe { position: absolute; top: 0; bottom: 0; left: 100%; width: 3px; margin-left: -1.5px; background: var(--kd-signal-1); box-shadow: 0 0 12px var(--kd-signal-1); opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hm-after { animation: hm-after 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+    .hm-wipe { animation: hm-wipe 8s cubic-bezier(.65, 0, .35, 1) infinite; }
+    .hm-tag--b { animation: hm-tag-b 8s infinite; }
+    .hm-tag--a { animation: hm-tag-a 8s infinite; }
+  }
+  @keyframes hm-after { 0%, 34% { clip-path: inset(0 100% 0 0); opacity: 1; } 52%, 88% { clip-path: inset(0 0 0 0); opacity: 1; } 96% { clip-path: inset(0 0 0 0); opacity: 0; } 100% { clip-path: inset(0 100% 0 0); opacity: 0; } }
+  @keyframes hm-wipe { 0%, 34% { left: 0%; opacity: 0; } 36% { opacity: 1; } 52% { left: 100%; opacity: 1; } 54%, 100% { left: 100%; opacity: 0; } }
+  @keyframes hm-tag-b { 0%, 42% { opacity: 1; } 46%, 94% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes hm-tag-a { 0%, 44% { opacity: 0; } 50%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  /* reduced motion: before and after side by side, split in the middle */
+  @media (prefers-reduced-motion: reduce) {
+    .hm-after { clip-path: inset(0 0 0 50%); }
+    .hm-wipe { left: 50%; opacity: 1; }
+    .hm-tag--b { right: auto; left: 60px; }
+    .hm-tag--a { opacity: 1; }
+  }
+</style>
