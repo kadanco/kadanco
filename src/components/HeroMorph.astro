@@ -81,9 +81,11 @@ const t = {
         </div>
       </div>
 
-      <span class="hm-tag hm-tag--b" aria-hidden="true">{t.before}</span>
-      <span class="hm-tag hm-tag--a" aria-hidden="true">{t.after}</span>
-      <span class="hm-handle" aria-hidden="true"><span class="hm-grip"><i></i><i></i></span></span>
+      <span class="hm-handle" aria-hidden="true">
+        <span class="hm-tag hm-tag--b">{t.before}</span>
+        <span class="hm-grip"><i></i><i></i></span>
+        <span class="hm-tag hm-tag--a">{t.after}</span>
+      </span>
       <input class="hm-range" type="range" min="0" max="100" value="50" step="1" aria-label={t.slider} />
     </div>
   </div>
@@ -94,9 +96,10 @@ const t = {
   .hm-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; box-shadow: 0 28px 56px -28px rgba(10, 0, 60, .6); color: var(--kd-blue-1); }
   .hm-bar { position: relative; display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--kd-blue-1); }
   .hm-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
-  .hm-tag { position: absolute; top: 8px; z-index: 3; padding: 1px 9px; border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; pointer-events: none; transition: opacity .2s ease; }
-  .hm-tag--b { left: 8px; background: var(--kd-lilac); color: var(--kd-blue-1); }
-  .hm-tag--a { right: 8px; background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  /* small labels on the slider handle, either side of the grip */
+  .hm-tag { position: absolute; top: 50%; margin-top: -9px; height: 18px; display: flex; align-items: center; padding: 0 7px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; pointer-events: none; transition: opacity .2s ease; }
+  .hm-tag--b { right: 24px; }
+  .hm-tag--a { left: 24px; }
   /* hide a tag when its side is almost closed */
   .hm-stage[data-edge="left"] .hm-tag--b, .hm-stage[data-edge="right"] .hm-tag--a { opacity: 0; }
 
