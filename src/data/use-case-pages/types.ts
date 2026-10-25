@@ -34,7 +34,7 @@ export interface UseCasePageText {
   // picture and full detail (StepsDetail.astro). key picks the picture.
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';
     tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[];
-      when?: string; doing?: string[]; you?: string; outcome?: string }[];
+      when?: string; doing?: string[]; you?: string }[];
     cta?: { h3: string; body: string; button: string } };
   // what we measure: the measures only, no invented numbers
   // dir: which way the number should move; drawn as a small chart that improves after the start line

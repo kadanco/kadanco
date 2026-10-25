@@ -8,13 +8,13 @@
 //   screens    a design canvas with one screen in every state (default, loading, empty, error)
 //   system     tokens (colour, type, spacing) and a component library with do / don't
 //   code       a code editor with the component, a live preview and passed checks
-// Each row: when it happens, what we do, what you get, what we need from you,
-// and what you have after the step. One CTA closes the section. Section shell and heading come
+// Each row: when it happens, what we do, what you get and what we need from you.
+// One CTA closes the section. Section shell and heading come
 // from UseCaseDetail.astro.
 type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code';
-interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string; outcome?: string }
+interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string }
 interface Labels {
-  step: string; doing: string; get: string; you: string; outcome: string;
+  step: string; doing: string; get: string; you: string;
   report: string; impact: [string, string, string]; drop: string; test: string;
   states: [string, string, string, string]; tokens: string; components: string; doLbl: string; dontLbl: string;
   passed: string; ready: string; preview: string;
@@ -40,7 +40,6 @@ const { steps, labels, cta } = Astro.props;
             <div><h4>{labels.get}</h4><ul class="sd-list sd-list--get">{s.points.map((d) => <li>{d}</li>)}</ul></div>
           </div>
           {s.you && <p class="sd-you"><b>{labels.you}</b> {s.you}</p>}
-          {s.outcome && <p class="sd-outcome"><span>{labels.outcome}</span>{s.outcome}</p>}
         </div>
 
         <div class="sd-pic" aria-hidden="true">
@@ -187,8 +186,6 @@ const { steps, labels, cta } = Astro.props;
   .sd-list--get li::before { content: ''; position: absolute; left: 3px; top: .25em; width: 5px; height: 10px; border: solid var(--kd-blue-2); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
   .sd .sd-you { margin: 20px 0 0; font-size: 15px; line-height: 1.5; color: var(--kd-fg-2); }
   .sd-you b { color: var(--kd-fg); font-weight: var(--kd-weight-medium); }
-  .sd .sd-outcome { margin: 20px 0 0; display: grid; gap: 4px; padding: 14px 16px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 17px; line-height: 1.4; font-weight: var(--kd-weight-medium); }
-  .sd-outcome span { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--kd-signal-1); }
 
   /* the picture window */
   .sd-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); overflow: hidden; box-shadow: 0 24px 48px -28px rgba(26, 1, 117, .5); }
