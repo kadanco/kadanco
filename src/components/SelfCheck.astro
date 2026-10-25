@@ -4,6 +4,9 @@
 // diagnostic): statements to tick, and a result that changes with how many
 // are ticked: none, one or two, three or more. The last result carries the CTA.
 // The section shell and heading come from UseCaseDetail.astro; this is the body.
+// Above the result sits a small app wireframe that gets worse with every ticked
+// statement: statement 1 makes users leave, 2 adds a "book a demo" wall, 3 help
+// bubbles, 4 mismatched cards, 5 duplicate buttons, 6 a drifting layout.
 // Without JavaScript the statements show and the result card stays hidden.
 interface Props {
   items: string[];
@@ -18,6 +21,20 @@ const { items, results } = Astro.props;
     ))}
   </ul>
   <div class="sc-result" aria-live="polite">
+    <div class="sc-wf" aria-hidden="true">
+      <div class="sc-wf-bar"><i></i><i></i><i></i></div>
+      <div class="sc-wf-body">
+        <div class="sc-wf-steps"><b></b><s></s><b></b><s></s><b></b></div>
+        <span class="sc-wf-h"></span><span class="sc-wf-l"></span><span class="sc-wf-l sc-wf-l--s"></span>
+        <div class="sc-wf-cards"><span class="sc-wf-card"></span><span class="sc-wf-card sc-wf-card--b"></span></div>
+        <div class="sc-wf-row">
+          <span class="sc-wf-btn"></span><span class="sc-wf-btn sc-wf-btn--x1"></span><span class="sc-wf-btn sc-wf-btn--x2"></span>
+          <span class="sc-wf-users"><em></em><em></em><em></em></span>
+        </div>
+        <span class="sc-wf-help sc-wf-help--1">?</span><span class="sc-wf-help sc-wf-help--2">?</span><span class="sc-wf-help sc-wf-help--3">?</span>
+        <div class="sc-wf-wall"><span></span><u></u></div>
+      </div>
+    </div>
     <div class="sc-meter" aria-hidden="true">{items.map(() => <i></i>)}</div>
     <div class="sc-r" data-r="none"><b>{results.none.title}</b><p>{results.none.body}</p></div>
     <div class="sc-r" data-r="some" hidden><b>{results.some.title}</b><p>{results.some.body}</p></div>
@@ -45,6 +62,49 @@ const { items, results } = Astro.props;
   .sc-result { display: none; position: sticky; top: 112px; padding: 28px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
   .sc.is-js .sc-result { display: block; }
   @media (max-width: 880px) { .sc-result { position: static; } }
+  /* the wireframe: clean at rest, each ticked statement (d1 to d6) adds its flaw */
+  .sc-wf { margin-bottom: 20px; border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; --wf: color-mix(in srgb, var(--kd-blue-1) 16%, transparent); }
+  .sc-wf-bar { display: flex; gap: 5px; padding: 8px 10px; background: var(--kd-blue-2); }
+  .sc-wf-bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .5); }
+  .sc-wf-body { position: relative; display: grid; gap: 8px; padding: 14px; }
+  .sc-wf-body > *, .sc-wf-card, .sc-wf-btn, .sc-wf-users em { transition: transform .35s ease, opacity .35s ease, background-color .35s ease, border-radius .35s ease; }
+  .sc-wf-steps { display: flex; align-items: center; margin-bottom: 2px; }
+  .sc-wf-steps b { width: 10px; height: 10px; border-radius: 50%; background: var(--kd-blue-2); }
+  .sc-wf-steps s { flex: 1; height: 2px; background: var(--kd-blue-2); transition: background-color .35s ease; }
+  .sc-wf-h { display: block; width: 62%; height: 10px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-wf-l { display: block; width: 88%; height: 6px; border-radius: 3px; background: var(--wf); }
+  .sc-wf-l--s { width: 60%; }
+  .sc-wf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .sc-wf-card { height: 44px; border-radius: 3px; background: var(--kd-lilac-tint); border: 1px solid var(--kd-lilac); }
+  .sc-wf-row { display: flex; align-items: center; gap: 6px; }
+  .sc-wf-btn { width: 70px; height: 18px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .sc-wf-btn--x1, .sc-wf-btn--x2 { width: 0; opacity: 0; }
+  .sc-wf-users { display: flex; margin-left: auto; }
+  .sc-wf-users em { width: 16px; height: 16px; margin-left: -4px; border-radius: 50%; background: var(--kd-lilac); border: 2px solid var(--kd-white); }
+  .sc-wf-help { position: absolute; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; transform: scale(.4); transition: opacity .3s ease, transform .3s ease; }
+  .sc-wf-help--1 { top: 30px; right: 18px; } .sc-wf-help--2 { top: 74px; left: 46%; } .sc-wf-help--3 { bottom: 14px; left: 92px; }
+  .sc-wf-wall { position: absolute; top: 34px; right: 12px; width: 44%; padding: 10px 0; display: grid; place-content: center; gap: 6px; justify-items: center; /* small pop-up so the other flaws stay visible */ border-radius: var(--kd-radius); background: var(--kd-blue-1); opacity: 0; transform: translateY(10px); transition: opacity .3s ease, transform .3s ease; box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .5); }
+  .sc-wf-wall span { width: 70px; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .5); }
+  .sc-wf-wall u { width: 60px; height: 16px; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
+  /* 1: users leave, progress stalls */
+  .sc-wf.d1 .sc-wf-users em { opacity: .15; transform: translateY(6px); }
+  .sc-wf.d1 .sc-wf-steps s:last-of-type, .sc-wf.d1 .sc-wf-steps s { background: var(--wf); }
+  /* 2: a "book a demo" wall over the product */
+  .sc-wf.d2 .sc-wf-wall { opacity: 1; transform: none; }
+  /* 3: help bubbles everywhere */
+  .sc-wf.d3 .sc-wf-help { opacity: 1; transform: none; }
+  /* 4: cards that do not match */
+  .sc-wf.d4 .sc-wf-card--b { transform: rotate(4deg) translateY(4px); background: var(--kd-signal-1); border-radius: 12px; }
+  .sc-wf.d4 .sc-wf-card:first-child { border-radius: 0; background: var(--kd-lilac); }
+  /* 5: the same button rebuilt in different styles */
+  .sc-wf.d5 .sc-wf-btn--x1 { width: 54px; opacity: 1; background: var(--kd-lilac); border-radius: 9px; }
+  .sc-wf.d5 .sc-wf-btn--x2 { width: 44px; opacity: 1; background: transparent; box-shadow: inset 0 0 0 2px var(--kd-signal-1); border-radius: 0; }
+  /* 6: no shared system, the layout drifts */
+  .sc-wf.d6 .sc-wf-h { transform: translateX(14px) rotate(-2deg); }
+  .sc-wf.d6 .sc-wf-l { transform: translateX(-6px) rotate(1.5deg); }
+  .sc-wf.d6 .sc-wf-row { transform: translateX(10px) rotate(-1.5deg); }
+  @media (prefers-reduced-motion: reduce) { .sc-wf *, .sc-wf-body > * { transition: none !important; } }
+
   .sc-meter { display: flex; gap: 6px; margin-bottom: 20px; }
   .sc-meter i { flex: 1; height: 6px; border-radius: 3px; background: rgba(255, 255, 255, .18); transition: background-color .2s ease; }
   .sc-meter i.on { background: var(--kd-signal-1); }
@@ -61,9 +121,14 @@ const { items, results } = Astro.props;
     var boxes = root.querySelectorAll('.sc-box');
     var bars = root.querySelectorAll('.sc-meter i');
     var results = root.querySelectorAll('.sc-r');
+    var wf = root.querySelector('.sc-wf');
     function update() {
       var n = 0;
-      boxes.forEach(function (b) { if (b.checked) n++; });
+      boxes.forEach(function (b, i) {
+        if (b.checked) n++;
+        // statement i adds flaw i+1 to the wireframe
+        if (wf && i < 6) wf.classList.toggle('d' + (i + 1), b.checked);
+      });
       bars.forEach(function (bar, i) { bar.classList.toggle('on', i < n); });
       var key = n === 0 ? 'none' : n < 3 ? 'some' : 'many';
       results.forEach(function (r) { r.hidden = r.getAttribute('data-r') !== key; });

@@ -2,7 +2,7 @@
 // Shape of one use case detail page (EN and DE), rendered by
 // src/components/UseCaseDetail.astro. Layout follows the October use case
 // designs in design/261021_Kadanco_Use_Cases/. Optional blocks
-// (check, comparison, why, funnel, deliverables, also, outcomes, measures, ways, operator, timeline) only render when present.
+// (check, situation, comparison, why, funnel, deliverables, inside, also, outcomes, measures, ways, operator, timeline, stories) only render when present.
 import type { IsoIconName } from '../iso-icons';
 import type { Dept } from '../use-cases';
 
@@ -30,14 +30,19 @@ export interface UseCasePageText {
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string;
     tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[] }[] };
   // what we measure: the measures only, no invented numbers
-  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string }[] };
+  // dir: which way the number should move; drawn as a small chart that improves after the start line
+  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string; dir?: 'up' | 'down' }[] };
+  // success stories: one card per client story. Until real stories are approved the
+  // entries are placeholders and say so (placeholder: true shows a "Placeholder" tag)
+  stories?: { eyebrow: string; h2a: string; h2b: string; lede: string;
+    items: { client: string; industry: string; challenge: string; work: string; result: string; quote?: string; who?: string; placeholder?: boolean }[] };
   // ways to work: engagement options without prices (owner decision 2026-10-25)
   ways?: { eyebrow: string; h2a: string; h2b: string; options: { tag: string; title: string; length: string; body: string; points: string[]; cta: string }[] };
-  situation: { eyebrow: string; h2a: string; h2b: string; lede: string; problem: string; solve: string };
+  situation?: { eyebrow: string; h2a: string; h2b: string; lede: string; problem: string; solve: string };
   comparison?: ComparisonContent;
   why?: { eyebrow: string; h2a: string; h2b: string; items: { title: string; body: string }[] };   // reasons the problem persists
   funnel?: { eyebrow: string; h2a: string; h2b: string; stages: { label: string; leak?: string }[]; end: string };  // last stage is the goal
-  inside: { eyebrow: string; h2: string; lede: string; steps: { label: string; title: string; body: string; points?: string[] }[] };  // points: shown on hover in the bento layout
+  inside?: { eyebrow: string; h2: string; lede: string; steps: { label: string; title: string; body: string; points?: string[] }[] };  // points: shown on hover in the bento layout
   also?: { eyebrow: string; h2: string; items: { title: string; body: string }[]; tagsHead?: string; tags?: string[] };
   outcomes?: { eyebrow: string; h2: string; items: { big: string; text: string }[] };
   operator?: { eyebrow: string; h2a: string; h2b: string; body: string; link: string };
@@ -50,7 +55,7 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  heroVisual?: 'app';                    // 'app': a small app window drawing in place of the icon (Product department)
+  heroVisual?: 'app' | 'morph';           // 'app': a small app window; 'morph': a cluttered app turning into a clean one (Product department)
   // how "What's inside" shows the steps: stacked cards (default), widening row, mixed-size grid,
   // the product UI mock, or a contextual scene from StepsScene.astro
   stepsLayout?: 'stack' | 'expand' | 'bento' | 'ui' | 'web' | 'slider' | 'fan' | 'map' | 'board' | 'calendar' | 'sequence' | 'org';

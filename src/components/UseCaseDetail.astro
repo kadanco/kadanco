@@ -29,9 +29,26 @@ const c = page[locale] ?? page.en;
 const ground = page.dept === 'product' ? 'dark' : 'light';
 const navCta = page.dept === 'marketing' ? 'dark' : undefined; // lime hero and CTA band
 // light sections alternate page and paper grounds, whichever optional blocks are present
-const light = [c.check && 'check', 'situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', c.deliverables && 'deliverables', 'inside', c.also && 'also', c.outcomes && 'outcomes', c.measures && 'measures', c.ways && 'ways', c.operator && 'operator', c.timeline && 'timeline', 'faq'].filter(Boolean);
+const light = [c.check && 'check', c.situation && 'situation', c.comparison && 'routes', c.why && 'why', c.funnel && 'funnel', c.deliverables && 'deliverables', c.inside && 'inside', c.also && 'also', c.outcomes && 'outcomes', c.measures && 'measures', c.ways && 'ways', c.operator && 'operator', c.timeline && 'timeline', c.stories && 'stories', 'faq'].filter(Boolean);
 const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 'org'] as const;
 const scene = SCENES.find((k) => k === page.stepsLayout);
+// hero 'morph' picture: each block has a cluttered state (b) and a clean state (g):
+// left, top, width, height in % of the app body, rotation, colour, opacity
+const MORPH = [
+  { b: [6, 6, 58, 8, -3, 'var(--kd-lilac)'], g: [8, 8, 52, 8, 0, 'var(--kd-blue-1)'] },              // title
+  { b: [34, 21, 60, 4, 4, 'var(--mo-wf)'], g: [8, 22, 78, 4, 0, 'var(--mo-wf)'] },                    // text
+  { b: [3, 30, 40, 4, -7, 'var(--mo-wf)'], g: [8, 29, 56, 4, 0, 'var(--mo-wf)'] },                    // text
+  { b: [50, 34, 46, 26, 6, 'var(--kd-signal-1)'], g: [8, 40, 40, 30, 0, 'var(--kd-lilac-tint)'] },    // card
+  { b: [5, 44, 34, 36, -5, 'var(--kd-lilac)'], g: [52, 40, 40, 30, 0, 'var(--kd-lilac-tint)'] },      // card
+  { b: [58, 68, 32, 10, 9, 'var(--kd-blue-2)'], g: [8, 80, 32, 10, 0, 'var(--kd-blue-2)'] },          // main button
+  { b: [12, 85, 26, 9, -11, 'var(--kd-signal-1)'], g: [44, 80, 24, 10, 0, 'transparent'], ghost: true }, // second button
+  { b: [40, 58, 22, 9, 14, 'var(--kd-lilac)'], g: [44, 58, 10, 9, 0, 'var(--kd-lilac)'], o: [1, 0] },  // extra button, removed
+  { b: [78, 6, 14, 18, 0, 'var(--kd-signal-1)'], g: [80, 8, 12, 16, 0, 'var(--kd-signal-1)'], o: [1, 0], round: true }, // help bubble, removed
+];
+const morphStyle = (m: (typeof MORPH)[number]) => {
+  const [bl, bt, bw, bh, br, bc] = m.b, [gl, gt, gw, gh, gr, gc] = m.g, [bo, go] = m.o ?? [1, 1];
+  return `--bl:${bl}%;--bt:${bt}%;--bw:${bw}%;--bh:${bh}%;--br:${br}deg;--bc:${bc};--bo:${bo};--gl:${gl}%;--gt:${gt}%;--gw:${gw}%;--gh:${gh}%;--gr:${gr}deg;--gc:${gc};--go:${go}`;
+};
 // route card marks: check, half, cross
 const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
@@ -54,7 +71,16 @@ const ui = {
             : <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>}
         </div>
       </div>
-      {page.heroVisual === 'app' ? (
+      {page.heroVisual === 'morph' ? (
+        <div class="ucd-hero-visual ucd-app" role="img" aria-label={locale === 'de' ? 'Eine unübersichtliche App wird zu einer klaren App' : 'A cluttered app turning into a clear one'}>
+          <div class="ucd-app-win ucd-mo">
+            <div class="ucd-app-bar"><i></i><i></i><i></i><span class="ucd-mo-tag ucd-mo-tag--b">{locale === 'de' ? 'Vorher' : 'Before'}</span><span class="ucd-mo-tag ucd-mo-tag--g">{locale === 'de' ? 'Nachher' : 'After'}</span></div>
+            <div class="ucd-mo-body">
+              {MORPH.map((m) => <span class:list={['ucd-mo-el', { 'ucd-mo-el--ghost': m.ghost, 'ucd-mo-el--round': m.round }]} style={morphStyle(m)}></span>)}
+            </div>
+          </div>
+        </div>
+      ) : page.heroVisual === 'app' ? (
         <div class="ucd-hero-visual ucd-app" role="img" aria-label={c.crumb}>
           <div class="ucd-app-win">
             <div class="ucd-app-bar"><i></i><i></i><i></i></div>
@@ -85,6 +111,7 @@ const ui = {
     </section>
   )}
 
+  {c.situation && (
   <section class={sec('situation')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
@@ -98,6 +125,7 @@ const ui = {
       </div>
     </div>
   </section>
+  )}
 
   {c.comparison && (
     <section class={sec('routes')} id="routes" data-theme="light">
@@ -189,6 +217,7 @@ const ui = {
     </section>
   )}
 
+  {c.inside && (
   <section class={sec('inside')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
@@ -249,6 +278,7 @@ const ui = {
       )}
     </div>
   </section>
+  )}
 
   {c.also && (
     <section class={sec('also')} data-theme="light">
@@ -292,9 +322,28 @@ const ui = {
           <h2>{c.measures.h2a} <em>{c.measures.h2b}</em></h2>
           <p class="ucd-lede">{c.measures.lede}</p>
         </div>
-        <ol class="ucd-measures">
-          {c.measures.items.map((m) => <li><h3>{m.title}</h3><p>{m.body}</p></li>)}
-        </ol>
+        <div class="ucd-dash" data-dash>
+          <div class="ucd-dash-bar"><i></i><i></i><i></i><span>{locale === 'de' ? 'Ihre Produktzahlen' : 'Your product metrics'}</span></div>
+          <ol class="ucd-measures">
+            {c.measures.items.map((m) => (
+              <li>
+                <div class="ucd-m-top">
+                  <h3>{m.title}</h3>
+                  {m.dir && <span class="ucd-m-goal">{m.dir === 'up' ? '↑' : '↓'} {locale === 'de' ? (m.dir === 'up' ? 'Ziel: hoch' : 'Ziel: runter') : (m.dir === 'up' ? 'Goal: up' : 'Goal: down')}</span>}
+                </div>
+                {m.dir && (
+                  <svg class="ucd-m-chart" viewBox="0 0 120 44" preserveAspectRatio="none" aria-hidden="true">
+                    <line class="ucd-m-start" x1="48" y1="2" x2="48" y2="42" />
+                    <path class="ucd-m-before" d={m.dir === 'up' ? 'M2 34 L14 32 L26 35 L38 33 L48 34' : 'M2 10 L14 12 L26 9 L38 11 L48 10'} />
+                    <path class="ucd-m-after" d={m.dir === 'up' ? 'M48 34 L62 28 L76 24 L90 16 L104 12 L118 6' : 'M48 10 L62 16 L76 20 L90 28 L104 32 L118 38'} />
+                  </svg>
+                )}
+                <p>{m.body}</p>
+              </li>
+            ))}
+          </ol>
+          <p class="ucd-dash-key"><span class="ucd-dash-start"></span>{locale === 'de' ? 'Start mit Kadanco. Beispielverlauf, keine echten Zahlen.' : 'Kadanco starts. Example curve, no real figures.'}</p>
+        </div>
       </div>
     </section>
   )}
@@ -361,6 +410,35 @@ const ui = {
     </section>
   )}
 
+  {c.stories && (
+    <section class={sec('stories')} id="stories" data-theme="light">
+      <div class="container">
+        <div class="ucd-head">
+          <span class="ucd-eyebrow">{c.stories.eyebrow}</span>
+          <h2>{c.stories.h2a} <em>{c.stories.h2b}</em></h2>
+          <p class="ucd-lede">{c.stories.lede}</p>
+        </div>
+        <div class="ucd-stories">
+          {c.stories.items.map((st) => (
+            <article class="ucd-story">
+              <div class="ucd-story-top">
+                <span class="ucd-story-logo" aria-hidden="true">{st.client.slice(0, 1)}</span>
+                <div><h3>{st.client}</h3><span class="ucd-story-ind">{st.industry}</span></div>
+                {st.placeholder && <span class="ucd-story-ph">Placeholder</span>}
+              </div>
+              <dl>
+                <dt>{locale === 'de' ? 'Ausgangslage' : 'Challenge'}</dt><dd>{st.challenge}</dd>
+                <dt>{locale === 'de' ? 'Was wir gemacht haben' : 'What we did'}</dt><dd>{st.work}</dd>
+              </dl>
+              <p class="ucd-story-res">{st.result}</p>
+              {st.quote && <blockquote>{st.quote}{st.who && <cite>{st.who}</cite>}</blockquote>}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class={sec('faq')} data-theme="light">
     <div class="container">
       <div class="ucd-head">
@@ -381,6 +459,16 @@ const ui = {
     </div>
   </section>
 </main>
+
+<script is:inline>
+  // draws the dashboard curves once they scroll into view
+  (function () {
+    var dashes = document.querySelectorAll('[data-dash]');
+    if (!dashes.length || !('IntersectionObserver' in window)) { dashes.forEach(function (d) { d.classList.add('is-in'); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { threshold: 0.35 });
+    dashes.forEach(function (d) { io.observe(d); });
+  })();
+</script>
 
 <style>
   /* ---------- department themes ---------- */
@@ -437,6 +525,26 @@ const ui = {
   .ucd-app-card { display: grid; gap: 10px; padding: 14px; border: 1px solid var(--kd-lilac); border-radius: var(--kd-radius); }
   .ucd-app-prog { height: 8px; border-radius: 4px; background: var(--kd-lilac-tint); overflow: hidden; }
   .ucd-app-prog u { display: block; width: 66%; height: 100%; background: var(--kd-signal-1); }
+  /* 'morph': every block moves from its cluttered state to its clean state and back */
+  .ucd-mo { --mo-wf: color-mix(in srgb, var(--kd-blue-1) 18%, transparent); }
+  .ucd-mo .ucd-app-bar { position: relative; align-items: center; }
+  .ucd-mo-tag { position: absolute; right: 10px; padding: 1px 8px; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; opacity: 0; }
+  .ucd-mo-tag--g { opacity: 1; }
+  .ucd-mo-body { position: relative; aspect-ratio: 4 / 3.2; }
+  .ucd-mo-el { position: absolute; border-radius: 3px; left: var(--gl); top: var(--gt); width: var(--gw); height: var(--gh); transform: rotate(var(--gr)); background: var(--gc); opacity: var(--go); }
+  .ucd-mo-el--ghost { box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .ucd-mo-el--round { border-radius: 50%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ucd-mo-el { animation: ucd-morph 7s cubic-bezier(.65, 0, .35, 1) infinite; }
+    .ucd-mo-tag--b { animation: ucd-mo-b 7s infinite; }
+    .ucd-mo-tag--g { animation: ucd-mo-g 7s infinite; }
+  }
+  @keyframes ucd-morph {
+    0%, 30%, 100% { left: var(--bl); top: var(--bt); width: var(--bw); height: var(--bh); transform: rotate(var(--br)); background: var(--bc); opacity: var(--bo); }
+    48%, 86% { left: var(--gl); top: var(--gt); width: var(--gw); height: var(--gh); transform: rotate(var(--gr)); background: var(--gc); opacity: var(--go); }
+  }
+  @keyframes ucd-mo-b { 0%, 32% { opacity: 1; } 38%, 92% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes ucd-mo-g { 0%, 40% { opacity: 0; } 48%, 86% { opacity: 1; } 92%, 100% { opacity: 0; } }
   .ucd-app-btn { display: block; width: 45%; height: 30px; margin-top: 4px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
   @media (max-width: 880px) {
     .ucd-hero { min-height: 0; } /* stacked: height follows the content */
@@ -650,12 +758,30 @@ const ui = {
     .ucd-day h3 { margin-top: 8px; }
   }
 
-  /* ---------- what we measure: measures only, no numbers ---------- */
-  .ucd-measures { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; counter-reset: m; }
-  .ucd-measures li { counter-increment: m; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-top: 4px solid var(--accent-line); }
-  .ucd-measures li::before { content: counter(m, decimal-leading-zero); display: block; margin-bottom: 10px; font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; color: var(--kd-accent); }
-  .ucd-measures h3 { font-size: 20px; line-height: 1.25; margin-bottom: 8px; }
-  .ucd-measures p { font-size: 16px; line-height: 1.45; color: var(--kd-fg-2); }
+  /* ---------- what we measure: a product dashboard, example curves without numbers ---------- */
+  .ucd-dash { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-surface); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(26, 1, 117, .45); }
+  .ucd-dash-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--kd-blue-1); }
+  .ucd-dash-bar i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .ucd-dash-bar span { margin-left: 12px; padding: 3px 12px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 12px; }
+  .ucd-measures { list-style: none; margin: 0; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .ucd-measures li { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: var(--kd-radius); background: var(--kd-surface-2); border: 1px solid var(--kd-line); }
+  .ucd-m-top { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .ucd-measures h3 { font-size: 17px; line-height: 1.3; }
+  .ucd-m-goal { padding: 1px 8px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; }
+  .ucd-m-chart { width: 100%; height: 56px; overflow: visible; }
+  .ucd-m-chart path { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .ucd-m-before { stroke: var(--kd-fg-2); opacity: .45; }
+  .ucd-m-after { stroke: var(--kd-blue-2); clip-path: inset(-4px -4px -4px -4px); }
+  .ucd-m-start, .ucd-dash-start { stroke: var(--kd-blue-2); stroke-width: 2; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
+  .ucd-measures p { font-size: 15px; line-height: 1.45; color: var(--kd-fg-2); }
+  .ucd .ucd-dash-key { display: flex; align-items: center; gap: 8px; padding: 0 20px 18px; font-size: 13px; color: var(--kd-fg-2); }
+  .ucd-dash-start { display: inline-block; width: 0; height: 14px; border-left: 2px dashed var(--kd-blue-2); }
+  /* the improving part wipes in from the start line when the dashboard scrolls into view
+     (a wipe, so it works however wide the chart is stretched) */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .ucd-dash:not(.is-in) .ucd-m-after { clip-path: inset(-4px 100% -4px -4px); }
+    .ucd-m-after { transition: clip-path 1.4s ease .2s; }
+  }
 
   /* ---------- ways to work: two engagement cards, the second on navy ---------- */
   .ucd-ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
@@ -675,6 +801,21 @@ const ui = {
   .ucd-way-btn { margin-top: auto; background: var(--kd-blue-1); border-color: var(--kd-blue-1); color: var(--kd-white); }
   .ucd-way--alt .ucd-way-btn { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
   .ucd-way-btn:hover { transform: translateY(-2px); }
+
+  /* ---------- success stories ---------- */
+  .ucd-stories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .ucd-story { display: flex; flex-direction: column; gap: 16px; padding: 28px; border-radius: var(--kd-radius); background: var(--kd-surface); border: 1px solid var(--kd-line); border-top: 4px solid var(--accent-line); }
+  .ucd-story-top { display: flex; align-items: center; gap: 14px; }
+  .ucd-story-logo { flex: none; width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 20px; font-weight: var(--kd-weight-medium); }
+  .ucd-story h3 { font-size: 20px; line-height: 1.25; }
+  .ucd-story-ind { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--kd-fg-2); }
+  .ucd-story-ph { margin-left: auto; align-self: flex-start; padding: 2px 8px; border-radius: var(--kd-radius); border: 1.5px dashed var(--kd-blue-2); color: var(--kd-blue-2); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
+  .ucd-story dl { margin: 0; display: grid; gap: 4px; }
+  .ucd-story dt { margin-top: 8px; font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-accent); }
+  .ucd-story dd { margin: 0; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+  .ucd .ucd-story-res { margin-top: auto; padding: 14px 16px; border-radius: var(--kd-radius); background: var(--kd-surface-2); font-size: 17px; line-height: 1.4; font-weight: var(--kd-weight-medium); }
+  .ucd-story blockquote { margin: 0; padding-left: 14px; border-left: 3px solid var(--kd-signal-1); font-size: 16px; line-height: 1.5; font-style: italic; }
+  .ucd-story cite { display: block; margin-top: 6px; font-size: 13px; font-style: normal; color: var(--kd-fg-2); }
 
   /* ---------- FAQ ---------- */
   .ucd-faq { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
