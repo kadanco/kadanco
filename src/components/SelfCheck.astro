@@ -47,8 +47,7 @@ const feed = {
     <div class="sc-wf sc-feed" aria-hidden="true">
       <div class="sc-f-post">
         <div class="sc-f-top"><span class="sc-f-av"></span><div class="sc-f-id"><b></b><em></em></div><span class="sc-f-time"><span class="n">{feed.now}</span><span class="o">{feed.ago}</span></span></div>
-        <div class="sc-f-text"><em></em><em></em><em class="s"></em></div>
-        <div class="sc-f-jargon">{feed.jargon.map((j) => <span>{j}</span>)}</div>
+        <div class="sc-f-body"><div class="sc-f-text"><em></em><em></em><em class="s"></em></div><div class="sc-f-jargon">{feed.jargon.map((j) => <span>{j}</span>)}</div></div>
         <div class="sc-f-img"><i class="hl"></i><i class="mtn"></i></div>
         <div class="sc-f-react"><i></i><i></i><i></i><span class="sc-f-meet"><span class="y">{feed.meet}</span><span class="x">{feed.nomeet}</span></span></div>
       </div>
@@ -70,8 +69,7 @@ const feed = {
         <div class="sc-s-nav"><span class="sc-s-logo"></span><em></em><em></em><u></u></div>
         <div class="sc-s-hero">
           <div class="sc-s-copy">
-            <span class="sc-s-h"></span><span class="sc-s-h sc-s-h--b"></span>
-            <span class="sc-s-vague"><em></em><em></em><em></em></span>
+            <div class="sc-s-hl"><span class="sc-s-clear"><span class="sc-s-h"></span><span class="sc-s-h sc-s-h--b"></span></span><span class="sc-s-vague"><em></em><em></em><em></em></span></div>
             <u class="sc-s-cta"></u>
           </div>
           <div class="sc-s-img"><i class="sc-s-sun"></i><i class="sc-s-mtn"></i></div>
@@ -102,9 +100,8 @@ const feed = {
     )}
 
     <div class="sc-text" aria-live="polite">
-      {levels.map((l, n) => <b class="sc-h" data-n={n} hidden={n !== 0}>{l}</b>)}
-      <p class="sc-risk" data-risk="-1">{hint}</p>
-      {items.map((it, i) => <p class="sc-risk" data-risk={i} hidden>{it.risk}</p>)}
+      <div class="sc-stack">{levels.map((l, n) => <b class:list={['sc-h', { on: n === 0 }]} data-n={n}>{l}</b>)}</div>
+      <div class="sc-stack"><p class="sc-risk on" data-risk="-1">{hint}</p>{items.map((it, i) => <p class="sc-risk" data-risk={i}>{it.risk}</p>)}</div>
     </div>
   </div>
 </div>
@@ -136,14 +133,14 @@ const feed = {
   .sc-wf-steps { display: flex; align-items: center; margin-bottom: 2px; }
   .sc-wf-steps b { width: 10px; height: 10px; border-radius: 50%; background: var(--kd-blue-2); }
   .sc-wf-steps s { flex: 1; height: 2px; background: var(--kd-blue-2); }
-  .sc-wf-h { display: block; width: 58%; height: 10px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-wf-h { display: block; width: 58%; height: 12px; border-radius: 3px; background: var(--kd-blue-1); }
   .sc-wf-l { display: block; width: 88%; height: 6px; border-radius: 3px; background: var(--wf); }
   .sc-wf-l--s { width: 60%; }
-  .sc-wf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; }
+  .sc-wf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-items: start; height: 56px; } /* fixed: the odd card can grow inside it */
   .sc-wf-card { display: grid; gap: 5px; align-content: start; height: 44px; padding: 8px; border-radius: 3px; background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); }
   .sc-wf-card i { display: block; height: 5px; border-radius: 3px; background: var(--wf); }
   .sc-wf-card i:first-child { width: 60%; height: 7px; background: var(--kd-lilac); }
-  .sc-wf-row { display: flex; align-items: center; gap: 6px; }
+  .sc-wf-row { display: flex; align-items: center; gap: 6px; height: 22px; }
   .sc-wf-btn { height: 18px; width: 70px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
   .sc-wf-btn--x1, .sc-wf-btn--x2 { width: 0; opacity: 0; }
   .sc-wf-users { display: flex; margin-left: auto; }
@@ -168,7 +165,7 @@ const feed = {
   .sc-wf.d5 .sc-wf-btn--x1 { width: 56px; opacity: 1; height: 22px; background: var(--kd-lilac); }
   .sc-wf.d5 .sc-wf-btn--x2 { width: 46px; opacity: 1; height: 14px; background: transparent; box-shadow: inset 0 0 0 2px var(--kd-blue-1); }
   /* 6: no shared system: headings, text and spacing stop matching */
-  .sc-wf.d6 .sc-wf-h { width: 44%; height: 13px; background: var(--kd-blue-2); }
+  .sc-wf.d6 .sc-wf-h { width: 44%; background: var(--kd-blue-2); }
   .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
   .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
   .sc-wf.d6 .sc-wf-cards { gap: 14px; }
@@ -184,9 +181,14 @@ const feed = {
   .sc-f-id { flex: 1; display: grid; gap: 4px; }
   .sc-f-id b { display: block; width: 60%; height: 7px; border-radius: 3px; background: var(--kd-blue-1); }
   .sc-f-time, .sc-f-date { flex: none; font-size: 11px; font-weight: var(--kd-weight-medium); }
-  .sc-f-time .o, .sc-f-date .o, .sc-f-meet .x { display: none; }
+  /* two-state labels: both versions share one cell, so the width and height never change */
+  .sc-f-time, .sc-f-date, .sc-f-meet { display: inline-grid; }
+  :is(.sc-f-time, .sc-f-date, .sc-f-meet) > span { grid-area: 1 / 1; }
+  .sc-f-time .o, .sc-f-date .o, .sc-f-meet .x { visibility: hidden; }
+  .sc-f-body { display: grid; }
+  .sc-f-body > * { grid-area: 1 / 1; }
   .sc-f-text { display: grid; gap: 5px; }
-  .sc-f-jargon { display: none; flex-wrap: wrap; gap: 4px; }
+  .sc-f-jargon { display: flex; align-content: start; flex-wrap: wrap; gap: 4px; visibility: hidden; }
   .sc-f-jargon span { padding: 1px 6px; border-radius: var(--kd-radius); background: var(--kd-beige-2); font-size: 11px; }
   .sc-f-img { position: relative; height: 58px; border-radius: 3px; background: var(--kd-blue-1); overflow: hidden; }
   .sc-f-img .hl { position: absolute; left: 12px; top: 18px; width: 60%; height: 9px; border-radius: 3px; background: var(--kd-white); box-shadow: 0 4px 0 -1px var(--kd-signal-1); }
@@ -203,17 +205,17 @@ const feed = {
   .sc-f-q { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; }
   .sc-f-crm em { border-top: 2px solid var(--kd-blue-2); background: none; height: 0; }
   /* 1: the last post is weeks old */
-  .sc-feed.d1 .sc-f-time .n { display: none; } .sc-feed.d1 .sc-f-time .o { display: inline; }
+  .sc-feed.d1 .sc-f-time .n { visibility: hidden; } .sc-feed.d1 .sc-f-time .o { visibility: visible; }
   .sc-feed.d1 .sc-f-post { opacity: .6; }
   /* 2: likes, no meetings */
-  .sc-feed.d2 .sc-f-meet .y { display: none; } .sc-feed.d2 .sc-f-meet .x { display: inline; }
+  .sc-feed.d2 .sc-f-meet .y { visibility: hidden; } .sc-feed.d2 .sc-f-meet .x { visibility: visible; }
   .sc-feed.d2 .sc-f-meet { background: var(--kd-beige-2); color: var(--kd-ink-2); }
   /* 3: marketing speak and a stock photo */
-  .sc-feed.d3 .sc-f-text { display: none; } .sc-feed.d3 .sc-f-jargon { display: flex; }
+  .sc-feed.d3 .sc-f-text { visibility: hidden; } .sc-feed.d3 .sc-f-jargon { visibility: visible; }
   .sc-feed.d3 .sc-f-img { background: var(--kd-beige-2); } .sc-feed.d3 .sc-f-img .hl { opacity: 0; } .sc-feed.d3 .sc-f-img .mtn { opacity: 1; }
   /* 4: the blog goes stale */
   .sc-feed.d4 .sc-f-blog { opacity: .5; outline: 1.5px dashed var(--kd-beige-3); outline-offset: -1.5px; }
-  .sc-feed.d4 .sc-f-date .n { display: none; } .sc-feed.d4 .sc-f-date .o { display: inline; }
+  .sc-feed.d4 .sc-f-date .n { visibility: hidden; } .sc-feed.d4 .sc-f-date .o { visibility: visible; }
   /* 5: the deck tells another story */
   .sc-feed.d5 .sc-f-deck { background: var(--kd-lilac); color: var(--kd-ink); transform: rotate(-3deg); border-radius: 14px; }
   .sc-feed.d5 .sc-f-deck em { background: var(--kd-white); }
@@ -251,7 +253,9 @@ const feed = {
   .sc-s-copy { display: grid; gap: 6px; }
   .sc-s-h { display: block; height: 10px; width: 92%; border-radius: 3px; background: var(--kd-blue-1); }
   .sc-s-h--b { width: 66%; background: var(--kd-blue-2); box-shadow: 0 3px 0 -1px var(--kd-signal-1); }
-  .sc-s-vague { display: none; gap: 4px; }
+  .sc-s-hl { display: grid; }
+  .sc-s-hl > * { grid-area: 1 / 1; display: grid; gap: 6px; align-content: start; }
+  .sc-s-vague { gap: 4px; visibility: hidden; }
   .sc-s-vague em { display: block; height: 5px; border-radius: 3px; background: var(--wf); }
   .sc-s-vague em:nth-child(2) { width: 86%; } .sc-s-vague em:nth-child(3) { width: 70%; }
   .sc-s-cta { display: block; width: 64px; height: 16px; margin-top: 4px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
@@ -275,8 +279,8 @@ const feed = {
   .sc-s-ticket b { font-size: 12px; line-height: 1; }
   .sc-s-ticket em { flex: 1; height: 6px; border-radius: 3px; background: var(--wf); }
   /* 1: a vague headline: the clear two lines turn into grey filler */
-  .sc-site.d1 .sc-s-h { display: none; }
-  .sc-site.d1 .sc-s-vague { display: grid; }
+  .sc-site.d1 .sc-s-clear { visibility: hidden; }
+  .sc-site.d1 .sc-s-vague { visibility: visible; }
   /* 2: a dated look: off-brand colours and a stock photo */
   .sc-site.d2 .sc-s-img { background: color-mix(in srgb, var(--kd-blue-1) 12%, var(--kd-white)); }
   .sc-site.d2 .sc-s-sun { background: color-mix(in srgb, var(--kd-blue-1) 25%, var(--kd-white)); }
@@ -296,7 +300,12 @@ const feed = {
   /* under the picture: the heading for the number ticked, and the risk of the latest tick */
   .sc-text { display: grid; gap: 8px; margin-top: 20px; }
   .sc-h { display: block; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
-  .sc-h[hidden], .sc-risk[hidden] { display: none; }
+  /* all headings share one cell and all risk lines another, so the card always has the height of the
+     longest text and nothing moves when a box is ticked (owner, 2026-10-26) */
+  .sc-stack { display: grid; }
+  .sc-stack > * { grid-area: 1 / 1; visibility: hidden; }
+  .sc-stack > .on { visibility: visible; }
+  .sc-stack > .sc-h { align-self: end; } /* a short heading sits right on top of its risk line */
   .sc .sc-risk { margin: 0; font-size: 17px; line-height: 1.5; color: var(--kd-lilac-soft); }
   @media (prefers-reduced-motion: reduce) { .sc-wf-body *, .sc-wf-body { transition: none !important; } }
 </style>
@@ -322,9 +331,9 @@ const feed = {
         if (b.checked) n++;
         if (wf && i < 6) wf.classList.toggle('d' + (i + 1), b.checked);
       });
-      heads.forEach(function (h) { h.hidden = +h.getAttribute('data-n') !== Math.min(n, heads.length - 1); });
+      heads.forEach(function (h) { h.classList.toggle('on', +h.getAttribute('data-n') === Math.min(n, heads.length - 1)); });
       var latest = order.length ? order[order.length - 1] : -1;
-      risks.forEach(function (r) { r.hidden = +r.getAttribute('data-risk') !== latest; });
+      risks.forEach(function (r) { r.classList.toggle('on', +r.getAttribute('data-risk') === latest); });
     }
     boxes.forEach(function (b) { b.addEventListener('change', function () { update(b); }); });
     update(null);

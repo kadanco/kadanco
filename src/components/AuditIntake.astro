@@ -8,22 +8,30 @@
 // resume; the draft is cleared after sending. Keyboard: Enter moves on,
 // Cmd/Ctrl + Enter in long answers. Content comes from src/data/intakes.ts.
 // Rendered on a `bare` Layout page (no nav or footer).
+// 2026-10-26 (owner): each form looks like its department (theme: product for the UX and
+// website audits, marketing, sales for the pipeline audit, call for the strategy call), and a
+// side panel beside every screen gives a reason to keep going: what you get (intro), why we
+// ask, an insight, an operator quote, how we work or the career logos (questions), and what
+// happens next (review). Content in src/data/form-coach.ts. On phones the panel sits below.
 import type { Intake } from '../data/intakes';
+import { coach, coachUi, careerLogos, faces } from '../data/form-coach';
 import { asLocale, localizedHref } from '../i18n/utils';
 
 interface Props { intake: Intake }
 const { intake } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const t = intake[locale] ?? intake.en;
-const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t };
+const theme = intake.id === 'strategy-call' ? 'call' : intake.dept;
+const cc = coach[intake.id]?.[locale] ?? coach[intake.id]?.en;
+const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t, coach: cc, ui: coachUi[locale], logos: careerLogos, faces };
 ---
-<div class="ai" data-ai>
+<div class={`ai ai--${theme}`} data-ai>
   <div class="ai-progress"><div class="ai-progress-fill" data-ai-bar></div></div>
   <header class="ai-top">
     <a href={config.home} class="ai-logo" aria-label="Kadanco"><img src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" width="120" height="28" /></a>
     <div class="ai-counter" data-ai-counter hidden></div>
   </header>
-  <main class="ai-stage"><div class="ai-wrap" data-ai-wrap aria-live="polite"></div></main>
+  <main class="ai-stage"><div class="ai-body"><div class="ai-wrap" data-ai-wrap aria-live="polite"></div><aside class="ai-coach" data-ai-coach></aside></div></main>
   <footer class="ai-foot" data-ai-foot hidden>
     <button type="button" class="btn btn-primary" data-ai-ok>{t.ok}</button>
     <span class="ai-enter">{t.enter} <kbd>Enter ↵</kbd></span>
@@ -37,28 +45,31 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
 </div>
 
 <style>
-  .ai { --ai-line: var(--kd-beige-3); --ai-muted: var(--kd-ink-2); position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--kd-beige-1); color: var(--kd-ink); font-family: var(--kd-font-sans); }
+  .ai { --ai-acc: var(--kd-blue-2); --ai-tint: color-mix(in srgb, var(--kd-blue-2) 6%, var(--kd-white)); --ai-line: var(--kd-beige-3); --ai-muted: var(--kd-ink-2); position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--kd-beige-1); color: var(--kd-ink); font-family: var(--kd-font-sans); }
   .ai-progress { flex: none; height: 4px; }
-  .ai-progress-fill { height: 100%; width: 0; background: var(--kd-blue-2); transition: width .5s cubic-bezier(.2, .7, .2, 1); }
+  .ai-progress-fill { height: 100%; width: 0; background: var(--ai-acc); transition: width .5s cubic-bezier(.2, .7, .2, 1); }
   .ai-top { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 40px); }
   .ai-logo img { display: block; height: 26px; width: auto; }
   .ai-counter { font-size: 14px; color: var(--ai-muted); font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
   .ai-counter[hidden] { display: none; }
   .ai-stage { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; }
-  .ai-wrap { width: 100%; max-width: 680px; margin: auto; padding: clamp(20px, 5vw, 40px) clamp(20px, 5vw, 40px) clamp(28px, 6vw, 56px); }
+  /* question on the left, the side panel on the right; stacked below 980px */
+  .ai-body { width: 100%; max-width: 1180px; margin: auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: clamp(20px, 5vw, 40px) clamp(20px, 5vw, 40px) clamp(28px, 6vw, 56px); }
+  @media (min-width: 981px) { .ai-body { grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: center; } }
+  .ai-wrap { width: 100%; max-width: 680px; }
 
   .ai :global(.ai-panel) { animation: ai-rise .32s cubic-bezier(.2, .75, .2, 1) both; }
   @keyframes ai-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) { .ai :global(.ai-panel) { animation: none; } .ai-progress-fill { transition: none; } }
 
-  .ai :global(.ai-eyebrow) { display: inline-flex; align-self: flex-start; padding: 4px 12px; margin-bottom: 20px; border-radius: var(--kd-radius); border: 1.5px solid var(--kd-blue-2); color: var(--kd-blue-2); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .ai :global(.ai-eyebrow) { display: inline-flex; align-self: flex-start; padding: 4px 12px; margin-bottom: 20px; border-radius: var(--kd-radius); border: 1.5px solid var(--ai-acc); color: var(--ai-acc); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
   .ai :global(.ai-display) { margin: 0 0 20px; font-size: clamp(40px, 6vw, 64px); line-height: 1.05; font-weight: var(--kd-weight-medium); letter-spacing: -.01em; }
-  .ai :global(.ai-display em) { font-style: normal; color: var(--kd-blue-2); }
+  .ai :global(.ai-display em) { font-style: normal; color: var(--ai-acc); }
   .ai :global(.ai-lead) { margin: 0 0 32px; max-width: 48ch; font-size: 19px; line-height: 1.5; color: var(--ai-muted); }
   .ai :global(.ai-actions) { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
   .ai :global(.ai-meta) { color: var(--ai-muted); font-size: 15px; }
 
-  .ai :global(.ai-qnum) { display: block; margin-bottom: 12px; color: var(--kd-blue-2); font-size: 14px; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
+  .ai :global(.ai-qnum) { display: block; margin-bottom: 12px; color: var(--ai-acc); font-size: 14px; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
   .ai :global(.ai-qtitle) { margin: 0 0 12px; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weight: var(--kd-weight-medium); text-wrap: balance; }
   .ai :global(.ai-opt) { margin-left: 10px; font-size: 15px; font-weight: var(--kd-weight-regular); color: var(--ai-muted); vertical-align: middle; }
   .ai :global(.ai-help) { margin: 0 0 28px; max-width: 54ch; font-size: 17px; line-height: 1.5; color: var(--ai-muted); }
@@ -66,23 +77,23 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai :global(.ai-field input), .ai :global(.ai-field textarea) { width: 100%; padding: 6px 2px 12px; border: 0; border-bottom: 2px solid var(--kd-beige-3); background: transparent; color: var(--kd-ink); font: inherit; font-size: clamp(20px, 2.4vw, 26px); font-weight: var(--kd-weight-medium); line-height: 1.4; outline: none; resize: none; border-radius: 0; }
   .ai :global(.ai-field textarea) { min-height: 2.4em; overflow: hidden; }
   .ai :global(.ai-field input::placeholder), .ai :global(.ai-field textarea::placeholder) { color: var(--ai-muted); opacity: .6; font-weight: var(--kd-weight-regular); }
-  .ai :global(.ai-field input:focus), .ai :global(.ai-field textarea:focus) { border-bottom-color: var(--kd-blue-2); }
+  .ai :global(.ai-field input:focus), .ai :global(.ai-field textarea:focus) { border-bottom-color: var(--ai-acc); }
 
   .ai :global(.ai-choices) { display: flex; flex-direction: column; gap: 10px; }
   .ai :global(.ai-choice) { display: flex; align-items: center; gap: 16px; width: 100%; min-height: var(--kd-control-h); padding: 14px 18px; border: 2px solid var(--ai-line); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
-  .ai :global(.ai-choice:hover) { border-color: color-mix(in srgb, var(--kd-blue-2) 50%, var(--ai-line)); }
-  .ai :global(.ai-choice:focus-visible) { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
-  .ai :global(.ai-choice.sel) { border-color: var(--kd-blue-2); background: color-mix(in srgb, var(--kd-blue-2) 6%, var(--kd-white)); }
+  .ai :global(.ai-choice:hover) { border-color: color-mix(in srgb, var(--ai-acc) 50%, var(--ai-line)); }
+  .ai :global(.ai-choice:focus-visible) { outline: 2px solid var(--ai-acc); outline-offset: 2px; }
+  .ai :global(.ai-choice.sel) { border-color: var(--ai-acc); background: var(--ai-tint); }
   .ai :global(.ai-choice-body) { flex: 1; min-width: 0; }
   .ai :global(.ai-choice-label) { display: block; font-size: 18px; font-weight: var(--kd-weight-medium); }
   .ai :global(.ai-choice-desc) { display: block; margin-top: 3px; font-size: 15px; line-height: 1.4; color: var(--ai-muted); }
   .ai :global(.ai-mark) { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border: 2px solid var(--kd-beige-3); border-radius: var(--kd-radius); transition: background-color .15s ease, border-color .15s ease; }
   .ai :global(.ai-choice[data-pick="single"] .ai-mark) { border-radius: 50%; }
-  .ai :global(.ai-choice.sel .ai-mark) { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
+  .ai :global(.ai-choice.sel .ai-mark) { background: var(--ai-acc); border-color: var(--ai-acc); }
   .ai :global(.ai-mark svg) { width: 14px; height: 14px; color: var(--kd-white); opacity: 0; }
   .ai :global(.ai-choice.sel .ai-mark svg) { opacity: 1; }
 
-  .ai :global(.ai-note) { min-height: 22px; margin-top: 12px; font-size: 15px; font-weight: var(--kd-weight-medium); color: var(--kd-blue-2); opacity: 0; transition: opacity .15s ease; }
+  .ai :global(.ai-note) { min-height: 22px; margin-top: 12px; font-size: 15px; font-weight: var(--kd-weight-medium); color: var(--ai-acc); opacity: 0; transition: opacity .15s ease; }
   .ai :global(.ai-note.show) { opacity: 1; }
 
   .ai-foot { flex: none; display: flex; align-items: center; gap: 16px; padding: 14px clamp(20px, 5vw, 40px) 20px; border-top: 1px solid var(--ai-line); background: var(--kd-beige-1); }
@@ -91,7 +102,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai-enter kbd { padding: 1px 7px; border: 1px solid var(--kd-beige-3); border-bottom-width: 2px; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; font-size: 13px; font-weight: var(--kd-weight-medium); }
   .ai-steppers { margin-left: auto; display: flex; gap: 8px; }
   .ai-step { display: grid; place-items: center; width: var(--kd-control-h); height: var(--kd-control-h); border: 2px solid var(--kd-beige-3); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); cursor: pointer; }
-  .ai-step:hover { border-color: var(--kd-blue-2); }
+  .ai-step:hover { border-color: var(--ai-acc); }
   .ai-step:disabled { opacity: .35; cursor: not-allowed; }
   .ai-step svg { width: 18px; height: 18px; }
   @media (max-width: 560px) { .ai-enter { display: none; } }
@@ -110,6 +121,63 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai :global(.ai-btn-line:hover) { background: var(--kd-blue-1); color: var(--kd-white); }
   .ai-toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); padding: 11px 18px; border-radius: var(--kd-radius); background: var(--kd-ink); color: var(--kd-white); font-size: 15px; font-weight: var(--kd-weight-medium); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
   .ai-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- side panel ---------- */
+  .ai-coach { align-self: center; }
+  .ai-coach:empty { display: none; }
+  .ai :global(.ai-cc) { animation: ai-rise .32s cubic-bezier(.2, .75, .2, 1) both; }
+  .ai :global(.ai-cc-head) { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 12px; font-size: 14px; }
+  .ai :global(.ai-cc-cheer) { font-weight: var(--kd-weight-medium); color: var(--ai-acc); }
+  .ai :global(.ai-cc-left) { color: var(--ai-muted); font-variant-numeric: tabular-nums; }
+  .ai :global(.ai-cc-card) { position: relative; display: grid; gap: 12px; padding: 24px; border-radius: var(--kd-radius); background: var(--kd-white); border: 1px solid var(--ai-line); }
+  .ai :global(.ai-cc-k) { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; color: var(--ai-acc); }
+  .ai :global(.ai-cc-card p) { margin: 0; font-size: 17px; line-height: 1.5; }
+  .ai :global(.ai-cc-card ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .ai :global(.ai-cc-card li) { position: relative; padding-left: 26px; font-size: 16px; line-height: 1.45; }
+  .ai :global(.ai-cc-card li::before) { content: ''; position: absolute; left: 3px; top: .3em; width: 6px; height: 11px; border: solid var(--ai-acc); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .ai :global(.ai-cc-card ol) { margin: 0; padding: 0; list-style: none; counter-reset: n; display: grid; gap: 12px; }
+  .ai :global(.ai-cc-card ol li) { padding-left: 36px; counter-increment: n; }
+  .ai :global(.ai-cc-card ol li::before) { content: counter(n); left: 0; top: 0; width: 24px; height: 24px; border: 0; transform: none; border-radius: 50%; display: grid; place-items: center; background: var(--ai-acc); color: var(--kd-white); font-size: 12px; font-weight: var(--kd-weight-medium); }
+  .ai :global(.ai-cc-quote) { margin: 0; font-size: 19px; line-height: 1.4; font-weight: var(--kd-weight-medium); }
+  .ai :global(.ai-cc-who) { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ai-muted); }
+  .ai :global(.ai-cc-who img) { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+  .ai :global(.ai-cc-who b) { display: block; color: var(--kd-ink); font-weight: var(--kd-weight-medium); }
+  .ai :global(.ai-cc-faces) { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ai-muted); }
+  .ai :global(.ai-cc-faces img) { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--kd-white); }
+  .ai :global(.ai-cc-faces img + img) { margin-left: -18px; }
+  .ai :global(.ai-cc-logos) { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 18px; align-items: center; }
+  .ai :global(.ai-cc-logos img) { width: 100%; height: 22px; object-fit: contain; filter: grayscale(1); opacity: .7; }
+  .ai :global(.ai-cc-small) { font-size: 14px !important; color: var(--ai-muted); }
+  @media (max-width: 980px) {
+    .ai-coach { margin-top: 12px; }
+    .ai :global(.ai-cc-card) { padding: 18px; }
+    .ai :global(.ai-cc-quote) { font-size: 17px; }
+  }
+
+  /* ---------- department themes ---------- */
+  /* product (UX and website audits): wireframe style, blue; the panel is an app window */
+  .ai--product { background-image: radial-gradient(color-mix(in srgb, var(--kd-blue-1) 9%, transparent) 1px, transparent 1.4px); background-size: 18px 18px; }
+  .ai--product :global(.ai-cc-card) { padding-top: 46px; border: 2px solid var(--kd-blue-1); box-shadow: 0 18px 40px -26px rgba(26, 1, 117, .5); }
+  .ai--product :global(.ai-cc-card::before) { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 28px; background: var(--kd-blue-1); }
+  .ai--product :global(.ai-cc-card::after) { content: ''; position: absolute; left: 14px; top: 10px; width: 40px; height: 8px; background: radial-gradient(circle, rgba(255, 255, 255, .45) 3.5px, transparent 4px) 0 0 / 14px 8px repeat-x; }
+
+  /* marketing: editorial, navy and lime; the panel is paper pinned with lime tape */
+  .ai--marketing { --ai-acc: var(--kd-blue-1); --ai-tint: var(--kd-lilac-tint); }
+  .ai--marketing :global(.ai-display em) { color: inherit; background: linear-gradient(transparent 58%, var(--kd-signal-1) 58% 92%, transparent 92%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .ai--marketing .ai-progress-fill { background: var(--kd-signal-1); box-shadow: inset 0 -1px 0 var(--kd-blue-1); }
+  .ai--marketing :global(.ai-cc-card) { background: var(--kd-white); border: 0; box-shadow: 0 22px 44px -26px rgba(26, 1, 117, .5), 0 0 0 1px var(--kd-beige-3); transform: rotate(-1deg); }
+  .ai--marketing :global(.ai-cc-card::before) { content: ''; position: absolute; left: 50%; top: -11px; width: 86px; height: 22px; margin-left: -43px; background: color-mix(in srgb, var(--kd-signal-1) 72%, transparent); transform: rotate(-3deg); }
+  .ai--marketing :global(.ai-cc-quote) { font-size: 21px; }
+  .ai--marketing :global(.ai-cc-quote::before) { content: '“'; display: block; height: 26px; font-size: 54px; line-height: 1; color: var(--kd-signal-1); -webkit-text-stroke: 1px var(--kd-blue-1); }
+
+  .ai:is(.ai--marketing, .ai--sales) .ai-foot :global(.btn-primary) { background: var(--kd-blue-1); border-color: var(--kd-blue-1); }
+  /* sales: dashboards and graphs, lilac; the panel is a dashboard card with a small chart */
+  .ai--sales { --ai-acc: var(--kd-blue-1); --ai-tint: var(--kd-lilac-tint); }
+  .ai--sales .ai-progress-fill { background: var(--kd-lilac); }
+  .ai--sales :global(.ai-choice.sel) { border-color: var(--kd-blue-1); }
+  .ai--sales :global(.ai-cc-card) { padding-top: 70px; border: 1px solid var(--kd-lilac); box-shadow: 0 18px 40px -26px rgba(26, 1, 117, .4); }
+  .ai--sales :global(.ai-cc-card::before) { content: ''; position: absolute; left: 24px; right: 24px; top: 20px; height: 32px; border-bottom: 1.5px solid var(--kd-lilac);
+    background: linear-gradient(var(--kd-lilac), var(--kd-lilac)) 0 100% / 12% 30% no-repeat, linear-gradient(var(--kd-lilac), var(--kd-lilac)) 18% 100% / 12% 45% no-repeat, linear-gradient(var(--kd-lilac), var(--kd-lilac)) 36% 100% / 12% 60% no-repeat, linear-gradient(var(--kd-lilac), var(--kd-lilac)) 54% 100% / 12% 72% no-repeat, linear-gradient(var(--kd-blue-1), var(--kd-blue-1)) 72% 100% / 12% 100% no-repeat; }
 </style>
 
 <script is:inline>
@@ -122,6 +190,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     var wrap = root.querySelector('[data-ai-wrap]'), foot = root.querySelector('[data-ai-foot]'), counter = root.querySelector('[data-ai-counter]');
     var bar = root.querySelector('[data-ai-bar]'), prevBtn = root.querySelector('[data-ai-prev]'), toastEl = root.querySelector('[data-ai-toast]');
     var state = { answers: {}, idx: -1 }, saved = null, toastT;
+    var coachEl = root.querySelector('[data-ai-coach]'), C = cfg.coach, U = cfg.ui;
 
     try { saved = JSON.parse(localStorage.getItem(cfg.key) || 'null'); if (!saved || !saved.answers || !Object.keys(saved.answers).length) saved = null; } catch (e) {}
     function persist() { try { localStorage.setItem(cfg.key, JSON.stringify({ answers: state.answers, idx: state.idx })); } catch (e) {} }
@@ -129,8 +198,37 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
     function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
 
+    // the side panel: what you get (intro), a reason to keep going (questions), what happens next (review)
+    function card(kicker, inner) { return '<div class="ai-cc-card"><span class="ai-cc-k">' + esc(kicker) + '</span>' + inner + '</div>'; }
+    function facesRow() { return '<div class="ai-cc-faces"><img src="' + esc(cfg.faces.maria.img) + '" alt=""><img src="' + esc(cfg.faces.karan.img) + '" alt=""><span>Maria &amp; Karan</span></div>'; }
+    function coachHtml(c) {
+      if (!c) return '';
+      if (c.kind === 'quote' || c.kind === 'testimonial') {
+        var who = c.who ? cfg.faces[c.who] : null;
+        return card(U.kinds[c.kind], '<blockquote class="ai-cc-quote">' + esc(c.body) + '</blockquote>'
+          + '<div class="ai-cc-who">' + (who ? '<img src="' + esc(who.img) + '" alt="">' : '') + '<span><b>' + esc(who ? who.name : (c.source || '')) + '</b>' + (c.who ? esc(U.roles[c.who]) : '') + '</span></div>');
+      }
+      if (c.kind === 'facts') return card(U.kinds.facts, '<ul>' + c.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>');
+      if (c.kind === 'logos') return card(U.kinds.logos, '<div class="ai-cc-logos">' + cfg.logos.map(function (l) { return '<img src="https://assets.kadanco.com/logos/' + esc(l.file) + '.svg" alt="' + esc(l.alt) + '" loading="lazy">'; }).join('') + '</div><p class="ai-cc-small">' + esc(U.logos) + '</p>');
+      return card(U.kinds[c.kind], '<p>' + esc(c.body) + '</p>');
+    }
+    function coach() {
+      if (!coachEl || !C) return;
+      var h = '';
+      if (state.idx < 0) h = card(C.intro.title, '<ul>' + C.intro.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' + facesRow());
+      else if (state.idx >= TOTAL) h = card(C.next.title, '<ol>' + C.next.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' + facesRow());
+      else {
+        var f = state.idx / TOTAL, left = TOTAL - state.idx - 1;
+        var cheer = left === 0 ? U.cheers[4] : f < .2 ? U.cheers[0] : f < .5 ? U.cheers[1] : f < .8 ? U.cheers[2] : U.cheers[3];
+        h = '<div class="ai-cc-head"><span class="ai-cc-cheer">' + esc(cheer) + '</span>' + (left > 0 ? '<span class="ai-cc-left">' + esc(U.left.replace('{n}', left)) + '</span>' : '') + '</div>'
+          + coachHtml(C.q[Q[state.idx].id]);
+      }
+      coachEl.innerHTML = h ? '<div class="ai-cc">' + h + '</div>' : '';
+    }
+
     function render() {
       bar.style.width = (state.idx < 0 ? 0 : state.idx >= TOTAL ? 100 : Math.round(state.idx / TOTAL * 100)) + '%';
+      coach();
       if (state.idx < 0) return intro();
       if (state.idx >= TOTAL) return review();
       question(Q[state.idx]);
@@ -261,6 +359,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
 
     function done() {
       bar.style.width = '100%';
+      if (coachEl) coachEl.innerHTML = '<div class="ai-cc">' + card(U.kinds.facts, '<ul><li>' + esc(C.next.items[1]) + '</li></ul>' + facesRow()) + '</div>';
       wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.done.eyebrow) + '</span>'
         + '<h1 class="ai-display">' + esc(t.done.h1) + '</h1><p class="ai-lead">' + esc(t.done.lead) + '</p>'
         + '<div class="ai-actions"><a class="btn btn-primary btn-lg" href="' + esc(cfg.home) + '">' + esc(t.done.back) + '</a></div></div>';

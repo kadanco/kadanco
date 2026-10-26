@@ -337,11 +337,11 @@ const chipAt = (d: number) => chips.find((c) => c.day === d);
   .scn-item:focus-visible { box-shadow: 0 0 0 3px var(--kd-accent); }
   .scn-label { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .05em; text-transform: uppercase; color: var(--kd-accent); }
   .scn-item h3 { margin-top: 4px; font-size: 19px; line-height: 1.25; }
-  .scn-item p { display: none; margin-top: 8px; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
+  /* every step text always shows; the active step only changes colour, so the list never changes height (owner, 2026-10-26) */
+  .scn-item p { margin-top: 8px; font-size: 16px; line-height: 1.5; color: var(--kd-fg-2); }
   .scn-item.on { background: var(--card-1); border-color: var(--card-1); color: var(--card-ink); }
   .scn-item.on .scn-label { color: var(--card-step); }
-  .scn-item.on p { display: block; color: inherit; opacity: .9; animation: scn-in .3s ease; }
-  .scn:not([data-active]) .scn-item p { display: block; }
+  .scn-item.on p { color: inherit; opacity: .9; }
   @keyframes scn-in { from { opacity: 0; transform: translateY(4px); } to { opacity: .9; transform: none; } }
 
   /* ---------- web: a website in a browser ---------- */

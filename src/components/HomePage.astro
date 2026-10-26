@@ -13,6 +13,7 @@
 // Client logos turn light in dark mode via --kd-logo-filter.
 //
 // Class names carry a home- prefix so they never collide with global.css.
+import { careerLogos } from '../data/form-coach';
 import HomeHero from './HomeHero.astro';
 import HomeHeroVisual from './HomeHeroVisual.astro';
 import DeptStack from './DeptStack.astro';
@@ -92,16 +93,7 @@ const c = copy[locale] ?? copy.en;
 
 // featured case first (wide), then the rest in the grid
 
-const logos = [
-  { file: 'mercedes-benz', alt: 'Mercedes-Benz' },
-  { file: 'opel', alt: 'Opel' },
-  { file: 'toyota', alt: 'Toyota' },
-  { file: 'merck', alt: 'Merck' },
-  { file: 'oracle', alt: 'Oracle' },
-  { file: 'consorsbank', alt: 'Consorsbank' },
-  { file: 'dkb', alt: 'DKB' },
-  { file: 'sparkasse', alt: 'Sparkasse' },
-];
+const logos = careerLogos; // shared with the form side panel (src/data/form-coach.ts)
 ---
 <main id="top" class="home">
 

@@ -41,6 +41,8 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
   - Navy hero with halftone and lime accents (no lime grounds), headline highlighter, pinned paper pieces with lime tape and small tilts. Example company "Talio".
   - Hero `HeroPasteup.astro` (billboard paste-up), buzzword bingo self-check, five campaign-style steps with clickable pictures (Rollout added), press clippings that turn over (`MeasuresPress.astro`), ways to work.
 - **Content Production rebuilt in the Marketing style** (EN and DE), waiting for owner review: fan-out hero (`HeroFanout.astro`), stale LinkedIn feed self-check, five clickable campaign-style steps, press clipping measures.
+- **Forms themed by department with a coaching side panel** (`src/data/form-coach.ts`), waiting for owner review; quotes are drafts.
+- **No layout jumps:** every interactive picture and card keeps its size (rule in `CLAUDE.md`, Responsive rules).
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
@@ -66,6 +68,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (night): Layout jumps removed sitewide; forms themed by department with a coaching side panel (why we ask, insights, draft operator quotes, facts, career logos).
 - 2026-10-26 (evening, 5): Content Production step pictures made clickable.
 - 2026-10-26 (evening, 4): Content Production rebuilt in the Marketing style.
 - 2026-10-26 (evening, 3): Only audit and strategy call CTAs; sprint and discovery call buttons renamed.
