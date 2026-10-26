@@ -60,7 +60,7 @@ const rows = cards.map((card) => {
   /* equal heights, so each card covers the previous one completely */
   .ds {
     --h: clamp(460px, calc(100svh - 150px), 580px);
-    position: sticky; top: calc(96px + var(--i) * 18px);
+    position: sticky; top: 96px; /* same top for every card, so each one fully covers the previous one (no stepped edge) */
     height: var(--h);
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     border-radius: 24px; overflow: hidden; box-shadow: 0 -10px 40px -14px rgba(26, 1, 117, .32);
