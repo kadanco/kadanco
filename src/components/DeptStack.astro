@@ -47,9 +47,7 @@ const rows = cards.map((card) => {
           {items.map((it) => <li><a href={it.href}><span>{it.name}</span><span aria-hidden="true">→</span></a></li>)}
           {Array.from({ length: placeholders }).map(() => <li class="ds-soon"><span>{ui.soon}</span></li>)}
         </ul>
-        {auditHref[card.id]
-          ? <a class="ds-cta" href={localizedHref(locale, auditHref[card.id]!)}>{card.link} →</a>
-          : <a class="ds-cta" href="#contact" data-open-modal>{card.link} →</a>}
+        <a class="ds-cta" href={localizedHref(locale, auditHref[card.id])}>{card.link} →</a>
       </div>
       <div class="ds-media">
         <img src={`/images/use-cases/${card.id}.jpg`} alt={ui.alt[card.id]} width="1200" height="800" loading="eager" decoding="async" />

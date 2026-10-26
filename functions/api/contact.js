@@ -17,9 +17,16 @@ export async function onRequestPost(context) {
       return json({ ok: true });
     }
 
+    // 3a. The strategy call page (/strategy-call/) replaced the contact modal. It keeps
+    //     the modal's Plunk event and fields, so existing Plunk workflows keep working.
+    if (data && data.type === 'strategy-call') {
+      const a = data.answers || {};
+      data = { name: a.name, email: a.email || data.email, company: a.company, website: a.website, goal: a.goal };
+    }
+
     // 3. Audit intakes (the full-screen forms, e.g. /ux-audit/) send a brief.
     //    They post { type, email, name, answers, brief }; `type` is the intake id.
-    const INTAKES = ['ux-audit'];
+    const INTAKES = ['ux-audit', 'marketing-audit', 'pipeline-audit'];
     if (data && INTAKES.includes(data.type)) {
       const email = String(data.email || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

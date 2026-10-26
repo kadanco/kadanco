@@ -8,7 +8,8 @@
 // the October rules (blue primary, orange single CTA, outlined labels).
 // Note: the live label uses weight 600, which the site no longer loads
 // (brand rule: 400 and 500), so the browser shows it at 500.
-import { asLocale } from '../i18n/utils';
+import { asLocale, localizedHref } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 
 const locale = asLocale(Astro.currentLocale);
 
@@ -39,7 +40,7 @@ const c = copy[locale] ?? copy.en;
     <h2>{c.h2a} <span class="hl">{c.h2b}</span></h2>
     <p class="lead" style="margin-top:20px">{c.lead}</p>
     <div class="cta-actions">
-      <button class="btn btn-primary btn-lg" data-open-modal>{c.cta}</button>
+      <a class="btn btn-primary btn-lg" href={localizedHref(locale, callHref)}>{c.cta}</a>
     </div>
     <p class="cta-note">{c.note}</p>
   </div>

@@ -4,7 +4,8 @@
 // H1, lead and two buttons; the main button is lime, as on the original. The text never changes here. An optional visual can sit on the
 // right through the "visual" slot; without it the hero is a single column.
 // Used by HomePage.astro and by the dev-only hero options page.
-import { asLocale } from '../i18n/utils';
+import { asLocale, localizedHref } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 
 const locale = asLocale(Astro.currentLocale);
 
@@ -38,7 +39,7 @@ const hasVisual = Astro.slots.has('visual');
       <p>{c.lead.split('\n').map((line, i) => <>{i > 0 && <br />}{line.replace(/(\w)-(\w)/g, '$1\u2011$2')}</>)}</p>
       <div class="home-hero-actions">
         {/* one button: no generic audit CTA (owner, 2026-10-26); department audits live on their pages */}
-        <a href="#contact" class="btn btn-lime btn-lg" data-open-modal>{c.offersLink}</a>
+        <a href={localizedHref(locale, callHref)} class="btn btn-lime btn-lg">{c.offersLink}</a>
       </div>
     </div>
     {hasVisual && <div class="home-hero-visual"><slot name="visual" /></div>}

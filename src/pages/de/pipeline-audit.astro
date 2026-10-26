@@ -1,0 +1,10 @@
+---
+// /pipeline-audit/: audit intake form (full screen, no nav or footer), content in src/data/intakes.ts
+import Layout from '../../layouts/Layout.astro';
+import AuditIntake from '../../components/AuditIntake.astro';
+import { pipelineAudit } from '../../data/intakes';
+const t = pipelineAudit.de;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={pipelineAudit} />
+</Layout>

@@ -21,7 +21,7 @@ export const dachMarketEntry: UseCasePage = {
     h1a: 'Enter The DACH Market',
     h1b: 'Without Hiring A Local Team.',
     lead: 'A German-language presence that grows every week, your existing assets finally working in the market, and a pipeline your sales team does not have to run themselves. We own it end to end.',
-    ctaPrimary: 'Get A Free Audit',
+    ctaPrimary: 'Get A Free Market Entry Audit',
     ctaSecondary: 'Book A Strategy Call',
     situation: {
       eyebrow: 'The situation',
@@ -98,7 +98,7 @@ export const dachMarketEntry: UseCasePage = {
       h2a: "Tell Us Where You're Trying To",
       h2b: 'Grow In DACH.',
       lead: "We'll show you the few moves that matter most for the German market, then make them.",
-      button: 'Get A Free Audit',
+      button: 'Get A Free Market Entry Audit',
     },
   },
   de: {
@@ -111,7 +111,7 @@ export const dachMarketEntry: UseCasePage = {
     h1a: 'Treten Sie in den DACH-Markt ein,',
     h1b: 'ohne ein lokales Team aufzubauen.',
     lead: 'Eine deutschsprachige Präsenz, die jede Woche wächst, Ihre bestehenden Inhalte, die endlich im Markt wirken, und eine Pipeline, die Ihr Vertrieb nicht selbst betreiben muss. Wir verantworten alles von Anfang bis Ende.',
-    ctaPrimary: 'Kostenloses Audit anfordern',
+    ctaPrimary: 'Kostenloses Markteintritts-Audit',
     ctaSecondary: 'Strategiegespräch buchen',
     situation: {
       eyebrow: 'Die Ausgangslage',
@@ -188,7 +188,7 @@ export const dachMarketEntry: UseCasePage = {
       h2a: 'Sagen Sie uns, wo Sie',
       h2b: 'in DACH wachsen wollen.',
       lead: 'Wir zeigen Ihnen die wenigen Hebel, die für den deutschen Markt am wichtigsten sind, und setzen sie dann um.',
-      button: 'Kostenloses Audit anfordern',
+      button: 'Kostenloses Markteintritts-Audit',
     },
   },
 };

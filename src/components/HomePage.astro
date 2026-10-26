@@ -36,9 +36,9 @@ const copy = {
     offersH2b: 'Entire Go To Market.',
     offersLede: 'Each offer is built end to end and handed off ready to run.',
     cards: [
-      { id: 'product', tone: 'product', label: '01 · Product', title: 'Product Design & Development', body: 'Audit, design system and redesigned journeys to make the product easy to use and adopt.', link: 'Book a UX Review' },
-      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digital Marketing & Branding', body: 'Positioning, launch and content that make your story clear and differentiated.', link: 'Book a Strategy Call' },
-      { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales Support & Systems', body: 'Methods, tools, and tactics to generate uptick in your sales pipeline.', link: 'Book a Pipeline Audit' },
+      { id: 'product', tone: 'product', label: '01 · Product', title: 'Product Design & Development', body: 'Audit, design system and redesigned journeys to make the product easy to use and adopt.', link: 'Book A UX Audit' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digital Marketing & Branding', body: 'Positioning, launch and content that make your story clear and differentiated.', link: 'Book A Marketing Audit' },
+      { id: 'sales', tone: 'sales', label: '03 · Sales', title: 'Sales Support & Systems', body: 'Methods, tools, and tactics to generate uptick in your sales pipeline.', link: 'Book A Pipeline Audit' },
     ],
     logosEyebrow: 'Two careers behind the expertise',
     logosNote: 'We bring four decades of collective experience across product, marketing, and sales in enterprise software, services, automotive, pharma, and SaaS.',
@@ -64,9 +64,9 @@ const copy = {
     offersH2b: 'gesamten Go-to-Market.',
     offersLede: 'Jedes Angebot wird von Anfang bis Ende gebaut und einsatzbereit übergeben.',
     cards: [
-      { id: 'product', tone: 'product', label: '01 · Produkt', title: 'Produktdesign & Entwicklung', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'Produkt-Review buchen' },
-      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digitales Marketing & Branding', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Positionierung schärfen' },
-      { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Vertriebsunterstützung & Systeme', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline aufbauen' },
+      { id: 'product', tone: 'product', label: '01 · Produkt', title: 'Produktdesign & Entwicklung', body: 'Audit, Designsystem und neu gestaltete Nutzerwege für das Produkt selbst.', link: 'UX-Audit buchen' },
+      { id: 'marketing', tone: 'marketing', label: '02 · Marketing', title: 'Digitales Marketing & Branding', body: 'Positionierung, Launch und Inhalte, die Ihr Produkt verständlich machen.', link: 'Marketing-Audit buchen' },
+      { id: 'sales', tone: 'sales', label: '03 · Vertrieb', title: 'Vertriebsunterstützung & Systeme', body: 'Eine Pipeline, die nicht an einer Gründerin oder einem Gründer hängt.', link: 'Pipeline-Audit buchen' },
     ],
     logosEyebrow: 'Zwei Karrieren hinter der Arbeit',
     logosNote: 'Wir bringen vier Jahrzehnte gemeinsame Erfahrung aus Enterprise-Software, Services, Automotive, Pharma und SaaS mit, in Produkt, Marketing und Vertrieb.',
@@ -136,7 +136,7 @@ const logos = [
       </div>
       <div class="home-offers">
         {c.cards.map((card) => (
-          <a class={`home-card home-card--${card.tone}`} id={card.id} href={auditHref[card.id as 'product'] ? localizedHref(locale, auditHref[card.id as 'product']!) : '#contact'} data-open-modal={auditHref[card.id as 'product'] ? undefined : ''}>
+          <a class={`home-card home-card--${card.tone}`} id={card.id} href={localizedHref(locale, auditHref[card.id as 'product' | 'marketing' | 'sales'])}>
             <ServiceBoard id={card.id as 'product' | 'marketing' | 'sales'} width={128} />
             <span class="home-lbl">{card.label}</span>
             <h3>{card.title}</h3>

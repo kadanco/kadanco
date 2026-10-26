@@ -30,6 +30,9 @@ export const translatedRoutes: Partial<Record<Locale, string[]>> = {
   de: [
     '/',
     '/ux-audit',
+    '/marketing-audit',
+    '/pipeline-audit',
+    '/strategy-call',
     '/use-cases/dach-market-entry',
     '/use-cases/product-design',
     '/use-cases/website-production',
@@ -86,23 +89,6 @@ const en: Dict = {
   'footer.linkedin': 'Kadanco on LinkedIn',
 
   // contact modal
-  'modal.eyebrow': 'Lets Talk',
-  'modal.title': 'Start a conversation',
-  'modal.lead': "Tell us a bit about you and we'll reach out fast to set up a chat.",
-  'modal.close': 'Close dialog',
-  'modal.hp': 'Leave this field empty',
-  'modal.name': 'Name',
-  'modal.email': 'Work email',
-  'modal.company': 'Company',
-  'modal.website': 'Website',
-  'modal.optional': '(optional)',
-  'modal.goal': 'What problem are you trying to solve?',
-  'modal.send': 'Send',
-  'modal.sending': 'Sending…',
-  'modal.error': 'Something went wrong.',
-  'modal.emailfallback': ' You can also email hello@kadanco.com.',
-  'modal.success.title': 'Thanks, talk soon.',
-  'modal.success.body': "We'll reach out fast to set up a chat.",
 };
 
 const de: Dict = {
@@ -117,7 +103,7 @@ const de: Dict = {
   'nav.marketing': 'Marketing',
   'nav.sales': 'Vertrieb',
   'nav.about': 'Über uns',
-  'nav.cta': 'Kontakt aufnehmen',
+  'nav.cta': 'Strategiegespräch',
   'nav.home': 'Kadanco, Startseite',
   'nav.menu': 'Menü',
 
@@ -146,23 +132,6 @@ const de: Dict = {
   'footer.linkedin': 'Kadanco auf LinkedIn',
 
   // contact modal
-  'modal.eyebrow': 'Kontakt',
-  'modal.title': 'Sprechen wir über Ihr Wachstum',
-  'modal.lead': 'Erzählen Sie uns kurz von sich. Wir melden uns schnell und vereinbaren ein Gespräch.',
-  'modal.close': 'Dialog schließen',
-  'modal.hp': 'Dieses Feld leer lassen',
-  'modal.name': 'Name',
-  'modal.email': 'Geschäftliche E-Mail',
-  'modal.company': 'Unternehmen',
-  'modal.website': 'Website',
-  'modal.optional': '(optional)',
-  'modal.goal': 'Welches Problem möchten Sie lösen?',
-  'modal.send': 'Absenden',
-  'modal.sending': 'Wird gesendet…',
-  'modal.error': 'Da ist etwas schiefgelaufen.',
-  'modal.emailfallback': ' Sie erreichen uns auch per E-Mail an hello@kadanco.com.',
-  'modal.success.title': 'Danke, wir melden uns.',
-  'modal.success.body': 'Wir melden uns schnell und vereinbaren ein Gespräch.',
 };
 
 export const ui: Partial<Record<Locale, Dict>> = { en, de };

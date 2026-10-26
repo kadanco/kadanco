@@ -4,18 +4,16 @@
 // Head restored verbatim from the pre-refactor Layout (commit 84c1d91):
 // the real adaptive favicon pair, the correct Fira Sans weights (incl. 700),
 // and the original OG tags. The only structural change versus that original is
-// the body: this Layout now renders the shared Nav, Footer and ContactModal
+// the body: this Layout now renders the shared Nav and Footer
 // around <slot/>, and owns the global UI script (scroll progress, motion,
 // section spy), so pages no longer hard-code any of these.
 //
 // `themeable`: the page supports dark mode. Only then does the nav show the
 // light/dark toggle; every other page is pinned to light.
-// `bare`: full-screen page without nav, footer and contact modal (the audit intake
-// forms). Analytics and consent stay.
+// `bare`: full-screen page without nav and footer (the intake forms). Analytics and consent stay.
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import ContactModal from '../components/ContactModal.astro';
 import { defaultLocale, switcherLocales } from '../i18n/ui';
 import { asLocale, basePath, hasTranslation, localizeUrl } from '../i18n/utils';
 
@@ -93,7 +91,6 @@ const altHref = (l) => new URL(localizeUrl(l, withSlash(base)), Astro.site).href
     <slot />
 
     {!bare && <Footer />}
-    {!bare && <ContactModal />}
 
     <!-- Global UI: colour-aware nav, scroll progress, motion, section spy. -->
     <!-- Lives here so it runs on every page exactly once. -->

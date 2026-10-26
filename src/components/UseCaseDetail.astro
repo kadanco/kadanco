@@ -19,7 +19,7 @@ import StepsScene from './StepsScene.astro';
 import SelfCheck from './SelfCheck.astro';
 import DeliverableTabs from './DeliverableTabs.astro';
 import HeroMorph from './HeroMorph.astro';
-import { auditHref } from '../data/intakes';
+import { auditHref, callHref } from '../data/intakes';
 import MeasuresDash from './MeasuresDash.astro';
 import StepsDetail from './StepsDetail.astro';
 import type { UseCasePage, Mark } from '../data/use-case-pages/types';
@@ -38,8 +38,9 @@ const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 
 const scene = SCENES.find((k) => k === page.stepsLayout);
 // route card marks: check, half, cross
 const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
-// the department's audit intake page (Product: /ux-audit/); without one, audit buttons open the contact modal
-const audit = auditHref[page.dept] ? localizedHref(locale, auditHref[page.dept]!) : undefined;
+// audit buttons go to the department's intake page, every other CTA to the strategy call page
+const audit = localizedHref(locale, auditHref[page.dept]);
+const call = localizedHref(locale, callHref);
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
   en: { problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen', sceneHint: 'Hover the picture or a step to see how it works.' },
@@ -54,10 +55,10 @@ const ui = {
         <h1>{c.h1a} <em>{c.h1b}</em></h1>
         <p>{c.lead}</p>
         <div class="ucd-hero-actions">
-          {audit ? <a href={audit} class="btn btn-lg ucd-btn">{c.ctaPrimary}</a> : <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.ctaPrimary}</a>}
+          <a href={audit} class="btn btn-lg ucd-btn">{c.ctaPrimary}</a>
           {c.ctaSecondaryHref
             ? <a href={c.ctaSecondaryHref} class="btn btn-lg ucd-btn-ghost">{c.ctaSecondary}</a>
-            : <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>}
+            : <a href={call} class="btn btn-lg ucd-btn-ghost">{c.ctaSecondary}</a>}
         </div>
       </div>
       {page.heroVisual === 'morph' ? (
@@ -336,7 +337,7 @@ const ui = {
               <span class="ucd-way-len">{o.length}</span>
               <p>{o.body}</p>
               <ul>{o.points.map((pt) => <li>{pt}</li>)}</ul>
-              <a href="#contact" class="btn ucd-way-btn" data-open-modal>{o.cta}</a>
+              <a href={call} class="btn ucd-way-btn">{o.cta}</a>
             </div>
           ))}
         </div>
@@ -428,7 +429,7 @@ const ui = {
     <div class="container">
       <h2>{c.cta.h2a} <em>{c.cta.h2b}</em></h2>
       <p>{c.cta.lead}</p>
-      <div class="ucd-cta-actions">{audit ? <a href={audit} class="btn btn-lg ucd-btn">{c.cta.button}</a> : <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.cta.button}</a>}</div>
+      <div class="ucd-cta-actions"><a href={audit} class="btn btn-lg ucd-btn">{c.cta.button}</a></div>
     </div>
   </section>
 </main>

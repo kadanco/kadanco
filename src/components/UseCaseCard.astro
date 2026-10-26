@@ -14,6 +14,7 @@
 // contact modal. Supports dark mode through the theme role tokens.
 import type { UseCase } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 import IsoIcon from './IsoIcon.astro';
 
 interface Props { uc: UseCase; size?: 'compact' | 'full'; featured?: boolean }
@@ -27,7 +28,7 @@ const ui = {
 }[locale];
 
 const hasPage = uc.kind === 'page' && uc.href;
-const href = hasPage ? localizedHref(locale, uc.href!) : '#contact';
+const href = localizedHref(locale, hasPage ? uc.href! : callHref);
 const showDetail = size === 'full' || featured;
 ---
 <a
@@ -36,7 +37,6 @@ const showDetail = size === 'full' || featured;
   id={uc.id}
   data-dept={uc.dept}
   data-depts={uc.depts.join(' ')}
-  data-open-modal={hasPage ? undefined : ''}
 >
   <div class="uc-main">
     <IsoIcon name={uc.icon} size={featured ? 72 : 56} class="uc-icon" />

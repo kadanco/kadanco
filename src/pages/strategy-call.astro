@@ -1,0 +1,10 @@
+---
+// strategy call: the general contact form (full screen, no nav or footer); replaced the contact modal
+import Layout from '../layouts/Layout.astro';
+import AuditIntake from '../components/AuditIntake.astro';
+import { strategyCall } from '../data/intakes';
+const t = strategyCall.en;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={strategyCall} />
+</Layout>

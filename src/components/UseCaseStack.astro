@@ -14,6 +14,7 @@
 import IsoIcon from './IsoIcon.astro';
 import type { UseCase } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 
 interface Props { items: UseCase[] }
 const { items } = Astro.props;
@@ -41,7 +42,7 @@ const ui = {
           {!t.problem && t.own && <p class="sc-own"><span>{ui.own}</span>{t.own}</p>}
           {hasPage
             ? <a class="sc-link" href={localizedHref(locale, uc.href!)}>{ui.page} →</a>
-            : <a class="sc-link" href="#contact" data-open-modal>{ui.talk} →</a>}
+            : <a class="sc-link" href={localizedHref(locale, callHref)}>{ui.talk} →</a>}
         </div>
         <div class="sc-media" data-image-slot={uc.id} role="img" aria-label={t.name}>
           <IsoIcon name={uc.icon} size={160} />

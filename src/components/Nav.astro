@@ -17,6 +17,7 @@
 import { switcherLocales } from '../i18n/ui';
 import { siteMenus } from '../data/menus';
 import { asLocale, useTranslations, localizedHref, localizeUrl, basePath, hasTranslation } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 
 const { themeable = false } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
@@ -76,7 +77,7 @@ const langItems = switcherLocales.map((l) => ({
         </button>
       )}
 
-      <button class="btn btn-lime nav-cta" data-open-modal>{t('nav.cta')}</button>
+      <a class="btn btn-lime nav-cta" href={localizedHref(locale, callHref)}>{t('nav.cta')}</a>
       <button type="button" class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="nav-mobile" aria-label={t('nav.menu')}>
         <span class="nav-burger-box" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
@@ -315,7 +316,7 @@ const langItems = switcherLocales.map((l) => ({
 
     // Any navigation or the CTA closes the panel.
     panel.addEventListener('click', function (e) {
-      var el = e.target.closest ? e.target.closest('a, [data-open-modal]') : null;
+      var el = e.target.closest ? e.target.closest('a') : null;
       if (el) setOpen(false);
     });
 

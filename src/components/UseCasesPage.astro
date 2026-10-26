@@ -10,7 +10,8 @@
 // the buttons do nothing harmful.
 import UseCaseCard from './UseCaseCard.astro';
 import { useCases, type Dept } from '../data/use-cases';
-import { asLocale } from '../i18n/utils';
+import { asLocale, localizedHref } from '../i18n/utils';
+import { callHref } from '../data/intakes';
 
 const locale = asLocale(Astro.currentLocale);
 
@@ -76,7 +77,7 @@ const otherUc = useCases.filter((u) => !u.featured);
     <div class="container ucp-cta-in">
       <h2>{c.ctaH2a} <span class="ucp-soft">{c.ctaH2b}</span></h2>
       <p>{c.ctaLead}</p>
-      <a href="#contact" class="btn btn-lime btn-lg" data-open-modal>{c.cta}</a>
+      <a href={localizedHref(locale, callHref)} class="btn btn-lime btn-lg">{c.cta}</a>
     </div>
   </section>
 

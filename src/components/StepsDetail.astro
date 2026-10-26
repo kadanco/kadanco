@@ -19,8 +19,8 @@ interface Labels {
   states: [string, string, string, string]; tokens: string; components: string; doLbl: string; dontLbl: string;
   passed: string; ready: string; preview: string;
 }
-interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string }; ctaHref?: string }
-// ctaHref: the audit intake page; without it the CTA opens the contact modal
+interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string }; ctaHref: string }
+// ctaHref: the department's audit intake page
 const { steps, labels, cta, ctaHref } = Astro.props;
 ---
 <div class="sd" data-sd>
@@ -156,7 +156,7 @@ const { steps, labels, cta, ctaHref } = Astro.props;
     {cta && (
       <div class="sd-cta">
         <div><h3>{cta.h3}</h3><p>{cta.body}</p></div>
-        {ctaHref ? <a href={ctaHref} class="btn btn-lg sd-cta-btn">{cta.button}</a> : <a href="#contact" class="btn btn-lg sd-cta-btn" data-open-modal>{cta.button}</a>}
+        <a href={ctaHref} class="btn btn-lg sd-cta-btn">{cta.button}</a>
       </div>
     )}
   </div>

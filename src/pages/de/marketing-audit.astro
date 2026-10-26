@@ -1,0 +1,10 @@
+---
+// /marketing-audit/: audit intake form (full screen, no nav or footer), content in src/data/intakes.ts
+import Layout from '../../layouts/Layout.astro';
+import AuditIntake from '../../components/AuditIntake.astro';
+import { marketingAudit } from '../../data/intakes';
+const t = marketingAudit.de;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={marketingAudit} />
+</Layout>
