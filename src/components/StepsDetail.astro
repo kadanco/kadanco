@@ -23,10 +23,16 @@
 //   story      the sales deck; flip through the slides (buttons, the story arc, arrow keys)
 //   rollout    a wall of assets that look like five companies until you switch on the brand
 // Without JavaScript each picture shows its finished state.
+// Content Production (2026-10-26), same look, static pictures:
+//   voice      interview notes with highlighted quotes, and the arguments you will own
+//   linkedin   a week of the content calendar and a post approved by the founder
+//   articles   a guide article, its search result and the AI answer that quotes it
+//   collateral a sales deck slide, a one-pager and a case study, pinned together
+//   pipeline   post, outbound message, meeting and deal in a row, tracked in the CRM
 // Each row: when it happens, what we do, what you get and what we need from you.
 // One CTA closes the section. Section shell and heading come
 // from UseCaseDetail.astro.
-type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout';
+type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout' | 'voice' | 'linkedin' | 'articles' | 'collateral' | 'pipeline';
 interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string }
 interface Labels {
   step: string; doing: string; get: string; you: string;
@@ -44,6 +50,11 @@ interface Labels {
     guide: string; colours: [string, string, string, string]; colourLbl: string; type: string; post: string;
     slides: [string, string, string, string]; slideHs: [string, string, string, string]; prev: string; next: string;
     assets: [string, string, string, string, string]; brandLbl: string };
+  cnt?: { notes: string; quotes: [string, string]; argsLbl: string; args: [string, string, string];
+    days: [string, string, string, string, string]; kinds: [string, string, string]; author: string; post: string; approved: string;
+    guide: string; articleH: string; url: string; ai: string; aiText: string;
+    deckH: string; onePager: string; opH: string; caseStudy: string; quote: string;
+    chain: [string, string, string, string]; crm: string };
 }
 interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string }; ctaHref: string; look?: 'product' | 'campaign' }
 // ctaHref: the department's audit intake page
@@ -364,6 +375,58 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                     <div class="m-as m-as--deck" style="--d:270ms"><span class="m-as-l">{labels.mkt.assets[3]}</span><div class="m-as-in"><em></em><em class="s"></em><i class="lg"></i></div></div>
                     <div class="m-as m-as--roll" style="--d:360ms"><span class="m-as-l">{labels.mkt.assets[4]}</span><div class="m-as-in"><i class="lg"></i><em></em><em class="s"></em><u></u></div></div>
                   </div>
+                </div>
+              )}
+              {s.key === 'voice' && labels.cnt && (
+                <div class="c-voice">
+                  <div class="c-notes">
+                    <span class="m-kick">{labels.cnt.notes}</span>
+                    <em></em><p><mark>{labels.cnt.quotes[0]}</mark></p><em></em><em class="s"></em><p><mark>{labels.cnt.quotes[1]}</mark></p><em class="s"></em>
+                  </div>
+                  <div class="c-args">
+                    <span class="m-kick">{labels.cnt.argsLbl}</span>
+                    {labels.cnt.args.map((a, k) => <div class="c-arg"><span>{k + 1}</span>{a}</div>)}
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'linkedin' && labels.cnt && (
+                <div class="c-li">
+                  <div class="c-cal">{labels.cnt.days.map((d, k) => <div class="c-day"><span>{d}</span>{k === 0 && <b class="c-ev">{labels.cnt.kinds[0]}</b>}{k === 2 && <b class="c-ev c-ev--a">{labels.cnt.kinds[1]}</b>}{k === 4 && <b class="c-ev">{labels.cnt.kinds[2]}</b>}</div>)}</div>
+                  <div class="c-post">
+                    <div class="c-who"><span class="c-av"></span><b>{labels.cnt.author}</b><span class="c-in">in</span></div>
+                    <p>{labels.cnt.post}</p>
+                    <div class="c-react"><i></i><i></i><i></i><span class="c-ok">✓ {labels.cnt.approved}</span></div>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'articles' && labels.cnt && (
+                <div class="c-art">
+                  <div class="c-page">
+                    <span class="m-kick">{labels.cnt.guide}</span>
+                    <b>{labels.cnt.articleH}</b>
+                    <em></em><em></em><em class="s"></em><em></em><em class="s"></em>
+                  </div>
+                  <div class="c-found">
+                    <div class="c-res"><span class="c-n">1</span><div><b>{labels.cnt.url}</b><span>{labels.cnt.articleH}</span></div></div>
+                    <div class="c-ai"><span class="c-ai-l">✦ {labels.cnt.ai}</span><p>{labels.cnt.aiText}</p><span class="c-cite">↗ {labels.cnt.url}</span></div>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'collateral' && labels.cnt && (
+                <div class="c-col">
+                  <div class="c-slide"><b><mark>{labels.cnt.deckH}</mark></b><span class="m-logo m-logo--s">talio</span></div>
+                  <div class="c-one"><span class="m-kick">{labels.cnt.onePager}</span><b>{labels.cnt.opH}</b><ul><li></li><li></li><li></li></ul></div>
+                  <div class="c-case"><span class="m-kick">{labels.cnt.caseStudy}</span><p>“{labels.cnt.quote}”</p><em class="s"></em></div>
+                </div>
+              )}
+
+              {s.key === 'pipeline' && labels.cnt && (
+                <div class="c-pipe">
+                  <ol class="c-chain">{labels.cnt.chain.map((c, k) => <li class={k === 3 ? 'won' : ''}><span>{String(k + 1).padStart(2, '0')}</span><b>{c}</b></li>)}</ol>
+                  <div class="c-crm"><span class="m-kick">{labels.cnt.crm}</span><div class="c-track">{labels.cnt.chain.map((_, k) => <i class={k === 3 ? 'won' : ''}></i>)}</div></div>
                 </div>
               )}
             </div>
@@ -849,6 +912,81 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
   }
   @media (prefers-reduced-motion: reduce) {
     .m-you, .m-as, .m-as-in, .m-slide--front, .m-post, .m-card, .m-roof, .m-base { transition: none !important; }
+  }
+
+  /* ---------- Content Production pictures (static) ---------- */
+  .c-voice { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 4cqi; align-items: start; }
+  .c-notes { display: grid; gap: 1.6cqi; padding: 3cqi; background: var(--kd-white); border-radius: var(--kd-radius); background-image: repeating-linear-gradient(transparent 0 calc(4.4cqi - 1px), color-mix(in srgb, var(--kd-blue-2) 14%, transparent) calc(4.4cqi - 1px) 4.4cqi); transform: rotate(-1.5deg); }
+  .sd .c-notes p { margin: 0; font-size: clamp(11px, 2.6cqi, 16px); line-height: 1.3; }
+  .c-args { display: grid; gap: 1.6cqi; }
+  .c-arg { display: grid; grid-template-columns: auto 1fr; gap: 1.6cqi; align-items: center; padding: 2cqi 2.4cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: clamp(11px, 2.4cqi, 15px); font-weight: var(--kd-weight-medium); line-height: 1.2; }
+  .c-arg:nth-child(3) { transform: rotate(1.5deg); } .c-arg:nth-child(4) { transform: rotate(-1deg); }
+  .c-arg span { display: grid; place-items: center; width: 4.4cqi; height: 4.4cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: .9em; }
+
+  .c-li { display: grid; gap: 3cqi; }
+  .c-cal { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1.5px solid var(--kd-ink); border-radius: var(--kd-radius); overflow: hidden; background: var(--kd-white); }
+  .c-day { display: grid; align-content: start; gap: 1cqi; min-height: 13cqi; padding: 1.4cqi; border-left: 1px solid var(--kd-beige-3); }
+  .c-day:first-child { border-left: 0; }
+  .c-day > span { font-size: clamp(8px, 1.8cqi, 11px); font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; opacity: .65; }
+  .c-ev { padding: .6cqi 1.2cqi; border-radius: 3px; background: var(--kd-blue-1); color: var(--kd-white); font-size: clamp(8px, 1.8cqi, 11px); font-weight: var(--kd-weight-medium); overflow-wrap: anywhere; }
+  .c-ev--a { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .c-post { display: grid; gap: 1.6cqi; width: 78%; justify-self: center; padding: 3cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .5); transform: rotate(-1.5deg); }
+  .c-who { display: flex; align-items: center; gap: 1.6cqi; font-size: clamp(10px, 2.2cqi, 13px); }
+  .c-who b { font-weight: var(--kd-weight-medium); }
+  .c-av { width: 5cqi; height: 5cqi; border-radius: 50%; background: var(--kd-lilac); }
+  .c-in { margin-left: auto; padding: .2cqi 1cqi; border-radius: 3px; background: var(--kd-blue-1); color: var(--kd-white); font-size: clamp(8px, 1.8cqi, 11px); font-weight: var(--kd-weight-logo); }
+  .sd .c-post p { margin: 0; font-size: clamp(11px, 2.6cqi, 16px); line-height: 1.35; }
+  .c-react { display: flex; align-items: center; gap: .8cqi; padding-top: 1.4cqi; border-top: 1px solid var(--kd-beige-3); }
+  .c-react i { width: 2.8cqi; height: 2.8cqi; border-radius: 50%; background: var(--kd-blue-2); }
+  .c-react i:nth-child(2) { background: var(--kd-signal-1); } .c-react i:nth-child(3) { background: var(--kd-lilac); }
+  .c-ok { margin-left: auto; padding: .4cqi 1.6cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-medium); }
+
+  .c-art { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4cqi; align-items: center; }
+  .c-page { display: grid; gap: 1.6cqi; padding: 3.4cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .5); transform: rotate(-1.5deg); }
+  .c-page b { font-size: clamp(13px, 3.4cqi, 21px); line-height: 1.1; font-weight: var(--kd-weight-medium); margin-bottom: 1cqi; }
+  .c-found { display: grid; gap: 2.4cqi; }
+  .c-res { display: grid; grid-template-columns: auto 1fr; gap: 1.6cqi; align-items: center; padding: 2cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: inset 3px 0 0 var(--kd-blue-2); }
+  .c-res b { display: block; color: var(--kd-blue-2); font-size: clamp(10px, 2.2cqi, 13px); font-weight: var(--kd-weight-medium); }
+  .c-res span:not(.c-n) { font-size: clamp(9px, 2cqi, 12px); opacity: .75; }
+  .c-n { display: grid; place-items: center; width: 4cqi; height: 4cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-medium); }
+  .c-ai { display: grid; gap: 1.2cqi; padding: 2.6cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); transform: rotate(1.5deg); }
+  .c-ai-l { color: var(--kd-signal-1); font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-medium); }
+  .sd .c-ai p { margin: 0; font-size: clamp(10px, 2.3cqi, 14px); line-height: 1.35; }
+  .c-cite { justify-self: start; padding: .4cqi 1.6cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-medium); }
+
+  .c-col { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); grid-template-rows: auto auto; gap: 3cqi; align-items: start; }
+  .c-slide { grid-row: 1; display: grid; align-content: space-between; aspect-ratio: 16 / 9; padding: 3.4cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .55); transform: rotate(-2deg); }
+  .c-slide b { font-size: clamp(14px, 4.2cqi, 26px); line-height: 1.05; font-weight: var(--kd-weight-medium); }
+  .c-slide mark { background: linear-gradient(transparent 58%, color-mix(in srgb, var(--kd-signal-1) 80%, transparent) 58% 92%, transparent 92%); color: inherit; }
+  .c-one { grid-row: 1 / 3; grid-column: 2; display: grid; gap: 1.6cqi; padding: 3cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .5); transform: rotate(2deg); }
+  .c-one b { font-size: clamp(12px, 3cqi, 18px); line-height: 1.15; font-weight: var(--kd-weight-medium); }
+  .c-one ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.6cqi; }
+  .c-one li { position: relative; padding-left: 3cqi; }
+  .c-one li::before { content: ''; position: absolute; left: 0; top: 50%; width: 1.6cqi; height: 1.6cqi; margin-top: -.8cqi; border-radius: 50%; background: var(--kd-blue-2); }
+  .c-one li::after { content: ''; display: block; height: 1.2cqi; border-radius: 3px; background: color-mix(in srgb, var(--kd-ink) 12%, transparent); }
+  .c-case { grid-row: 2; display: grid; gap: 1.2cqi; padding: 2.6cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); transform: rotate(1deg); }
+  .sd .c-case p { margin: 0; font-size: clamp(11px, 2.5cqi, 15px); line-height: 1.3; font-weight: var(--kd-weight-medium); }
+  .c-case em { background: color-mix(in srgb, var(--kd-blue-1) 30%, transparent); }
+
+  .c-pipe { display: grid; gap: 5cqi; }
+  .c-chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3cqi; }
+  .c-chain li { position: relative; display: grid; gap: 1cqi; align-content: start; min-height: 20cqi; padding: 2.4cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 12px 26px -18px rgba(26, 1, 117, .5); }
+  .c-chain li:nth-child(odd) { transform: rotate(-1.5deg); } .c-chain li:nth-child(even) { transform: rotate(1.5deg); }
+  .c-chain li:not(:last-child)::after { content: '→'; position: absolute; right: -2.6cqi; top: 50%; transform: translateY(-50%); font-size: clamp(12px, 3cqi, 18px); font-weight: var(--kd-weight-medium); }
+  .c-chain li span { font-size: clamp(9px, 1.8cqi, 11px); opacity: .6; }
+  .c-chain li b { font-size: clamp(11px, 2.6cqi, 16px); line-height: 1.15; font-weight: var(--kd-weight-medium); }
+  .c-chain li.won { background: var(--kd-signal-1); color: var(--kd-blue-1); }
+  .c-crm { display: grid; gap: 1.6cqi; padding: 2.6cqi 3cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .c-crm .m-kick { color: var(--kd-signal-1); opacity: 1; }
+  .c-track { position: relative; display: flex; justify-content: space-between; padding: 0 6%; }
+  .c-track::before { content: ''; position: absolute; left: 6%; right: 6%; top: 50%; height: 2px; background: var(--kd-lilac); }
+  .c-track i { position: relative; width: 3cqi; height: 3cqi; border-radius: 50%; background: var(--kd-lilac); }
+  .c-track i.won { background: var(--kd-signal-1); box-shadow: 0 0 0 4px color-mix(in srgb, var(--kd-signal-1) 30%, transparent); }
+  @media (max-width: 560px) {
+    .c-voice, .c-art { grid-template-columns: minmax(0, 1fr); }
+    .c-chain { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .c-chain li:nth-child(2)::after { display: none; }
+    .c-post { width: 100%; }
   }
 
   /* phones: pictures stack tighter */

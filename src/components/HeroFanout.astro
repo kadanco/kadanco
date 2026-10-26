@@ -1,0 +1,122 @@
+---
+// src/components/HeroFanout.astro
+// Marketing hero picture (heroVisual: 'fanout', Content Production): "one idea, many
+// formats". A founder insight from the weekly interview sits in the middle; four
+// finished pieces fan out of it: a LinkedIn post, an article that ranks and gets
+// quoted in AI answers, a sales deck slide and a one-pager. Campaign wall style of
+// the Marketing department: paper, lime tape, small tilts. Example company as on
+// Positioning and Brand, captioned as an example.
+// Pure CSS loop: the insight shows, the pieces fly out one after the other, hold,
+// then fold back. Hover pauses it. Reduced motion shows the pieces fanned out, still.
+// Decorative; the label describes it.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string }
+const { label } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { interview: 'Founder interview', quote: 'Small teams do not need an HR department to hire well.',
+        author: 'Founder · Talio', post: 'Small teams do not need an HR department to hire well. Here is how we do it.', repost: 'Repost',
+        guide: 'Guide', article: 'How To Hire Without An HR Department', search: '↑ Search', ai: '✦ AI answer',
+        slide: 'Hiring Without HR.', onepager: 'One-pager', opH: 'Talio for small teams', opCta: 'Book a demo',
+        cap: 'Example: one interview, four pieces.' },
+  de: { interview: 'Gründer-Interview', quote: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen.',
+        author: 'Gründerin · Talio', post: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', repost: 'Teilen',
+        guide: 'Leitfaden', article: 'Einstellen ohne Personalabteilung', search: '↑ Suche', ai: '✦ KI-Antwort',
+        slide: 'Einstellen ohne HR.', onepager: 'One-Pager', opH: 'Talio für kleine Teams', opCta: 'Demo buchen',
+        cap: 'Beispiel: ein Interview, vier Stücke.' },
+}[locale];
+---
+<figure class="hf">
+  <div class="hf-stage" role="img" aria-label={label}>
+    <div class="hf-piece hf-post" style="--i:0" aria-hidden="true">
+      <div class="hf-who"><span class="hf-av"></span><b>{t.author}</b><span class="hf-in">in</span></div>
+      <p>{t.post}</p>
+      <div class="hf-react"><i></i><i></i><i></i><span>{t.repost}</span></div>
+    </div>
+    <div class="hf-piece hf-article" style="--i:1" aria-hidden="true">
+      <span class="hf-kick">{t.guide}</span>
+      <b class="hf-h">{t.article}</b>
+      <em></em><em></em><em class="s"></em>
+      <div class="hf-chips"><span>{t.search}</span><span class="dark">{t.ai}</span></div>
+    </div>
+    <div class="hf-piece hf-slide" style="--i:2" aria-hidden="true">
+      <b><mark>{t.slide}</mark></b>
+      <span class="hf-logo">talio</span>
+    </div>
+    <div class="hf-piece hf-one" style="--i:3" aria-hidden="true">
+      <span class="hf-kick">{t.onepager}</span>
+      <b class="hf-h">{t.opH}</b>
+      <ul><li></li><li></li><li></li></ul>
+      <span class="hf-btn">{t.opCta}</span>
+    </div>
+    <div class="hf-insight" aria-hidden="true">
+      <span class="hf-kick">{t.interview}</span>
+      <p>“{t.quote}”</p>
+    </div>
+  </div>
+  <figcaption class="hf-cap">{t.cap}</figcaption>
+</figure>
+
+<style>
+  .hf { margin: 0; width: 100%; --cycle: 10s; }
+  .hf-stage { position: relative; aspect-ratio: 5 / 4; container-type: inline-size; }
+  .hf-kick { font-size: 2.6cqi; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; opacity: .65; }
+  .hf-h { font-size: 4cqi; line-height: 1.1; font-weight: var(--kd-weight-medium); }
+  .hf-stage em { display: block; height: 1.2cqi; border-radius: 3px; background: color-mix(in srgb, var(--kd-ink) 12%, transparent); }
+  .hf-stage em.s { width: 60%; }
+
+  /* the insight: a note from the interview, in the middle */
+  .hf-insight { position: absolute; left: 35%; top: 40%; z-index: 3; width: 30%; padding: 2.6cqi; display: grid; gap: 1.6cqi; padding: 3.4cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, .7); transform: rotate(-2deg); }
+  .hf-insight::before { content: ''; position: absolute; left: 50%; top: -2cqi; width: 14cqi; height: 3.6cqi; margin-left: -7cqi; background: color-mix(in srgb, var(--kd-white) 55%, transparent); transform: rotate(3deg); }
+  .hf-insight p { margin: 0; font-size: 3cqi; line-height: 1.2; font-weight: var(--kd-weight-medium); }
+
+  /* the four pieces: each flies out of the insight to its corner */
+  .hf-piece { position: absolute; width: 41%; display: grid; gap: 1.6cqi; align-content: start; padding: 3cqi; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); box-shadow: 0 20px 40px -22px rgba(0, 0, 0, .7);
+    animation: hf-out var(--cycle) cubic-bezier(.3, .7, .3, 1) infinite; animation-delay: calc(var(--i) * .25s); }
+  .hf-post { left: 0; top: 0; --to: rotate(-3deg); }
+  .hf-article { right: 0; top: 2%; --to: rotate(2.5deg); }
+  .hf-slide { left: 0; bottom: 2%; --to: rotate(2deg); }
+  .hf-one { right: 0; bottom: 0; width: 33%; --to: rotate(-2deg); }
+  @keyframes hf-out {
+    0%, 8% { opacity: 0; transform: translate(var(--fx, 0), var(--fy, 0)) scale(.5) rotate(0); }
+    22%, 84% { opacity: 1; transform: var(--to); }
+    94%, 100% { opacity: 0; transform: translate(var(--fx, 0), var(--fy, 0)) scale(.5) rotate(0); }
+  }
+  /* where each piece starts: the middle of the stage */
+  .hf-post { --fx: 28cqi; --fy: 20cqi; } .hf-article { --fx: -28cqi; --fy: 20cqi; }
+  .hf-slide { --fx: 26cqi; --fy: -18cqi; } .hf-one { --fx: -24cqi; --fy: -20cqi; }
+
+  .hf-who { display: flex; align-items: center; gap: 1.6cqi; font-size: 2.6cqi; }
+  .hf-av { width: 5cqi; height: 5cqi; border-radius: 50%; background: var(--kd-lilac); }
+  .hf-who b { font-weight: var(--kd-weight-medium); }
+  .hf-in { margin-left: auto; padding: .2cqi 1cqi; border-radius: 3px; background: var(--kd-blue-1); color: var(--kd-white); font-size: 2.2cqi; font-weight: var(--kd-weight-logo); }
+  .hf-post p { margin: 0; font-size: 3cqi; line-height: 1.3; }
+  .hf-react { display: flex; align-items: center; gap: .8cqi; padding-top: 1.4cqi; border-top: 1px solid var(--kd-beige-3); font-size: 2.4cqi; }
+  .hf-react i { width: 3cqi; height: 3cqi; border-radius: 50%; background: var(--kd-blue-2); }
+  .hf-react i:nth-child(2) { background: var(--kd-signal-1); } .hf-react i:nth-child(3) { background: var(--kd-lilac); }
+  .hf-react span { margin-left: auto; opacity: .65; }
+
+  .hf-chips { display: flex; flex-wrap: wrap; gap: 1cqi; margin-top: .6cqi; }
+  .hf-chips span { padding: .4cqi 1.6cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 2.4cqi; font-weight: var(--kd-weight-medium); }
+  .hf-chips span.dark { background: var(--kd-blue-1); color: var(--kd-signal-1); }
+
+  .hf-slide { aspect-ratio: 16 / 9; align-content: space-between; background: var(--kd-blue-2); color: var(--kd-white); }
+  .hf-slide b { font-size: 4.6cqi; line-height: 1.05; font-weight: var(--kd-weight-medium); }
+  .hf-slide mark { background: linear-gradient(transparent 58%, color-mix(in srgb, var(--kd-signal-1) 80%, transparent) 58% 92%, transparent 92%); color: inherit; }
+  .hf-logo { font-size: 2.8cqi; font-weight: var(--kd-weight-logo); color: var(--kd-signal-1); }
+
+  .hf-one { background: var(--kd-beige-1); }
+  .hf-one ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.2cqi; }
+  .hf-one li { position: relative; padding-left: 3cqi; }
+  .hf-one li::before { content: ''; position: absolute; left: 0; top: 50%; width: 1.6cqi; height: 1.6cqi; margin-top: -.8cqi; border-radius: 50%; background: var(--kd-blue-2); }
+  .hf-one li::after { content: ''; display: block; height: 1.2cqi; border-radius: 3px; background: color-mix(in srgb, var(--kd-ink) 12%, transparent); }
+  .hf-btn { justify-self: start; margin-top: .6cqi; padding: .8cqi 2cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 2.4cqi; font-weight: var(--kd-weight-medium); }
+
+  .hf:hover .hf-piece { animation-play-state: paused; }
+  .hf-cap { margin: 18px 0 0; font-size: 13px; color: color-mix(in srgb, var(--kd-white) 70%, transparent); text-align: center; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hf-piece { animation: none; transform: var(--to); }
+  }
+</style>

@@ -125,8 +125,9 @@ Done and signed off by the owner:
 Built, waiting for owner review:
 - Website Production (EN and DE), rebuilt on the Product Design template on 2026-10-26, with its own /website-audit/ form.
 - Positioning and Brand (EN and DE), the first page in the Marketing style, 2026-10-26.
+- Content Production (EN and DE) in the Marketing style, 2026-10-26.
 
-Next: Content Production in the Marketing style, then DACH, then the Sales pages (dashboards and graphs). The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
+Next: DACH in the Marketing style, then the Sales pages (dashboards and graphs). The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
 
 ## Open questions
 
@@ -246,3 +247,4 @@ Next: Content Production in the Marketing style, then DACH, then the Sales pages
 - 2026-10-26: Self-check simplified on every use case page that has one (Product Design, Website Production, Positioning and Brand), owner: the old card was repetitive and busy. The card now shows the picture, a heading that moves on with each tick (six steps, `levels` 0 to 6) and one line with the risk of the statement ticked last (`risk` per statement). The two bars and the "Revenue at risk" / "Added cost" lines are gone (supersedes the 2026-10-25 bars decision).
 - 2026-10-26: Brand guide picture: the business card takes the chosen colour as its ground with a readable text colour (blue text on navy had poor contrast).
 - 2026-10-26: Only two kinds of CTA on the site: an audit (the department's or page's audit form) or "Book A Strategy Call" (DE "Strategiegespräch buchen"), owner. "Book A Sprint Call", "Book A Discovery Call" (Ways to work on Product Design, Website Production, Positioning and Brand), "Talk To Us" (hidden /use-cases/) and the card link "Talk to us about this" renamed to the strategy call. New pages must not add other CTA types.
+- 2026-10-26: Content Production rebuilt in the Marketing style (EN and DE; German for Maria): hero "one idea, many formats" (`HeroFanout.astro`: a founder insight fans out into a LinkedIn post, a ranking article, a deck slide and a one-pager; loops, hover pauses, reduced motion still); self-check as a LinkedIn feed that goes stale (`checkVisual: 'feed'`); five static campaign-style steps (voice and angle, LinkedIn, articles for SEO, AEO and GEO, sales material, distribution and tracking); press clipping measures; ways to work: sales content kit (about 4 weeks) or content engine (quarterly). Situation, why, also, outcomes and the 90 days removed. Example URLs use the placeholder yourcompany.com / ihrefirma.de.

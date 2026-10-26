@@ -15,17 +15,25 @@
 // 4 your result gone from search, 5 a change waiting for a developer, 6 a form that leaks leads.
 // kind 'bingo' (Marketing, Positioning and Brand) shows a buzzword bingo card: every tick
 // daubs one or two buzzwords, and all six ticked shout "Bingo".
+// kind 'feed' (Marketing, Content Production) shows the founder's LinkedIn post with the blog,
+// deck and CRM beside it: 1 the last post is weeks old, 2 likes and no meetings, 3 the post turns
+// into marketing speak with a stock photo, 4 the blog goes stale, 5 the deck tells another story,
+// 6 nobody knows which piece brought the deal.
 interface Item { text: string; risk: string }
 interface Props {
   items: Item[];
   levels: string[];   // headings for 0 to 6 ticked
   hint: string;       // the line under the heading when nothing is ticked
-  kind?: 'app' | 'site' | 'bingo';
+  kind?: 'app' | 'site' | 'bingo' | 'feed';
 }
 const { items, levels, hint, kind = 'app' } = Astro.props;
 const bingo = {
   en: { title: 'Buzzword bingo', win: 'Bingo!', words: ['All-in-one', 'AI-powered', 'End-to-end', 'Innovative', 'Platform', 'Best-in-class', 'Next-gen', 'Scalable', 'Synergy'] },
   de: { title: 'Buzzword-Bingo', win: 'Bingo!', words: ['All-in-One', 'KI-gestützt', 'End-to-End', 'Innovativ', 'Plattform', 'Best-in-Class', 'Next-Gen', 'Skalierbar', 'Synergien'] },
+}[Astro.currentLocale === 'de' ? 'de' : 'en'];
+const feed = {
+  en: { now: 'Today', ago: '5 weeks ago', meet: '✓ Meeting booked', nomeet: '✕ No meetings', jargon: ['Excited to announce', 'Synergy', 'Thought leadership'], blog: 'Blog', fresh: 'This week', stale: 'Months ago', deck: 'Sales deck', crm: 'CRM' },
+  de: { now: 'Heute', ago: 'Vor 5 Wochen', meet: '✓ Termin gebucht', nomeet: '✕ Keine Termine', jargon: ['Wir freuen uns', 'Synergien', 'Thought Leadership'], blog: 'Blog', fresh: 'Diese Woche', stale: 'Vor Monaten', deck: 'Sales-Deck', crm: 'CRM' },
 }[Astro.currentLocale === 'de' ? 'de' : 'en'];
 ---
 <div class="sc" data-sc>
@@ -35,7 +43,22 @@ const bingo = {
     ))}
   </ul>
   <div class="sc-result">
-    {kind === 'bingo' ? (
+    {kind === 'feed' ? (
+    <div class="sc-wf sc-feed" aria-hidden="true">
+      <div class="sc-f-post">
+        <div class="sc-f-top"><span class="sc-f-av"></span><div class="sc-f-id"><b></b><em></em></div><span class="sc-f-time"><span class="n">{feed.now}</span><span class="o">{feed.ago}</span></span></div>
+        <div class="sc-f-text"><em></em><em></em><em class="s"></em></div>
+        <div class="sc-f-jargon">{feed.jargon.map((j) => <span>{j}</span>)}</div>
+        <div class="sc-f-img"><i class="hl"></i><i class="mtn"></i></div>
+        <div class="sc-f-react"><i></i><i></i><i></i><span class="sc-f-meet"><span class="y">{feed.meet}</span><span class="x">{feed.nomeet}</span></span></div>
+      </div>
+      <div class="sc-f-side">
+        <div class="sc-f-card sc-f-blog"><b>{feed.blog}</b><em></em><span class="sc-f-date"><span class="n">{feed.fresh}</span><span class="o">{feed.stale}</span></span></div>
+        <div class="sc-f-card sc-f-deck"><b>{feed.deck}</b><em></em></div>
+        <div class="sc-f-card sc-f-crm"><b>{feed.crm}</b><span class="sc-f-q">?</span><em></em></div>
+      </div>
+    </div>
+    ) : kind === 'bingo' ? (
     <div class="sc-wf sc-bingo" aria-hidden="true">
       <div class="sc-bg-head"><b>{bingo.title}</b><span class="sc-bg-win">{bingo.win}</span></div>
       <div class="sc-bg-grid">{bingo.words.map((w, k) => <span class={`sc-bg-c sc-bg-c--${k}`}><i></i>{w}</span>)}</div>
@@ -149,6 +172,55 @@ const bingo = {
   .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
   .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
   .sc-wf.d6 .sc-wf-cards { gap: 14px; }
+
+  /* ---------- kind 'feed': the founder's post, with blog, deck and CRM beside it ---------- */
+  .sc-feed { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 10px; padding: 14px; background: var(--kd-beige-1); color: var(--kd-ink); }
+  .sc-feed *, .sc-feed { transition: opacity .3s ease, background-color .3s ease, color .3s ease, transform .3s ease, border-color .3s ease; }
+  .sc-feed em { display: block; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--kd-ink) 14%, transparent); }
+  .sc-feed em.s { width: 60%; }
+  .sc-f-post { display: grid; gap: 8px; align-content: start; padding: 12px; border-radius: var(--kd-radius); background: var(--kd-white); }
+  .sc-f-top { display: flex; align-items: center; gap: 8px; }
+  .sc-f-av { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--kd-lilac); }
+  .sc-f-id { flex: 1; display: grid; gap: 4px; }
+  .sc-f-id b { display: block; width: 60%; height: 7px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-f-time, .sc-f-date { flex: none; font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .sc-f-time .o, .sc-f-date .o, .sc-f-meet .x { display: none; }
+  .sc-f-text { display: grid; gap: 5px; }
+  .sc-f-jargon { display: none; flex-wrap: wrap; gap: 4px; }
+  .sc-f-jargon span { padding: 1px 6px; border-radius: var(--kd-radius); background: var(--kd-beige-2); font-size: 11px; }
+  .sc-f-img { position: relative; height: 58px; border-radius: 3px; background: var(--kd-blue-1); overflow: hidden; }
+  .sc-f-img .hl { position: absolute; left: 12px; top: 18px; width: 60%; height: 9px; border-radius: 3px; background: var(--kd-white); box-shadow: 0 4px 0 -1px var(--kd-signal-1); }
+  .sc-f-img .mtn { position: absolute; left: 20%; bottom: 0; width: 60%; height: 70%; background: color-mix(in srgb, var(--kd-ink) 25%, var(--kd-white)); clip-path: polygon(0 100%, 50% 10%, 100% 100%); opacity: 0; }
+  .sc-f-react { display: flex; align-items: center; gap: 4px; padding-top: 6px; border-top: 1px solid var(--kd-beige-3); }
+  .sc-f-react i { width: 12px; height: 12px; border-radius: 50%; background: var(--kd-blue-2); }
+  .sc-f-react i:nth-child(2) { background: var(--kd-signal-1); } .sc-f-react i:nth-child(3) { background: var(--kd-lilac); }
+  .sc-f-meet { margin-left: auto; padding: 1px 7px; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .sc-f-side { display: grid; gap: 8px; align-content: start; }
+  .sc-f-card { position: relative; display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); background: var(--kd-white); }
+  .sc-f-card b { font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
+  .sc-f-deck { background: var(--kd-blue-1); color: var(--kd-white); }
+  .sc-f-deck em { background: var(--kd-signal-1); width: 70%; }
+  .sc-f-q { position: absolute; top: 8px; right: 8px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; }
+  .sc-f-crm em { border-top: 2px solid var(--kd-blue-2); background: none; height: 0; }
+  /* 1: the last post is weeks old */
+  .sc-feed.d1 .sc-f-time .n { display: none; } .sc-feed.d1 .sc-f-time .o { display: inline; }
+  .sc-feed.d1 .sc-f-post { opacity: .6; }
+  /* 2: likes, no meetings */
+  .sc-feed.d2 .sc-f-meet .y { display: none; } .sc-feed.d2 .sc-f-meet .x { display: inline; }
+  .sc-feed.d2 .sc-f-meet { background: var(--kd-beige-2); color: var(--kd-ink-2); }
+  /* 3: marketing speak and a stock photo */
+  .sc-feed.d3 .sc-f-text { display: none; } .sc-feed.d3 .sc-f-jargon { display: flex; }
+  .sc-feed.d3 .sc-f-img { background: var(--kd-beige-2); } .sc-feed.d3 .sc-f-img .hl { opacity: 0; } .sc-feed.d3 .sc-f-img .mtn { opacity: 1; }
+  /* 4: the blog goes stale */
+  .sc-feed.d4 .sc-f-blog { opacity: .5; outline: 1.5px dashed var(--kd-beige-3); outline-offset: -1.5px; }
+  .sc-feed.d4 .sc-f-date .n { display: none; } .sc-feed.d4 .sc-f-date .o { display: inline; }
+  /* 5: the deck tells another story */
+  .sc-feed.d5 .sc-f-deck { background: var(--kd-lilac); color: var(--kd-ink); transform: rotate(-3deg); border-radius: 14px; }
+  .sc-feed.d5 .sc-f-deck em { background: var(--kd-white); }
+  /* 6: nobody knows which piece brought the deal */
+  .sc-feed.d6 .sc-f-q { opacity: 1; }
+  .sc-feed.d6 .sc-f-crm em { border-top-style: dashed; border-top-color: var(--kd-beige-3); }
+  @media (prefers-reduced-motion: reduce) { .sc-feed *, .sc-feed { transition: none !important; } }
 
   /* ---------- kind 'bingo': a buzzword bingo card, taped to the result card ---------- */
   .sc-bingo { position: relative; padding: 16px; background: var(--kd-beige-1); color: var(--kd-ink); transform: rotate(-1deg); overflow: visible; }

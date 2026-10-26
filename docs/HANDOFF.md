@@ -40,6 +40,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 - **Marketing style set; Positioning and Brand rebuilt in it** (EN and DE; German for Maria), waiting for owner review:
   - Navy hero with halftone and lime accents (no lime grounds), headline highlighter, pinned paper pieces with lime tape and small tilts. Example company "Talio".
   - Hero `HeroPasteup.astro` (billboard paste-up), buzzword bingo self-check, five campaign-style steps with clickable pictures (Rollout added), press clippings that turn over (`MeasuresPress.astro`), ways to work.
+- **Content Production rebuilt in the Marketing style** (EN and DE), waiting for owner review: fan-out hero (`HeroFanout.astro`), stale LinkedIn feed self-check, five static campaign-style steps, press clipping measures.
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
@@ -60,11 +61,12 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 ## Next up
 
 1. Owner feedback on Website Production and Positioning and Brand.
-2. Content Production in the Marketing style (ideas agreed: "one idea, many formats" hero, a LinkedIn feed self-check, clipping measures); then DACH (English ad turning German hero, German buyer checklist).
+2. DACH in the Marketing style (ideas agreed: English ad turning German hero, German buyer checklist).
 3. Sales pages (dashboards and graphs): Account-Based Marketing, Outbound Sales Pipeline; then Event Lead Generation.
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (evening, 4): Content Production rebuilt in the Marketing style.
 - 2026-10-26 (evening, 3): Only audit and strategy call CTAs; sprint and discovery call buttons renamed.
 - 2026-10-26 (evening, 2): Self-check simplified on all pages (six-step heading plus one risk line, no bars); brand card contrast fixed.
 - 2026-10-26 (evening): Route cards removed from all use case pages; eyebrow rule removed; Positioning and Brand gets a fifth step (Rollout) and clickable step pictures.

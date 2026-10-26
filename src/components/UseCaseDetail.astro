@@ -21,6 +21,7 @@ import DeliverableTabs from './DeliverableTabs.astro';
 import HeroMorph from './HeroMorph.astro';
 import HeroBuild from './HeroBuild.astro';
 import HeroPasteup from './HeroPasteup.astro';
+import HeroFanout from './HeroFanout.astro';
 import MeasuresPress from './MeasuresPress.astro';
 import { auditHref, callHref } from '../data/intakes';
 import MeasuresDash from './MeasuresDash.astro';
@@ -67,6 +68,8 @@ const ui = {
       </div>
       {page.heroVisual === 'morph' ? (
         <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroMorph label={locale === 'de' ? 'Dieselbe App vorher, unübersichtlich, und nachher, klar' : 'The same app before, cluttered, and after, clear'} /></div>
+      ) : page.heroVisual === 'fanout' ? (
+        <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroFanout label={locale === 'de' ? 'Eine Einsicht aus dem Gründer-Interview wird zu Post, Artikel, Folie und One-Pager' : 'One insight from the founder interview becomes a post, an article, a slide and a one-pager'} /></div>
       ) : page.heroVisual === 'pasteup' ? (
         <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroPasteup label={locale === 'de' ? 'Ein Plakat mit austauschbarer Botschaft wird mit einer klaren Positionierung überklebt' : 'A billboard with a generic message gets pasted over with a clear positioning'} /></div>
       ) : page.heroVisual === 'build' ? (
@@ -225,7 +228,12 @@ const ui = {
                     slides: ['Das Problem', 'Was sich geändert hat', 'So funktioniert es', 'Belege'],
                     slideHs: ['Jede Einstellung kostet einen Gründer eine Woche.', 'Kleine Teams stellen heute ein wie große.', 'Ausschreiben, sortieren, Angebot. An einem Nachmittag.', 'Teams wie Ihres stellen schon so ein.'],
                     prev: 'Vorherige Folie', next: 'Nächste Folie',
-                    assets: ['Website', 'LinkedIn', 'E-Mail-Signatur', 'Vertriebsdeck', 'Roll-up'], brandLbl: 'Die Marke' } }
+                    assets: ['Website', 'LinkedIn', 'E-Mail-Signatur', 'Vertriebsdeck', 'Roll-up'], brandLbl: 'Die Marke' },
+                  cnt: { notes: 'Interview-Notizen', quotes: ['„HR-Software ist für HR-Abteilungen gebaut.“', '„Wir verschicken das Angebot am selben Nachmittag.“'], argsLbl: 'Argumente, die Ihnen gehören', args: ['Kleine Teams stellen anders ein', 'HR-Software ist für HR gebaut', 'Ein Angebot an einem Nachmittag'],
+                    days: ['Mo', 'Di', 'Mi', 'Do', 'Fr'], kinds: ['Post', 'Artikel', 'Post'], author: 'Gründerin · Talio', post: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', approved: 'Freigegeben',
+                    guide: 'Leitfaden', articleH: 'Einstellen ohne Personalabteilung', url: 'ihrefirma.de', ai: 'KI-Antwort', aiText: 'Kleine Teams können ohne Personalabteilung einstellen, wenn …',
+                    deckH: 'Einstellen ohne HR.', onePager: 'One-Pager', opH: 'Talio für kleine Teams', caseStudy: 'Case Study', quote: 'Wir haben drei Stellen ohne HR besetzt.',
+                    chain: ['Post', 'Outbound-Nachricht', 'Termin gebucht', 'Deal gewonnen'], crm: 'CRM: Quelle erfasst' } }
               : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:',
                   report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
                   states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
@@ -246,7 +254,12 @@ const ui = {
                     slides: ['The problem', 'What changed', 'How it works', 'Proof'],
                     slideHs: ['Every Hire Costs A Founder A Week.', 'Small Teams Now Hire Like Big Ones.', 'Post, Sort, Offer. In One Afternoon.', 'Teams Like Yours Already Hire This Way.'],
                     prev: 'Previous slide', next: 'Next slide',
-                    assets: ['Website', 'LinkedIn', 'Email signature', 'Sales deck', 'Roll-up'], brandLbl: 'The brand' } }} />
+                    assets: ['Website', 'LinkedIn', 'Email signature', 'Sales deck', 'Roll-up'], brandLbl: 'The brand' },
+                  cnt: { notes: 'Interview notes', quotes: ['"HR software is built for HR departments."', '"We send the offer the same afternoon."'], argsLbl: 'Arguments you own', args: ['Small teams hire differently', 'HR software is built for HR', 'An offer in one afternoon'],
+                    days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], kinds: ['Post', 'Article', 'Post'], author: 'Founder · Talio', post: 'Small teams do not need an HR department to hire well. Here is how we do it.', approved: 'Approved',
+                    guide: 'Guide', articleH: 'How To Hire Without An HR Department', url: 'yourcompany.com', ai: 'AI answer', aiText: 'Small teams can hire without an HR department if they …',
+                    deckH: 'Hiring Without HR.', onePager: 'One-pager', opH: 'Talio for small teams', caseStudy: 'Case study', quote: 'We filled three roles without an HR team.',
+                    chain: ['Post', 'Outbound message', 'Meeting booked', 'Deal won'], crm: 'CRM: source tracked' } }} />
           : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>

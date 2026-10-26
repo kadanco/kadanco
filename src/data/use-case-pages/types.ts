@@ -32,7 +32,7 @@ export interface UseCasePageText {
   // what you get: tabs (DeliverableTabs.astro) or, with layout 'steps', one tall row per step with its own
   // picture and full detail (StepsDetail.astro). key picks the picture.
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';
-    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout'; label: string; title: string; body: string; points: string[];
+    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout' | 'voice' | 'linkedin' | 'articles' | 'collateral' | 'pipeline'; label: string; title: string; body: string; points: string[];
       when?: string; doing?: string[]; you?: string }[];
     cta?: { h3: string; body: string; button: string } };
   // what we measure: the measures only, no invented numbers
@@ -61,8 +61,8 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  heroVisual?: 'app' | 'morph' | 'build' | 'pasteup'; // 'app': a small app window; 'morph': a cluttered app turning into a clean one; 'build': a website that assembles itself, stage by stage (HeroBuild.astro); 'pasteup': a billboard pasted over with a sharp message (HeroPasteup.astro, Marketing)
-  checkVisual?: 'app' | 'site' | 'bingo'; // the self-check picture: an app (default), a website in a browser, or a buzzword bingo card (Marketing)
+  heroVisual?: 'app' | 'morph' | 'build' | 'pasteup' | 'fanout'; // 'app': a small app window; 'morph': a cluttered app turning into a clean one; 'build': a website that assembles itself, stage by stage (HeroBuild.astro); 'pasteup': a billboard pasted over with a sharp message (HeroPasteup.astro, Marketing); 'fanout': one insight fanning out into four pieces (HeroFanout.astro, Marketing)
+  checkVisual?: 'app' | 'site' | 'bingo' | 'feed'; // the self-check picture: an app (default), a website in a browser, a buzzword bingo card or a LinkedIn feed (Marketing)
   measuresVisual?: 'dash' | 'press';     // what we measure: a wireframe analytics app (default, Product) or press clippings (MeasuresPress.astro, Marketing)
   audit?: string;                        // audit intake page for this use case, when it differs from the department's (e.g. '/website-audit/')
   // how "What's inside" shows the steps: stacked cards (default), widening row, mixed-size grid,
