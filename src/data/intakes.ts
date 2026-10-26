@@ -158,6 +158,68 @@ export const marketingAudit: Intake = {
   },
 };
 
+// Website audit (Website Production, Product department). Drafted 2026-10-26 in the UX
+// audit's style, for owner review. Audit buttons on the Website Production page link here.
+export const websiteAudit: Intake = {
+  id: 'website-audit',
+  dept: 'product',
+  storageKey: 'kadanco_website_intake_v1',
+  en: {
+    meta: { title: 'Book A Website Audit | Kadanco', description: 'A short intake for a Kadanco website audit: your site, your buyers, your goal and what to look at, from brand and copy to SEO, AEO and GEO. It becomes the brief we work from.' },
+    eyebrow: 'Website audit intake', h1a: 'Book A', h1b: 'Website Audit.',
+    lead: 'A short intake that becomes the brief we work from. We check your story, your build and how you show up in search and AI answers, and show you what to fix first.',
+    start: 'Start', resume: 'Resume where you left off', time: 'Takes about three minutes',
+    question: 'Question', of: 'of', optional: 'optional', ok: 'OK', enter: 'press', prev: 'Previous question', next: 'Next question',
+    errors: { pick: 'Pick at least one to continue.', pickOne: 'Choose one to continue.', add: 'Add {x} to continue.', email: 'That email looks off. Mind checking it?', url: 'Add a web address so we know where to look.' },
+    review: { eyebrow: 'Brief ready', h1: "That's Everything.", lead: 'Here is your audit brief. Send it to us and we confirm the scope and suggest times by email.', send: 'Send Brief', sending: 'Sending…', copy: 'Copy brief', copied: 'Brief copied', restart: 'Start over', failed: 'We could not send it just now. Please try again or email hello@kadanco.com.' },
+    done: { eyebrow: 'Brief sent', h1: 'Thank You.', lead: 'We have your brief and reply within one working day to confirm the scope and suggest times.', back: 'Back to the website' },
+    questions: [
+      { id: 'name', type: 'text', label: 'Company', title: 'Which company is this for?', placeholder: 'e.g. Talio', required: true, missing: 'a name' },
+      { id: 'url', type: 'url', label: 'Website', title: 'Where is your current website?', help: 'No site yet? Add the domain you plan to use.', placeholder: 'https://', required: true, missing: 'the URL' },
+      { id: 'project', type: 'single', label: 'Project', title: 'What do you have in mind?', required: true,
+        options: [{ v: 'A new website from scratch' }, { v: 'A redesign of our current site' }, { v: 'A new homepage first' }, { v: 'Not sure yet', d: 'Tell us what you see.' }] },
+      { id: 'focus', type: 'multi', label: 'In scope', title: 'What should the audit look at?', help: 'Pick everything you want us to check.', required: true,
+        options: [{ v: 'Brand and positioning' }, { v: 'Copy and message' }, { v: 'Design and user experience' }, { v: 'Speed, mobile and security' }, { v: 'SEO, AEO and GEO' }, { v: 'Forms, CRM and tracking' }] },
+      { id: 'buyers', type: 'long', label: 'Buyers', title: 'Who should the website win over?', help: 'The companies and the people in them who decide.', placeholder: 'e.g. Heads of IT at mid-sized manufacturers', required: true, missing: 'your buyers' },
+      { id: 'action', type: 'text', label: 'Main action', title: 'What should a visitor do on your site?', help: 'Your main conversion: book a demo, start a trial, get in touch.', placeholder: 'e.g. Book a demo', required: true, missing: 'the action' },
+      { id: 'goal', type: 'long', label: 'Goal', title: 'What should the website achieve in the next six months?', help: 'The outcome that matters most.', placeholder: 'e.g. More qualified demo requests, and pages our team can edit', required: true, missing: 'your goal' },
+      { id: 'cms', type: 'single', label: 'CMS', title: 'What runs your site today?', required: false,
+        options: [{ v: 'WordPress' }, { v: 'Webflow' }, { v: 'Framer' }, { v: 'Custom code' }, { v: 'Something else or not sure' }] },
+      { id: 'references', type: 'long', label: 'References', title: 'Which websites do you like, or compete with?', help: 'Two or three links are enough. Skip if nothing comes to mind.', placeholder: 'Optional', required: false },
+      { id: 'timing', type: 'single', label: 'Timing', title: 'When should the new site be live?', required: false,
+        options: [{ v: 'Within two months' }, { v: 'In three to six months' }, { v: 'No fixed date' }] },
+      { id: 'email', type: 'email', label: 'Contact', title: 'Where do we send the brief?', help: 'We confirm the scope and suggest times here.', placeholder: 'you@company.com', required: true, missing: 'your email' },
+    ],
+  },
+  de: {
+    meta: { title: 'Website-Audit buchen | Kadanco', description: 'Ein kurzer Fragebogen für ein Website-Audit von Kadanco: Ihre Website, Ihre Käufer, Ihr Ziel und was wir prüfen sollen, von Marke und Texten bis SEO, AEO und GEO. Daraus wird das Briefing, mit dem wir arbeiten.' },
+    eyebrow: 'Website-Audit Fragebogen', h1a: 'Website-Audit', h1b: 'buchen.',
+    lead: 'Ein kurzer Fragebogen, aus dem das Briefing für unsere Arbeit wird. Wir prüfen Botschaft, Umsetzung und Ihre Sichtbarkeit in Suche und KI-Antworten und zeigen Ihnen, was Sie zuerst ändern sollten.',
+    start: 'Starten', resume: 'Dort weitermachen, wo Sie aufgehört haben', time: 'Dauert etwa drei Minuten',
+    question: 'Frage', of: 'von', optional: 'optional', ok: 'OK', enter: 'drücken Sie', prev: 'Vorherige Frage', next: 'Nächste Frage',
+    errors: { pick: 'Wählen Sie mindestens eine Option.', pickOne: 'Wählen Sie eine Option.', add: 'Bitte ergänzen Sie {x}.', email: 'Die E-Mail-Adresse sieht nicht ganz richtig aus. Bitte prüfen.', url: 'Geben Sie eine Webadresse an, damit wir wissen, wo wir anfangen.' },
+    review: { eyebrow: 'Briefing fertig', h1: 'Das war alles.', lead: 'Hier ist Ihr Audit-Briefing. Senden Sie es uns, und wir bestätigen Umfang und Termine per E-Mail.', send: 'Briefing senden', sending: 'Wird gesendet…', copy: 'Briefing kopieren', copied: 'Briefing kopiert', restart: 'Neu beginnen', failed: 'Das hat gerade nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an hello@kadanco.com.' },
+    done: { eyebrow: 'Briefing gesendet', h1: 'Vielen Dank.', lead: 'Wir haben Ihr Briefing und melden uns innerhalb eines Werktags, um Umfang und Termine abzustimmen.', back: 'Zurück zur Website' },
+    questions: [
+      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen ist das?', placeholder: 'z. B. Talio', required: true, missing: 'einen Namen' },
+      { id: 'url', type: 'url', label: 'Website', title: 'Wo finden wir Ihre aktuelle Website?', help: 'Noch keine Website? Geben Sie die geplante Domain an.', placeholder: 'https://', required: true, missing: 'die URL' },
+      { id: 'project', type: 'single', label: 'Projekt', title: 'Was haben Sie vor?', required: true,
+        options: [{ v: 'Eine neue Website von Grund auf' }, { v: 'Ein Redesign der aktuellen Website' }, { v: 'Zuerst eine neue Startseite' }, { v: 'Noch unklar', d: 'Sagen Sie uns, was Sie sehen.' }] },
+      { id: 'focus', type: 'multi', label: 'Umfang', title: 'Was soll das Audit prüfen?', help: 'Wählen Sie alles, was wir uns ansehen sollen.', required: true,
+        options: [{ v: 'Marke und Positionierung' }, { v: 'Texte und Botschaft' }, { v: 'Design und Nutzerführung' }, { v: 'Ladezeit, Mobil und Sicherheit' }, { v: 'SEO, AEO und GEO' }, { v: 'Formulare, CRM und Tracking' }] },
+      { id: 'buyers', type: 'long', label: 'Käufer', title: 'Wen soll die Website überzeugen?', help: 'Die Unternehmen und die Menschen darin, die entscheiden.', placeholder: 'z. B. IT-Leitungen in mittelständischen Industrieunternehmen', required: true, missing: 'Ihre Käufer' },
+      { id: 'action', type: 'text', label: 'Hauptaktion', title: 'Was sollen Besucher auf Ihrer Website tun?', help: 'Ihre wichtigste Conversion: Demo buchen, Test starten, Kontakt aufnehmen.', placeholder: 'z. B. Demo buchen', required: true, missing: 'die Aktion' },
+      { id: 'goal', type: 'long', label: 'Ziel', title: 'Was soll die Website in den nächsten sechs Monaten erreichen?', help: 'Das Ergebnis, das am meisten zählt.', placeholder: 'z. B. Mehr qualifizierte Demo-Anfragen und Seiten, die unser Team selbst pflegt', required: true, missing: 'Ihr Ziel' },
+      { id: 'cms', type: 'single', label: 'CMS', title: 'Worauf läuft Ihre Website heute?', required: false,
+        options: [{ v: 'WordPress' }, { v: 'Webflow' }, { v: 'Framer' }, { v: 'Eigener Code' }, { v: 'Etwas anderes oder unklar' }] },
+      { id: 'references', type: 'long', label: 'Referenzen', title: 'Welche Websites gefallen Ihnen, oder mit wem konkurrieren Sie?', help: 'Zwei oder drei Links genügen. Überspringen Sie die Frage, wenn Ihnen nichts einfällt.', placeholder: 'Optional', required: false },
+      { id: 'timing', type: 'single', label: 'Zeitplan', title: 'Wann soll die neue Website live sein?', required: false,
+        options: [{ v: 'Innerhalb von zwei Monaten' }, { v: 'In drei bis sechs Monaten' }, { v: 'Kein festes Datum' }] },
+      { id: 'email', type: 'email', label: 'Kontakt', title: 'Wohin senden wir das Briefing?', help: 'Hier bestätigen wir Umfang und Termine.', placeholder: 'sie@firma.de', required: true, missing: 'Ihre E-Mail-Adresse' },
+    ],
+  },
+};
+
 // Pipeline audit (Sales Support & Systems). No design file: drafted 2026-10-26 in the
 // UX audit's style, for owner review.
 export const pipelineAudit: Intake = {
@@ -262,7 +324,7 @@ export const strategyCall: Intake = {
 };
 
 // intakes by id; Marketing and Sales audits are added here when their designs exist
-export const intakes: Record<string, Intake> = { 'ux-audit': uxAudit, 'marketing-audit': marketingAudit, 'pipeline-audit': pipelineAudit, 'strategy-call': strategyCall };
+export const intakes: Record<string, Intake> = { 'ux-audit': uxAudit, 'website-audit': websiteAudit, 'marketing-audit': marketingAudit, 'pipeline-audit': pipelineAudit, 'strategy-call': strategyCall };
 // the strategy call page: every "Book A Strategy Call" button and every CTA without its own intake
 export const callHref = '/strategy-call/';
 // where each department's audit buttons point (English path; localised by the page)

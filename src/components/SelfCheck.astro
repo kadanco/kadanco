@@ -13,13 +13,17 @@
 // described in words and shown as relative bars.
 // The section shell and heading come from UseCaseDetail.astro; this is the body.
 // Without JavaScript the statements show and the result card stays hidden.
+// kind 'site' (Website Production) swaps the app for a website in a browser, with its own
+// six flaws: 1 a vague headline, 2 a dated look and stock photo, 3 a broken phone layout,
+// 4 your result gone from search, 5 a change waiting for a developer, 6 a form that leaks leads.
 interface Item { text: string; revenue: string; cost: string; weight: [number, number] }
 interface Props {
   items: Item[];
   results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } };
   labels: { revenue: string; cost: string; latest: string };
+  kind?: 'app' | 'site';
 }
-const { items, results, labels } = Astro.props;
+const { items, results, labels, kind = 'app' } = Astro.props;
 const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], [0, 0]);
 ---
 <div class="sc" data-sc data-max={max.join(',')}>
@@ -29,6 +33,28 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
     ))}
   </ul>
   <div class="sc-result">
+    {kind === 'site' ? (
+    <div class="sc-wf sc-site" aria-hidden="true">
+      <div class="sc-wf-bar"><i></i><i></i><i></i><span class="sc-s-url"></span></div>
+      <div class="sc-wf-body sc-s-body">
+        <div class="sc-s-nav"><span class="sc-s-logo"></span><em></em><em></em><u></u></div>
+        <div class="sc-s-hero">
+          <div class="sc-s-copy">
+            <span class="sc-s-h"></span><span class="sc-s-h sc-s-h--b"></span>
+            <span class="sc-s-vague"><em></em><em></em><em></em></span>
+            <u class="sc-s-cta"></u>
+          </div>
+          <div class="sc-s-img"><i class="sc-s-sun"></i><i class="sc-s-mtn"></i></div>
+        </div>
+        <div class="sc-s-low">
+          <div class="sc-s-search"><b>⌕</b><span class="sc-s-you"></span><span></span><span></span></div>
+          <div class="sc-s-form"><em></em><em></em><u></u><span class="sc-s-leak">?</span></div>
+        </div>
+        <div class="sc-s-phone"><span></span><span class="w"></span><span></span><span class="sc-s-bang">!</span></div>
+        <span class="sc-s-ticket"><b>⧗</b><em></em></span>
+      </div>
+    </div>
+    ) : (
     <div class="sc-wf" aria-hidden="true">
       <div class="sc-wf-bar"><i></i><i></i><i></i></div>
       <div class="sc-wf-body">
@@ -43,6 +69,7 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
         <div class="sc-wf-pop"><span></span><span class="s"></span><u></u></div>
       </div>
     </div>
+    )}
 
     <div class="sc-bars" aria-hidden="true">
       <div class="sc-bar sc-bar--rev"><span>{labels.revenue}</span><div><i></i></div></div>
@@ -127,6 +154,60 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
   .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
   .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
   .sc-wf.d6 .sc-wf-cards { gap: 14px; }
+
+  /* ---------- kind 'site': a website in a browser, healthy at rest ---------- */
+  .sc-wf-bar .sc-s-url { margin-left: 8px; width: 34%; height: 9px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .25); }
+  .sc-s-body { gap: 10px; }
+  .sc-s-nav { display: flex; align-items: center; gap: 8px; }
+  .sc-s-logo { width: 34px; height: 9px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-s-nav em { width: 26px; height: 5px; }
+  .sc-s-nav em:first-of-type { margin-left: auto; }
+  .sc-s-nav u { display: block; width: 40px; height: 14px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .sc-s-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; align-items: center; }
+  .sc-s-copy { display: grid; gap: 6px; }
+  .sc-s-h { display: block; height: 10px; width: 92%; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-s-h--b { width: 66%; background: var(--kd-blue-2); box-shadow: 0 3px 0 -1px var(--kd-signal-1); }
+  .sc-s-vague { display: none; gap: 4px; }
+  .sc-s-vague em { display: block; height: 5px; border-radius: 3px; background: var(--wf); }
+  .sc-s-vague em:nth-child(2) { width: 86%; } .sc-s-vague em:nth-child(3) { width: 70%; }
+  .sc-s-cta { display: block; width: 64px; height: 16px; margin-top: 4px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .sc-s-img { position: relative; aspect-ratio: 4 / 3; border-radius: var(--kd-radius); background: var(--kd-blue-2); overflow: hidden; }
+  .sc-s-sun { position: absolute; right: 18%; top: 18%; width: 26%; aspect-ratio: 1; border-radius: 50%; background: var(--kd-signal-1); }
+  .sc-s-mtn { position: absolute; left: 10%; bottom: 0; width: 70%; height: 52%; background: var(--kd-lilac); clip-path: polygon(0 100%, 45% 10%, 100% 100%); opacity: 0; }
+  .sc-s-low { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; }
+  .sc-s-search { display: grid; gap: 5px; align-content: start; padding: 8px; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1px var(--wf); }
+  .sc-s-search b { font-size: 12px; line-height: 1; font-weight: var(--kd-weight-medium); }
+  .sc-s-search span { display: block; height: 6px; border-radius: 3px; background: var(--wf); }
+  .sc-s-search .sc-s-you { width: 80%; background: var(--kd-blue-2); box-shadow: -4px 0 0 var(--kd-signal-1); }
+  .sc-s-form { position: relative; display: grid; gap: 5px; align-content: start; padding: 8px; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); }
+  .sc-s-form em { height: 10px; border-radius: 3px; background: var(--kd-white); }
+  .sc-s-form u { display: block; width: 50%; height: 12px; border-radius: var(--kd-radius); background: var(--kd-blue-2); }
+  .sc-s-leak { position: absolute; right: -6px; bottom: -6px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); opacity: 0; }
+  .sc-s-phone { position: absolute; right: 22px; top: 34px; width: 54px; height: 92px; display: grid; gap: 5px; align-content: start; padding: 10px 6px; border-radius: 8px; border: 2px solid var(--kd-blue-1); background: var(--kd-white); opacity: 0; }
+  .sc-s-phone span { display: block; height: 6px; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-s-phone span.w { width: 150%; height: 18px; background: var(--kd-blue-2); }
+  .sc-s-phone .sc-s-bang { position: absolute; top: -8px; left: -8px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .sc-s-ticket { position: absolute; top: 34px; left: 40%; display: flex; align-items: center; gap: 6px; width: 30%; padding: 6px 8px; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 8px 20px -6px rgba(10, 0, 60, .45), 0 0 0 1.5px var(--kd-blue-1); opacity: 0; }
+  .sc-s-ticket b { font-size: 12px; line-height: 1; }
+  .sc-s-ticket em { flex: 1; height: 6px; border-radius: 3px; background: var(--wf); }
+  /* 1: a vague headline: the clear two lines turn into grey filler */
+  .sc-site.d1 .sc-s-h { display: none; }
+  .sc-site.d1 .sc-s-vague { display: grid; }
+  /* 2: a dated look: off-brand colours and a stock photo */
+  .sc-site.d2 .sc-s-img { background: color-mix(in srgb, var(--kd-blue-1) 12%, var(--kd-white)); }
+  .sc-site.d2 .sc-s-sun { background: color-mix(in srgb, var(--kd-blue-1) 25%, var(--kd-white)); }
+  .sc-site.d2 .sc-s-mtn { opacity: 1; background: color-mix(in srgb, var(--kd-blue-1) 30%, var(--kd-white)); }
+  .sc-site.d2 :is(.sc-s-cta, .sc-s-nav u, .sc-s-form u) { background: var(--kd-lilac); border-radius: 10px; }
+  .sc-site.d2 .sc-s-h--b { box-shadow: none; }
+  /* 3: the phone view breaks: content runs off the screen */
+  .sc-site.d3 .sc-s-phone { opacity: 1; }
+  /* 4: your result is gone from search */
+  .sc-site.d4 .sc-s-search .sc-s-you { width: 30%; background: var(--wf); box-shadow: none; }
+  /* 5: a change waits for a developer */
+  .sc-site.d5 .sc-s-ticket { opacity: 1; }
+  /* 6: leads leak from the form */
+  .sc-site.d6 .sc-s-leak { opacity: 1; }
+  .sc-site.d6 .sc-s-form { background: var(--kd-white); outline: 1.5px dashed var(--kd-blue-2); outline-offset: -1.5px; }
 
   /* revenue at risk and added cost: relative bars, no figures */
   .sc-bars { display: grid; gap: 8px; margin: 18px 0 16px; }

@@ -30,6 +30,7 @@ export const translatedRoutes: Partial<Record<Locale, string[]>> = {
   de: [
     '/',
     '/ux-audit',
+    '/website-audit',
     '/marketing-audit',
     '/pipeline-audit',
     '/strategy-call',

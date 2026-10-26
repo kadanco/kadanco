@@ -19,6 +19,7 @@ import StepsScene from './StepsScene.astro';
 import SelfCheck from './SelfCheck.astro';
 import DeliverableTabs from './DeliverableTabs.astro';
 import HeroMorph from './HeroMorph.astro';
+import HeroBuild from './HeroBuild.astro';
 import { auditHref, callHref } from '../data/intakes';
 import MeasuresDash from './MeasuresDash.astro';
 import StepsDetail from './StepsDetail.astro';
@@ -38,8 +39,8 @@ const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 
 const scene = SCENES.find((k) => k === page.stepsLayout);
 // route card marks: check, half, cross
 const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
-// audit buttons go to the department's intake page, every other CTA to the strategy call page
-const audit = localizedHref(locale, auditHref[page.dept]);
+// audit buttons go to the page's own intake (page.audit) or the department's, every other CTA to the strategy call page
+const audit = localizedHref(locale, page.audit ?? auditHref[page.dept]);
 const call = localizedHref(locale, callHref);
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
@@ -63,6 +64,8 @@ const ui = {
       </div>
       {page.heroVisual === 'morph' ? (
         <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroMorph label={locale === 'de' ? 'Dieselbe App vorher, unübersichtlich, und nachher, klar' : 'The same app before, cluttered, and after, clear'} /></div>
+      ) : page.heroVisual === 'build' ? (
+        <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroBuild stages={c.deliverables?.tabs.map((t) => t.label) ?? []} label={locale === 'de' ? 'Eine Website entsteht: Marke, Konzept, Design, Code, dann gefunden in Suche und KI-Antworten' : 'A website taking shape: brand, concept, design, code, then found in search and AI answers'} /></div>
       ) : page.heroVisual === 'app' ? (
         <div class="ucd-hero-visual ucd-app" role="img" aria-label={c.crumb}>
           <div class="ucd-app-win">
@@ -89,7 +92,7 @@ const ui = {
           <h2>{c.check.h2a} <em>{c.check.h2b}</em></h2>
           <p class="ucd-lede">{c.check.lede}</p>
         </div>
-        <SelfCheck items={c.check.items} results={c.check.results} labels={c.check.labels} />
+        <SelfCheck items={c.check.items} results={c.check.results} labels={c.check.labels} kind={page.checkVisual} />
       </div>
     </section>
   )}
@@ -200,11 +203,17 @@ const ui = {
               ? { step: 'Schritt', doing: 'Was wir tun', get: 'Was Sie bekommen', you: 'Von Ihnen:',
                   report: 'UX-Audit', impact: ['Hoch', 'Mittel', 'Niedrig'], drop: 'Größter Abbruch', test: 'Test 5 von 6 bestanden',
                   states: ['Standard', 'Lädt', 'Leer', 'Fehler'], tokens: 'Tokens', components: 'Komponenten', doLbl: 'So', dontLbl: 'Nicht so',
-                  passed: 'Tests bestanden', ready: 'Bereit zum Mergen', preview: 'Vorschau' }
+                  passed: 'Tests bestanden', ready: 'Bereit zum Mergen', preview: 'Vorschau',
+                  web: { url: 'ihrefirma.de', positioning: 'Positionierung', risk: 'Risiko', voice: ['Klar', 'Direkt', 'Kompetent'], message: 'Botschaft', pages: ['Start', 'Produkt', 'Preise', 'Über uns'],
+                    keyword: 'Keyword', question: 'Käuferfrage', devices: ['Desktop', 'Tablet', 'Handy'], cms: 'CMS', publish: 'Veröffentlichen', live: 'Live',
+                    checks: ['Responsiv', 'Sicher', 'CRM verbunden'], query: 'website für b2b software', ai: 'KI-Antwort', speed: 'Ladezeit' } }
               : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:',
                   report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
                   states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
-                  passed: 'Tests passed', ready: 'Ready to merge', preview: 'Preview' }} />
+                  passed: 'Tests passed', ready: 'Ready to merge', preview: 'Preview',
+                  web: { url: 'yourcompany.com', positioning: 'Positioning', risk: 'Risk', voice: ['Clear', 'Direct', 'Expert'], message: 'Message', pages: ['Home', 'Product', 'Pricing', 'About'],
+                    keyword: 'Keyword', question: 'Buyer question', devices: ['Desktop', 'Tablet', 'Phone'], cms: 'CMS', publish: 'Publish', live: 'Live',
+                    checks: ['Responsive', 'Secure', 'CRM connected'], query: 'website for b2b software', ai: 'AI answer', speed: 'Load time' } }} />
           : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>
@@ -316,8 +325,8 @@ const ui = {
           <p class="ucd-lede">{c.measures.lede}</p>
         </div>
         <MeasuresDash items={c.measures.items} labels={locale === 'de'
-          ? { app: 'Ihre Produktzahlen', before: 'Vorher', after: 'Nachher', goalUp: 'Ziel: hoch', goalDown: 'Ziel: runter', note: 'Beispielhafte Darstellung, keine echten Zahlen.', change: 'Was sich ändert', cause: 'Warum', hint: 'Fahren Sie über eine Kachel oder tippen Sie darauf, um zu sehen, was sich ändert und warum.' }
-          : { app: 'Your product metrics', before: 'Before', after: 'After', goalUp: 'Goal: up', goalDown: 'Goal: down', note: 'Example views, no real figures.', change: 'What changes', cause: 'Why', hint: 'Hover or tap a tile to see what changes and why.' }} />
+          ? { app: c.measures.app ?? 'Ihre Produktzahlen', you: 'ihrefirma.de', ai: 'KI-Antwort', before: 'Vorher', after: 'Nachher', goalUp: 'Ziel: hoch', goalDown: 'Ziel: runter', note: 'Beispielhafte Darstellung, keine echten Zahlen.', change: 'Was sich ändert', cause: 'Warum', hint: 'Fahren Sie über eine Kachel oder tippen Sie darauf, um zu sehen, was sich ändert und warum.' }
+          : { app: c.measures.app ?? 'Your product metrics', you: 'yourcompany.com', ai: 'AI answer', before: 'Before', after: 'After', goalUp: 'Goal: up', goalDown: 'Goal: down', note: 'Example views, no real figures.', change: 'What changes', cause: 'Why', hint: 'Hover or tap a tile to see what changes and why.' }} />
       </div>
     </section>
   )}

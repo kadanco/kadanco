@@ -1,0 +1,281 @@
+---
+// src/components/HeroBuild.astro
+// Website Production hero picture (heroVisual: 'build'): a website that assembles
+// itself in a browser, one stage per "What you get" step (owner choice 2026-10-26):
+//   1 Branded         a brand board: logo, colours, type, voice and positioning options (one picked)
+//   2 Conceptualised  the page as a grey wireframe, plus a small site map
+//   3 Designed        the wireframe fills in with the brand
+//   4 Developed       a code panel and a phone view of the same page
+//   5 Optimised       a search result and an AI answer that both point to the site
+// The stages play in a loop; the stage buttons under the window jump to a stage
+// (hover or focus pauses the loop). Without JavaScript, and with reduced motion,
+// the picture shows the last stage and stays still. Wireframe style of the Product
+// department: navy outline, white faces, department colours. Decorative; the stage
+// names come from the step labels so both always match.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string; stages: string[] }
+const { label, stages } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { url: 'yourcompany.com', group: 'Show a stage', positioning: 'Positioning', voice: ['Clear', 'Direct', 'Expert'], query: 'website for b2b software', ai: 'AI answer', fast: 'Fast', responsive: 'Responsive', secure: 'Secure' },
+  de: { url: 'ihrefirma.de', group: 'Eine Phase zeigen', positioning: 'Positionierung', voice: ['Klar', 'Direkt', 'Kompetent'], query: 'website für b2b software', ai: 'KI-Antwort', fast: 'Schnell', responsive: 'Responsiv', secure: 'Sicher' },
+}[locale];
+const last = stages.length;
+---
+<div class={`hb ${stages.map((_, i) => `s${i + 1}`).join(' ')}`} data-hb data-s={last}>
+  <div class="hb-win">
+    <div class="hb-bar"><i></i><i></i><i></i><span class="hb-url">{t.url}</span></div>
+    <div class="hb-stage" role="img" aria-label={label}>
+
+      <!-- the page itself: a wireframe from stage 2, in the brand from stage 3 -->
+      <div class="hb-page" aria-hidden="true">
+        <div class="hb-nav"><span class="hb-logo"></span><em></em><em></em><em></em><span class="hb-navbtn"></span></div>
+        <div class="hb-hero">
+          <div class="hb-copy">
+            <span class="hb-h"></span><span class="hb-h hb-h--em"></span>
+            <em></em><em class="s"></em>
+            <div class="hb-btns"><u></u><u class="g"></u></div>
+          </div>
+          <div class="hb-img"><span class="hb-x"></span><span class="hb-sh hb-sh--a"></span><span class="hb-sh hb-sh--b"></span><span class="hb-sh hb-sh--c"></span></div>
+        </div>
+        <div class="hb-logos"><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="hb-cards">{[0, 1, 2].map(() => <div><b></b><em></em><em class="s"></em></div>)}</div>
+      </div>
+
+      <!-- 1 brand board -->
+      <div class="hb-board" aria-hidden="true">
+        <div class="hb-tile hb-tile--logo"><span class="hb-mark"><i></i></span><span class="hb-word"></span></div>
+        <div class="hb-tile hb-tile--pos">
+          <b>{t.positioning}</b>
+          {['A', 'B', 'C'].map((o) => <div class:list={['hb-opt', { on: o === 'B' }]}><span>{o}</span><em></em>{o === 'B' && <span class="hb-tick">✓</span>}</div>)}
+        </div>
+        <div class="hb-tile hb-tile--col"><i></i><i></i><i></i><i></i></div>
+        <div class="hb-tile hb-tile--type"><span class="hb-aa">Aa</span><div class="hb-voice">{t.voice.map((v) => <span>{v}</span>)}</div></div>
+      </div>
+
+      <!-- 2 site map -->
+      <div class="hb-map" aria-hidden="true"><span class="top"></span><div class="hb-map-row"><span></span><span></span><span></span></div></div>
+
+      <!-- 4 code and phone -->
+      <pre class="hb-code" aria-hidden="true"><code><span class="t">&lt;section</span> <span class="a">class</span>=<span class="s">"hero"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h1&gt;</span>{'{'}page.title{'}'}<span class="t">&lt;/h1&gt;</span>
+  <span class="t">&lt;a</span> <span class="a">class</span>=<span class="s">"btn"</span><span class="t">&gt;</span>{'{'}page.cta{'}'}<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/section&gt;</span></code><span class="hb-checks"><b>✓ {t.responsive}</b><b>✓ {t.secure}</b></span></pre>
+      <div class="hb-phone" aria-hidden="true"><span class="hb-p-nav"></span><span class="hb-p-h"></span><span class="hb-p-h s"></span><span class="hb-p-img"></span><u></u><span class="hb-p-card"></span></div>
+
+      <!-- 5 search and AI answers -->
+      <div class="hb-serp" aria-hidden="true">
+        <span class="hb-q">⌕ {t.query}</span>
+        <div class="hb-res on"><span class="hb-res-n">1</span><div><b>{t.url}</b><em></em></div></div>
+        <div class="hb-res"><span class="hb-res-n">2</span><div><em class="m"></em><em></em></div></div>
+        <div class="hb-res"><span class="hb-res-n">3</span><div><em class="m"></em><em class="s"></em></div></div>
+      </div>
+      <div class="hb-ai" aria-hidden="true">
+        <span class="hb-ai-l">✦ {t.ai}</span>
+        <em></em><em class="s"></em>
+        <span class="hb-cite">↗ {t.url}</span>
+      </div>
+      <div class="hb-score" aria-hidden="true"><b>✓ SEO</b><b>✓ AEO</b><b>✓ GEO</b><b>✓ {t.fast}</b></div>
+    </div>
+  </div>
+
+  <div class="hb-stages" role="group" aria-label={t.group}>
+    {stages.map((s, i) => (
+      <button type="button" class:list={['hb-st', { on: i + 1 === last }]} data-go={i + 1} aria-pressed={i + 1 === last ? 'true' : 'false'}>
+        <span class="hb-st-n">{String(i + 1).padStart(2, '0')}</span><span class="hb-st-l">{s}</span>
+      </button>
+    ))}
+  </div>
+  <p class="hb-cap" aria-hidden="true">{stages[last - 1]}</p>
+</div>
+
+<style>
+  .hb { width: 100%; --wf: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); --dur: 2800ms; }
+  .hb-win { border: 2px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); overflow: hidden; box-shadow: 0 28px 56px -28px rgba(10, 0, 60, .6); color: var(--kd-blue-1); }
+  .hb-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--kd-blue-1); }
+  .hb-bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, .35); }
+  .hb-url { margin-left: 10px; padding: 2px 12px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .12); color: var(--kd-lilac-tint); font-size: 11px; }
+
+  .hb-stage { position: relative; aspect-ratio: 10 / 7; overflow: hidden; container-type: inline-size; font-size: clamp(7px, 2cqi, 11px); }
+  .hb-stage em { display: block; height: 6px; border-radius: 3px; background: var(--wf); }
+  .hb-stage em.s { width: 60%; }
+  .hb-stage *, .hb-stage { transition: opacity .5s ease, transform .5s ease, background-color .5s ease, box-shadow .5s ease, border-color .5s ease, color .5s ease; }
+
+  /* ---------- the page: wireframe by default (stage 2), brand from stage 3 ---------- */
+  .hb-page { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 4.5cqi; padding: 3cqi 4cqi; opacity: .12; }
+  .hb.s2 .hb-page { opacity: 1; }
+  .hb-nav { display: flex; align-items: center; gap: 2.5cqi; }
+  .hb-logo { width: 11cqi; height: 2.6cqi; border-radius: 3px; background: var(--wf); }
+  .hb-nav em { width: 7cqi; }
+  .hb-nav em:nth-of-type(1) { margin-left: auto; }
+  .hb-navbtn { width: 11cqi; height: 3.6cqi; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1.5px var(--wf); }
+  .hb-hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4cqi; align-items: center; }
+  .hb-copy { display: grid; gap: 1.8cqi; }
+  .hb-h { display: block; width: 92%; height: 4cqi; border-radius: 3px; background: var(--wf); }
+  .hb-h--em { width: 70%; }
+  .hb-btns { display: flex; gap: 1.6cqi; margin-top: 1cqi; }
+  .hb-btns u { display: block; width: 14cqi; height: 4.4cqi; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1.5px var(--wf); }
+  .hb-img { position: relative; aspect-ratio: 4 / 3; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1.5px var(--wf); overflow: hidden; }
+  /* wireframe image placeholder: a cross */
+  .hb-x { position: absolute; inset: 0; background:
+      linear-gradient(to top right, transparent calc(50% - 1px), var(--wf) 50%, transparent calc(50% + 1px)),
+      linear-gradient(to bottom right, transparent calc(50% - 1px), var(--wf) 50%, transparent calc(50% + 1px)); }
+  .hb-sh { position: absolute; opacity: 0; }
+  .hb-sh--a { left: 14%; bottom: 16%; width: 40%; height: 40%; border-radius: var(--kd-radius); background: var(--kd-lilac); transform: skewY(-12deg); }
+  .hb-sh--b { right: 16%; top: 18%; width: 24%; aspect-ratio: 1; border-radius: 50%; background: var(--kd-signal-1); }
+  .hb-sh--c { right: 12%; bottom: 14%; width: 30%; height: 14%; border-radius: var(--kd-radius); background: var(--kd-white); }
+  .hb-logos { display: flex; justify-content: space-between; gap: 3cqi; padding: 0 2cqi; }
+  .hb-logos i { flex: 1; height: 2.4cqi; border-radius: 3px; background: var(--wf); }
+  .hb-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4cqi; }
+  .hb-cards div { display: grid; gap: 1.4cqi; padding: 2.4cqi; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1.5px var(--wf); }
+  .hb-cards b { width: 4.4cqi; height: 4.4cqi; border-radius: 50%; background: var(--wf); }
+
+  /* stage 3 on: the brand arrives */
+  .hb.s3 .hb-logo { background: var(--kd-blue-1); }
+  .hb.s3 .hb-navbtn { box-shadow: none; background: var(--kd-blue-2); }
+  .hb.s3 .hb-h { background: var(--kd-blue-1); }
+  .hb.s3 .hb-h--em { background: var(--kd-blue-2); box-shadow: 0 1.2cqi 0 -.4cqi var(--kd-signal-1); }
+  .hb.s3 .hb-btns u { box-shadow: none; background: var(--kd-blue-2); }
+  .hb.s3 .hb-btns u.g { background: none; box-shadow: inset 0 0 0 1.5px var(--kd-blue-1); }
+  .hb.s3 .hb-img { box-shadow: none; background: var(--kd-blue-2); }
+  .hb.s3 .hb-x { opacity: 0; }
+  .hb.s3 .hb-sh { opacity: 1; }
+  .hb.s3 .hb-logos i { background: color-mix(in srgb, var(--kd-blue-1) 30%, transparent); }
+  .hb.s3 .hb-cards div { box-shadow: none; background: var(--kd-lilac-tint); }
+  .hb.s3 .hb-cards b { background: var(--kd-blue-2); }
+  .hb.s3 .hb-cards div:nth-child(2) b { background: var(--kd-signal-1); }
+  .hb.s3 .hb-cards div:nth-child(3) b { background: var(--kd-lilac); }
+
+  /* overlays: each shows on its own stage only */
+  .hb-board, .hb-map, .hb-code, .hb-phone, .hb-serp, .hb-ai, .hb-score { position: absolute; opacity: 0; transform: translateY(3cqi); pointer-events: none; }
+  .hb[data-s="1"] .hb-board, .hb[data-s="2"] .hb-map, .hb[data-s="4"] :is(.hb-code, .hb-phone), .hb[data-s="5"] :is(.hb-serp, .hb-ai, .hb-score) { opacity: 1; transform: none; }
+
+  /* 1 brand board */
+  .hb-board { inset: 5cqi 6cqi; display: grid; grid-template-columns: 1fr 1.2fr; grid-template-rows: 1fr 1fr; gap: 2.4cqi; }
+  .hb-tile { border-radius: var(--kd-radius); padding: 2.6cqi; box-shadow: 0 0 0 1.5px var(--kd-blue-1), 0 2cqi 4cqi -2.4cqi rgba(26, 1, 117, .5); background: var(--kd-white); }
+  .hb-tile--logo { display: flex; align-items: center; justify-content: center; gap: 2cqi; background: var(--kd-blue-1); }
+  .hb-mark { display: grid; place-items: center; width: 9cqi; height: 9cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
+  .hb-mark i { width: 4cqi; height: 4cqi; border-radius: 50%; background: var(--kd-blue-1); }
+  .hb-word { width: 16cqi; height: 3.4cqi; border-radius: 3px; background: var(--kd-white); }
+  .hb-tile--pos { display: grid; gap: 1.4cqi; align-content: center; }
+  .hb-tile--pos b { font-weight: var(--kd-weight-medium); }
+  .hb-opt { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.6cqi; padding: 1cqi 1.4cqi; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1px var(--wf); }
+  .hb-opt > span:first-child { font-weight: var(--kd-weight-medium); opacity: .6; }
+  .hb-opt.on { box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .hb-opt.on > span:first-child { opacity: 1; color: var(--kd-blue-2); }
+  .hb-tick { display: grid; place-items: center; width: 3.4cqi; height: 3.4cqi; border-radius: 50%; background: var(--kd-signal-1); font-size: .9em; }
+  .hb-tile--col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqi; }
+  .hb-tile--col i { border-radius: var(--kd-radius); }
+  .hb-tile--col i:nth-child(1) { background: var(--kd-blue-1); } .hb-tile--col i:nth-child(2) { background: var(--kd-blue-2); }
+  .hb-tile--col i:nth-child(3) { background: var(--kd-lilac); } .hb-tile--col i:nth-child(4) { background: var(--kd-signal-1); }
+  .hb-tile--type { display: flex; align-items: center; gap: 3cqi; }
+  .hb-aa { font-size: 11cqi; line-height: 1; font-weight: var(--kd-weight-medium); }
+  .hb-voice { display: flex; flex-wrap: wrap; gap: 1cqi; }
+  .hb-voice span { padding: .4cqi 1.6cqi; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); font-weight: var(--kd-weight-medium); }
+
+  /* 2 site map */
+  .hb-map { top: 4cqi; right: 4cqi; width: 30cqi; display: grid; justify-items: center; gap: 3cqi; padding: 2.4cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 0 0 1.5px var(--kd-blue-1), 0 2cqi 4cqi -2cqi rgba(26, 1, 117, .5); }
+  .hb-map span { display: block; height: 4cqi; border-radius: 3px; box-shadow: inset 0 0 0 1.5px var(--kd-blue-1); }
+  .hb-map .top { position: relative; width: 40%; background: var(--kd-blue-1); }
+  .hb-map .top::after { content: ''; position: absolute; left: 50%; top: 100%; height: 1.6cqi; border-left: 1.5px solid var(--kd-blue-1); }
+  .hb-map-row { position: relative; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqi; border-top: 1.5px solid var(--kd-blue-1); padding-top: 1.4cqi; }
+
+  /* 4 code and phone */
+  .hb-code { left: 4cqi; bottom: 4cqi; width: 54cqi; margin: 0; padding: 2.6cqi 3cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: clamp(6px, 1.9cqi, 11px); line-height: 1.7; white-space: pre; box-shadow: 0 2cqi 5cqi -2cqi rgba(10, 0, 60, .6); }
+  .hb-code .t, .hb-code .a { color: var(--kd-lilac-tint); } .hb-code .s { color: var(--kd-signal-1); }
+  .hb-checks { display: flex; gap: 1.4cqi; margin-top: 1.6cqi; font-family: var(--kd-font, inherit); }
+  .hb-checks b { padding: .3cqi 1.6cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .hb-phone { right: 5cqi; top: 4cqi; bottom: 4cqi; width: 22cqi; display: flex; flex-direction: column; gap: 1.6cqi; padding: 2.4cqi 2cqi; border-radius: 2.6cqi; border: 2px solid var(--kd-blue-1); background: var(--kd-white); box-shadow: 0 2cqi 5cqi -2cqi rgba(10, 0, 60, .55); }
+  .hb-phone span, .hb-phone u { display: block; border-radius: 3px; }
+  .hb-p-nav { height: 2cqi; width: 40%; background: var(--kd-blue-1); }
+  .hb-p-h { height: 2.6cqi; background: var(--kd-blue-1); }
+  .hb-p-h.s { width: 70%; background: var(--kd-blue-2); }
+  .hb-p-img { flex: 1; border-radius: var(--kd-radius) !important; background: var(--kd-blue-2); }
+  .hb-phone u { height: 3.6cqi; background: var(--kd-blue-2); border-radius: var(--kd-radius); }
+  .hb-p-card { height: 6cqi; background: var(--kd-lilac-tint); }
+
+  /* 5 search result and AI answer */
+  .hb-serp { right: 4cqi; top: 4cqi; width: 50cqi; display: grid; gap: 1.6cqi; padding: 2.6cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 0 0 1.5px var(--kd-blue-1), 0 2cqi 5cqi -2cqi rgba(26, 1, 117, .55); }
+  .hb-q { padding: .8cqi 2cqi; border-radius: 99px; box-shadow: inset 0 0 0 1.5px var(--wf); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hb-res { display: grid; grid-template-columns: auto 1fr; gap: 1.6cqi; align-items: center; padding: 1cqi 1.4cqi; border-radius: var(--kd-radius); }
+  .hb-res > div { display: grid; gap: .8cqi; }
+  .hb-res b { font-weight: var(--kd-weight-medium); color: var(--kd-blue-2); }
+  .hb-res em.m { width: 50%; background: color-mix(in srgb, var(--kd-blue-1) 26%, transparent); }
+  .hb-res-n { display: grid; place-items: center; width: 3.6cqi; height: 3.6cqi; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--wf); font-size: .9em; }
+  .hb-res.on { background: color-mix(in srgb, var(--kd-blue-2) 7%, var(--kd-white)); box-shadow: inset 3px 0 0 var(--kd-blue-2); }
+  .hb-res.on .hb-res-n { background: var(--kd-signal-1); box-shadow: none; font-weight: var(--kd-weight-medium); }
+  .hb-ai { right: 10cqi; bottom: 5cqi; width: 44cqi; display: grid; gap: 1.4cqi; padding: 2.6cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); box-shadow: 0 2cqi 5cqi -2cqi rgba(10, 0, 60, .6); }
+  .hb-ai em { background: rgba(255, 255, 255, .22); }
+  .hb-ai-l { color: var(--kd-signal-1); font-weight: var(--kd-weight-medium); }
+  .hb-cite { justify-self: start; padding: .4cqi 1.8cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .hb-score { left: 4cqi; bottom: 5cqi; display: grid; gap: 1.2cqi; }
+  .hb-score b { justify-self: start; padding: .5cqi 1.8cqi; border-radius: var(--kd-radius); background: var(--kd-white); box-shadow: 0 0 0 1.5px var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .hb[data-s="5"] .hb-page { opacity: .55; }
+  .hb[data-s="4"] .hb-page { opacity: .7; }
+
+  /* stage buttons under the window: on the blue hero ground */
+  .hb-stages { display: flex; gap: 6px; margin-top: 14px; }  /* buttons share the row by label length, so long names fit */
+  .hb-st { flex: 1 1 auto; min-width: 0; position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 8px 10px 10px; border: 1.5px solid rgba(255, 255, 255, .35); border-radius: var(--kd-radius); background: transparent; color: var(--kd-white); font: inherit; text-align: left; cursor: pointer; overflow: hidden; transition: background-color .25s ease, border-color .25s ease, color .25s ease; }
+  .hb-st:hover { border-color: var(--kd-white); }
+  .hb-st:focus-visible { outline: 2px solid var(--kd-white); outline-offset: 2px; }
+  .hb-st-n { font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; opacity: .7; }
+  .hb-st-l { font-size: 13px; font-weight: var(--kd-weight-medium); white-space: nowrap; }
+  .hb-st.on { background: var(--kd-signal-1); border-color: var(--kd-signal-1); color: var(--kd-blue-1); }
+  /* a thin line fills while a stage plays */
+  .hb-st::after { content: ''; position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--kd-blue-1); }
+  .hb.is-playing .hb-st.on::after { animation: hb-fill var(--dur) linear forwards; }
+  @keyframes hb-fill { to { width: 100%; } }
+  .hb-cap { display: none; }
+  @media (max-width: 1200px) and (min-width: 981px), (max-width: 560px) {
+    /* tight: numbers only in the buttons, the active stage name below */
+    .hb-st { align-items: center; padding: 8px 4px 10px; }
+    .hb-st-l { display: none; }
+    .hb-st-n { font-size: 13px; opacity: 1; }
+    .hb-cap { display: block; margin: 10px 0 0; text-align: center; font-size: 14px; font-weight: var(--kd-weight-medium); color: var(--kd-white); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hb-stage *, .hb-stage { transition: none !important; } }
+</style>
+
+<script is:inline>
+  // Plays the stages in a loop. A stage button jumps to its stage; hover or focus
+  // pauses the loop and leaving resumes it. Reduced motion: no loop, last stage stays.
+  document.querySelectorAll('[data-hb]').forEach(function (root) {
+    var btns = Array.prototype.slice.call(root.querySelectorAll('.hb-st'));
+    var cap = root.querySelector('.hb-cap');
+    var n = btns.length, cur = n, timer = null, paused = false;
+    var dur = 2800;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function show(s) {
+      cur = s;
+      root.setAttribute('data-s', s);
+      for (var i = 1; i <= n; i++) root.classList.toggle('s' + i, i <= s);
+      btns.forEach(function (b, i) {
+        var on = i + 1 === s;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (cap) cap.textContent = btns[s - 1].querySelector('.hb-st-l').textContent;
+    }
+    function tick() { show(cur % n + 1); }
+    function play() {
+      if (still || paused) return;
+      clearInterval(timer);
+      root.classList.add('is-playing');
+      timer = setInterval(tick, dur);
+    }
+    function stop() { clearInterval(timer); timer = null; root.classList.remove('is-playing'); }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { show(+b.getAttribute('data-go')); stop(); paused = true; });
+    });
+    root.addEventListener('mouseenter', function () { paused = true; stop(); });
+    root.addEventListener('mouseleave', function () { paused = false; play(); });
+    root.addEventListener('focusin', function () { paused = true; stop(); });
+    root.addEventListener('focusout', function (e) { if (!root.contains(e.relatedTarget)) { paused = false; play(); } });
+    // only play while the picture is on screen
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) play(); else stop(); }); }).observe(root);
+    } else play();
+    if (!still) show(1);
+  });
+</script>

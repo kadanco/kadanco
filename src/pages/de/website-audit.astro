@@ -1,0 +1,10 @@
+---
+// /de/website-audit/: Website-Audit-Fragebogen (Vollbild, ohne Navigation und Footer)
+import Layout from '../../layouts/Layout.astro';
+import AuditIntake from '../../components/AuditIntake.astro';
+import { websiteAudit } from '../../data/intakes';
+const t = websiteAudit.de;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={websiteAudit} />
+</Layout>

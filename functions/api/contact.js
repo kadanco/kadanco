@@ -26,7 +26,7 @@ export async function onRequestPost(context) {
 
     // 3. Audit intakes (the full-screen forms, e.g. /ux-audit/) send a brief.
     //    They post { type, email, name, answers, brief }; `type` is the intake id.
-    const INTAKES = ['ux-audit', 'marketing-audit', 'pipeline-audit'];
+    const INTAKES = ['ux-audit', 'website-audit', 'marketing-audit', 'pipeline-audit'];
     if (data && INTAKES.includes(data.type)) {
       const email = String(data.email || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {

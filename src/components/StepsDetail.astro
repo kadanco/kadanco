@@ -8,16 +8,25 @@
 //   screens    a design canvas with one screen in every state (default, loading, empty, error)
 //   system     tokens (colour, type, spacing) and a component library with do / don't
 //   code       a code editor with the component, a live preview and passed checks
+// Website Production (2026-10-26):
+//   brand      a brand board: positioning options with one picked, logo, colours, type and voice
+//   concept    a site map next to a homepage wireframe with the copy and keyword notes
+//   design     the same page designed for desktop, tablet and phone
+//   develop    a CMS editor next to the live page, with checks
+//   optimise   a search result and an AI answer that point to the site, plus SEO, AEO, GEO and speed
 // Each row: when it happens, what we do, what you get and what we need from you.
 // One CTA closes the section. Section shell and heading come
 // from UseCaseDetail.astro.
-type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code';
+type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise';
 interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string }
 interface Labels {
   step: string; doing: string; get: string; you: string;
   report: string; impact: [string, string, string]; drop: string; test: string;
   states: [string, string, string, string]; tokens: string; components: string; doLbl: string; dontLbl: string;
   passed: string; ready: string; preview: string;
+  web?: { url: string; positioning: string; risk: string; voice: [string, string, string]; message: string; pages: [string, string, string, string];
+    keyword: string; question: string; devices: [string, string, string]; cms: string; publish: string; live: string;
+    checks: [string, string, string]; query: string; ai: string; speed: string };
 }
 interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string }; ctaHref: string }
 // ctaHref: the department's audit intake page
@@ -147,6 +156,100 @@ const { steps, labels, cta, ctaHref } = Astro.props;
                 </div>
               )}
 
+              {s.key === 'brand' && labels.web && (
+                <div class="w-brand">
+                  <div class="p-card w-pos">
+                    <b class="p-h">{labels.web.positioning}</b>
+                    {['A', 'B', 'C'].map((o, k) => (
+                      <div class:list={['w-opt', { on: k === 1 }]}><span class="w-opt-l">{o}</span><em></em><span class="w-risk">{[0, 1, 2].map((d) => <i class={d <= [2, 0, 1][k] ? 'on' : ''}></i>)}</span>{k === 1 && <span class="w-tick">✓</span>}</div>
+                    ))}
+                    <span class="w-riskl">{labels.web.risk}</span>
+                  </div>
+                  <div class="w-id">
+                    <div class="w-logo"><span class="w-mark"><i></i></span><span class="w-word"></span></div>
+                    <div class="w-sw"><i></i><i></i><i></i><i></i></div>
+                    <div class="p-card w-type"><span class="w-aa">Aa</span><div class="w-voice">{labels.web.voice.map((v) => <span>{v}</span>)}</div></div>
+                  </div>
+                  <div class="p-card w-msg"><b class="p-h">{labels.web.message}</b><span class="w-hl"></span><em></em><em class="s"></em></div>
+                </div>
+              )}
+
+              {s.key === 'concept' && labels.web && (
+                <div class="w-concept">
+                  <div class="w-tree">
+                    <span class="w-node w-node--top">{labels.web.pages[0]}</span>
+                    <div class="w-kids">{labels.web.pages.slice(1).map((pg) => <span class="w-node">{pg}</span>)}</div>
+                  </div>
+                  <div class="w-wire">
+                    <div class="w-wnav"><span></span><em></em><em></em><em></em></div>
+                    <div class="w-whero">
+                      <div class="w-wcopy"><span class="w-wh"></span><span class="w-wh s"></span><em></em><em class="s"></em><span class="w-wbtn"></span></div>
+                      <div class="w-wimg"></div>
+                    </div>
+                    <div class="w-wcards"><span></span><span></span><span></span></div>
+                    <span class="w-pin w-pin--1">1</span><span class="w-pin w-pin--2">2</span>
+                  </div>
+                  <div class="w-notes">
+                    <div class="p-card w-note"><span class="w-pin">1</span><div><b>{labels.web.keyword}</b><em></em></div></div>
+                    <div class="p-card w-note"><span class="w-pin">2</span><div><b>{labels.web.question}</b><em></em></div></div>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'design' && labels.web && (
+                <div class="w-design">
+                  {labels.web.devices.map((d, k) => (
+                    <div class={`w-dev w-dev--${k}`}>
+                      <span class="p-flabel">{d}</span>
+                      <div class="w-screen">
+                        <div class="w-snav"><span></span>{k === 0 && <><em></em><em></em></>}<u></u></div>
+                        <div class="w-shero">
+                          <div class="w-scopy"><span class="w-sh"></span><span class="w-sh b"></span><u></u></div>
+                          <div class="w-simg"><i></i><b></b></div>
+                        </div>
+                        <div class="w-scards">{Array.from({ length: k === 2 ? 1 : 3 }).map(() => <span></span>)}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {s.key === 'develop' && labels.web && (
+                <div class="w-dev2">
+                  <div class="p-card w-cms">
+                    <b class="p-h">{labels.web.cms}</b>
+                    <div class="w-field"><em class="s"></em><span class="w-in"><i></i></span></div>
+                    <div class="w-field"><em class="s"></em><span class="w-in w-in--tall"><i></i><i class="s"></i></span></div>
+                    <div class="w-field w-field--row"><span class="p-tog"><i></i></span><em></em></div>
+                    <span class="w-pub">{labels.web.publish}</span>
+                  </div>
+                  <div class="w-live">
+                    <span class="w-livetag">● {labels.web.live} · {labels.web.url}</span>
+                    <div class="w-lpage"><span class="w-sh"></span><span class="w-sh b"></span><em></em><u></u><div class="w-scards"><span></span><span></span></div></div>
+                  </div>
+                  <div class="p-status w-checks">{labels.web.checks.map((c) => <span>✓ {c}</span>)}</div>
+                </div>
+              )}
+
+              {s.key === 'optimise' && labels.web && (
+                <div class="w-opt2">
+                  <div class="p-card w-serp">
+                    <span class="w-q">⌕ {labels.web.query}</span>
+                    <div class="w-res on"><span class="w-n">1</span><div><b>{labels.web.url}</b><em></em></div></div>
+                    <div class="w-res"><span class="w-n">2</span><div><em class="m"></em><em class="s"></em></div></div>
+                    <div class="w-res"><span class="w-n">3</span><div><em class="m"></em><em class="s"></em></div></div>
+                  </div>
+                  <div class="w-ai">
+                    <span class="w-ai-l">✦ {labels.web.ai}</span>
+                    <em></em><em></em><em class="s"></em>
+                    <span class="w-cite">↗ {labels.web.url}</span>
+                  </div>
+                  <div class="w-scores">
+                    <div class="p-card w-gauge"><span class="w-arc"></span><b>{labels.web.speed}</b></div>
+                    {['SEO', 'AEO', 'GEO'].map((k) => <div class="p-card w-sc"><b>{k}</b><span>✓</span></div>)}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -311,6 +414,136 @@ const { steps, labels, cta, ctaHref } = Astro.props;
   .p-prevl { width: 100%; font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .65; }
   .p-status { grid-column: 2; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; padding: 0 16px 16px; }
   .p-status span { padding: 3px 10px; border-radius: var(--kd-radius); background: var(--kd-signal-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+
+  /* ---------- Website Production pictures ---------- */
+  /* brand board */
+  .w-brand { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; }
+  .w-pos { display: grid; gap: 8px; align-content: start; }
+  .w-opt { display: grid; grid-template-columns: 18px 1fr auto auto; align-items: center; gap: 8px; padding: 6px 8px; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1px var(--wf); }
+  .w-opt.on { box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .w-opt-l { font-weight: var(--kd-weight-medium); opacity: .6; }
+  .w-opt.on .w-opt-l { opacity: 1; color: var(--kd-blue-2); }
+  .w-risk { display: flex; gap: 3px; }
+  .w-risk i { width: 7px; height: 7px; border-radius: 50%; background: var(--wf); }
+  .w-risk i.on { background: var(--kd-lilac); }
+  .w-tick { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--kd-signal-1); font-size: 11px; }
+  .w-riskl { justify-self: end; font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; opacity: .6; }
+  .w-id { display: grid; gap: 10px; align-content: start; }
+  .w-logo { display: flex; align-items: center; justify-content: center; gap: 10px; height: 62px; border-radius: var(--kd-radius); background: var(--kd-blue-1); }
+  .w-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--kd-radius); background: var(--kd-signal-1); }
+  .w-mark i { width: 13px; height: 13px; border-radius: 50%; background: var(--kd-blue-1); }
+  .w-word { width: 64px; height: 11px; border-radius: 3px; background: var(--kd-white); }
+  .w-sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .w-sw i { height: 26px; border-radius: var(--kd-radius); }
+  .w-sw i:nth-child(1) { background: var(--kd-blue-1); } .w-sw i:nth-child(2) { background: var(--kd-blue-2); } .w-sw i:nth-child(3) { background: var(--kd-lilac); } .w-sw i:nth-child(4) { background: var(--kd-signal-1); }
+  .w-type { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+  .w-aa { font-size: 34px; line-height: 1; font-weight: var(--kd-weight-medium); }
+  .w-voice { display: flex; flex-wrap: wrap; gap: 4px; }
+  .w-voice span { padding: 1px 7px; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .w-msg { grid-column: 1 / -1; display: grid; gap: 6px; }
+  .w-msg .p-h { margin-bottom: 2px; }
+  .w-hl { display: block; width: 62%; height: 10px; border-radius: 3px; background: var(--kd-blue-1); box-shadow: 0 4px 0 -1px var(--kd-signal-1); margin-bottom: 4px; }
+
+  /* concept: site map, wireframe with copy pins, keyword and question notes */
+  .w-concept { display: grid; grid-template-columns: .8fr 1.4fr; grid-template-rows: auto auto; gap: 12px; align-items: start; }
+  .w-tree { display: grid; justify-items: start; gap: 14px; padding: 12px 8px; border-radius: var(--kd-radius); border: 1px dashed var(--wf); }
+  .w-node { display: block; padding: 3px 6px; border-radius: 3px; border: 1.5px solid var(--kd-blue-1); background: var(--kd-white); font-size: 10px; font-weight: var(--kd-weight-medium); white-space: nowrap; text-align: center; }
+  .w-node--top { position: relative; background: var(--kd-blue-1); color: var(--kd-white); }
+  .w-node--top::after { content: ''; position: absolute; left: 13px; top: 100%; height: 8px; border-left: 1.5px solid var(--kd-blue-1); }
+  .w-kids { display: grid; gap: 6px; margin: -14px 0 0 13px; padding: 14px 0 0 12px; border-left: 1.5px solid var(--kd-blue-1); }
+  .w-kids .w-node { position: relative; justify-self: start; }
+  .w-kids .w-node::before { content: ''; position: absolute; right: calc(100% + 1.5px); top: 50%; width: 12px; border-top: 1.5px solid var(--kd-blue-1); }
+  .w-wire { position: relative; display: grid; gap: 10px; padding: 12px; border-radius: var(--kd-radius); border: 1.5px solid var(--wf); }
+  .w-wnav { display: flex; align-items: center; gap: 6px; }
+  .w-wnav span { width: 30px; height: 8px; border-radius: 3px; background: var(--wf); }
+  .w-wnav em { width: 22px; height: 5px; } .w-wnav em:first-of-type { margin-left: auto; }
+  .w-whero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; align-items: center; }
+  .w-wcopy { display: grid; gap: 6px; }
+  .w-wh { display: block; height: 9px; width: 90%; border-radius: 3px; background: color-mix(in srgb, var(--kd-blue-1) 34%, transparent); }
+  .w-wh.s { width: 64%; }
+  .w-wbtn { display: block; width: 52px; height: 15px; border-radius: var(--kd-radius); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--kd-blue-1) 34%, transparent); }
+  .w-wimg { aspect-ratio: 4 / 3; border-radius: 3px; box-shadow: inset 0 0 0 1.5px var(--wf); background:
+      linear-gradient(to top right, transparent calc(50% - 1px), var(--wf) 50%, transparent calc(50% + 1px)),
+      linear-gradient(to bottom right, transparent calc(50% - 1px), var(--wf) 50%, transparent calc(50% + 1px)); }
+  .w-wcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .w-wcards span { height: 26px; border-radius: 3px; box-shadow: inset 0 0 0 1.5px var(--wf); }
+  .w-pin { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 10px; font-weight: var(--kd-weight-medium); flex: none; }
+  .w-wire .w-pin { position: absolute; }
+  .w-pin--1 { left: 6px; top: 34px; } .w-pin--2 { right: 6px; bottom: 40px; }
+  .w-notes { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .w-note { display: flex; gap: 8px; align-items: flex-start; padding: 10px; }
+  .w-note > div { flex: 1; display: grid; gap: 6px; }
+  .w-note b { font-size: 11px; font-weight: var(--kd-weight-medium); }
+
+  /* design: one page on three devices */
+  .w-design { display: grid; grid-template-columns: 2.4fr 1.3fr .8fr; gap: 14px; align-items: end; }
+  .w-screen { display: grid; gap: 8px; padding: 10px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); background: var(--kd-white); }
+  .w-dev--1 .w-screen { border-radius: 10px; }
+  .w-dev--2 .w-screen { border-radius: 12px; padding: 12px 7px; }
+  .w-snav { display: flex; align-items: center; gap: 5px; }
+  .w-snav span { width: 26px; height: 7px; border-radius: 3px; background: var(--kd-blue-1); }
+  .w-snav em { width: 18px; height: 4px; } .w-snav em:first-of-type { margin-left: auto; }
+  .w-snav u { width: 30px !important; height: 11px !important; margin-left: auto; }
+  .w-dev--0 .w-snav u { margin-left: 0; }
+  .w-shero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8px; align-items: center; }
+  .w-dev--1 .w-shero, .w-dev--2 .w-shero { grid-template-columns: 1fr; }
+  .w-scopy { display: grid; gap: 5px; }
+  .w-sh { display: block; height: 8px; width: 92%; border-radius: 3px; background: var(--kd-blue-1); }
+  .w-sh.b { width: 66%; background: var(--kd-blue-2); box-shadow: 0 3px 0 -1px var(--kd-signal-1); }
+  .w-scopy u { width: 50% !important; height: 13px !important; margin-top: 3px; }
+  .w-simg { position: relative; aspect-ratio: 4 / 3; border-radius: 3px; background: var(--kd-blue-2); overflow: hidden; }
+  .w-simg i { position: absolute; right: 16%; top: 16%; width: 26%; aspect-ratio: 1; border-radius: 50%; background: var(--kd-signal-1); }
+  .w-simg b { position: absolute; left: 14%; bottom: 14%; width: 42%; height: 36%; border-radius: 3px; background: var(--kd-lilac); }
+  .w-scards { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; gap: 5px; }
+  .w-scards span { height: 22px; border-radius: 3px; background: var(--kd-lilac-tint); }
+
+  /* develop: CMS editor and live page */
+  .w-dev2 { display: grid; grid-template-columns: 1fr 1.2fr; gap: 12px; }
+  .w-cms { display: grid; gap: 9px; align-content: start; }
+  .w-field { display: grid; gap: 4px; }
+  .w-field em.s { width: 34%; }
+  .w-field--row { grid-template-columns: auto 1fr; align-items: center; gap: 8px; }
+  .w-in { display: grid; gap: 4px; align-content: center; height: 22px; padding: 0 8px; border-radius: var(--kd-radius); border: 1.5px solid color-mix(in srgb, var(--kd-blue-1) 25%, transparent); }
+  .w-in--tall { height: 38px; }
+  .w-in i { display: block; height: 5px; width: 80%; border-radius: 3px; background: var(--kd-blue-1); opacity: .7; }
+  .w-in i.s { width: 50%; }
+  .w-pub { justify-self: start; padding: 3px 12px; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .w-live { display: grid; gap: 8px; align-content: start; }
+  .w-livetag { justify-self: start; padding: 2px 8px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-signal-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .w-lpage { display: grid; gap: 7px; padding: 14px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); }
+  .w-lpage u { width: 40% !important; height: 15px !important; }
+  .w-checks { grid-column: 1 / -1; padding: 0; }
+
+  /* optimise: search, AI answer and scores */
+  .w-opt2 { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; align-items: start; }
+  .w-serp { display: grid; gap: 7px; }
+  .w-q { padding: 4px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1.5px var(--wf); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .w-res { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; padding: 6px 8px; border-radius: var(--kd-radius); }
+  .w-res > div { display: grid; gap: 5px; }
+  .w-res b { font-weight: var(--kd-weight-medium); color: var(--kd-blue-2); }
+  .w-res em.m { width: 50%; background: color-mix(in srgb, var(--kd-blue-1) 26%, transparent); }
+  .w-n { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--wf); font-size: 10px; }
+  .w-res.on { background: color-mix(in srgb, var(--kd-blue-2) 7%, var(--kd-white)); box-shadow: inset 3px 0 0 var(--kd-blue-2); }
+  .w-res.on .w-n { background: var(--kd-signal-1); box-shadow: none; font-weight: var(--kd-weight-medium); }
+  .w-ai { display: grid; gap: 7px; padding: 14px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .sd-canvas .w-ai em { background: rgba(255, 255, 255, .22); }
+  .w-ai-l { color: var(--kd-signal-1); font-weight: var(--kd-weight-medium); }
+  .w-cite { justify-self: start; margin-top: 2px; padding: 2px 8px; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .w-scores { grid-column: 1 / -1; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 10px; }
+  .w-gauge { display: flex; align-items: center; gap: 10px; padding: 10px 12px; }
+  .w-gauge b, .w-sc b { font-weight: var(--kd-weight-medium); }
+  /* speed gauge: a half ring, mostly filled */
+  .w-arc { flex: none; width: 44px; height: 22px; border-radius: 44px 44px 0 0; background: conic-gradient(from -90deg at 50% 100%, var(--kd-blue-2) 0 150deg, var(--wf) 150deg 180deg, transparent 180deg); -webkit-mask: radial-gradient(circle at 50% 100%, transparent 13px, black 14px); mask: radial-gradient(circle at 50% 100%, transparent 13px, black 14px); }
+  .w-sc { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 10px 12px; }
+  .w-sc span { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--kd-signal-1); font-size: 11px; }
+
+  @media (max-width: 560px) {
+    .w-brand, .w-concept, .w-dev2, .w-opt2 { grid-template-columns: 1fr; }
+    .w-design { grid-template-columns: 1fr 1fr; }
+    .w-dev--0 { grid-column: 1 / -1; }
+    .w-scores { grid-template-columns: 1fr 1fr; }
+    .w-notes { grid-template-columns: 1fr; }
+  }
 
   /* phones: pictures stack tighter */
   @media (max-width: 560px) {

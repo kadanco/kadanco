@@ -33,12 +33,12 @@ export interface UseCasePageText {
   // what you get: tabs (DeliverableTabs.astro) or, with layout 'steps', one tall row per step with its own
   // picture and full detail (StepsDetail.astro). key picks the picture.
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';
-    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code'; label: string; title: string; body: string; points: string[];
+    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise'; label: string; title: string; body: string; points: string[];
       when?: string; doing?: string[]; you?: string }[];
     cta?: { h3: string; body: string; button: string } };
   // what we measure: the measures only, no invented numbers
   // dir: which way the number should move; drawn as a small chart that improves after the start line
-  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; items: { title: string; body: string; dir?: 'up' | 'down'; viz?: 'funnel' | 'path' | 'columns' | 'inbox' | 'build'; change?: string; cause?: string }[] };  // viz: picture in MeasuresDash.astro (defaults by order); change and cause show on hover, focus or tap
+  measures?: { eyebrow: string; h2a: string; h2b: string; lede: string; app?: string; items: { title: string; body: string; dir?: 'up' | 'down'; viz?: 'funnel' | 'path' | 'columns' | 'inbox' | 'build' | 'speed' | 'rank' | 'answers'; change?: string; cause?: string }[] };  // viz: picture in MeasuresDash.astro (defaults by order); change and cause show on hover, focus or tap
   // success stories: one card per client story. Until real stories are approved the
   // entries are placeholders and say so (placeholder: true shows a "Placeholder" tag)
   stories?: { eyebrow: string; h2a: string; h2b: string; lede: string;
@@ -62,7 +62,9 @@ export interface UseCasePage {
   id: string;
   dept: Dept;
   icon: IsoIconName;                     // hero visual
-  heroVisual?: 'app' | 'morph';           // 'app': a small app window; 'morph': a cluttered app turning into a clean one (Product department)
+  heroVisual?: 'app' | 'morph' | 'build'; // 'app': a small app window; 'morph': a cluttered app turning into a clean one; 'build': a website that assembles itself, stage by stage (HeroBuild.astro)
+  checkVisual?: 'app' | 'site';          // the self-check picture: an app (default) or a website in a browser
+  audit?: string;                        // audit intake page for this use case, when it differs from the department's (e.g. '/website-audit/')
   // how "What's inside" shows the steps: stacked cards (default), widening row, mixed-size grid,
   // the product UI mock, or a contextual scene from StepsScene.astro
   stepsLayout?: 'stack' | 'expand' | 'bento' | 'ui' | 'web' | 'slider' | 'fan' | 'map' | 'board' | 'calendar' | 'sequence' | 'org';

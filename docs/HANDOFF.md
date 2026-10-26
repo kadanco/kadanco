@@ -2,7 +2,7 @@
 
 Start a new chat with: "Read docs/HANDOFF.md". Claude updates this file at the end of every work session (rule in `CLAUDE.md`), so it always shows where we stopped.
 
-Last updated: 26 October 2026, 13:25 (Germany time)
+Last updated: 26 October 2026, 13:58 (Germany time)
 
 ## Read first
 
@@ -23,7 +23,7 @@ Last updated: 26 October 2026, 13:25 (Germany time)
 
 ## Current state
 
-Latest commit on `october-update`: `b8fc4f9` All CTAs lead to form pages. Commit and push the doc updates from this session before starting (see the end of the last chat).
+Latest commit on `october-update`: `4206e18` Docs: handoff, status and open tasks. The Website Production rebuild (this session) is in the working tree, uncommitted until the owner commits it.
 
 - **Homepage: done** (owner sign-off 2026-10-26).
 - **Product Design: done.** It is the template for the other use case pages:
@@ -33,30 +33,36 @@ Latest commit on `october-update`: `b8fc4f9` All CTAs lead to form pages. Commit
   - "What you get" as five tall steps with equal-size pictures (`StepsDetail.astro`).
   - "What we measure" as a wireframe analytics app with hover/tap explanations (`MeasuresDash.astro`).
   - Ways to work; FAQ. Situation, first 90 days and success stories removed.
+- **Website Production: built, waiting for owner review** (EN and DE; German for Maria):
+  - Hero `HeroBuild.astro`: a website assembles itself in five stages (Branded, Conceptualised, Designed, Developed, Optimised), stage buttons under the window.
+  - Self-check on a website wireframe; route cards; five steps with website pictures; website measures (incl. search rankings and AI answers); ways to work (sprint, partnership); FAQ incl. SEO, AEO and GEO.
+  - Own form /website-audit/ (Plunk event `website-audit-submitted`).
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
   - Hidden: Software Modernisation and the /use-cases/ overview (files prefixed with `_`).
 - **Forms:** no modal. Every CTA links to a full-screen form page (`AuditIntake.astro`, content in `src/data/intakes.ts`, EN and DE, noindex):
   - /strategy-call/ (Plunk event `contact-form-submitted`)
-  - /ux-audit/ (Product), /marketing-audit/, /pipeline-audit/ (Sales), each with its own `*-submitted` event.
+  - /ux-audit/ (Product), /website-audit/ (Website Production), /marketing-audit/, /pipeline-audit/ (Sales), each with its own `*-submitted` event.
 - **Department styles** (owner decision): Product = wireframes and UI; Marketing = bold PR and agency style; Sales = dashboards and graphs.
 - **Hero rule:** on laptops and up every use case hero fits the first screen with the CTAs visible; headline about 50 characters (German 60), lead 160 to 200.
 
 ## Waiting on the owner (top items; full list in the open tasks file)
 
-- Plunk: notifications for `ux-audit-submitted`, `marketing-audit-submitted`, `pipeline-audit-submitted` (before launch).
-- Review the drafted Marketing and Pipeline audit questions.
+- Review the Website Production page (local or staging) and confirm its claims: CMS list, "homepage in 4 weeks, full site in 6 to 8", week tags.
+- Plunk: notifications for `ux-audit-submitted`, `website-audit-submitted`, `marketing-audit-submitted`, `pipeline-audit-submitted` (before launch).
+- Review the drafted Website, Marketing and Pipeline audit questions.
 - Copy fixes from the review: self-check item 6, "get shortened", "Lets Talk", too-long page titles, Product Design meta description.
 
 ## Next up
 
-1. Website Production on the Product Design template (Product style).
+1. Owner feedback on Website Production.
 2. Marketing pages (bold PR and agency style): Content Production, Positioning and Brand; then DACH.
 3. Sales pages (dashboards and graphs): Account-Based Marketing, Outbound Sales Pipeline; then Event Lead Generation.
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (afternoon): Website Production rebuilt on the Product Design template (research: oratory.co, fletchpmm.com, loveatfirsttry.io, website topics only); hero that assembles itself; /website-audit/ form.
 - 2026-10-24 to 26: Component round on the homepage (comparison, compliance, CTA, footer, Who We Are, tags, photos, card layout); responsive rules and pass on all pages; hero rule; use case visibility; Product Design rebuilt as the template; review fixed the CTA/modal bug; contact modal replaced by four full-screen form pages.
 - 2026-10-23: Contextual step scenes for all use cases; breadcrumbs removed; handoff file created.
 - 2026-10-22: Services renamed; 9 use cases with tags, new URLs and redirects; all 9 detail pages written (EN and DE); step layouts (stack, Klarna expand row, bento, product UI).

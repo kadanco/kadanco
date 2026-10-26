@@ -16,7 +16,7 @@ Read this first in every session. Update the "Status" and "Decision log" section
 - Astro 7, static output, plain HTML and CSS, no UI framework. Node 22 (`.nvmrc`).
 - Hosting: Cloudflare Pages. Push to `main` deploys automatically (build `npm run build`, output `dist`).
 - GitHub: `kadanco/kadanco`. Branch `main` (live). Work branch `october-update` (staging previews on push).
-- Forms: four full-screen form pages (strategy call, UX, marketing and pipeline audits) post to `functions/api/contact.js` (Cloudflare Pages Function), which sends to Plunk. Secret `PLUNK_API_KEY`. There is no contact modal any more.
+- Forms: five full-screen form pages (strategy call, UX, website, marketing and pipeline audits) post to `functions/api/contact.js` (Cloudflare Pages Function), which sends to Plunk. Secret `PLUNK_API_KEY`. There is no contact modal any more.
 - Analytics: GTM `GTM-MF44PR8H` + CookieYes consent, wired in `src/layouts/Layout.astro`.
 - Brand assets (logos, photos, OG image): R2 bucket at https://assets.kadanco.com.
 - Motion: Anime.js from `public/vendor/anime.umd.min.js`.
@@ -34,15 +34,15 @@ Internal pages (local and staging only, never on kadanco.com): http://localhost:
 ```
 src/layouts/Layout.astro    head, nav, footer, global scripts, consent (`bare` = no nav/footer, for the forms)
 src/components/             Nav, Footer, HomePage + Home*/Live* sections, DeptStack, UseCaseDetail (use case
-                            template) + SelfCheck, StepsDetail, MeasuresDash, HeroMorph, AuditIntake (forms)
+                            template) + SelfCheck, StepsDetail, MeasuresDash, HeroMorph, HeroBuild, AuditIntake (forms)
 src/pages/                  index, imprint, privacy-policy, glossary, use-cases (8 built; _ prefix = hidden),
-                            strategy-call, ux-audit, marketing-audit, pipeline-audit
+                            strategy-call, ux-audit, website-audit, marketing-audit, pipeline-audit
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
 src/data/use-case-pages/    one content file per use case detail page (EN and DE), rendered by src/components/UseCaseDetail.astro
 src/data/use-cases.ts       all use cases (EN and DE) with department tags and `show` (nav / footer / hidden)
-src/data/intakes.ts         the four forms' questions (EN and DE), `auditHref` per department, `callHref`
+src/data/intakes.ts         the five forms' questions (EN and DE), `auditHref` per department, `callHref`
 src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
@@ -120,7 +120,10 @@ Done and signed off by the owner:
 - Forms: every CTA links to a full-screen form page (strategy call or the department's audit). No modal.
 - Use case visibility: six in nav and homepage, DACH and Event Lead Generation in the footer only, Software Modernisation and /use-cases/ hidden.
 
-Next: Website Production, then the Marketing and Sales use case pages in their department styles. The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
+Built, waiting for owner review:
+- Website Production (EN and DE), rebuilt on the Product Design template on 2026-10-26, with its own /website-audit/ form.
+
+Next: the Marketing and Sales use case pages in their department styles. The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
 
 ## Open questions
 
@@ -228,3 +231,7 @@ Next: Website Production, then the Marketing and Sales use case pages in their d
   - /strategy-call/: the general contact form (same questions as the modal), sent to Plunk under the modal's old event `contact-form-submitted`. Nav CTA, homepage hero and closing CTA, glossary CTAs, "Ways to work" calls and every "Book A Strategy Call".
   - /ux-audit/ (Product), /marketing-audit/ (Marketing), /pipeline-audit/ (Sales): each department's audit buttons go to its form (`auditHref`); Plunk events `ux-audit-submitted`, `marketing-audit-submitted`, `pipeline-audit-submitted`. Marketing and Pipeline questions are drafts (no design files) for owner review.
   - Homepage card CTAs: "Book A UX Audit", "Book A Marketing Audit" (Marketing no longer says "Book a Strategy Call"), "Book A Pipeline Audit". DACH audit button renamed "Get A Free Market Entry Audit". German nav CTA "Strategiegespräch".
+- 2026-10-26: Website Production rebuilt on the Product Design template (EN and DE; German for Maria). Ideas from website topics only on oratory.co (design direction, design, build with CMS training; homepage sprint vs full site), fletchpmm.com (positioning options and finished copy before design; a self-check) and loveatfirsttry.io (comparison against freelancer and in-house); nothing copied. Five steps from the owner's brief: Branded, Conceptualised, Designed, Developed, Optimised (`StepsDetail.astro` keys brand, concept, design, develop, optimise). SEO, AEO and GEO are step 5, two measures and an FAQ.
+  - Hero `heroVisual: 'build'` (`HeroBuild.astro`, owner choice): a website assembles itself in a browser, one stage per step (brand board, wireframe and site map, designed page, code and phone, search result and AI answer). Plays in a loop; stage buttons jump, hover or focus pauses; reduced motion and no JavaScript show the last stage.
+  - Self-check on a website wireframe (`checkVisual: 'site'`), six website flaws. Route cards (design agency, freelancers, website builder, in-house hire). Measures: visitor to lead, load time, search rankings, mentions in AI answers, time to publish a page (new pictures speed, rank, answers; tiles now placed by order). Ways to work: website sprint, website partnership.
+  - Own audit form /website-audit/ (Plunk event `website-audit-submitted`); `audit` on a use case page overrides the department's audit link.

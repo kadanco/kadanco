@@ -1,0 +1,10 @@
+---
+// /website-audit/: the Website Production audit intake (Product department) (full screen, no nav or footer)
+import Layout from '../layouts/Layout.astro';
+import AuditIntake from '../components/AuditIntake.astro';
+import { websiteAudit } from '../data/intakes';
+const t = websiteAudit.en;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={websiteAudit} />
+</Layout>

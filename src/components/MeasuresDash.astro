@@ -9,15 +9,20 @@
 //   columns   trial to paid: monthly columns that rise after the start line
 //   inbox     support tickets: a busy inbox next to a quiet one
 //   build     time to ship a screen: library parts that come together into a screen
+// Website Production (2026-10-26) adds:
+//   speed     load time: a slow page that is still loading next to a fast, complete one
+//   rank      search rankings: your result moves from far down the list to the top
+//   answers   mentions in AI answers: an AI answer that names and links your site
+// Tiles are placed by order (first wide, then four), whatever their picture.
 // No figures: the pictures show direction only, and a note says they are examples.
 // Each tile can explain itself: hover, keyboard focus or a tap opens a panel with
 // what changes and why (the cause: what we do). A small script toggles it on tap,
 // so touch screens without hover work too.
 // The parts grow in when the window scrolls into view (the inline script in
 // UseCaseDetail.astro adds .is-in to [data-dash]); reduced motion shows the end state.
-type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build';
+type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build' | 'speed' | 'rank' | 'answers';
 interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz; change?: string; cause?: string }
-interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string; change: string; cause: string; hint: string } }
+interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string; change: string; cause: string; hint: string; you?: string; ai?: string } }
 const { items, labels } = Astro.props;
 const ORDER: Viz[] = ['funnel', 'path', 'columns', 'inbox', 'build'];
 const tiles = items.map((it, i) => ({ ...it, viz: it.viz ?? ORDER[i % ORDER.length] }));
@@ -28,8 +33,8 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
   <div class="md-body">
     <div class="md-side" aria-hidden="true"><b></b><em class="on"></em><em></em><em></em><em></em><em></em></div>
     <div class="md-grid">
-      {tiles.map((t) => (
-        <section class:list={['md-tile', `md-tile--${t.viz}`, { 'md-tile--why': t.change }]} tabindex={t.change ? 0 : undefined}>
+      {tiles.map((t, n) => (
+        <section class:list={['md-tile', `md-tile--${t.viz}`, `md-pos--${n + 1}`, { 'md-tile--why': t.change }]} tabindex={t.change ? 0 : undefined}>
           <header class="md-head">
             <h3>{t.title}</h3>
             {t.dir && <span class="md-goal">{t.dir === 'up' ? `↑ ${labels.goalUp}` : `↓ ${labels.goalDown}`}</span>}
@@ -69,6 +74,25 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
                 <div class="v-screen"><u class="p1"></u><u class="p4"></u><u class="p5"></u><u class="p6"></u><u class="p2"></u></div>
               </div>
             )}
+
+            {t.viz === 'speed' && (
+              <div class="v-speed">
+                <div class="v-pg v-pg--b"><span class="v-lbl">{labels.before}</span><div class="v-win"><span class="v-load"><i></i></span><em></em><em class="s"></em><span class="v-blank"></span></div></div>
+                <div class="v-pg v-pg--a"><span class="v-lbl">{labels.after}</span><div class="v-win"><span class="v-load v-load--done"><i></i></span><em class="h"></em><em class="s"></em><span class="v-pic"></span></div></div>
+              </div>
+            )}
+            {t.viz === 'rank' && (
+              <div class="v-rank">
+                <div class="v-rlist"><span class="v-lbl">{labels.before}</span>{[1, 2, 3, 4, 5].map((k) => <div class:list={['v-rrow', { you: k === 5 }]}><b>{k}</b><em></em></div>)}</div>
+                <div class="v-rlist v-rlist--a"><span class="v-lbl">{labels.after}</span>{[1, 2, 3, 4, 5].map((k) => <div class:list={['v-rrow', { you: k === 1 }]}><b>{k}</b><em></em></div>)}</div>
+              </div>
+            )}
+            {t.viz === 'answers' && (
+              <div class="v-ans">
+                <span class="v-ask"><em></em><em class="s"></em></span>
+                <div class="v-reply"><span class="v-ai">✦ {labels.ai ?? 'AI'}</span><em></em><em class="s"></em><span class="v-cite">↗ {labels.you ?? ''}</span></div>
+              </div>
+            )}
           </div>
 
           <p>{t.body}</p>
@@ -100,10 +124,10 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
   @media (max-width: 880px) { .md-side { display: none; } }
 
   /* mixed tile sizes: funnel wide, inbox tall */
-  .md-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "funnel funnel path" "columns inbox build"; gap: 14px; padding: 18px; }
-  .md-tile--funnel { grid-area: funnel; } .md-tile--path { grid-area: path; } .md-tile--columns { grid-area: columns; } .md-tile--inbox { grid-area: inbox; } .md-tile--build { grid-area: build; }
-  @media (max-width: 1100px) { .md-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "funnel funnel" "path columns" "inbox build"; } }
-  @media (max-width: 560px) { .md-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "funnel" "path" "columns" "inbox" "build"; padding: 12px; } }
+  .md-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "a a b" "c d e"; gap: 14px; padding: 18px; }
+  .md-pos--1 { grid-area: a; } .md-pos--2 { grid-area: b; } .md-pos--3 { grid-area: c; } .md-pos--4 { grid-area: d; } .md-pos--5 { grid-area: e; }
+  @media (max-width: 1100px) { .md-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "d e"; } }
+  @media (max-width: 560px) { .md-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "d" "e"; padding: 12px; } }
 
   .md-tile { display: flex; flex-direction: column; gap: 12px; padding: 18px; border-radius: var(--kd-radius); border: 1px solid var(--wf); background: var(--kd-white); }
   .md-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
@@ -184,6 +208,47 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
   .v-arrow::after { content: ''; position: absolute; right: -1px; top: -4px; border: 5px solid transparent; border-left-color: var(--kd-blue-1); border-right: 0; }
   .v-screen { display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); border: 2px solid var(--kd-blue-1); }
   .v-screen .p1 { width: 60%; } .v-screen .p2 { width: 46%; }
+
+  /* speed: a slow page still loading, a fast page complete */
+  .v-speed { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .v-pg { display: grid; gap: 6px; }
+  .v-win { display: grid; gap: 6px; padding: 10px; border-radius: var(--kd-radius); border: 1px solid var(--wf); }
+  .v-pg--a .v-win { border: 1.5px solid var(--kd-blue-2); }
+  .v-load { display: block; height: 4px; border-radius: 2px; background: var(--wf); overflow: hidden; }
+  .v-load i { display: block; height: 100%; width: 30%; background: var(--kd-lilac); }
+  .v-load--done i { width: 100%; background: var(--kd-blue-2); }
+  .v-win em { height: 6px; border-radius: 3px; background: var(--wf); }
+  .v-win em.h { background: var(--kd-blue-1); width: 80%; }
+  .v-win em.s { width: 60%; }
+  .v-blank { height: 34px; border-radius: 3px; border: 1.5px dashed var(--wf); }
+  .v-pic { height: 34px; border-radius: 3px; background: var(--kd-blue-2); }
+  .md .v-load i { transition: width 1.2s cubic-bezier(.2, .7, .2, 1) .3s; }
+  @media (prefers-reduced-motion: no-preference) { :global(.js) .md:not(.is-in) .v-load--done i { width: 0; } }
+
+  /* rank: your result climbs from the bottom of the list to the top */
+  .v-rank { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .v-rlist { display: grid; gap: 4px; padding: 10px; border-radius: var(--kd-radius); border: 1px solid var(--wf); }
+  .v-rlist--a { border-color: var(--kd-blue-2); }
+  .v-rrow { display: flex; align-items: center; gap: 6px; }
+  .v-rrow b { flex: none; display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; font-size: 9px; box-shadow: inset 0 0 0 1px var(--wf); }
+  .v-rrow em { flex: 1; height: 6px; border-radius: 3px; background: var(--wf); }
+  .v-rrow.you em { background: var(--kd-lilac); }
+  .v-rlist--a .v-rrow.you em { background: var(--kd-blue-2); }
+  .v-rlist--a .v-rrow.you b { background: var(--kd-signal-1); box-shadow: none; }
+  .md .v-rlist--a .v-rrow.you { transition: transform .8s cubic-bezier(.2, .7, .2, 1) .3s; }
+  @media (prefers-reduced-motion: no-preference) { :global(.js) .md:not(.is-in) .v-rlist--a .v-rrow.you { transform: translateY(40px); } }
+
+  /* answers: a question, and an AI answer that names and links you */
+  .v-ans { display: grid; gap: 8px; }
+  .v-ask { justify-self: end; display: grid; gap: 4px; width: 62%; padding: 8px 10px; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); }
+  .v-ask em, .v-reply em { height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--kd-blue-1) 18%, transparent); }
+  .v-ask em.s, .v-reply em.s { width: 60%; }
+  .v-reply { display: grid; gap: 5px; width: 86%; padding: 10px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .v-reply em { background: rgba(255, 255, 255, .22); }
+  .v-ai { font-size: 11px; font-weight: var(--kd-weight-medium); color: var(--kd-signal-1); }
+  .v-cite { justify-self: start; padding: 1px 7px; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .md .v-reply { transition: opacity .5s ease .4s, transform .5s ease .4s; }
+  @media (prefers-reduced-motion: no-preference) { :global(.js) .md:not(.is-in) .v-reply { opacity: 0; transform: translateY(8px); } }
 
   /* why panel: slides up over the tile on hover, keyboard focus or tap */
   .md-tile--why { position: relative; overflow: hidden; cursor: pointer; outline: none; }
