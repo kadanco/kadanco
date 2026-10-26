@@ -13,7 +13,7 @@ import { asLocale, useTranslations } from '../i18n/utils';
 const locale = asLocale(Astro.currentLocale);
 const t = useTranslations(locale);
 ---
-<div class="modal-overlay" id="contact" role="dialog" aria-modal="true" aria-labelledby="contact-title">
+<div class="modal-overlay" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title">
   <div class="modal">
     <button class="x" data-close-modal aria-label={t('modal.close')}>✕</button>
     <div id="form-body">
@@ -44,7 +44,8 @@ const t = useTranslations(locale);
 
 <script is:inline>
   (function () {
-    var overlay = document.getElementById('contact');
+    // own id: the page CTA sections use id="contact" as a scroll anchor
+    var overlay = document.getElementById('contact-modal');
     if (!overlay) return;
     var lastFocus = null;
     function openModal() { lastFocus = document.activeElement; overlay.classList.add('open'); document.body.style.overflow = 'hidden'; var f = overlay.querySelector('input, button'); if (f) f.focus(); }

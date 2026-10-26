@@ -112,17 +112,6 @@ export const productDesign: UseCasePage = {
       body: 'Maria is a senior product engineer and design director. She designs the flows and screens, builds the design system and integrates it with your developers, so nothing gets lost between design and code. Karan makes sure the first run tells the same story as your marketing and sales.',
       link: 'Meet the operators',
     },
-    stories: {
-      eyebrow: 'Success stories',
-      h2a: 'Products Users Get.',
-      h2b: 'Teams That Ship Faster.',
-      lede: 'What changed for the teams we worked with.',
-      items: [
-        { placeholder: true, client: '[Client name]', industry: '[Industry]', challenge: '[Where new users dropped off before.]', work: '[What we did: audit, onboarding, design system, handover.]', result: '[The result, with a figure the client approves.]', quote: '[A short quote from the client.]', who: '[Name, role, company]' },
-        { placeholder: true, client: '[Client name]', industry: '[Industry]', challenge: '[Where new users dropped off before.]', work: '[What we did.]', result: '[The result, with a figure the client approves.]', quote: '[A short quote from the client.]', who: '[Name, role, company]' },
-        { placeholder: true, client: '[Client name]', industry: '[Industry]', challenge: '[Where new users dropped off before.]', work: '[What we did.]', result: '[The result, with a figure the client approves.]', quote: '[A short quote from the client.]', who: '[Name, role, company]' },
-      ],
-    },
     faq: {
       eyebrow: 'FAQ',
       h2: 'Questions, Answered.',
@@ -240,17 +229,6 @@ export const productDesign: UseCasePage = {
       h2b: 'in einem Kopf.',
       body: 'Maria ist Senior Product Engineer und Design Director. Sie gestaltet Abläufe und Screens, baut das Designsystem und integriert es mit Ihren Entwicklern, damit zwischen Design und Code nichts verloren geht. Karan sorgt dafür, dass der Einstieg dieselbe Geschichte erzählt wie Ihr Marketing und Vertrieb.',
       link: 'Die Macher kennenlernen',
-    },
-    stories: {
-      eyebrow: 'Erfolgsgeschichten',
-      h2a: 'Produkte, die Nutzer verstehen.',
-      h2b: 'Teams, die schneller liefern.',
-      lede: 'Was sich für die Teams verändert hat, mit denen wir gearbeitet haben.',
-      items: [
-        { placeholder: true, client: '[Kunde]', industry: '[Branche]', challenge: '[Wo neue Nutzer vorher abgesprungen sind.]', work: '[Was wir gemacht haben: Audit, Onboarding, Designsystem, Übergabe.]', result: '[Das Ergebnis, mit einer Zahl, die der Kunde freigibt.]', quote: '[Ein kurzes Zitat des Kunden.]', who: '[Name, Rolle, Unternehmen]' },
-        { placeholder: true, client: '[Kunde]', industry: '[Branche]', challenge: '[Wo neue Nutzer vorher abgesprungen sind.]', work: '[Was wir gemacht haben.]', result: '[Das Ergebnis, mit einer Zahl, die der Kunde freigibt.]', quote: '[Ein kurzes Zitat des Kunden.]', who: '[Name, Rolle, Unternehmen]' },
-        { placeholder: true, client: '[Kunde]', industry: '[Branche]', challenge: '[Wo neue Nutzer vorher abgesprungen sind.]', work: '[Was wir gemacht haben.]', result: '[Das Ergebnis, mit einer Zahl, die der Kunde freigibt.]', quote: '[Ein kurzes Zitat des Kunden.]', who: '[Name, Rolle, Unternehmen]' },
-      ],
     },
     faq: {
       eyebrow: 'FAQ',

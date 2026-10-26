@@ -236,3 +236,5 @@ Next, in order:
 - 2026-10-26: Homepage Problem section: legend (Covered, Partial, Gap) and the caption "No single route covers all three. We do." removed.
 - 2026-10-26: Homepage department cards stick at the same top (96px) so each fully covers the previous one; the 18px stepped offset is removed.
 - 2026-10-26: Homepage headlines: "Founders And Makers Executing For You." (one sentence); "What We Deliver Across Product, Marketing And Sales." with only "Product, Marketing And Sales." highlighted; How We Work "We Don't Consult, We Execute. We Own The Work And The Result." German to match.
+- 2026-10-26: Success stories removed from Product Design (to come back later; the `stories` block stays in the template).
+- 2026-10-26: Bug fixed: the contact form window and the closing CTA sections both used id="contact", so every CTA button on this branch stopped opening the form (since 2026-10-18; main/live not affected). The form window is now id="contact-modal"; the CTA sections keep id="contact" as the scroll anchor.
