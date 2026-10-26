@@ -23,13 +23,12 @@ export interface UseCasePageText {
   lead: string;
   ctaPrimary: string; ctaSecondary: string;
   ctaSecondaryHref?: string;             // e.g. '#deliverables': the second button scrolls instead of opening the contact form
-  // self-check: statements to tick. Each statement says what it costs in revenue and in cost,
-  // with a weight [revenue, cost] from 1 to 3 for the two bars (no invented figures).
-  // The title follows how many are ticked (0, 1 to 2, 3 or more). No CTA (owner, 2026-10-25).
+  // self-check: statements to tick. Beside them a card with a picture that gets worse with every tick,
+  // a heading that moves on with the number ticked (levels: 0 to 6) and one line: the risk of the
+  // statement ticked last (hint when none is ticked). No bars, no figures, no CTA (owner, 2026-10-26).
   check?: { eyebrow: string; h2a: string; h2b: string; lede: string;
-    items: { text: string; revenue: string; cost: string; weight: [number, number] }[];
-    labels: { revenue: string; cost: string; latest: string };
-    results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } } };
+    items: { text: string; risk: string }[];
+    levels: string[]; hint: string };
   // what you get: tabs (DeliverableTabs.astro) or, with layout 'steps', one tall row per step with its own
   // picture and full detail (StepsDetail.astro). key picks the picture.
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';

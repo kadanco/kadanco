@@ -777,9 +777,10 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
   .m-post { display: grid; gap: 1.6cqi; aspect-ratio: 1; padding: 2.4cqi; background: var(--acc); color: var(--acc-fg); transform: rotate(-3deg); transition: background-color .35s ease, color .35s ease; }
   .m-post span, .m-card span { font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-logo); }
   .m-post b { align-self: end; font-size: clamp(11px, 2.8cqi, 17px); line-height: 1.1; font-weight: var(--kd-weight-medium); }
-  .m-card { display: grid; gap: 1cqi; aspect-ratio: 1.6; padding: 2cqi; background: var(--kd-blue-1); color: var(--acc); transform: rotate(4deg); box-shadow: inset 0 -5px 0 var(--acc); transition: color .35s ease, box-shadow .35s ease; }
-  .m-id[data-acc="0"] .m-card { color: var(--kd-white); box-shadow: inset 0 -5px 0 var(--kd-white); }
-  .sd-canvas .m-card em { height: 4px; background: rgba(255, 255, 255, .3); }
+  /* the card takes the chosen colour as its ground with a matching text colour, so it always reads (blue text on navy did not) */
+  .m-card { display: grid; gap: 1cqi; aspect-ratio: 1.6; padding: 2cqi; background: var(--acc); color: var(--acc-fg); transform: rotate(4deg); box-shadow: inset 0 -5px 0 var(--kd-blue-1), 0 0 0 1px color-mix(in srgb, var(--kd-blue-1) 20%, transparent); transition: background-color .35s ease, color .35s ease; }
+  .m-id[data-acc="0"] .m-card { box-shadow: inset 0 -5px 0 var(--kd-signal-1); }
+  .sd-canvas .m-card em { height: 4px; background: currentColor; opacity: .35; }
 
   /* 4 sales deck: flip through the slides */
   .m-deck { display: grid; gap: 4cqi; }

@@ -2,15 +2,12 @@
 // src/components/SelfCheck.astro
 // Self-check for a use case page (idea from valubyl.com's activation
 // diagnostic). Statements to tick; the result card beside them changes with
-// every tick:
+// every tick (simplified 2026-10-26, owner: no bars, no revenue and cost lines):
 //   - a small app wireframe gets worse, one realistic flaw per statement
 //     (1 users leave, 2 a "book a demo" pop-up, 3 help hints, 4 a feature
 //     that looks different, 5 duplicate buttons, 6 inconsistent type and spacing),
-//   - two bars, "Revenue at risk" and "Added cost", grow by each statement's weight,
-//   - the text shows what the statement just ticked costs you, in revenue and in cost,
-//   - the title follows how many are ticked.
-// No CTA here (owner decision 2026-10-25) and no invented figures: the costs are
-// described in words and shown as relative bars.
+//   - the heading moves on with the number ticked, six steps (levels 1 to 6; 0 = nothing ticked),
+//   - one line below it: the risk of the statement ticked last (the hint when none is ticked).
 // The section shell and heading come from UseCaseDetail.astro; this is the body.
 // Without JavaScript the statements show and the result card stays hidden.
 // kind 'site' (Website Production) swaps the app for a website in a browser, with its own
@@ -18,24 +15,23 @@
 // 4 your result gone from search, 5 a change waiting for a developer, 6 a form that leaks leads.
 // kind 'bingo' (Marketing, Positioning and Brand) shows a buzzword bingo card: every tick
 // daubs one or two buzzwords, and all six ticked shout "Bingo".
-interface Item { text: string; revenue: string; cost: string; weight: [number, number] }
+interface Item { text: string; risk: string }
 interface Props {
   items: Item[];
-  results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } };
-  labels: { revenue: string; cost: string; latest: string };
+  levels: string[];   // headings for 0 to 6 ticked
+  hint: string;       // the line under the heading when nothing is ticked
   kind?: 'app' | 'site' | 'bingo';
 }
-const { items, results, labels, kind = 'app' } = Astro.props;
+const { items, levels, hint, kind = 'app' } = Astro.props;
 const bingo = {
   en: { title: 'Buzzword bingo', win: 'Bingo!', words: ['All-in-one', 'AI-powered', 'End-to-end', 'Innovative', 'Platform', 'Best-in-class', 'Next-gen', 'Scalable', 'Synergy'] },
   de: { title: 'Buzzword-Bingo', win: 'Bingo!', words: ['All-in-One', 'KI-gestützt', 'End-to-End', 'Innovativ', 'Plattform', 'Best-in-Class', 'Next-Gen', 'Skalierbar', 'Synergien'] },
 }[Astro.currentLocale === 'de' ? 'de' : 'en'];
-const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], [0, 0]);
 ---
-<div class="sc" data-sc data-max={max.join(',')}>
+<div class="sc" data-sc>
   <ul class="sc-list">
     {items.map((it, i) => (
-      <li><label class="sc-item"><input type="checkbox" class="sc-box" data-i={i} data-w={it.weight.join(',')} /><span>{it.text}</span></label></li>
+      <li><label class="sc-item"><input type="checkbox" class="sc-box" data-i={i} /><span>{it.text}</span></label></li>
     ))}
   </ul>
   <div class="sc-result">
@@ -82,22 +78,10 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
     </div>
     )}
 
-    <div class="sc-bars" aria-hidden="true">
-      <div class="sc-bar sc-bar--rev"><span>{labels.revenue}</span><div><i></i></div></div>
-      <div class="sc-bar sc-bar--cost"><span>{labels.cost}</span><div><i></i></div></div>
-    </div>
-
     <div class="sc-text" aria-live="polite">
-      <div class="sc-r" data-r="none"><b>{results.none.title}</b><p>{results.none.body}</p></div>
-      <div class="sc-r" data-r="some" hidden><b>{results.some.title}</b><p>{results.some.body}</p></div>
-      <div class="sc-r" data-r="many" hidden><b>{results.many.title}</b><p>{results.many.body}</p></div>
-      {items.map((it, i) => (
-        <div class="sc-impact" data-impact={i} hidden>
-          <span class="sc-impact-h">{labels.latest}</span>
-          <p class="sc-impact-l sc-impact-l--rev"><span>{labels.revenue}</span>{it.revenue}</p>
-          <p class="sc-impact-l sc-impact-l--cost"><span>{labels.cost}</span>{it.cost}</p>
-        </div>
-      ))}
+      {levels.map((l, n) => <b class="sc-h" data-n={n} hidden={n !== 0}>{l}</b>)}
+      <p class="sc-risk" data-risk="-1">{hint}</p>
+      {items.map((it, i) => <p class="sc-risk" data-risk={i} hidden>{it.risk}</p>)}
     </div>
   </div>
 </div>
@@ -237,61 +221,38 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
   .sc-site.d6 .sc-s-leak { opacity: 1; }
   .sc-site.d6 .sc-s-form { background: var(--kd-white); outline: 1.5px dashed var(--kd-blue-2); outline-offset: -1.5px; }
 
-  /* revenue at risk and added cost: relative bars, no figures */
-  .sc-bars { display: grid; gap: 8px; margin: 18px 0 16px; }
-  .sc-bar { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 10px; font-size: 13px; color: var(--kd-lilac-soft); }
-  .sc-bar div { height: 8px; border-radius: 4px; background: rgba(255, 255, 255, .14); overflow: hidden; }
-  .sc-bar i { display: block; height: 100%; width: 0; border-radius: 4px; transition: width .4s ease; }
-  .sc-bar--rev i { background: var(--kd-signal-1); }
-  .sc-bar--cost i { background: var(--kd-lilac); }
-
-  .sc-r b { display: block; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
-  .sc-r p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--kd-lilac-soft); }
-  .sc-impact { margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .16); display: grid; gap: 8px; }
-  .sc-impact[hidden], .sc-r[hidden] { display: none; }
-  .sc-impact-h { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-lilac); }
-  .sc-impact-l { margin: 0; display: grid; grid-template-columns: 112px 1fr; gap: 10px; font-size: 15px; line-height: 1.45; }
-  .sc-impact-l span { font-size: 13px; font-weight: var(--kd-weight-medium); }
-  .sc-impact-l--rev span { color: var(--kd-signal-1); }
-  .sc-impact-l--cost span { color: var(--kd-lilac); }
-  @media (max-width: 560px) { .sc-bar, .sc-impact-l { grid-template-columns: 96px 1fr; } }
-  @media (prefers-reduced-motion: reduce) { .sc-wf-body *, .sc-wf-body, .sc-bar i { transition: none !important; } }
+  /* under the picture: the heading for the number ticked, and the risk of the latest tick */
+  .sc-text { display: grid; gap: 8px; margin-top: 20px; }
+  .sc-h { display: block; font-size: var(--kd-text-m); line-height: var(--kd-lh-m); font-weight: var(--kd-weight-medium); }
+  .sc-h[hidden], .sc-risk[hidden] { display: none; }
+  .sc .sc-risk { margin: 0; font-size: 17px; line-height: 1.5; color: var(--kd-lilac-soft); }
+  @media (prefers-reduced-motion: reduce) { .sc-wf-body *, .sc-wf-body { transition: none !important; } }
 </style>
 
 <script is:inline>
-  // Each tick: the wireframe gains that statement's flaw, both bars grow by its
-  // weight, the text shows what the latest ticked statement costs, and the
-  // title follows the count.
+  // Each tick: the picture gains that statement's flaw, the heading moves on to the
+  // number ticked, and the line below shows the risk of the statement ticked last.
   document.querySelectorAll('[data-sc]').forEach(function (root) {
     root.classList.add('is-js');
     var boxes = Array.prototype.slice.call(root.querySelectorAll('.sc-box'));
-    var max = root.getAttribute('data-max').split(',').map(Number);
     var wf = root.querySelector('.sc-wf');
-    var revBar = root.querySelector('.sc-bar--rev i'), costBar = root.querySelector('.sc-bar--cost i');
-    var results = root.querySelectorAll('.sc-r');
-    var impacts = root.querySelectorAll('.sc-impact');
+    var heads = root.querySelectorAll('.sc-h');
+    var risks = root.querySelectorAll('.sc-risk');
     var order = []; // tick order, newest last
     function update(changed) {
-      var n = 0, rev = 0, cost = 0;
       if (changed) {
         var k = +changed.getAttribute('data-i');
         order = order.filter(function (x) { return x !== k; });
         if (changed.checked) order.push(k);
       }
+      var n = 0;
       boxes.forEach(function (b, i) {
-        if (b.checked) {
-          n++;
-          var w = b.getAttribute('data-w').split(',').map(Number);
-          rev += w[0]; cost += w[1];
-        }
+        if (b.checked) n++;
         if (wf && i < 6) wf.classList.toggle('d' + (i + 1), b.checked);
       });
-      revBar.style.width = (max[0] ? (rev / max[0]) * 100 : 0) + '%';
-      costBar.style.width = (max[1] ? (cost / max[1]) * 100 : 0) + '%';
-      var key = n === 0 ? 'none' : n < 3 ? 'some' : 'many';
-      results.forEach(function (r) { r.hidden = r.getAttribute('data-r') !== key; });
+      heads.forEach(function (h) { h.hidden = +h.getAttribute('data-n') !== Math.min(n, heads.length - 1); });
       var latest = order.length ? order[order.length - 1] : -1;
-      impacts.forEach(function (el) { el.hidden = +el.getAttribute('data-impact') !== latest; });
+      risks.forEach(function (r) { r.hidden = +r.getAttribute('data-risk') !== latest; });
     }
     boxes.forEach(function (b) { b.addEventListener('change', function () { update(b); }); });
     update(null);

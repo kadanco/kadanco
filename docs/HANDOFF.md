@@ -65,6 +65,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (evening, 2): Self-check simplified on all pages (six-step heading plus one risk line, no bars); brand card contrast fixed.
 - 2026-10-26 (evening): Route cards removed from all use case pages; eyebrow rule removed; Positioning and Brand gets a fifth step (Rollout) and clickable step pictures.
 - 2026-10-26 (late afternoon): Marketing style chosen (editorial plus campaign wall, navy hero, small tilts); Positioning and Brand rebuilt as the first Marketing page.
 - 2026-10-26 (afternoon): Website Production rebuilt on the Product Design template (research: oratory.co, fletchpmm.com, loveatfirsttry.io, website topics only); hero that assembles itself; /website-audit/ form.
