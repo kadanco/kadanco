@@ -19,17 +19,31 @@
 // deck and CRM beside it: 1 the last post is weeks old, 2 likes and no meetings, 3 the post turns
 // into marketing speak with a stock photo, 4 the blog goes stale, 5 the deck tells another story,
 // 6 nobody knows which piece brought the deal.
+// kind 'board' (Sales, Account-Based Marketing) shows a sales pipeline board: 1 a lead that never
+// fits, 2 deals down to one contact, 3 two different lists, 4 no idea who is warming up,
+// 5 deals stuck for months, 6 a handoff without context. Every flaw swaps parts in fixed sizes.
+// kind 'pipe' (Sales, Outbound Sales Pipeline) shows a pipeline dashboard: 1 every deal owned by
+// the founder, 2 empty weeks, 3 almost no replies, 4 CRM fields nobody trusts, 5 new sellers
+// who take months, 6 follow-ups days late. Example figures, tagged.
 interface Item { text: string; risk: string }
 interface Props {
   items: Item[];
   levels: string[];   // headings for 0 to 6 ticked
   hint: string;       // the line under the heading when nothing is ticked
-  kind?: 'app' | 'site' | 'bingo' | 'feed';
+  kind?: 'app' | 'site' | 'bingo' | 'feed' | 'board' | 'pipe';
 }
 const { items, levels, hint, kind = 'app' } = Astro.props;
 const bingo = {
   en: { title: 'Buzzword bingo', win: 'Bingo!', words: ['All-in-one', 'AI-powered', 'End-to-end', 'Innovative', 'Platform', 'Best-in-class', 'Next-gen', 'Scalable', 'Synergy'] },
   de: { title: 'Buzzword-Bingo', win: 'Bingo!', words: ['All-in-One', 'KI-gestützt', 'End-to-End', 'Innovativ', 'Plattform', 'Best-in-Class', 'Next-Gen', 'Skalierbar', 'Synergien'] },
+}[Astro.currentLocale === 'de' ? 'de' : 'en'];
+const board = {
+  en: { cols: ['Engaged', 'Meeting', 'Proposal'], one: 'One shared list', mkt: 'Marketing list', sales: 'Sales list', nofit: 'No fit', stuck: '90+ days', handoff: 'Handoff note', example: 'Example data' },
+  de: { cols: ['Aktiv', 'Termin', 'Angebot'], one: 'Eine gemeinsame Liste', mkt: 'Marketing-Liste', sales: 'Vertriebsliste', nofit: 'Passt nicht', stuck: '90+ Tage', handoff: 'Übergabenotiz', example: 'Beispieldaten' },
+}[Astro.currentLocale === 'de' ? 'de' : 'en'];
+const pipe = {
+  en: { reply: 'Reply rate', ramp: 'New seller ramp', onTrack: 'On track', slow: '6+ months', weeks: 'Meetings per week', deals: 'Deals', follow: 'Follow-up', day: '1 day', late: '⏱ 5 days', example: 'Example data' },
+  de: { reply: 'Antwortrate', ramp: 'Einarbeitung neuer Vertriebler', onTrack: 'Im Plan', slow: '6+ Monate', weeks: 'Termine pro Woche', deals: 'Deals', follow: 'Nachfassen', day: '1 Tag', late: '⏱ 5 Tage', example: 'Beispieldaten' },
 }[Astro.currentLocale === 'de' ? 'de' : 'en'];
 const feed = {
   en: { now: 'Today', ago: '5 weeks ago', meet: '✓ Meeting booked', nomeet: '✕ No meetings', jargon: ['Excited to announce', 'Synergy', 'Thought leadership'], blog: 'Blog', fresh: 'This week', stale: 'Months ago', deck: 'Sales deck', crm: 'CRM' },
@@ -43,7 +57,48 @@ const feed = {
     ))}
   </ul>
   <div class="sc-result">
-    {kind === 'feed' ? (
+    {kind === 'pipe' ? (
+    <div class="sc-wf sc-pipe" aria-hidden="true">
+      <div class="sc-p-kpis">
+        <div class="sc-p-kpi"><span>{pipe.reply}</span><b class="sc-p-sw"><em class="a">7%</em><em class="b">&lt;1%</em></b></div>
+        <div class="sc-p-kpi"><span>{pipe.ramp}</span><b class="sc-p-sw sc-p-sm"><em class="a">{pipe.onTrack}</em><em class="b">{pipe.slow}</em></b></div>
+        <span class="sc-b-ex">{pipe.example}</span>
+      </div>
+      <div class="sc-p-chart"><span class="sc-p-h">{pipe.weeks}</span><div class="sc-p-bars">{[5, 6, 5, 7, 6, 8, 7, 9].map((h, i) => <i class={`w${i}`} style={`--h:${h * 10}%`}></i>)}</div></div>
+      <div class="sc-p-deals">
+        <div class="sc-p-row sc-p-head"><span>{pipe.deals}</span><span>CRM</span><span>{pipe.follow}</span></div>
+        {['A', 'S', 'T'].map((o) => (
+          <div class="sc-p-row">
+            <span class="sc-p-owner"><span class="sc-p-sw"><b class="a">{o}</b><b class="b">F</b></span><em></em></span>
+            <span class="sc-p-sw sc-p-crm"><span class="a">✓ ✓ ✓</span><span class="b">? ✓ ?</span></span>
+            <span class="sc-p-sw sc-p-fu"><span class="a">{pipe.day}</span><span class="b">{pipe.late}</span></span>
+          </div>
+        ))}
+      </div>
+    </div>
+    ) : kind === 'board' ? (
+    <div class="sc-wf sc-board" aria-hidden="true">
+      <div class="sc-b-top">
+        <span class="sc-b-lists"><span class="one">{board.one}</span><span class="two"><b>{board.mkt}</b><b>{board.sales}</b></span></span>
+        <span class="sc-b-ex">{board.example}</span>
+      </div>
+      <div class="sc-b-cols">
+        {board.cols.map((c, ci) => (
+          <div class="sc-b-col">
+            <span class="sc-b-h">{c}</span>
+            {[0, 1].map((k) => (
+              <div class={`sc-b-card sc-b-card--${ci}${k}`}>
+                <em></em>
+                <span class="sc-b-row"><span class="sc-b-ppl"><i></i><i class="x"></i><i class="x"></i></span><span class="sc-b-tag"><span class="nofit">{board.nofit}</span><span class="stuck">⏱ {board.stuck}</span></span></span>
+                <span class="sc-b-heat"><i></i><b>?</b></span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div class="sc-b-note"><span class="sc-b-nh">{board.handoff}</span><span class="sc-b-nb"><span class="ok"><em></em><em class="s"></em></span><span class="q">?</span></span></div>
+    </div>
+    ) : kind === 'feed' ? (
     <div class="sc-wf sc-feed" aria-hidden="true">
       <div class="sc-f-post">
         <div class="sc-f-top"><span class="sc-f-av"></span><div class="sc-f-id"><b></b><em></em></div><span class="sc-f-time"><span class="n">{feed.now}</span><span class="o">{feed.ago}</span></span></div>
@@ -169,6 +224,98 @@ const feed = {
   .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
   .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
   .sc-wf.d6 .sc-wf-cards { gap: 14px; }
+
+  /* ---------- kind 'pipe': a pipeline dashboard (Sales) ---------- */
+  .sc-pipe { display: grid; gap: 10px; padding: 14px; background: var(--kd-white); color: var(--kd-blue-1); }
+  .sc-pipe *, .sc-pipe { transition: opacity .3s ease, background-color .3s ease, color .3s ease, height .3s ease; }
+  .sc-p-sw { display: inline-grid; }
+  .sc-p-sw > * { grid-area: 1 / 1; }
+  .sc-p-sw > .b { visibility: hidden; }
+  .sc-p-kpis { display: grid; grid-template-columns: 1fr 1.2fr auto; gap: 8px; align-items: start; }
+  .sc-p-kpi { display: grid; gap: 3px; padding: 7px 9px; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-lilac) 22%, var(--kd-white)); }
+  .sc-p-kpi > span { font-size: 10px; opacity: .75; }
+  .sc-p-kpi b { font-size: 20px; line-height: 1; font-weight: var(--kd-weight-medium); }
+  .sc-p-kpi em { font-style: normal; }
+  .sc-p-kpi .sc-p-sm { font-size: 13px; line-height: 20px; }
+  .sc-p-chart { padding: 7px 9px; border-radius: var(--kd-radius); border: 1px solid var(--kd-lilac); }
+  .sc-p-h { display: block; margin-bottom: 4px; font-size: 10px; opacity: .7; }
+  .sc-p-bars { display: flex; align-items: flex-end; gap: 4px; height: 44px; border-bottom: 1.5px solid color-mix(in srgb, var(--kd-blue-1) 20%, transparent); }
+  .sc-p-bars i { flex: 1; height: var(--h); border-radius: 2px 2px 0 0; background: var(--kd-lilac); }
+  .sc-p-bars i.w7 { background: var(--kd-blue-1); }
+  .sc-p-deals { display: grid; }
+  .sc-p-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 6px; align-items: center; padding: 4px 0; border-top: 1px solid color-mix(in srgb, var(--kd-blue-1) 10%, transparent); font-size: 11px; }
+  .sc-p-head { border-top: 0; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; opacity: .6; }
+  .sc-p-owner { display: flex; align-items: center; gap: 6px; }
+  .sc-p-owner b { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--kd-lilac); font-size: 9px; font-weight: var(--kd-weight-medium); }
+  .sc-p-owner b.b { background: var(--kd-signal-1); }
+  .sc-p-owner em { flex: 1; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--kd-blue-1) 18%, transparent); }
+  .sc-p-crm, .sc-p-fu { font-weight: var(--kd-weight-medium); white-space: nowrap; }
+  /* 1: every deal owned by the founder */
+  .sc-pipe.d1 .sc-p-owner .a { visibility: hidden; } .sc-pipe.d1 .sc-p-owner .b { visibility: visible; }
+  /* 2: empty weeks */
+  .sc-pipe.d2 :is(.w2, .w5) { height: 4%; background: var(--kd-beige-3); }
+  .sc-pipe.d2 .w7 { height: 30%; }
+  /* 3: almost no replies */
+  .sc-pipe.d3 .sc-p-kpi:first-child .a { visibility: hidden; } .sc-pipe.d3 .sc-p-kpi:first-child .b { visibility: visible; }
+  /* 4: CRM fields nobody trusts */
+  .sc-pipe.d4 .sc-p-crm .a { visibility: hidden; } .sc-pipe.d4 .sc-p-crm .b { visibility: visible; }
+  /* 5: new sellers who take months */
+  .sc-pipe.d5 .sc-p-kpi:nth-child(2) .a { visibility: hidden; } .sc-pipe.d5 .sc-p-kpi:nth-child(2) .b { visibility: visible; }
+  /* 6: follow-ups days late */
+  .sc-pipe.d6 .sc-p-fu .a { visibility: hidden; } .sc-pipe.d6 .sc-p-fu .b { visibility: visible; }
+  @media (prefers-reduced-motion: reduce) { .sc-pipe *, .sc-pipe { transition: none !important; } }
+
+  /* ---------- kind 'board': a sales pipeline board (Sales) ---------- */
+  .sc-board { display: grid; gap: 10px; padding: 14px; background: var(--kd-white); color: var(--kd-blue-1); }
+  .sc-board *, .sc-board { transition: opacity .3s ease, background-color .3s ease, color .3s ease, transform .3s ease; }
+  .sc-b-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sc-b-lists { display: grid; }
+  .sc-b-lists > span { grid-area: 1 / 1; display: flex; gap: 4px; }
+  .sc-b-lists .one { padding: 2px 8px; border-radius: var(--kd-radius); background: var(--kd-lilac); font-size: 11px; font-weight: var(--kd-weight-medium); justify-self: start; }
+  .sc-b-lists .two { visibility: hidden; }
+  .sc-b-lists .two b { padding: 2px 8px; border-radius: var(--kd-radius); font-size: 11px; font-weight: var(--kd-weight-medium); background: var(--kd-beige-2); color: var(--kd-ink-2); }
+  .sc-b-lists .two b + b { background: var(--kd-lilac-tint); color: var(--kd-blue-1); }
+  .sc-b-ex { font-size: 10px; font-weight: var(--kd-weight-medium); padding: 1px 6px; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); }
+  .sc-b-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .sc-b-col { display: grid; gap: 6px; align-content: start; padding: 6px; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-lilac) 18%, var(--kd-white)); }
+  .sc-b-h { font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; }
+  .sc-b-card { display: grid; gap: 5px; padding: 7px; border-radius: 3px; background: var(--kd-white); box-shadow: 0 2px 6px -3px rgba(26, 1, 117, .35); }
+  .sc-b-card em { display: block; height: 6px; width: 70%; border-radius: 3px; background: var(--kd-blue-1); }
+  .sc-b-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: 16px; }
+  .sc-b-ppl { display: flex; }
+  .sc-b-ppl i { width: 11px; height: 11px; margin-right: -3px; border-radius: 50%; background: var(--kd-blue-2); border: 1.5px solid var(--kd-white); }
+  .sc-b-ppl i.x:nth-child(2) { background: var(--kd-lilac); } .sc-b-ppl i.x:nth-child(3) { background: var(--kd-signal-1); }
+  .sc-b-tag { display: grid; }
+  .sc-b-tag > span { grid-area: 1 / 1; visibility: hidden; padding: 0 4px; border-radius: 3px; font-size: 9px; font-weight: var(--kd-weight-medium); white-space: nowrap; }
+  .sc-b-tag .nofit { background: var(--kd-beige-2); color: var(--kd-ink-2); }
+  .sc-b-tag .stuck { background: var(--kd-blue-1); color: var(--kd-signal-1); }
+  .sc-b-heat { position: relative; height: 5px; border-radius: 3px; background: var(--kd-lilac-tint); }
+  .sc-b-heat i { display: block; height: 100%; width: 70%; border-radius: 3px; background: linear-gradient(90deg, var(--kd-lilac), var(--kd-blue-2)); }
+  .sc-b-card--01 .sc-b-heat i, .sc-b-card--11 .sc-b-heat i { width: 45%; }
+  .sc-b-heat b { position: absolute; right: -2px; top: -6px; width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); font-size: 9px; visibility: hidden; }
+  .sc-b-note { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 8px; padding: 7px 9px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); }
+  .sc-b-nh { font-size: 10px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-signal-1); }
+  .sc-b-nb { display: grid; }
+  .sc-b-nb > span { grid-area: 1 / 1; }
+  .sc-b-nb .ok { display: grid; gap: 4px; }
+  .sc-b-nb .ok em { display: block; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .4); }
+  .sc-b-nb .ok em.s { width: 60%; }
+  .sc-b-nb .q { visibility: hidden; justify-self: start; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 10px; font-weight: var(--kd-weight-medium); }
+  /* 1: a lead that never fits */
+  .sc-board.d1 .sc-b-card--01 { background: var(--kd-beige-1); } .sc-board.d1 .sc-b-card--01 em { background: var(--kd-beige-3); }
+  .sc-board.d1 .sc-b-card--01 .nofit { visibility: visible; }
+  /* 2: deals down to one contact */
+  .sc-board.d2 .sc-b-ppl i.x { visibility: hidden; }
+  /* 3: two different lists */
+  .sc-board.d3 .sc-b-lists .one { visibility: hidden; } .sc-board.d3 .sc-b-lists .two { visibility: visible; }
+  /* 4: nobody knows who is warming up */
+  .sc-board.d4 .sc-b-heat i { background: var(--kd-beige-3); } .sc-board.d4 .sc-b-heat b { visibility: visible; }
+  /* 5: deals stuck for months */
+  .sc-board.d5 :is(.sc-b-card--20, .sc-b-card--21) .stuck { visibility: visible; }
+  .sc-board.d5 :is(.sc-b-card--20, .sc-b-card--21) { box-shadow: inset 3px 0 0 var(--kd-blue-1), 0 2px 6px -3px rgba(26, 1, 117, .35); }
+  /* 6: a handoff without context */
+  .sc-board.d6 .sc-b-nb .ok { visibility: hidden; } .sc-board.d6 .sc-b-nb .q { visibility: visible; }
+  @media (prefers-reduced-motion: reduce) { .sc-board *, .sc-board { transition: none !important; } }
 
   /* ---------- kind 'feed': the founder's post, with blog, deck and CRM beside it ---------- */
   .sc-feed { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 10px; padding: 14px; background: var(--kd-beige-1); color: var(--kd-ink); }

@@ -14,22 +14,25 @@
 //   rank      search rankings: your result moves from far down the list to the top
 //   answers   mentions in AI answers: an AI answer that names and links your site
 // Tiles are placed by order (first wide, then four), whatever their picture.
+// Sales (2026-10-26): look 'sales' adds a lilac dashboard frame and an example figure per tile
+// (kpi), with an "Example data" tag in the bar (owner: example figures allowed when labelled);
+//   threads   contacts per deal: one contact before, a whole buying group after
 // No figures: the pictures show direction only, and a note says they are examples.
 // Each tile can explain itself: hover, keyboard focus or a tap opens a panel with
 // what changes and why (the cause: what we do). A small script toggles it on tap,
 // so touch screens without hover work too.
 // The parts grow in when the window scrolls into view (the inline script in
 // UseCaseDetail.astro adds .is-in to [data-dash]); reduced motion shows the end state.
-type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build' | 'speed' | 'rank' | 'answers';
-interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz; change?: string; cause?: string }
-interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string; change: string; cause: string; hint: string; you?: string; ai?: string } }
-const { items, labels } = Astro.props;
+type Viz = 'funnel' | 'path' | 'columns' | 'inbox' | 'build' | 'speed' | 'rank' | 'answers' | 'threads';
+interface Item { title: string; body: string; dir?: 'up' | 'down'; viz?: Viz; kpi?: string; change?: string; cause?: string }
+interface Props { items: Item[]; labels: { app: string; before: string; after: string; goalUp: string; goalDown: string; note: string; change: string; cause: string; hint: string; you?: string; ai?: string; example?: string }; look?: 'product' | 'sales' }
+const { items, labels, look = 'product' } = Astro.props;
 const ORDER: Viz[] = ['funnel', 'path', 'columns', 'inbox', 'build'];
 const tiles = items.map((it, i) => ({ ...it, viz: it.viz ?? ORDER[i % ORDER.length] }));
 const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five after the start line
 ---
-<div class="md" data-dash>
-  <div class="md-bar"><i></i><i></i><i></i><span>{labels.app}</span></div>
+<div class:list={['md', `md--${look}`]} data-dash>
+  <div class="md-bar"><i></i><i></i><i></i><span>{labels.app}</span>{look === 'sales' && labels.example && <b class="md-ex">{labels.example}</b>}</div>
   <div class="md-body">
     <div class="md-side" aria-hidden="true"><b></b><em class="on"></em><em></em><em></em><em></em><em></em></div>
     <div class="md-grid">
@@ -39,6 +42,7 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
             <h3>{t.title}</h3>
             {t.dir && <span class="md-goal">{t.dir === 'up' ? `↑ ${labels.goalUp}` : `↓ ${labels.goalDown}`}</span>}
           </header>
+          {t.kpi && <b class="md-kpi">{t.kpi}</b>}
 
           <div class="md-viz" aria-hidden="true">
             {t.viz === 'funnel' && (
@@ -75,6 +79,12 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
               </div>
             )}
 
+            {t.viz === 'threads' && (
+              <div class="v-threads">
+                <div class="v-th"><span class="v-lbl">{labels.before}</span><svg viewBox="0 0 100 60"><line x1="20" y1="30" x2="80" y2="30" /><circle cx="20" cy="30" r="8" class="p" /><rect x="70" y="20" width="20" height="20" rx="3" class="d" /></svg></div>
+                <div class="v-th v-th--a"><span class="v-lbl">{labels.after}</span><svg viewBox="0 0 100 60"><line x1="18" y1="12" x2="80" y2="30" /><line x1="14" y1="30" x2="80" y2="30" /><line x1="18" y1="48" x2="80" y2="30" /><line x1="40" y1="8" x2="80" y2="30" /><line x1="40" y1="52" x2="80" y2="30" /><circle cx="18" cy="12" r="6" class="p" /><circle cx="14" cy="30" r="6" class="p" /><circle cx="18" cy="48" r="6" class="p" /><circle cx="40" cy="8" r="6" class="p2" /><circle cx="40" cy="52" r="6" class="p2" /><rect x="70" y="20" width="20" height="20" rx="3" class="d" /></svg></div>
+              </div>
+            )}
             {t.viz === 'speed' && (
               <div class="v-speed">
                 <div class="v-pg v-pg--b"><span class="v-lbl">{labels.before}</span><div class="v-win"><span class="v-load"><i></i></span><em></em><em class="s"></em><span class="v-blank"></span></div></div>
@@ -249,6 +259,30 @@ const cols = [3, 4, 3, 5, 6, 7, 8, 9]; // column heights (of 10), the last five 
   .v-cite { justify-self: start; padding: 1px 7px; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 11px; font-weight: var(--kd-weight-medium); }
   .md .v-reply { transition: opacity .5s ease .4s, transform .5s ease .4s; }
   @media (prefers-reduced-motion: no-preference) { :global(.js) .md:not(.is-in) .v-reply { opacity: 0; transform: translateY(8px); } }
+
+  /* ---------- look 'sales': lilac dashboard frame and example figures ---------- */
+  .md--sales { border: 1px solid var(--kd-lilac); }
+  .md--sales .md-bar { background: var(--kd-lilac-tint); }
+  .md--sales .md-bar i { background: var(--kd-lilac); }
+  .md--sales .md-bar span { background: var(--kd-white); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .md-ex { margin-left: auto; padding: 2px 8px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); }
+  .md--sales .md-side { background: color-mix(in srgb, var(--kd-lilac) 14%, var(--kd-white)); }
+  .md--sales .md-side em.on { background: var(--kd-blue-1); }
+  .md--sales .md-tile { border-color: color-mix(in srgb, var(--kd-lilac) 70%, transparent); }
+  .md--sales .md-goal { background: var(--kd-blue-1); }
+  .md-kpi { margin-top: -4px; font-size: clamp(26px, 3vw, 36px); line-height: 1; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; color: var(--kd-blue-1); }
+  .md--sales .v-a, .md--sales .v-cols span.a, .md--sales .v-track--a .v-line i { background: var(--kd-blue-1); }
+  .md--sales .v-b, .md--sales .v-cols span { background: var(--kd-lilac); }
+  .md--sales .v-cols span.a { background: var(--kd-blue-1); }
+  .md--sales .v-key-a::before { background: var(--kd-blue-1); } .md--sales .v-key-b::before { background: var(--kd-lilac); }
+
+  /* threads: one contact before, a buying group after */
+  .v-threads { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .v-th { display: grid; gap: 6px; padding: 8px; border-radius: var(--kd-radius); border: 1px solid var(--wf); }
+  .v-th--a { border-color: var(--kd-blue-1); }
+  .v-th svg { width: 100%; height: auto; }
+  .v-th line { stroke: color-mix(in srgb, var(--kd-blue-1) 35%, transparent); stroke-width: 1.5; }
+  .v-th .p { fill: var(--kd-lilac); } .v-th .p2 { fill: var(--kd-signal-1); } .v-th .d { fill: var(--kd-blue-1); }
 
   /* why panel: slides up over the tile on hover, keyboard focus or tap */
   .md-tile--why { position: relative; overflow: hidden; cursor: pointer; outline: none; }

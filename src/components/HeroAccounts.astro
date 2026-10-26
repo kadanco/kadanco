@@ -1,0 +1,105 @@
+---
+// src/components/HeroAccounts.astro
+// Sales hero picture (heroVisual: 'accounts', Account-Based Marketing): a target account
+// dashboard where accounts heat up. Engagement bars fill, the buying group lights up person
+// by person, cold accounts turn engaged, and a "Meeting booked" alert drops in. Dashboards
+// and graphs style of the Sales department; figures are example data and tagged so
+// (owner, 2026-10-26). Accounts are described by industry and size, never by real names.
+// Pure CSS loop; every part keeps its size, only colours, widths inside fixed tracks and
+// opacity change. Hover pauses it. Reduced motion shows the warmed-up state, still.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string }
+const { label } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { title: 'Target accounts · Tier 1', example: 'Example data', cols: ['Account', 'Buying group', 'Engagement', 'Stage'],
+        kpis: [['Accounts engaged', '14 / 40'], ['Meetings booked', '6'], ['Pipeline', '€420k']],
+        stages: { cold: 'Cold', engaged: 'Engaged', meeting: 'Meeting' }, toast: 'Meeting booked', toastWho: 'Machinery · CFO and Head of Ops',
+        rows: [['Machinery', '1,200 people'], ['Logistics', '800 people'], ['Hospital group', '2,400 people'], ['Insurance', '3,000 people'], ['Software', '450 people']] },
+  de: { title: 'Zielaccounts · Stufe 1', example: 'Beispieldaten', cols: ['Account', 'Buying Center', 'Interaktion', 'Phase'],
+        kpis: [['Aktive Accounts', '14 / 40'], ['Termine gebucht', '6'], ['Pipeline', '420 T€']],
+        stages: { cold: 'Kalt', engaged: 'Aktiv', meeting: 'Termin' }, toast: 'Termin gebucht', toastWho: 'Maschinenbau · CFO und Leitung Betrieb',
+        rows: [['Maschinenbau', '1.200 Personen'], ['Logistik', '800 Personen'], ['Klinikgruppe', '2.400 Personen'], ['Versicherung', '3.000 Personen'], ['Software', '450 Personen']] },
+}[locale];
+// per row: engagement (%), people reached of 5, final stage
+const rows = [
+  { w: 92, n: 5, stage: 'meeting' },
+  { w: 74, n: 4, stage: 'engaged' },
+  { w: 58, n: 3, stage: 'engaged' },
+  { w: 34, n: 2, stage: 'engaged' },
+  { w: 16, n: 1, stage: 'cold' },
+] as const;
+---
+<figure class="ha">
+  <div class="ha-win" role="img" aria-label={label}>
+    <div class="ha-top" aria-hidden="true"><b>{t.title}</b><span class="ha-ex">{t.example}</span></div>
+    <div class="ha-kpis" aria-hidden="true">{t.kpis.map(([k, v]) => <div class="ha-kpi"><span>{k}</span><b>{v}</b></div>)}</div>
+    <div class="ha-table" aria-hidden="true">
+      <div class="ha-row ha-head">{t.cols.map((c) => <span>{c}</span>)}</div>
+      {rows.map((r, i) => (
+        <div class="ha-row" style={`--i:${i};--w:${r.w}%`}>
+          <span class="ha-acc"><b>{t.rows[i][0]}</b><small>{t.rows[i][1]}</small></span>
+          <span class="ha-dots">{[0, 1, 2, 3, 4].map((k) => <i class={k < r.n ? 'on' : ''} style={`--k:${k}`}></i>)}</span>
+          <span class="ha-heat"><i></i></span>
+          <span class="ha-stage">
+            <em class="c">{t.stages.cold}</em>
+            <em class={`f f--${r.stage}`}>{t.stages[r.stage]}</em>
+          </span>
+        </div>
+      ))}
+    </div>
+    <div class="ha-toast" aria-hidden="true"><span class="ha-bell">✓</span><div><b>{t.toast}</b><small>{t.toastWho}</small></div></div>
+  </div>
+</figure>
+
+<style>
+  .ha { margin: 0; width: 100%; --cycle: 10s; }
+  .ha-win { position: relative; container-type: inline-size; display: grid; gap: 3cqi; padding: 4cqi; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); box-shadow: 0 30px 60px -30px rgba(26, 1, 117, .55), 0 0 0 1px color-mix(in srgb, var(--kd-blue-1) 12%, transparent); font-size: clamp(9px, 2.4cqi, 13px); }
+  .ha-top { display: flex; align-items: center; justify-content: space-between; gap: 2cqi; }
+  .ha-top b { font-size: 1.15em; font-weight: var(--kd-weight-medium); }
+  .ha-ex { padding: .3em .8em; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); font-size: .85em; font-weight: var(--kd-weight-medium); }
+  .ha-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2cqi; }
+  .ha-kpi { display: grid; gap: .4em; padding: 2.4cqi 2.6cqi; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-lilac) 22%, var(--kd-white)); }
+  .ha-kpi span { font-size: .85em; opacity: .75; }
+  .ha-kpi b { font-size: 2em; line-height: 1; white-space: nowrap; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
+
+  .ha-table { display: grid; }
+  .ha-row { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, .8fr); gap: 2cqi; align-items: center; padding: 1.8cqi 0; border-top: 1px solid color-mix(in srgb, var(--kd-blue-1) 10%, transparent); }
+  .ha-head { padding-top: 0; border-top: 0; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; opacity: .6; }
+  .ha-acc { display: grid; }
+  .ha-acc b { font-weight: var(--kd-weight-medium); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ha-acc small { font-size: .85em; opacity: .65; white-space: nowrap; }
+  .ha-dots { display: flex; gap: 1cqi; }
+  .ha-dots i { width: 3.2cqi; height: 3.2cqi; border-radius: 50%; background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); }
+  .ha-heat { height: 1.8cqi; border-radius: 1cqi; background: var(--kd-lilac-tint); overflow: hidden; }
+  .ha-heat i { display: block; height: 100%; width: var(--w); border-radius: inherit; background: linear-gradient(90deg, var(--kd-lilac), var(--kd-blue-2)); }
+  .ha-stage { display: grid; justify-items: start; }
+  .ha-stage em { grid-area: 1 / 1; padding: .3em .8em; border-radius: var(--kd-radius); font-style: normal; font-size: .85em; font-weight: var(--kd-weight-medium); white-space: nowrap; }
+  .ha-stage .c { background: var(--kd-beige-2); color: var(--kd-ink-2); }
+  .ha-stage .f--engaged { background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .ha-stage .f--meeting { background: var(--kd-blue-1); color: var(--kd-signal-1); }
+  .ha-stage .f--cold { background: var(--kd-beige-2); color: var(--kd-ink-2); }
+
+  .ha-toast { position: absolute; right: 4cqi; bottom: -4cqi; display: flex; align-items: center; gap: 2cqi; padding: 2.2cqi 3cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); box-shadow: 0 20px 40px -18px rgba(10, 0, 60, .6); }
+  .ha-toast b { display: block; color: var(--kd-signal-1); font-weight: var(--kd-weight-medium); }
+  .ha-toast small { font-size: .85em; opacity: .85; }
+  .ha-bell { display: grid; place-items: center; width: 5cqi; height: 5cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+
+  /* the loop: bars fill, people light up, stages turn, the alert drops in. Sizes never change. */
+  @media (prefers-reduced-motion: no-preference) {
+    .ha-heat i { animation: ha-bar var(--cycle) cubic-bezier(.3, .7, .3, 1) infinite; animation-delay: calc(var(--i) * .35s); }
+    .ha-dots i.on { animation: ha-dot var(--cycle) ease infinite; animation-delay: calc(var(--i) * .35s + var(--k) * .25s); }
+    .ha-stage .c { animation: ha-cold var(--cycle) ease infinite; animation-delay: calc(var(--i) * .35s); }
+    .ha-stage .f { animation: ha-fin var(--cycle) ease infinite; animation-delay: calc(var(--i) * .35s); }
+    .ha-toast { animation: ha-toast var(--cycle) cubic-bezier(.3, .7, .3, 1) infinite; }
+    .ha:hover :is(.ha-heat i, .ha-dots i, .ha-stage em, .ha-toast) { animation-play-state: paused; }
+  }
+  .ha-dots i.on { background: var(--kd-blue-1); box-shadow: none; }
+  .ha-stage .c { opacity: 0; }
+  @keyframes ha-bar { 0%, 8% { width: 6%; } 45%, 90% { width: var(--w); } 100% { width: 6%; } }
+  @keyframes ha-dot { 0%, 12% { background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); } 30%, 90% { background: var(--kd-blue-1); box-shadow: none; } 100% { background: var(--kd-lilac-tint); box-shadow: inset 0 0 0 1px var(--kd-lilac); } }
+  @keyframes ha-cold { 0%, 40% { opacity: 1; } 46%, 92% { opacity: 0; } 98%, 100% { opacity: 1; } }
+  @keyframes ha-fin { 0%, 40% { opacity: 0; } 46%, 92% { opacity: 1; } 98%, 100% { opacity: 0; } }
+  @keyframes ha-toast { 0%, 52% { opacity: 0; transform: translateY(12px); } 58%, 90% { opacity: 1; transform: none; } 96%, 100% { opacity: 0; transform: translateY(12px); } }
+</style>

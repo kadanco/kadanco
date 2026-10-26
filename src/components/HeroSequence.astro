@@ -1,0 +1,109 @@
+---
+// src/components/HeroSequence.astro
+// Sales hero picture (heroVisual: 'sequence', Outbound Sales Pipeline): an outbound
+// sequence running across email, LinkedIn and phone. Steps turn from scheduled to sent one
+// after the other, a reply arrives and becomes a booked meeting, and the weekly meetings
+// chart rises. Dashboards and graphs style of the Sales department; figures are example data
+// and tagged so (owner, 2026-10-26). Pure CSS loop; parts keep their size, only colours,
+// heights inside fixed tracks and opacity change. Hover pauses it. Reduced motion shows the
+// finished state, still.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string }
+const { label } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { title: 'Outbound · Logistics, Q2', example: 'Example data', seq: 'Sequence', day: 'Day',
+        steps: [['Email', 'Intro and one question'], ['LinkedIn', 'Connect with a note'], ['Call', 'Ten minute call'], ['Email', 'A short case'], ['LinkedIn', 'Last nudge']],
+        scheduled: 'Scheduled', sent: 'Sent', kpis: [['Reply rate', '7%'], ['Meetings this week', '9']], chart: 'Meetings per week',
+        reply: 'Reply · Head of Ops', replyText: '"Happy to talk. Thursday?"', booked: 'Meeting booked', bookedText: 'Thursday, 10:00 · Head of Ops' },
+  de: { title: 'Outbound · Logistik, Q2', example: 'Beispieldaten', seq: 'Sequenz', day: 'Tag',
+        steps: [['E-Mail', 'Vorstellung und eine Frage'], ['LinkedIn', 'Vernetzen mit Notiz'], ['Anruf', 'Zehn Minuten'], ['E-Mail', 'Ein kurzes Beispiel'], ['LinkedIn', 'Letzter Anstoß']],
+        scheduled: 'Geplant', sent: 'Gesendet', kpis: [['Antwortrate', '7 %'], ['Termine diese Woche', '9']], chart: 'Termine pro Woche',
+        reply: 'Antwort · Leitung Betrieb', replyText: '„Gern. Passt Donnerstag?“', booked: 'Termin gebucht', bookedText: 'Donnerstag, 10:00 · Leitung Betrieb' },
+}[locale];
+const days = [1, 3, 5, 8, 12];
+const weeks = [3, 4, 3, 5, 6, 7, 8, 9]; // example meetings per week
+---
+<figure class="hs">
+  <div class="hs-win" role="img" aria-label={label}>
+    <div class="hs-top" aria-hidden="true"><b>{t.title}</b><span class="hs-ex">{t.example}</span></div>
+    <div class="hs-grid" aria-hidden="true">
+      <div class="hs-seq">
+        <span class="hs-h">{t.seq}</span>
+        {t.steps.map(([ch, what], i) => (
+          <div class="hs-step" style={`--i:${i}`}>
+            <span class="hs-day">{t.day} {days[i]}</span>
+            <span class="hs-what"><b>{ch}</b><small>{what}</small></span>
+            <span class="hs-st"><em class="s1">{t.scheduled}</em><em class="s2">✓ {t.sent}</em></span>
+          </div>
+        ))}
+      </div>
+      <div class="hs-side">
+        <div class="hs-kpis">{t.kpis.map(([k, v]) => <div class="hs-kpi"><span>{k}</span><b>{v}</b></div>)}</div>
+        <div class="hs-chart">
+          <span class="hs-h">{t.chart}</span>
+          <div class="hs-bars">{weeks.map((w, i) => <span style={`--h:${w * 10}%;--i:${i}`}><i></i></span>)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="hs-toast" aria-hidden="true">
+      <div class="hs-t hs-t--reply"><span class="hs-ic">↩</span><div><b>{t.reply}</b><small>{t.replyText}</small></div></div>
+      <div class="hs-t hs-t--booked"><span class="hs-ic">✓</span><div><b>{t.booked}</b><small>{t.bookedText}</small></div></div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  .hs { margin: 0; width: 100%; --cycle: 10s; }
+  .hs-win { position: relative; container-type: inline-size; display: grid; gap: 3cqi; padding: 4cqi; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-blue-1); box-shadow: 0 30px 60px -30px rgba(26, 1, 117, .55), 0 0 0 1px color-mix(in srgb, var(--kd-blue-1) 12%, transparent); font-size: clamp(9px, 2.3cqi, 13px); }
+  .hs-top { display: flex; align-items: center; justify-content: space-between; gap: 2cqi; }
+  .hs-top b { font-size: 1.15em; font-weight: var(--kd-weight-medium); }
+  .hs-ex { padding: .3em .8em; border-radius: var(--kd-radius); background: var(--kd-lilac-tint); font-size: .85em; font-weight: var(--kd-weight-medium); }
+  .hs-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 3cqi; }
+  .hs-h { display: block; margin-bottom: 1.4cqi; font-size: .8em; text-transform: uppercase; letter-spacing: .06em; opacity: .6; }
+  .hs-seq { position: relative; display: grid; align-content: start; }
+  .hs-step { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1.8cqi; align-items: center; padding: 1.6cqi 0; border-top: 1px solid color-mix(in srgb, var(--kd-blue-1) 10%, transparent); }
+  .hs-day { width: 8cqi; font-size: .85em; font-variant-numeric: tabular-nums; opacity: .7; }
+  .hs-what { display: grid; min-width: 0; }
+  .hs-what b { font-weight: var(--kd-weight-medium); }
+  .hs-what small { font-size: .85em; opacity: .65; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hs-st { display: grid; justify-items: end; }
+  .hs-st em { grid-area: 1 / 1; padding: .3em .7em; border-radius: var(--kd-radius); font-style: normal; font-size: .82em; font-weight: var(--kd-weight-medium); white-space: nowrap; }
+  .hs-st .s1 { background: var(--kd-beige-2); color: var(--kd-ink-2); opacity: 0; }
+  .hs-st .s2 { background: var(--kd-lilac); color: var(--kd-blue-1); }
+  .hs-side { display: grid; gap: 2.4cqi; align-content: start; }
+  .hs-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqi; }
+  .hs-kpi { display: grid; gap: .4em; padding: 2.2cqi 2.4cqi; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-lilac) 22%, var(--kd-white)); }
+  .hs-kpi span { font-size: .8em; opacity: .75; }
+  .hs-kpi b { font-size: 1.9em; line-height: 1; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .hs-chart { padding: 2.2cqi 2.4cqi; border-radius: var(--kd-radius); border: 1px solid var(--kd-lilac); }
+  .hs-bars { display: flex; align-items: flex-end; gap: 1.4cqi; height: 22cqi; border-bottom: 1.5px solid color-mix(in srgb, var(--kd-blue-1) 20%, transparent); }
+  .hs-bars span { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+  .hs-bars i { display: block; width: 100%; height: var(--h); border-radius: 2px 2px 0 0; background: var(--kd-lilac); }
+  .hs-bars span:last-child i { background: var(--kd-blue-1); }
+
+  .hs-toast { position: absolute; left: 4cqi; bottom: -4cqi; display: grid; }
+  .hs-t { grid-area: 1 / 1; display: flex; align-items: center; gap: 2cqi; padding: 2.2cqi 3cqi; border-radius: var(--kd-radius); box-shadow: 0 20px 40px -18px rgba(10, 0, 60, .6); }
+  .hs-t b { display: block; font-weight: var(--kd-weight-medium); }
+  .hs-t small { font-size: .9em; }
+  .hs-t--reply { background: var(--kd-white); color: var(--kd-blue-1); box-shadow: 0 20px 40px -18px rgba(10, 0, 60, .6), 0 0 0 1px var(--kd-lilac); opacity: 0; }
+  .hs-t--booked { background: var(--kd-blue-1); color: var(--kd-white); }
+  .hs-t--booked b { color: var(--kd-signal-1); }
+  .hs-ic { display: grid; place-items: center; width: 5cqi; height: 5cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-weight: var(--kd-weight-medium); }
+  .hs-t--reply .hs-ic { background: var(--kd-lilac); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hs-st .s1 { animation: hs-s1 var(--cycle) ease infinite; animation-delay: calc(var(--i) * .7s); }
+    .hs-st .s2 { animation: hs-s2 var(--cycle) ease infinite; animation-delay: calc(var(--i) * .7s); }
+    .hs-bars i { animation: hs-bar var(--cycle) cubic-bezier(.3, .7, .3, 1) infinite; animation-delay: calc(var(--i) * .15s); }
+    .hs-t--reply { animation: hs-reply var(--cycle) ease infinite; }
+    .hs-t--booked { animation: hs-booked var(--cycle) ease infinite; }
+    .hs:hover :is(.hs-st em, .hs-bars i, .hs-t) { animation-play-state: paused; }
+  }
+  @keyframes hs-s1 { 0%, 10% { opacity: 1; } 16%, 90% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  @keyframes hs-s2 { 0%, 10% { opacity: 0; } 16%, 90% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  @keyframes hs-bar { 0%, 5% { height: 4%; } 40%, 90% { height: var(--h); } 100% { height: 4%; } }
+  @keyframes hs-reply { 0%, 46% { opacity: 0; transform: translateY(10px); } 50%, 62% { opacity: 1; transform: none; } 66%, 100% { opacity: 0; } }
+  @keyframes hs-booked { 0%, 64% { opacity: 0; transform: translateY(10px); } 68%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
+</style>

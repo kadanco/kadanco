@@ -43,6 +43,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 - **Content Production rebuilt in the Marketing style** (EN and DE), waiting for owner review: fan-out hero (`HeroFanout.astro`), stale LinkedIn feed self-check, five clickable campaign-style steps, press clipping measures.
 - **Forms themed by department with a coaching side panel** (`src/data/form-coach.ts`), waiting for owner review; quotes are drafts.
 - **No layout jumps:** every interactive picture and card keeps its size (rule in `CLAUDE.md`, Responsive rules).
+- **Sales pages rebuilt** (ABM, Outbound) in the Sales style with example figures tagged "Example data", waiting for owner review.
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
@@ -62,12 +63,12 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Next up
 
-1. Owner feedback on Website Production and Positioning and Brand.
-2. DACH in the Marketing style (ideas agreed: English ad turning German hero, German buyer checklist).
-3. Sales pages (dashboards and graphs): Account-Based Marketing, Outbound Sales Pipeline; then Event Lead Generation.
+1. Owner feedback on the rebuilt pages (Website Production, Positioning and Brand, Content Production, ABM, Outbound) and the forms.
+2. Later, when the owner picks them up: DACH Market Entry (Marketing style; ideas agreed: English ad turning German hero, German buyer checklist) and Event Lead Generation (Sales style).
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (late night): Sales style set; Account-Based Marketing and Outbound Sales Pipeline rebuilt (dashboard heroes, pipeline self-checks, clickable dashboard steps, Sales measures).
 - 2026-10-26 (night): Layout jumps removed sitewide; forms themed by department with a coaching side panel (why we ask, insights, draft operator quotes, facts, career logos).
 - 2026-10-26 (evening, 5): Content Production step pictures made clickable.
 - 2026-10-26 (evening, 4): Content Production rebuilt in the Marketing style.

@@ -22,6 +22,8 @@ import HeroMorph from './HeroMorph.astro';
 import HeroBuild from './HeroBuild.astro';
 import HeroPasteup from './HeroPasteup.astro';
 import HeroFanout from './HeroFanout.astro';
+import HeroAccounts from './HeroAccounts.astro';
+import HeroSequence from './HeroSequence.astro';
 import MeasuresPress from './MeasuresPress.astro';
 import { auditHref, callHref } from '../data/intakes';
 import MeasuresDash from './MeasuresDash.astro';
@@ -68,6 +70,10 @@ const ui = {
       </div>
       {page.heroVisual === 'morph' ? (
         <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroMorph label={locale === 'de' ? 'Dieselbe App vorher, unübersichtlich, und nachher, klar' : 'The same app before, cluttered, and after, clear'} /></div>
+      ) : page.heroVisual === 'sequence' ? (
+        <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroSequence label={locale === 'de' ? 'Eine Outbound-Sequenz läuft, Antworten kommen, ein Termin wird gebucht' : 'An outbound sequence running, replies arriving and a meeting booked'} /></div>
+      ) : page.heroVisual === 'accounts' ? (
+        <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroAccounts label={locale === 'de' ? 'Ein Dashboard mit Zielaccounts, die warm werden, bis ein Termin gebucht ist' : 'A dashboard of target accounts warming up until a meeting is booked'} /></div>
       ) : page.heroVisual === 'fanout' ? (
         <div class="ucd-hero-visual ucd-hero-visual--bare"><HeroFanout label={locale === 'de' ? 'Eine Einsicht aus dem Gründer-Interview wird zu Post, Artikel, Folie und One-Pager' : 'One insight from the founder interview becomes a post, an article, a slide and a one-pager'} /></div>
       ) : page.heroVisual === 'pasteup' ? (
@@ -207,7 +213,7 @@ const ui = {
           <p class="ucd-lede">{c.deliverables.lede}</p>
         </div>
         {c.deliverables.layout === 'steps'
-          ? <StepsDetail steps={c.deliverables.tabs} cta={c.deliverables.cta} ctaHref={audit} look={page.dept === 'marketing' ? 'campaign' : 'product'} labels={locale === 'de'
+          ? <StepsDetail steps={c.deliverables.tabs} cta={c.deliverables.cta} ctaHref={audit} look={page.dept === 'marketing' ? 'campaign' : page.dept === 'sales' ? 'dash' : 'product'} labels={locale === 'de'
               ? { step: 'Schritt', doing: 'Was wir tun', get: 'Was Sie bekommen', you: 'Von Ihnen:',
                   report: 'UX-Audit', impact: ['Hoch', 'Mittel', 'Niedrig'], drop: 'Größter Abbruch', test: 'Test 5 von 6 bestanden',
                   states: ['Standard', 'Lädt', 'Leer', 'Fehler'], tokens: 'Tokens', components: 'Komponenten', doLbl: 'So', dontLbl: 'Nicht so',
@@ -236,7 +242,22 @@ const ui = {
                     guide: 'Leitfaden', articleH: 'Einstellen ohne Personalabteilung', url: 'ihrefirma.de', search: 'Suche', ai: 'KI-Antwort', aiText: 'Kleine Teams können ohne Personalabteilung einstellen, wenn sie …', others: ['wettbewerber-a.de', 'wettbewerber-b.de'],
                     deck: 'Deck', deckH: 'Einstellen ohne HR.', onePager: 'One-Pager', opH: 'Talio für kleine Teams', caseStudy: 'Case Study', quote: 'Wir haben drei Stellen ohne HR besetzt.',
                     chain: ['Post', 'Outbound-Nachricht', 'Termin gebucht', 'Deal gewonnen'],
-                    chainText: ['Der Post der Gründerin erreicht eine Käuferin bei einem Ziel-Account.', 'Outbound fasst nach, solange sie sich an den Post erinnert.', 'Ein Erstgespräch, das mit „Ich habe Ihren Post gelesen“ beginnt.', 'Der Deal schließt, und das CRM zeigt den Post, mit dem alles anfing.'], crm: 'CRM: Quelle erfasst' } }
+                    chainText: ['Der Post der Gründerin erreicht eine Käuferin bei einem Ziel-Account.', 'Outbound fasst nach, solange sie sich an den Post erinnert.', 'Ein Erstgespräch, das mit „Ich habe Ihren Post gelesen“ beginnt.', 'Der Deal schließt, und das CRM zeigt den Post, mit dem alles anfing.'], crm: 'CRM: Quelle erfasst' },
+                  abm: { example: 'Beispieldaten', filters: ['Branche passt', '500+ Personen', 'DACH'], count: 'Accounts in der Liste',
+                    counts: { '000': '2.400', '100': '1.100', '010': '900', '001': '1.300', '110': '420', '101': '600', '011': '520', '111': '180' },
+                    rows: [{ name: 'Maschinenbau', size: '1.200 Personen', region: 'DE', m: '111' }, { name: 'Logistik', size: '800 Personen', region: 'NL', m: '110' }, { name: 'Klinikgruppe', size: '2.400 Personen', region: 'AT', m: '111' }, { name: 'Agentur', size: '60 Personen', region: 'DE', m: '001' }, { name: 'Versicherung', size: '3.000 Personen', region: 'CH', m: '011' }, { name: 'Einzelhandel', size: '40 Personen', region: 'UK', m: '000' }],
+                    roles: [{ key: 'cfo', name: 'CFO', type: 'Entscheidet', msg: 'Was es kostet und was es spart, auf einer Seite.', channel: 'Direct Mail + E-Mail' }, { key: 'ops', name: 'Leitung Betrieb', type: 'Treibt es', msg: 'Wie Ihr Team seine Woche zurückbekommt.', channel: 'LinkedIn + Anruf' }, { key: 'it', name: 'IT-Leitung', type: 'Kann bremsen', msg: 'Wo die Daten liegen und wie es an Ihre Systeme anbindet.', channel: 'Sicherheits-One-Pager' }, { key: 'user', name: 'Teamleitung', type: 'Nutzt es', msg: 'Was sich am Montagmorgen ändert.', channel: 'Demo-Einladung' }, { key: 'buy', name: 'Einkauf', type: 'Prüft', msg: 'Konditionen, Sicherheitsunterlagen und Referenzen, versandbereit.', channel: 'Dokumentenpaket' }],
+                    tapRole: 'Tippen Sie auf eine Rolle',
+                    channels: ['LinkedIn-Anzeige', 'E-Mail', 'Landingpage', 'Direct Mail'], sponsored: 'Gesponsert', adH: 'Für Maschinenbauer mit 1.000+ Mitarbeitenden', adCta: 'Mehr erfahren', subject: 'Betreff: Ihre Planung im zweiten Quartal', lpH: 'Gebaut für den Maschinenbau', lpCta: 'Demo buchen', mail: 'Eine Notiz für Ihr Betriebsteam, mit einer kleinen Aufmerksamkeit.',
+                    signals: ['Anzeige geklickt', 'Preisseite gelesen', 'E-Mail geöffnet', 'Zwei Personen auf der Demo-Seite'], score: 'Account-Score', ready: 'Bereit für den Vertrieb', notReady: 'Noch nicht bereit. Wir spielen weiter.', alert: 'Hinweis an den Account-Owner gesendet, mit jedem Kontakt im Kontext.',
+                    metrics: ['Aktive Accounts', 'Termine', 'Pipeline'], kpis: ['14 / 40', '6', '420 Tsd. €'], months: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun'] },
+                  obd: { script: 'Leitfaden der Gründer', movesOn: 'Weiter, wenn', tracked: 'Erfasst',
+                    stages: [{ name: 'Verstehen', line: 'Warum schauen Sie sich das gerade jetzt an?', exit: 'Ein echtes Problem, in ihren Worten.' }, { name: 'Qualifizieren', line: 'Wer muss außer Ihnen noch zustimmen?', exit: 'Budget, Entscheider und Zeitplan sind bekannt.' }, { name: 'Demo', line: 'Ich zeige Ihnen das eine, das Ihre Woche verändert.', exit: 'Sie fragen, wie man startet.' }, { name: 'Angebot', line: 'So sehen die ersten 90 Tage aus.', exit: 'Ein Datum für die Entscheidung.' }, { name: 'Abschluss', line: 'Was würde uns am Start zum Ersten hindern?', exit: 'Unterschrieben und Kickoff gebucht.' }],
+                    cols: [{ name: 'Neu', n: '24', fields: ['Quelle', 'Owner', 'Passung'] }, { name: 'Qualifiziert', n: '12', fields: ['Budget', 'Entscheider', 'Zeitplan'] }, { name: 'Demo', n: '7', fields: ['Anwendungsfall', 'Beteiligte', 'Nächster Schritt'] }, { name: 'Angebot', n: '4', fields: ['Wert', 'Entscheidungsdatum', 'Risiken'] }],
+                    touches: [{ day: 'Tag 1', ch: 'E-Mail', head: 'Betreff: Ihre Planung für Q2', body: 'Kurze Vorstellung, ein Satz, warum gerade Sie, und eine Frage.' }, { day: 'Tag 3', ch: 'LinkedIn', head: 'Vernetzen mit Notiz', body: 'Zwei Zeilen, kein Pitch. Ein Hinweis auf den Beitrag, über den sie gesprochen haben.' }, { day: 'Tag 5', ch: 'Anruf', head: 'Zehn Minuten', body: 'Den Grund nennen, eine Frage stellen, einen Termin vorschlagen.' }, { day: 'Tag 8', ch: 'E-Mail', head: 'Ein kurzes Beispiel', body: 'Wie ein ähnliches Team das Problem gelöst hat, in drei Sätzen.' }, { day: 'Tag 12', ch: 'LinkedIn', head: 'Letzter Anstoß', body: 'Eine freundliche Frage, ob das Thema gerade passt, oder später.' }],
+                    handbook: 'Aus dem Handbuch',
+                    objections: [{ q: 'Zu teuer.', a: 'Fragen, womit sie vergleichen. Dann zeigen, was der heutige Weg kostet, bevor es um den Preis geht.' }, { q: 'Wir haben schon ein Tool.', a: 'Fragen, was gut läuft und was nicht. Nur über die Lücke sprechen, die das Tool offen lässt.' }, { q: 'Gerade nicht.', a: 'Fragen, was sich ändern müsste. Einen Termin für dann vereinbaren und einen kurzen Fall schicken.' }],
+                    periods: ['Diese Woche', 'Dieser Monat'], kpiNames: ['Termine', 'Antwortrate', 'Pipeline'], week: ['9', '7 %', '62 T€'], month: ['31', '6 %', '310 T€'] } }
               : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:',
                   report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
                   states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
@@ -265,7 +286,22 @@ const ui = {
                     guide: 'Guide', articleH: 'How To Hire Without An HR Department', url: 'yourcompany.com', search: 'Search', ai: 'AI answer', aiText: 'Small teams can hire without an HR department if they …', others: ['competitor-a.com', 'competitor-b.com'],
                     deck: 'Deck', deckH: 'Hiring Without HR.', onePager: 'One-pager', opH: 'Talio for small teams', caseStudy: 'Case study', quote: 'We filled three roles without an HR team.',
                     chain: ['Post', 'Outbound message', 'Meeting booked', 'Deal won'],
-                    chainText: ["The founder's post reaches a buyer at a target account.", 'Outbound follows up while they still remember the post.', 'A first call that starts with "I read your post".', 'The deal closes, and the CRM shows the post that started it.'], crm: 'CRM: source tracked' } }} />
+                    chainText: ["The founder's post reaches a buyer at a target account.", 'Outbound follows up while they still remember the post.', 'A first call that starts with "I read your post".', 'The deal closes, and the CRM shows the post that started it.'], crm: 'CRM: source tracked' },
+                  abm: { example: 'Example data', filters: ['Industry fit', '500+ people', 'DACH'], count: 'Accounts in the list',
+                    counts: { '000': '2,400', '100': '1,100', '010': '900', '001': '1,300', '110': '420', '101': '600', '011': '520', '111': '180' },
+                    rows: [{ name: 'Machinery', size: '1,200 people', region: 'DE', m: '111' }, { name: 'Logistics', size: '800 people', region: 'NL', m: '110' }, { name: 'Hospital group', size: '2,400 people', region: 'AT', m: '111' }, { name: 'Agency', size: '60 people', region: 'DE', m: '001' }, { name: 'Insurance', size: '3,000 people', region: 'CH', m: '011' }, { name: 'Retail', size: '40 people', region: 'UK', m: '000' }],
+                    roles: [{ key: 'cfo', name: 'CFO', type: 'Decides', msg: 'What it costs and what it saves, on one page.', channel: 'Direct mail + email' }, { key: 'ops', name: 'Head of Ops', type: 'Drives it', msg: 'How your team gets its week back.', channel: 'LinkedIn + call' }, { key: 'it', name: 'IT lead', type: 'Can block', msg: 'Where the data lives, and how it connects to what you run.', channel: 'Security one-pager' }, { key: 'user', name: 'Team lead', type: 'Uses it', msg: 'What changes on Monday morning.', channel: 'Demo invite' }, { key: 'buy', name: 'Procurement', type: 'Checks', msg: 'Terms, security papers and references, ready to send.', channel: 'Document pack' }],
+                    tapRole: 'Tap a role',
+                    channels: ['LinkedIn ad', 'Email', 'Landing page', 'Direct mail'], sponsored: 'Sponsored', adH: 'For machinery teams with 1,000+ people', adCta: 'Learn more', subject: 'Subject: your planning for Q2', lpH: 'Built for machinery makers', lpCta: 'Book a demo', mail: 'A note for your operations team, with a small thank you.',
+                    signals: ['Clicked an ad', 'Read the pricing page', 'Opened the email', 'Two people on the demo page'], score: 'Account score', ready: 'Ready for sales', notReady: 'Not ready yet. The plays keep running.', alert: 'Alert sent to the account owner, with every touch in context.',
+                    metrics: ['Accounts engaged', 'Meetings', 'Pipeline'], kpis: ['14 / 40', '6', '€420k'], months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
+                  obd: { script: "Founder's line", movesOn: 'Moves on when', tracked: 'Tracked',
+                    stages: [{ name: 'Discover', line: 'What made you look at this now?', exit: 'A real problem, in their words.' }, { name: 'Qualify', line: 'Who else needs to say yes?', exit: 'Budget, buyer and timing known.' }, { name: 'Demo', line: 'Let me show you the one thing that changes your week.', exit: 'They ask how to start.' }, { name: 'Propose', line: 'Here is what the first 90 days look like.', exit: 'A date for the decision.' }, { name: 'Close', line: 'What would stop us from starting on the first?', exit: 'Signed, and a kickoff booked.' }],
+                    cols: [{ name: 'New', n: '24', fields: ['Source', 'Owner', 'Fit'] }, { name: 'Qualified', n: '12', fields: ['Budget', 'Buyer', 'Timing'] }, { name: 'Demo', n: '7', fields: ['Use case', 'People involved', 'Next step'] }, { name: 'Proposal', n: '4', fields: ['Value', 'Decision date', 'Risks'] }],
+                    touches: [{ day: 'Day 1', ch: 'Email', head: 'Subject: your planning for Q2', body: 'A short intro, one line on why them, and one question.' }, { day: 'Day 3', ch: 'LinkedIn', head: 'Connect with a note', body: 'Two lines, no pitch. A nod to the post they wrote about the topic.' }, { day: 'Day 5', ch: 'Call', head: 'Ten minutes', body: 'Say why you call, ask one question, suggest a time.' }, { day: 'Day 8', ch: 'Email', head: 'A short case', body: 'How a similar team solved the problem, in three sentences.' }, { day: 'Day 12', ch: 'LinkedIn', head: 'Last nudge', body: 'A friendly question whether the topic fits now, or later.' }],
+                    handbook: 'From the handbook',
+                    objections: [{ q: 'It is too expensive.', a: 'Ask what they compare it with. Then show what the current way costs them, before you talk about price.' }, { q: 'We already have a tool.', a: 'Ask what works and what does not. Talk only about the gap the tool leaves open.' }, { q: 'Not right now.', a: 'Ask what would need to change. Book a time for then, and send one short case.' }],
+                    periods: ['This week', 'This month'], kpiNames: ['Meetings', 'Reply rate', 'Pipeline'], week: ['9', '7%', '€62k'], month: ['31', '6%', '€310k'] } }} />
           : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>
@@ -381,9 +417,9 @@ const ui = {
             ? { kicker: 'Messgröße', goalUp: 'hoch', goalDown: 'runter', change: 'Was sich ändert', cause: 'Warum', note: 'Beispiele für das, was wir messen, keine echten Zahlen.', hint: 'Fahren Sie über einen Ausschnitt oder tippen Sie darauf, um zu sehen, was sich ändert und warum.' }
             : { kicker: 'Measure', goalUp: 'up', goalDown: 'down', change: 'What changes', cause: 'Why', note: 'Examples of what we track, no real figures.', hint: 'Hover or tap a clipping to see what changes and why.' }} />
         ) : (
-        <MeasuresDash items={c.measures.items} labels={locale === 'de'
-          ? { app: c.measures.app ?? 'Ihre Produktzahlen', you: 'ihrefirma.de', ai: 'KI-Antwort', before: 'Vorher', after: 'Nachher', goalUp: 'Ziel: hoch', goalDown: 'Ziel: runter', note: 'Beispielhafte Darstellung, keine echten Zahlen.', change: 'Was sich ändert', cause: 'Warum', hint: 'Fahren Sie über eine Kachel oder tippen Sie darauf, um zu sehen, was sich ändert und warum.' }
-          : { app: c.measures.app ?? 'Your product metrics', you: 'yourcompany.com', ai: 'AI answer', before: 'Before', after: 'After', goalUp: 'Goal: up', goalDown: 'Goal: down', note: 'Example views, no real figures.', change: 'What changes', cause: 'Why', hint: 'Hover or tap a tile to see what changes and why.' }} />
+        <MeasuresDash items={c.measures.items} look={page.dept === 'sales' ? 'sales' : 'product'} labels={locale === 'de'
+          ? { app: c.measures.app ?? 'Ihre Produktzahlen', you: 'ihrefirma.de', ai: 'KI-Antwort', example: 'Beispieldaten', before: 'Vorher', after: 'Nachher', goalUp: 'Ziel: hoch', goalDown: 'Ziel: runter', note: page.dept === 'sales' ? 'Beispieldaten, nur zur Veranschaulichung.' : 'Beispielhafte Darstellung, keine echten Zahlen.', change: 'Was sich ändert', cause: 'Warum', hint: 'Fahren Sie über eine Kachel oder tippen Sie darauf, um zu sehen, was sich ändert und warum.' }
+          : { app: c.measures.app ?? 'Your product metrics', you: 'yourcompany.com', ai: 'AI answer', example: 'Example data', before: 'Before', after: 'After', goalUp: 'Goal: up', goalDown: 'Goal: down', note: page.dept === 'sales' ? 'Example data, for illustration only.' : 'Example views, no real figures.', change: 'What changes', cause: 'Why', hint: 'Hover or tap a tile to see what changes and why.' }} />
         )}
       </div>
     </section>
