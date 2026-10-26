@@ -233,3 +233,4 @@ Next, in order:
 - 2026-10-26: Who We Are headline "Founders And Makers. Executing For You." (DE "Gründer und Macher, die für Sie umsetzen."), a shorter form of the owner's "Operators That Are Founders and Makers Executing For You". Tags replaced with 12 that cover all three departments (four each), shown as two centred rows with natural widths (not a grid, owner decision); phones wrap freely.
 - 2026-10-26: Homepage Product card photo replaced (owner: same style, different woman): Unsplash Xe-turIIQoE by Vitaly Gariev, same office set as before, self-hosted as `public/images/use-cases/product.jpg`; credit updated.
 - 2026-10-26: Homepage department cards flipped: Product text left and photo right, Marketing photo left and text right, Sales text left and photo right. Phones keep the photo on top.
+- 2026-10-26: Homepage Problem section: legend (Covered, Partial, Gap) and the caption "No single route covers all three. We do." removed.

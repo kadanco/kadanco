@@ -56,7 +56,6 @@ const homeCopy = {
   },
 }[locale];
 const copy: ComparisonContent = homeCopy;
-const marks: Mark[] = ['has', 'part', 'gap'];
 ---
 <!-- data-theme="light": the nav reads gradients as dark unless told otherwise; in dark
      mode this band is a plain colour, which the nav measures directly -->
@@ -98,10 +97,6 @@ const marks: Mark[] = ['has', 'part', 'gap'];
           </span>
         ))}
       </div>
-      <div class="cmx-legend">
-        {marks.map((m) => <span class="cmx-lg"><span class={`cmx-dot cmx-${m}`}></span>{copy.legend[m]}</span>)}
-      </div>
-      <p class="cmx-cap">{copy.cap}</p>
     </div>
   </div>
 </section>
@@ -167,10 +162,6 @@ const marks: Mark[] = ['has', 'part', 'gap'];
   .cmx-kad::before { content: attr(data-solution); position: absolute; top: -11px; right: 14px; height: 22px; padding: 0 9px; display: flex; align-items: center; border-radius: var(--kd-radius); background: var(--kd-blue-2); color: var(--kd-white); font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; line-height: 1; }
   .cmx-kad .cmx-route { letter-spacing: .02em; }
 
-  .cmx-legend { display: flex; gap: 22px; margin-top: 22px; flex-wrap: wrap; }
-  .cmx-lg { display: flex; align-items: center; gap: 8px; font-size: 13px; opacity: .78; }
-  .cmx-dot { width: 14px; height: 14px; border-radius: 50%; }
-  .cmx-cap { margin: 16px 0 0; font-size: 17px; line-height: 1.5; font-weight: var(--kd-weight-medium); }
 
   @media (max-width: 560px) {
     /* the route text takes the full row; the marks sit underneath, right-aligned under their headings */
