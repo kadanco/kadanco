@@ -19,9 +19,9 @@ const { cards } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const ui = {
   en: { list: 'Use cases', soon: 'More use cases coming soon', all: 'All use cases',
-        alt: { product: 'Woman working on a laptop in a bright office', marketing: 'Two colleagues working together at a laptop', sales: 'Man on a phone call at his laptop in an office' } },
+        alt: { product: 'Woman working on a laptop in a bright office', marketing: 'Two colleagues working together at a laptop', sales: 'Smiling man in a suit on a phone call at his desk with a laptop' } },
   de: { list: 'Use Cases', soon: 'Weitere Use Cases folgen', all: 'Alle Use Cases',
-        alt: { product: 'Frau arbeitet am Laptop in einem hellen Büro', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Mann telefoniert am Laptop in einem Büro' } },
+        alt: { product: 'Frau arbeitet am Laptop in einem hellen Büro', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Lächelnder Mann im Anzug telefoniert an seinem Schreibtisch mit Laptop' } },
 }[locale];
 const PER_CARD = 3; // most cases a card lists; cards list only the nav use cases, without placeholders
 
