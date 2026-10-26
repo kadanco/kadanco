@@ -19,9 +19,9 @@ const { cards } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const ui = {
   en: { list: 'Use cases', soon: 'More use cases coming soon', all: 'All use cases',
-        alt: { product: 'Woman working on a laptop in a bright office', marketing: 'Two colleagues working together at a laptop', sales: 'Smiling man in a suit on a phone call at his desk with a laptop' } },
+        alt: { product: 'Woman in glasses and a striped top working on a laptop at her desk', marketing: 'Two colleagues working together at a laptop', sales: 'Smiling man in a suit on a phone call at his desk with a laptop' } },
   de: { list: 'Use Cases', soon: 'Weitere Use Cases folgen', all: 'Alle Use Cases',
-        alt: { product: 'Frau arbeitet am Laptop in einem hellen Büro', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Lächelnder Mann im Anzug telefoniert an seinem Schreibtisch mit Laptop' } },
+        alt: { product: 'Frau mit Brille und gestreiftem Shirt arbeitet am Laptop an ihrem Schreibtisch', marketing: 'Zwei Kolleginnen arbeiten gemeinsam am Laptop', sales: 'Lächelnder Mann im Anzug telefoniert an seinem Schreibtisch mit Laptop' } },
 }[locale];
 const PER_CARD = 3; // most cases a card lists; cards list only the nav use cases, without placeholders
 
@@ -87,9 +87,9 @@ const rows = cards.map((card) => {
   .ds-cta:hover { transform: translateY(-2px); }
   .ds-cta:focus-visible { outline: 2px solid var(--ds-fg); outline-offset: 3px; }
 
-  .ds-media { order: -1; min-height: 0; background: var(--kd-blue-1); } /* photo on the left */
-  /* the middle card (Marketing) flips: text left, photo right, so the text reads right, left, right */
-  .ds--marketing .ds-media { order: 0; }
+  .ds-media { order: 0; min-height: 0; background: var(--kd-blue-1); } /* photo on the right, text on the left */
+  /* the middle card (Marketing) flips: photo left, text right, so the text reads left, right, left */
+  .ds--marketing .ds-media { order: -1; }
   .ds-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   /* phones: photo on top as a band, text below; heights follow the content,
