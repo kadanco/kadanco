@@ -34,7 +34,8 @@ Internal pages (local and staging only, never on kadanco.com): http://localhost:
 ```
 src/layouts/Layout.astro    head, nav, footer, global scripts, consent (`bare` = no nav/footer, for the forms)
 src/components/             Nav, Footer, HomePage + Home*/Live* sections, DeptStack, UseCaseDetail (use case
-                            template) + SelfCheck, StepsDetail, MeasuresDash, HeroMorph, HeroBuild, AuditIntake (forms)
+                            template) + SelfCheck, StepsDetail, MeasuresDash, MeasuresPress, HeroMorph, HeroBuild,
+                            HeroPasteup, AuditIntake (forms)
 src/pages/                  index, imprint, privacy-policy, glossary, use-cases (8 built; _ prefix = hidden),
                             strategy-call, ux-audit, website-audit, marketing-audit, pipeline-audit
 src/pages/de/               German versions
@@ -74,6 +75,7 @@ The `design/` folder is not published (Astro only serves `public/` and `src/page
 - Department colours: Product Blue #3B38DF, Marketing Lime #DAFF02 (dark-blue text, never a large background), Sales Lilac #B2B1FF, Accent/PLG #7270FF.
 - Orange #FE572A is for the single main CTA only, on light grounds. On dark grounds (hero, nav, blue CTA bands) the CTA is lime with navy text (`.btn-lime`), as on the original site.
 - Grounds: ink #201E1F, beige #F3F0EB / #E7E2D9 / #DCD5C8, navy #1A0175.
+- Marketing use case pages (2026-10-26): navy hero and CTA band with lime accents (highlighter, tape, stickers), never a lime ground; pinned pieces may tilt 1 to 3 degrees.
 - Imagery: 3D isometric icons. Exception: the homepage use case cards use photos of real people (Unsplash License, self-hosted in `public/images/use-cases/`, credits in `docs/`).
 
 ## House rules
@@ -122,8 +124,9 @@ Done and signed off by the owner:
 
 Built, waiting for owner review:
 - Website Production (EN and DE), rebuilt on the Product Design template on 2026-10-26, with its own /website-audit/ form.
+- Positioning and Brand (EN and DE), the first page in the Marketing style, 2026-10-26.
 
-Next: the Marketing and Sales use case pages in their department styles. The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
+Next: Content Production in the Marketing style, then DACH, then the Sales pages (dashboards and graphs). The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
 
 ## Open questions
 
@@ -235,3 +238,5 @@ Next: the Marketing and Sales use case pages in their department styles. The ful
   - Hero `heroVisual: 'build'` (`HeroBuild.astro`, owner choice): a website assembles itself in a browser, one stage per step (brand board, wireframe and site map, designed page, code and phone, search result and AI answer). Plays in a loop; stage buttons jump, hover or focus pauses; reduced motion and no JavaScript show the last stage.
   - Self-check on a website wireframe (`checkVisual: 'site'`), six website flaws. Route cards (design agency, freelancers, website builder, in-house hire). Measures: visitor to lead, load time, search rankings, mentions in AI answers, time to publish a page (new pictures speed, rank, answers; tiles now placed by order). Ways to work: website sprint, website partnership.
   - Own audit form /website-audit/ (Plunk event `website-audit-submitted`); `audit` on a use case page overrides the department's audit link.
+- 2026-10-26: Marketing department style (owner choice): editorial typography plus a campaign wall of finished pieces. Navy hero and CTA band with a halftone dot screen and lime accents; lime is no longer a hero ground (closes that brand question for heroes). Section headlines get a lime highlighter (lime text in dark mode), eyebrows a short rule. Pinned pieces (paper, lime tape) may tilt 1 to 3 degrees. Example company in the pictures: "Talio" (fictional, captioned as an example).
+- 2026-10-26: Positioning and Brand rebuilt as the first Marketing page (EN and DE; German for Maria): hero paste-up billboard (`HeroPasteup.astro`: a generic buzzword poster gets a sharp one pasted over it in strips, loops, hover pauses, reduced motion shows the new poster); buzzword bingo self-check (`checkVisual: 'bingo'`); route cards (branding agency, positioning consultant, freelance copywriter, the founder); four detailed steps in the campaign look (`StepsDetail look 'campaign'`: competitor map and positioning statement, message house and voice card, brand guide spread, sales deck fan); measures as press clippings that turn over on hover or tap (`MeasuresPress.astro`, `measuresVisual: 'press'`); ways to work: positioning sprint (about 3 weeks) or positioning and brand (6 to 8 weeks). Situation, also included, outcomes and the 90 days removed. Operator headline no longer says "two".

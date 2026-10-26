@@ -2,7 +2,7 @@
 
 Start a new chat with: "Read docs/HANDOFF.md". Claude updates this file at the end of every work session (rule in `CLAUDE.md`), so it always shows where we stopped.
 
-Last updated: 26 October 2026, 13:58 (Germany time)
+Last updated: 26 October 2026, 15:00 (Germany time)
 
 ## Read first
 
@@ -37,6 +37,9 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
   - Hero `HeroBuild.astro`: a website assembles itself in five stages (Branded, Conceptualised, Designed, Developed, Optimised), stage buttons under the window.
   - Self-check on a website wireframe; route cards; five steps with website pictures; website measures (incl. search rankings and AI answers); ways to work (sprint, partnership); FAQ incl. SEO, AEO and GEO.
   - Own form /website-audit/ (Plunk event `website-audit-submitted`).
+- **Marketing style set; Positioning and Brand rebuilt in it** (EN and DE; German for Maria), waiting for owner review:
+  - Navy hero with halftone and lime accents (no lime grounds), headline highlighter, pinned paper pieces with lime tape and small tilts. Example company "Talio".
+  - Hero `HeroPasteup.astro` (billboard paste-up), buzzword bingo self-check, route cards, four campaign-style steps, press clippings that turn over (`MeasuresPress.astro`), ways to work.
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
@@ -56,12 +59,13 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Next up
 
-1. Owner feedback on Website Production.
-2. Marketing pages (bold PR and agency style): Content Production, Positioning and Brand; then DACH.
+1. Owner feedback on Website Production and Positioning and Brand.
+2. Content Production in the Marketing style (ideas agreed: "one idea, many formats" hero, a LinkedIn feed self-check, clipping measures); then DACH (English ad turning German hero, German buyer checklist).
 3. Sales pages (dashboards and graphs): Account-Based Marketing, Outbound Sales Pipeline; then Event Lead Generation.
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (late afternoon): Marketing style chosen (editorial plus campaign wall, navy hero, small tilts); Positioning and Brand rebuilt as the first Marketing page.
 - 2026-10-26 (afternoon): Website Production rebuilt on the Product Design template (research: oratory.co, fletchpmm.com, loveatfirsttry.io, website topics only); hero that assembles itself; /website-audit/ form.
 - 2026-10-24 to 26: Component round on the homepage (comparison, compliance, CTA, footer, Who We Are, tags, photos, card layout); responsive rules and pass on all pages; hero rule; use case visibility; Product Design rebuilt as the template; review fixed the CTA/modal bug; contact modal replaced by four full-screen form pages.
 - 2026-10-23: Contextual step scenes for all use cases; breadcrumbs removed; handoff file created.

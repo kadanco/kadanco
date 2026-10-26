@@ -16,14 +16,20 @@
 // kind 'site' (Website Production) swaps the app for a website in a browser, with its own
 // six flaws: 1 a vague headline, 2 a dated look and stock photo, 3 a broken phone layout,
 // 4 your result gone from search, 5 a change waiting for a developer, 6 a form that leaks leads.
+// kind 'bingo' (Marketing, Positioning and Brand) shows a buzzword bingo card: every tick
+// daubs one or two buzzwords, and all six ticked shout "Bingo".
 interface Item { text: string; revenue: string; cost: string; weight: [number, number] }
 interface Props {
   items: Item[];
   results: { none: { title: string; body: string }; some: { title: string; body: string }; many: { title: string; body: string } };
   labels: { revenue: string; cost: string; latest: string };
-  kind?: 'app' | 'site';
+  kind?: 'app' | 'site' | 'bingo';
 }
 const { items, results, labels, kind = 'app' } = Astro.props;
+const bingo = {
+  en: { title: 'Buzzword bingo', win: 'Bingo!', words: ['All-in-one', 'AI-powered', 'End-to-end', 'Innovative', 'Platform', 'Best-in-class', 'Next-gen', 'Scalable', 'Synergy'] },
+  de: { title: 'Buzzword-Bingo', win: 'Bingo!', words: ['All-in-One', 'KI-gestützt', 'End-to-End', 'Innovativ', 'Plattform', 'Best-in-Class', 'Next-Gen', 'Skalierbar', 'Synergien'] },
+}[Astro.currentLocale === 'de' ? 'de' : 'en'];
 const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], [0, 0]);
 ---
 <div class="sc" data-sc data-max={max.join(',')}>
@@ -33,7 +39,12 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
     ))}
   </ul>
   <div class="sc-result">
-    {kind === 'site' ? (
+    {kind === 'bingo' ? (
+    <div class="sc-wf sc-bingo" aria-hidden="true">
+      <div class="sc-bg-head"><b>{bingo.title}</b><span class="sc-bg-win">{bingo.win}</span></div>
+      <div class="sc-bg-grid">{bingo.words.map((w, k) => <span class={`sc-bg-c sc-bg-c--${k}`}><i></i>{w}</span>)}</div>
+    </div>
+    ) : kind === 'site' ? (
     <div class="sc-wf sc-site" aria-hidden="true">
       <div class="sc-wf-bar"><i></i><i></i><i></i><span class="sc-s-url"></span></div>
       <div class="sc-wf-body sc-s-body">
@@ -154,6 +165,23 @@ const max = items.reduce((m, it) => [m[0] + it.weight[0], m[1] + it.weight[1]], 
   .sc-wf.d6 .sc-wf-l { margin-left: 10px; }
   .sc-wf.d6 .sc-wf-l--s { margin-left: 0; width: 72%; }
   .sc-wf.d6 .sc-wf-cards { gap: 14px; }
+
+  /* ---------- kind 'bingo': a buzzword bingo card, taped to the result card ---------- */
+  .sc-bingo { position: relative; padding: 16px; background: var(--kd-beige-1); color: var(--kd-ink); transform: rotate(-1deg); overflow: visible; }
+  .sc-bingo::before { content: ''; position: absolute; left: 50%; top: -10px; width: 70px; height: 20px; margin-left: -35px; background: color-mix(in srgb, var(--kd-signal-1) 72%, transparent); transform: rotate(-3deg); }
+  .sc-bg-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+  .sc-bg-head b { font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; }
+  .sc-bg-win { padding: 2px 10px; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-signal-1); font-size: 15px; font-weight: var(--kd-weight-medium); transform: rotate(4deg) scale(.6); opacity: 0; transition: opacity .3s ease, transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+  .sc-bg-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 2px solid var(--kd-ink); }
+  .sc-bg-c { position: relative; display: grid; place-items: center; min-height: 58px; padding: 6px; border: 1px solid color-mix(in srgb, var(--kd-ink) 25%, transparent); font-size: 13px; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+  .sc-bg-c i { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: color-mix(in srgb, var(--kd-signal-1) 85%, transparent); transform: scale(0); transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); }
+  .sc-bg-c { isolation: isolate; } .sc-bg-c i { z-index: -1; }
+  /* which buzzwords each statement daubs: 1 all-in-one and platform, 2 AI-powered, 3 end-to-end and innovative,
+     4 best-in-class, 5 next-gen and scalable, 6 synergy; all six is a full card */
+  .sc-bingo.d1 :is(.sc-bg-c--0, .sc-bg-c--4) i, .sc-bingo.d2 .sc-bg-c--1 i, .sc-bingo.d3 :is(.sc-bg-c--2, .sc-bg-c--3) i,
+  .sc-bingo.d4 .sc-bg-c--5 i, .sc-bingo.d5 :is(.sc-bg-c--6, .sc-bg-c--7) i, .sc-bingo.d6 .sc-bg-c--8 i { transform: scale(1) rotate(-8deg); }
+  .sc-bingo.d1.d2.d3.d4.d5.d6 .sc-bg-win { opacity: 1; transform: rotate(4deg) scale(1); }
+  @media (prefers-reduced-motion: reduce) { .sc-bg-c i, .sc-bg-win { transition: none; } }
 
   /* ---------- kind 'site': a website in a browser, healthy at rest ---------- */
   .sc-wf-bar .sc-s-url { margin-left: 8px; width: 34%; height: 9px; border-radius: var(--kd-radius); background: rgba(255, 255, 255, .25); }

@@ -1,0 +1,101 @@
+---
+// src/components/MeasuresPress.astro
+// "What we measure" in the Marketing department style (measuresVisual: 'press'):
+// each measure is a press clipping pinned to the wall (paper, torn edge, lime tape,
+// a small tilt), with the measure as the headline, a stamp for the direction it
+// should move and the explanation as the standfirst. No figures.
+// Hover (real pointer), keyboard focus or a tap turns a clipping over: the back
+// says what changes and why. Reduced motion swaps front and back without the turn.
+// The section shell and heading come from UseCaseDetail.astro.
+interface Item { title: string; body: string; dir?: 'up' | 'down'; change?: string; cause?: string }
+interface Props { items: Item[]; labels: { kicker: string; goalUp: string; goalDown: string; change: string; cause: string; note: string; hint: string } }
+const { items, labels } = Astro.props;
+---
+<div class="mp" data-mp>
+  <div class="mp-wall">
+    {items.map((it, i) => (
+      <article class:list={['mp-clip', `mp-clip--${i + 1}`, { 'mp-clip--why': it.change }]} tabindex={it.change ? 0 : undefined}>
+        <div class="mp-inner">
+          <div class="mp-face mp-front">
+            <span class="mp-kick">{labels.kicker} {String(i + 1).padStart(2, '0')}</span>
+            <h3>{it.title}</h3>
+            {it.dir && <span class="mp-stamp">{it.dir === 'up' ? '↑' : '↓'}<small>{it.dir === 'up' ? labels.goalUp : labels.goalDown}</small></span>}
+            <p>{it.body}</p>
+            <div class="mp-cols" aria-hidden="true">{Array.from({ length: i === 0 ? 8 : 4 }).map((_, k) => <em class={k % 4 === 3 ? 's' : ''}></em>)}</div>
+          </div>
+          {it.change && (
+            <div class="mp-face mp-back">
+              <span class="mp-kick">{it.title}</span>
+              <span class="mp-l">{labels.change}</span><p>{it.change}</p>
+              <span class="mp-l mp-l--cause">{labels.cause}</span><p>{it.cause}</p>
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+  <p class="mp-note">{labels.note} {items.some((it) => it.change) && labels.hint}</p>
+</div>
+
+<style>
+  .mp-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "a a b" "c d e"; gap: 28px 24px; padding: 12px 4px; }
+  .mp-clip--1 { grid-area: a; } .mp-clip--2 { grid-area: b; } .mp-clip--3 { grid-area: c; } .mp-clip--4 { grid-area: d; } .mp-clip--5 { grid-area: e; }
+  @media (max-width: 980px) { .mp-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "d e"; } }
+  @media (max-width: 560px) { .mp-wall { grid-template-columns: minmax(0, 1fr); grid-template-areas: "a" "b" "c" "d" "e"; } }
+
+  .mp-clip { position: relative; perspective: 1200px; outline: none; transform: rotate(var(--tilt, -1deg)); }
+  .mp-clip:nth-child(2n) { --tilt: 1.2deg; } .mp-clip:nth-child(3n) { --tilt: -.6deg; }
+  /* lime tape on top */
+  .mp-clip::before { content: ''; position: absolute; z-index: 3; left: 50%; top: -11px; width: 80px; height: 22px; margin-left: -40px; background: color-mix(in srgb, var(--kd-signal-1) 72%, transparent); transform: rotate(-3deg); }
+  .mp-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); height: 100%; transition: transform .6s cubic-bezier(.3, .7, .3, 1); transform-style: preserve-3d; }
+  .mp-face { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 12px; padding: 26px 24px 30px; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    /* torn bottom edge */
+    clip-path: polygon(0 0, 100% 0, 100% 96%, 94% 99%, 86% 96.5%, 77% 99.5%, 68% 96%, 58% 99%, 49% 96.5%, 40% 99.5%, 31% 96%, 22% 99%, 13% 96.5%, 5% 99.5%, 0 97%); }
+  .mp-front { background: var(--kd-white); color: var(--kd-ink); box-shadow: inset 0 0 0 1px var(--kd-beige-3); }
+  .mp-back { background: var(--kd-blue-1); color: var(--kd-white); transform: rotateY(180deg); justify-content: center; gap: 6px; }
+  .mp-clip--why { cursor: pointer; }
+  .mp-clip--why:focus-visible .mp-front { box-shadow: inset 0 0 0 2px var(--kd-blue-2); }
+  .mp-clip--why:focus-visible .mp-inner, .mp-clip--why.is-open .mp-inner { transform: rotateY(180deg); }
+  @media (hover: hover) { .mp-clip--why:hover .mp-inner { transform: rotateY(180deg); } }
+
+  .mp-kick { font-size: 12px; font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; color: var(--kd-blue-2); padding-bottom: 8px; border-bottom: 1.5px solid currentColor; }
+  .mp-back .mp-kick { color: var(--kd-signal-1); margin-bottom: 8px; }
+  .mp-front h3 { margin: 0; padding-right: 64px; hyphens: auto; overflow-wrap: break-word; font-size: clamp(26px, 2.6vw, 36px); line-height: 1.05; font-weight: var(--kd-weight-medium); }
+  .mp-clip--1 .mp-front h3 { font-size: clamp(32px, 3.6vw, 52px); }
+  .mp .mp-front p { margin: 0; font-size: 17px; line-height: 1.45; color: var(--kd-ink-2); }
+  .mp-stamp { position: absolute; top: 46px; right: 20px; display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 24px; line-height: 1; font-weight: var(--kd-weight-medium); transform: rotate(10deg); }
+  .mp-stamp small { font-size: 9px; letter-spacing: .04em; text-transform: uppercase; margin-top: -10px; }
+  /* newspaper columns under the standfirst */
+  .mp-cols { margin-top: auto; padding-top: 6px; display: grid; gap: 6px; }
+  .mp-clip--1 .mp-cols { grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .mp-cols em { display: block; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--kd-ink) 10%, transparent); }
+  .mp-cols em.s { width: 60%; }
+
+  .mp-l { font-size: 11px; font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-signal-1); }
+  .mp-l--cause { margin-top: 10px; color: var(--kd-lilac); }
+  .mp .mp-back p { margin: 0; font-size: 17px; line-height: 1.45; }
+
+  .mp-note { margin: 18px 0 0; font-size: 13px; color: var(--kd-fg-2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-inner { transition: none; transform: none !important; }
+    .mp-back { transform: none; opacity: 0; transition: opacity .2s ease; }
+    .mp-clip--why:focus-visible .mp-back, .mp-clip--why.is-open .mp-back { opacity: 1; }
+    @media (hover: hover) { .mp-clip--why:hover .mp-back { opacity: 1; } }
+  }
+</style>
+
+<script is:inline>
+  // Tap (or click) a clipping to turn it over; tapping again or another one turns it back.
+  document.querySelectorAll('[data-mp]').forEach(function (root) {
+    var clips = root.querySelectorAll('.mp-clip--why');
+    clips.forEach(function (c) {
+      c.addEventListener('click', function () {
+        var open = !c.classList.contains('is-open');
+        clips.forEach(function (o) { o.classList.remove('is-open'); });
+        if (open) c.classList.add('is-open');
+      });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Escape') c.blur(); });
+    });
+  });
+</script>

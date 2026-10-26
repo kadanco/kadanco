@@ -1,0 +1,105 @@
+---
+// src/components/HeroPasteup.astro
+// Marketing hero picture (heroVisual: 'pasteup', Positioning and Brand): a billboard
+// with a generic buzzword message gets a sharp, positioned one pasted over it, strip
+// by strip, like a poster crew at work. Campaign wall style of the Marketing
+// department (owner choice 2026-10-26): finished pieces, editorial type, lime tape
+// and stickers, a small tilt. The company is an example and the caption says so.
+// Pure CSS loop: the old poster shows, four strips of the new one drop in, hold,
+// then peel off again. Hover pauses it. Reduced motion shows the new poster, still.
+// Decorative; the label describes it.
+import { asLocale } from '../i18n/utils';
+
+interface Props { label: string }
+const { label } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = {
+  en: { old: 'The All-In-One, AI-Powered, End-To-End Platform For Synergy.', chips: ['Innovative', 'Next-gen', 'Scalable'],
+        h1: 'Hiring Software For Teams', h2: 'Without An HR Department.', sub: 'Post a job, sort applicants and send the offer in one afternoon.', cta: 'Start Hiring', stamp: 'Clear',
+        cap: 'Example: the same company, before and after positioning.' },
+  de: { old: 'Die KI-gestützte All-in-One-Plattform für End-to-End-Synergien.', chips: ['Innovativ', 'Next-Gen', 'Skalierbar'],
+        h1: 'Recruiting-Software für Teams', h2: 'ohne eigene Personalabteilung.', sub: 'Stelle ausschreiben, Bewerbungen sortieren, Angebot senden, an einem Nachmittag.', cta: 'Jetzt einstellen', stamp: 'Klar',
+        cap: 'Beispiel: dasselbe Unternehmen vor und nach der Positionierung.' },
+}[locale];
+const strips = [0, 1, 2, 3];
+---
+<figure class="hp">
+  <div class="hp-board" role="img" aria-label={label}>
+    <div class="hp-clip">
+    <!-- the old poster: generic, could be anyone -->
+    <div class="hp-poster hp-old" aria-hidden="true">
+      <span class="hp-old-logo">LOGO</span>
+      <p class="hp-old-h">{t.old}</p>
+      <div class="hp-old-pic"><i></i><i></i></div>
+      <div class="hp-old-chips">{t.chips.map((c) => <span>{c}</span>)}</div>
+    </div>
+    <!-- the new poster, in four strips that are pasted on one after the other -->
+    {strips.map((i) => (
+      <div class="hp-poster hp-new" style={`--i:${i}`} aria-hidden="true">
+        <span class="hp-word">talio</span>
+        <p class="hp-h">{t.h1} <mark>{t.h2}</mark></p>
+        <p class="hp-sub">{t.sub}</p>
+        <span class="hp-cta">{t.cta} →</span>
+      </div>
+    ))}
+    </div>
+    <span class="hp-stamp" aria-hidden="true">✓ {t.stamp}</span>
+    <span class="hp-tape hp-tape--1" aria-hidden="true"></span>
+    <span class="hp-tape hp-tape--2" aria-hidden="true"></span>
+  </div>
+  <figcaption class="hp-cap">{t.cap}</figcaption>
+</figure>
+
+<style>
+  .hp { margin: 0; width: 100%; --cycle: 10s; }
+  .hp-board { position: relative; aspect-ratio: 5 / 4; transform: rotate(-1.5deg); container-type: inline-size; }
+  /* the posters sit in a clip, so strips waiting above the board stay out of sight; tape and sticker overlap the edge */
+  .hp-clip { position: absolute; inset: 0; overflow: hidden; border-radius: var(--kd-radius); box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); }
+  .hp-poster { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* old: grey, busy, interchangeable */
+  .hp-old { gap: 3.5cqi; padding: 7cqi; background: var(--kd-beige-3); color: var(--kd-ink-2); }
+  .hp-old-logo { align-self: flex-start; padding: 1cqi 2.4cqi; border: 2px dashed currentColor; border-radius: var(--kd-radius); font-size: 3cqi; letter-spacing: .1em; opacity: .7; }
+  .hp-old-h { margin: 0; font-size: 6.2cqi; line-height: 1.1; text-transform: uppercase; letter-spacing: .02em; }
+  .hp-old-pic { flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 2cqi; border-radius: var(--kd-radius); background: color-mix(in srgb, var(--kd-ink) 10%, transparent); }
+  .hp-old-pic i { width: 14cqi; height: 70%; border-radius: 7cqi 7cqi 0 0; background: color-mix(in srgb, var(--kd-ink) 16%, transparent); }
+  .hp-old-chips { display: flex; flex-wrap: wrap; gap: 1.6cqi; }
+  .hp-old-chips span { padding: .6cqi 2.2cqi; border-radius: 99px; background: color-mix(in srgb, var(--kd-ink) 12%, transparent); font-size: 3cqi; }
+
+  /* new: one strip of the finished poster each; the clip picks the strip */
+  .hp-new { gap: 3cqi; justify-content: center; padding: 8cqi 7cqi; background: var(--kd-beige-1); color: var(--kd-ink);
+    clip-path: inset(0 calc((3 - var(--i)) * 25%) 0 calc(var(--i) * 25%));
+    animation: hp-paste var(--cycle) cubic-bezier(.3, .7, .3, 1) infinite; animation-delay: calc(var(--i) * .22s); }
+  .hp-word { font-size: 4.4cqi; font-weight: var(--kd-weight-logo); letter-spacing: -.01em; color: var(--kd-blue-1); }
+  .hp-h { margin: 0; font-size: 8.4cqi; line-height: 1.05; font-weight: var(--kd-weight-medium); }
+  .hp-h mark { background: linear-gradient(transparent 55%, var(--kd-signal-1) 55% 92%, transparent 92%); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hp-sub { margin: 0; font-size: 3.4cqi; line-height: 1.4; color: var(--kd-ink-2); max-width: 34ch; }
+  .hp-cta { align-self: flex-start; margin-top: 1cqi; padding: 1.6cqi 3.4cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); font-size: 3.2cqi; font-weight: var(--kd-weight-medium); }
+  /* a faint seam where two strips meet */
+  .hp-new::after { content: ''; position: absolute; top: 0; bottom: 0; left: calc(var(--i) * 25%); width: 1px; background: color-mix(in srgb, var(--kd-ink) 6%, transparent); }
+
+  /* the cycle: old poster shows, strips drop in, hold, peel off upwards */
+  @keyframes hp-paste {
+    0%, 14% { transform: translateY(-104%) rotate(.8deg); }
+    22% { transform: translateY(1%) rotate(0); }
+    24%, 86% { transform: none; }
+    94%, 100% { transform: translateY(-104%) rotate(-.6deg); }
+  }
+
+  /* sticker and tape */
+  .hp-stamp { position: absolute; right: 3cqi; top: 4cqi; z-index: 2; padding: 1.6cqi 3cqi; border-radius: var(--kd-radius); background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: 3.4cqi; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; transform: rotate(6deg); box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .5);
+    animation: hp-stamp var(--cycle) ease infinite; }
+  @keyframes hp-stamp { 0%, 26% { opacity: 0; transform: rotate(6deg) scale(1.25); } 30%, 84% { opacity: 1; transform: rotate(6deg) scale(1); } 90%, 100% { opacity: 0; transform: rotate(6deg) scale(1); } }
+  .hp-tape { position: absolute; z-index: 2; width: 16cqi; height: 4.4cqi; background: color-mix(in srgb, var(--kd-signal-1) 72%, transparent); }
+  .hp-tape--1 { left: -3cqi; top: 2cqi; transform: rotate(-32deg); }
+  .hp-tape--2 { right: 6cqi; bottom: -1.6cqi; transform: rotate(-8deg); }
+
+  .hp:hover :is(.hp-new, .hp-stamp) { animation-play-state: paused; }
+  .hp-cap { margin: 18px 0 0; font-size: 13px; color: color-mix(in srgb, var(--kd-white) 70%, transparent); text-align: center; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hp-new, .hp-stamp { animation: none; }
+    .hp-new { transform: none; }
+    .hp-stamp { opacity: 1; }
+  }
+</style>
