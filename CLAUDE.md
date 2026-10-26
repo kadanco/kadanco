@@ -235,3 +235,4 @@ Next, in order:
 - 2026-10-26: Homepage department cards flipped: Product text left and photo right, Marketing photo left and text right, Sales text left and photo right. Phones keep the photo on top.
 - 2026-10-26: Homepage Problem section: legend (Covered, Partial, Gap) and the caption "No single route covers all three. We do." removed.
 - 2026-10-26: Homepage department cards stick at the same top (96px) so each fully covers the previous one; the 18px stepped offset is removed.
+- 2026-10-26: Homepage headlines: "Founders And Makers Executing For You." (one sentence); "What We Deliver Across Product, Marketing And Sales." with only "Product, Marketing And Sales." highlighted; How We Work "We Don't Consult, We Execute. We Own The Work And The Result." German to match.
