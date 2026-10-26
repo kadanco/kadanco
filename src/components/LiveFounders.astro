@@ -16,27 +16,28 @@ const locale = asLocale(Astro.currentLocale);
 const copy = {
   en: {
     eyebrow: 'Who We Are',
-    h2a: 'Operators',
-    h2b: 'That Take Ownership.',
+    h2a: 'Founders And Makers.',
+    h2b: 'Executing For You.',
     bubble: 'is one senior team for product, marketing and sales in B2B companies. Senior operators own the strategy and do the work themselves. One team, one plan, one number you control. No agency overhead, no junior hand-offs, no stack of freelancers to manage.',
     founders: [
       { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Founder · Product & Marketing', body: 'Senior Product Engineer & Design Director based in Berlin. Maria works as a strategic partner for B2B teams. She turns products into one consistent experience that helps you sell and grow your business.', linkedin: 'https://www.linkedin.com/in/miarichter/' },
       { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Founder · Marketing & Sales', body: 'B2B Go-to-Market & Outbound Lead based in Berlin. Karan works with B2B teams on positioning and outbound. He sharpens your audience and message, then builds the outbound that fills your pipeline.', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
     ],
     linkedin: 'View LinkedIn Profile',
-    tags: ['Product Development', 'Product Management', 'Product Design', 'Product Marketing', 'Lead Generation', 'Demand Generation', 'Growth Marketing', 'Email Marketing', 'Marketing Consulting', 'Marketing Strategy', 'Copywriting'],
+    // four per department (product, marketing, sales), matching the services and use cases
+    tags: ['Product Design', 'UX & Onboarding', 'Design Systems', 'Website Production', 'Positioning', 'Brand Identity', 'Content Production', 'SEO & GEO', 'Account-Based Marketing', 'Outbound Sales', 'CRM & RevOps', 'Lead Generation'],
   },
   de: {
     eyebrow: 'Über uns',
-    h2a: 'Macher,',
-    h2b: 'die Verantwortung übernehmen.',
+    h2a: 'Gründer und Macher,',
+    h2b: 'die für Sie umsetzen.',
     bubble: 'ist ein erfahrenes Team für Produkt, Marketing und Vertrieb in B2B-Unternehmen. Erfahrene Macher verantworten die Strategie und machen die Arbeit selbst. Ein Team, ein Plan, eine Zahl, die Sie steuern. Kein Agentur-Overhead, keine Übergaben an Junioren, kein Stapel Freelancer, den Sie managen müssen.',
     founders: [
       { name: 'Maria', photo: 'https://assets.kadanco.com/public/maria.jpeg', role: 'Gründerin · Produkt & Marketing', body: 'Senior Product Engineer & Design Director in Berlin. Maria arbeitet als strategische Partnerin für B2B-Teams. Sie macht aus Produkten ein durchgängiges Erlebnis, das Ihnen hilft, mehr zu verkaufen und Ihr Unternehmen wachsen zu lassen.', linkedin: 'https://www.linkedin.com/in/miarichter/' },
       { name: 'Karan', photo: 'https://assets.kadanco.com/public/karan.jpeg', role: 'Gründer · Marketing & Vertrieb', body: 'B2B Go-to-Market & Outbound Lead in Berlin. Karan arbeitet mit B2B-Teams an Positionierung und Outbound. Er schärft Zielgruppe und Botschaft und baut dann das Outbound auf, das Ihre Pipeline füllt.', linkedin: 'https://www.linkedin.com/in/krnshrm/' },
     ],
     linkedin: 'LinkedIn-Profil ansehen',
-    tags: ['Produktentwicklung', 'Produktmanagement', 'Produktdesign', 'Produktmarketing', 'Leadgenerierung', 'Demand Generation', 'Growth Marketing', 'E-Mail-Marketing', 'Marketingberatung', 'Marketingstrategie', 'Copywriting'],
+    tags: ['Produktdesign', 'UX & Onboarding', 'Designsysteme', 'Website-Produktion', 'Positionierung', 'Markenidentität', 'Content-Produktion', 'SEO & GEO', 'Account-Based Marketing', 'Outbound-Vertrieb', 'CRM & RevOps', 'Leadgenerierung'],
   },
 };
 const c = copy[locale] ?? copy.en;
@@ -83,6 +84,11 @@ const c = copy[locale] ?? copy.en;
   .live-founders .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 14px; border-radius: var(--radius); border: 0; margin-bottom: 24px; }
   .live-founders .eyebrow.indigo { background: var(--kd-blue-2); color: var(--kd-white); }
   .live-founders .btn { min-height: 0; padding: 13px 24px; }
+  /* tags: a centred block no wider than the two founder cards (2 x 400px + 32px gap),
+     four per row so each row is one department (product, marketing, sales); two per row on phones */
+  .live-founders .tags { display: grid; grid-template-columns: repeat(4, auto); justify-content: center; max-width: 832px; margin-left: auto; margin-right: auto; }
+  .live-founders .tag { text-align: center; }
+  @media (max-width: 560px) { .live-founders .tags { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .live-founders .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; padding: 7px 13px; border: 0; background: var(--lv-tag, var(--kd-beige-3)); color: var(--lv-fg, var(--kd-ink)); }
   /* dark mode: same layout, the site's dark theme colours (light keeps the live look) */
   :global(:root[data-mode="dark"]) .live-founders { --paper: var(--kd-bg); --lv-fg: var(--kd-fg); --lv-fg2: var(--kd-fg-2); --lv-card: var(--kd-surface); --lv-line: var(--kd-line); --lv-accent: var(--kd-accent); --lv-tag: var(--kd-night-line); }
