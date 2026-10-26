@@ -1,4 +1,5 @@
 // src/data/use-case-pages/software-modernisation.ts
+// Route cards ("Your options") removed 2026-10-26, owner decision: the homepage comparison covers them.
 // Software Modernisation. No design file exists for this use case; content
 // drafted 2026-10-22 for owner review, in the same structure as Product
 // Design. Scope follows the phases on iam-mia.de (define, design, develop,
@@ -31,23 +32,6 @@ export const softwareModernisation: UseCasePage = {
       lede: 'The software does its job, and it has for years. But customers need training to use it, your team works around it, and sales avoids it in demos.',
       problem: 'Screens from different decades, workflows nobody fully understands, and a front-end that is hard to change. A full rewrite sounds like the fix, but it takes years, costs a fortune and puts the business at risk while the old system keeps running.',
       solve: 'We modernise from the outside in. We redesign the journeys that matter most, build a design system, and replace the front-end piece by piece on top of what works, so users get a better tool in months and the business never stops.',
-    },
-    comparison: {
-      eyebrow: 'Why modernisation stalls',
-      h2a: 'Everyone Agrees It Needs Work.',
-      h2b: 'Few Routes Get It Done.',
-      lead: 'Most teams try one of these routes. Each one leaks somewhere: in the user experience, in delivery, or in the risk to the business.',
-      cols: ['Experience', 'Delivery', 'Low risk'],
-      solution: 'Solution',
-      rows: [
-        { route: 'Full rewrite', why: 'A clean start on paper, but years of work before users see anything.', marks: ['part', 'part', 'gap'] },
-        { route: 'Development agency', why: 'Ships code to a spec, and the spec rarely questions the old workflows.', marks: ['gap', 'has', 'part'] },
-        { route: 'Internal team', why: 'Knows the system best, and is busy keeping it running.', marks: ['part', 'gap', 'has'] },
-        { route: 'Leave it', why: 'No risk today, and slowly more churn, more support and harder sales.', marks: ['gap', 'gap', 'part'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Redesigned journeys, released step by step on top of what works, by the operators who design and build them.' },
-      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
-      cap: 'No single route covers all three. That is what we run.',
     },
     inside: {
       eyebrow: "What's inside",
@@ -135,23 +119,6 @@ export const softwareModernisation: UseCasePage = {
       lede: 'Die Software tut ihren Job, seit Jahren. Aber Kunden brauchen eine Schulung, Ihr Team arbeitet um sie herum, und der Vertrieb meidet sie in Demos.',
       problem: 'Screens aus verschiedenen Jahrzehnten, Abläufe, die niemand mehr ganz versteht, und ein Frontend, das sich kaum ändern lässt. Ein kompletter Neubau klingt nach der Lösung, dauert aber Jahre, kostet ein Vermögen und gefährdet das Geschäft, während das alte System weiterläuft.',
       solve: 'Wir modernisieren von außen nach innen. Wir gestalten die wichtigsten Abläufe neu, bauen ein Designsystem und ersetzen das Frontend Stück für Stück auf dem, was funktioniert. Nutzer bekommen in Monaten ein besseres Werkzeug, und das Geschäft steht nie still.',
-    },
-    comparison: {
-      eyebrow: 'Warum Modernisierung stockt',
-      h2a: 'Alle wissen, dass es nötig ist.',
-      h2b: 'Wenige Wege kommen ans Ziel.',
-      lead: 'Die meisten Teams versuchen einen dieser Wege. Jeder leckt irgendwo: beim Nutzererlebnis, bei der Umsetzung oder beim Risiko fürs Geschäft.',
-      cols: ['Erlebnis', 'Umsetzung', 'Geringes Risiko'],
-      solution: 'Lösung',
-      rows: [
-        { route: 'Kompletter Neubau', why: 'Auf dem Papier ein sauberer Start, aber Jahre Arbeit, bevor Nutzer etwas sehen.', marks: ['part', 'part', 'gap'] },
-        { route: 'Entwicklungsagentur', why: 'Liefert Code nach Lastenheft, und das Lastenheft hinterfragt die alten Abläufe selten.', marks: ['gap', 'has', 'part'] },
-        { route: 'Internes Team', why: 'Kennt das System am besten und ist damit beschäftigt, es am Laufen zu halten.', marks: ['part', 'gap', 'has'] },
-        { route: 'So lassen', why: 'Heute kein Risiko, aber langsam mehr Abwanderung, mehr Support und schwierigerer Vertrieb.', marks: ['gap', 'gap', 'part'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Neu gestaltete Abläufe, Schritt für Schritt auf dem ausgeliefert, was funktioniert, von den Machern, die sie gestalten und bauen.' },
-      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
-      cap: 'Kein einzelner Weg deckt alle drei ab. Genau das setzen wir um.',
     },
     inside: {
       eyebrow: 'Was dazugehört',

@@ -1,4 +1,5 @@
 // src/data/use-case-pages/website-production.ts
+// Route cards ("Your options") removed 2026-10-26, owner decision: the homepage comparison covers them.
 // Website Production, rebuilt on the Product Design template (2026-10-26). A website that is
 // Branded, Conceptualised, Designed, Developed and Optimised (owner brief): the five steps.
 // Ideas taken from website topics only on oratory.co (design direction, high-fidelity design,
@@ -50,23 +51,6 @@ export const websiteProduction: UseCasePage = {
         some: { title: 'Worth a look.', body: 'Each of these costs you twice: in revenue you miss and in costs you carry.' },
         many: { title: 'This is costing you.', body: 'Together these turn visitors away before sales ever hears of them, and keep costs climbing.' },
       },
-    },
-    comparison: {
-      eyebrow: 'Your options',
-      h2a: 'Most Website Projects Cover One Part.',
-      h2b: 'You Need All Three.',
-      lead: 'A new site needs a clear brand and story, a solid build, and a place in search and AI answers. Most routes leave at least one of them to you.',
-      cols: ['Brand & story', 'Design & build', 'Search & AI'],
-      solution: 'Solution',
-      rows: [
-        { route: 'Design agency', why: 'A polished look after months of rounds, and the copy is left to you.', marks: ['part', 'has', 'gap'] },
-        { route: 'Freelancers', why: 'A designer, a developer and a writer, and you manage all three.', marks: ['gap', 'part', 'gap'] },
-        { route: 'Website builder, done yourself', why: 'Quick to start, and it looks like every other template.', marks: ['gap', 'part', 'part'] },
-        { route: 'In-house hire', why: 'Months to hire, and one person cannot cover brand, code and search.', marks: ['part', 'part', 'part'] },
-      ],
-      kad: { route: 'KADANCO', why: 'One senior team takes brand, pages, code and search from the first workshop to launch, and stays to improve the site.' },
-      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
-      cap: 'Most routes cover one or two. We take all three.',
     },
     deliverables: {
       eyebrow: 'What you get',
@@ -186,23 +170,6 @@ export const websiteProduction: UseCasePage = {
         some: { title: 'Einen Blick wert.', body: 'Jeder dieser Punkte kostet doppelt: Umsatz, der Ihnen entgeht, und Kosten, die Sie tragen.' },
         many: { title: 'Das kostet Sie.', body: 'Zusammen schicken diese Punkte Besucher weg, bevor der Vertrieb von ihnen erfährt, und die Kosten steigen weiter.' },
       },
-    },
-    comparison: {
-      eyebrow: 'Ihre Optionen',
-      h2a: 'Die meisten Website-Projekte decken einen Teil ab.',
-      h2b: 'Sie brauchen alle drei.',
-      lead: 'Eine neue Website braucht eine klare Marke und Botschaft, eine solide Umsetzung und einen Platz in Suche und KI-Antworten. Die meisten Wege überlassen Ihnen mindestens eines davon.',
-      cols: ['Marke & Botschaft', 'Design & Umsetzung', 'Suche & KI'],
-      solution: 'Lösung',
-      rows: [
-        { route: 'Designagentur', why: 'Ein schöner Auftritt nach monatelangen Runden, und die Texte bleiben bei Ihnen.', marks: ['part', 'has', 'gap'] },
-        { route: 'Freelancer', why: 'Designer, Entwickler und Texter, und Sie koordinieren alle drei.', marks: ['gap', 'part', 'gap'] },
-        { route: 'Baukasten, selbst gemacht', why: 'Schnell gestartet, und es sieht aus wie jede andere Vorlage.', marks: ['gap', 'part', 'part'] },
-        { route: 'Eigene Einstellung', why: 'Monate bis zur Besetzung, und eine Person kann Marke, Code und Suche nicht abdecken.', marks: ['part', 'part', 'part'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Ein erfahrenes Team übernimmt Marke, Seiten, Code und Suche vom ersten Workshop bis zum Launch und verbessert die Website danach weiter.' },
-      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
-      cap: 'Die meisten Wege decken eins oder zwei ab. Wir übernehmen alle drei.',
     },
     deliverables: {
       eyebrow: 'Was Sie bekommen',

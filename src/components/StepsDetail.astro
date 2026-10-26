@@ -15,15 +15,18 @@
 //   develop    a CMS editor next to the live page, with checks
 //   optimise   a search result and an AI answer that point to the site, plus SEO, AEO, GEO and speed
 // Marketing, look 'campaign' (Positioning and Brand, 2026-10-26): finished pieces pinned to the
-// wall instead of app windows (paper, lime tape, a small tilt), with real example copy:
-//   map        a competitor map with your dot in the empty corner, and the positioning statement
-//   message    a message house (promise, pillars, proof) and a "we say / we don't say" card
-//   identity   a brand guide spread: logo, colours, type, and the brand on a post and a card
-//   story      the sales deck: a fan of slides and the story arc under it
+// wall instead of app windows (paper, lime tape, a small tilt), with real example copy. Each
+// picture can be clicked or tapped (owner: Positioning and Brand only for now):
+//   map        a competitor map; pick positioning A, B or C and your dot, the risk and the statement change
+//   message    a message house with a Before / After switch (buzzwords against the clear message)
+//   identity   a brand guide spread; tap a colour and the post and the card take it on
+//   story      the sales deck; flip through the slides (buttons, the story arc, arrow keys)
+//   rollout    a wall of assets that look like five companies until you switch on the brand
+// Without JavaScript each picture shows its finished state.
 // Each row: when it happens, what we do, what you get and what we need from you.
 // One CTA closes the section. Section shell and heading come
 // from UseCaseDetail.astro.
-type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story';
+type Key = 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout';
 interface Step { key: Key; label: string; title: string; body: string; points: string[]; when?: string; doing?: string[]; you?: string }
 interface Labels {
   step: string; doing: string; get: string; you: string;
@@ -33,10 +36,14 @@ interface Labels {
   web?: { url: string; positioning: string; risk: string; voice: [string, string, string]; message: string; pages: [string, string, string, string];
     keyword: string; question: string; devices: [string, string, string]; cms: string; publish: string; live: string;
     checks: [string, string, string]; query: string; ai: string; speed: string };
-  mkt?: { axes: [string, string, string, string]; you: string; statement: string[];
-    promise: string; pillars: [string, string, string]; proof: string; say: string; dont: string; sayEx: string; dontEx: string;
-    guide: string; colours: [string, string, string, string]; type: string; post: string;
-    slides: [string, string, string, string]; slideH: string };
+  mkt?: { axes: [string, string, string, string]; you: string; pickLbl: string; ours: string;
+    options: { k: string; name: string; risk: string; statement: string[] }[];
+    before: string; after: string; promise: string; pillars: [string, string, string]; proof: string;
+    beforePromise: string; beforePillars: [string, string, string]; beforeProof: string;
+    say: string; dont: string; sayEx: string; dontEx: string;
+    guide: string; colours: [string, string, string, string]; colourLbl: string; type: string; post: string;
+    slides: [string, string, string, string]; slideHs: [string, string, string, string]; prev: string; next: string;
+    assets: [string, string, string, string, string]; brandLbl: string };
 }
 interface Props { steps: Step[]; labels: Labels; cta?: { h3: string; body: string; button: string }; ctaHref: string; look?: 'product' | 'campaign' }
 // ctaHref: the department's audit intake page
@@ -62,7 +69,7 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
           {s.you && <p class="sd-you"><b>{labels.you}</b> {s.you}</p>}
         </div>
 
-        <div class="sd-pic" aria-hidden="true">
+        <div class="sd-pic" aria-hidden={look === 'campaign' ? undefined : 'true'} role={look === 'campaign' ? 'group' : undefined} aria-label={look === 'campaign' ? s.title : undefined}>
           <div class="sd-win">
             <div class="sd-bar"><i></i><i></i><i></i><span>{s.label}</span></div>
             <div class={`sd-canvas sd-canvas--${s.key}`}>
@@ -261,24 +268,36 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                 </div>
               )}
               {s.key === 'map' && labels.mkt && (
-                <div class="m-map">
-                  <div class="m-plot">
+                <div class="m-map" data-mx data-opt="b">
+                  <div class="m-plot" aria-hidden="true">
                     <span class="m-ax m-ax--l">{labels.mkt.axes[0]}</span><span class="m-ax m-ax--r">{labels.mkt.axes[1]}</span>
                     <span class="m-ax m-ax--b">{labels.mkt.axes[2]}</span><span class="m-ax m-ax--t">{labels.mkt.axes[3]}</span>
-                    {[[18, 70], [28, 62], [22, 80], [34, 74], [14, 58]].map(([x, y], k) => <span class="m-dot" style={`left:${x}%;top:${y}%`}>{String.fromCharCode(65 + k)}</span>)}
-                    <span class="m-was"></span>
+                    {[[18, 70], [28, 62], [22, 80], [34, 74], [14, 58], [24, 22], [36, 30]].map(([x, y], k) => <span class="m-dot" style={`left:${x}%;top:${y}%`}>{String.fromCharCode(65 + k)}</span>)}
                     <span class="m-you">{labels.mkt.you}</span>
                   </div>
-                  <p class="m-stmt">{labels.mkt.statement.map((part, k) => (k % 2 ? <mark>{part}</mark> : part))}</p>
+                  <div class="m-ctl" role="group" aria-label={labels.mkt.pickLbl}>
+                    <span class="m-ctl-l">{labels.mkt.pickLbl}</span>
+                    {labels.mkt.options.map((o) => <button type="button" class="m-chip" data-mx-set="opt" data-mx-val={o.k} aria-pressed={o.k === 'b' ? 'true' : 'false'}>{o.k.toUpperCase()} · {o.name}{o.k === 'b' && <small> ✓ {labels.mkt!.ours}</small>}</button>)}
+                  </div>
+                  {labels.mkt.options.map((o) => (
+                    <div class={`m-opt-out m-opt-out--${o.k}`} aria-live="polite">
+                      <p class="m-stmt">{o.statement.map((part, k) => (k % 2 ? <mark>{part}</mark> : part))}</p>
+                      <span class="m-risk">{o.risk}</span>
+                    </div>
+                  ))}
                 </div>
               )}
 
               {s.key === 'message' && labels.mkt && (
-                <div class="m-msg">
-                  <div class="m-house">
-                    <div class="m-roof"><span>{labels.mkt.promise}</span></div>
-                    <div class="m-pillars">{labels.mkt.pillars.map((pl) => <span>{pl}</span>)}</div>
-                    <div class="m-base">{labels.mkt.proof}</div>
+                <div class="m-msg" data-mx data-ba="after">
+                  <div class="m-ctl" role="group">
+                    <button type="button" class="m-chip" data-mx-set="ba" data-mx-val="before" aria-pressed="false">{labels.mkt.before}</button>
+                    <button type="button" class="m-chip" data-mx-set="ba" data-mx-val="after" aria-pressed="true">{labels.mkt.after}</button>
+                  </div>
+                  <div class="m-house" aria-live="polite">
+                    <div class="m-roof"><span class="m-a">{labels.mkt.promise}</span><span class="m-b">{labels.mkt.beforePromise}</span></div>
+                    <div class="m-pillars">{labels.mkt.pillars.map((pl, k) => <span><b class="m-a">{pl}</b><b class="m-b">{labels.mkt!.beforePillars[k]}</b></span>)}</div>
+                    <div class="m-base"><span class="m-a">{labels.mkt.proof}</span><span class="m-b">{labels.mkt.beforeProof}</span></div>
                   </div>
                   <div class="m-voice">
                     <div class="m-say"><b>✓ {labels.mkt.say}</b><p>“{labels.mkt.sayEx}”</p></div>
@@ -288,35 +307,63 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
               )}
 
               {s.key === 'identity' && labels.mkt && (
-                <div class="m-book">
-                  <div class="m-page m-page--l">
-                    <span class="m-kick">{labels.mkt.guide} · 01</span>
-                    <span class="m-logo">talio</span>
-                    <div class="m-sw">{labels.mkt.colours.map((c) => <span><i></i>{c}</span>)}</div>
-                  </div>
-                  <div class="m-page m-page--r">
-                    <span class="m-kick">{labels.mkt.type}</span>
-                    <span class="m-aa">Aa</span>
-                    <div class="m-apply">
-                      <div class="m-post"><span>talio</span><b>{labels.mkt.post}</b></div>
-                      <div class="m-card"><span>talio</span><em></em><em class="s"></em></div>
+                <div class="m-id" data-mx data-acc="3">
+                  <div class="m-book">
+                    <div class="m-page m-page--l">
+                      <span class="m-kick">{labels.mkt.guide} · 01</span>
+                      <span class="m-logo">talio</span>
+                      <div class="m-sw" role="group" aria-label={labels.mkt.colourLbl}>
+                        {labels.mkt.colours.map((c, k) => <button type="button" class="m-swb" data-mx-set="acc" data-mx-val={k} aria-pressed={k === 3 ? 'true' : 'false'}><i></i>{c}</button>)}
+                      </div>
+                    </div>
+                    <div class="m-page m-page--r">
+                      <span class="m-kick">{labels.mkt.type}</span>
+                      <span class="m-aa">Aa</span>
+                      <div class="m-apply" aria-hidden="true">
+                        <div class="m-post"><span>talio</span><b>{labels.mkt.post}</b></div>
+                        <div class="m-card"><span>talio</span><em></em><em class="s"></em></div>
+                      </div>
                     </div>
                   </div>
+                  <span class="m-hint">↑ {labels.mkt.colourLbl}</span>
                 </div>
               )}
 
               {s.key === 'story' && labels.mkt && (
-                <div class="m-deck">
-                  <div class="m-fan">
-                    {[0, 1, 2].map((k) => <div class={`m-slide m-slide--back m-slide--b${k}`}><em></em></div>)}
-                    <div class="m-slide m-slide--front">
-                      <span class="m-kick">01 · {labels.mkt.slides[0]}</span>
-                      <b>{labels.mkt.slideH}</b>
-                      <div class="m-bars"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:72%"></i><i class="on" style="--h:96%"></i></div>
-                      <span class="m-logo m-logo--s">talio</span>
-                    </div>
+                <div class="m-deck" data-mx data-slide="0" data-mx-count="4">
+                  <div class="m-fan" aria-live="polite">
+                    {[0, 1, 2].map((k) => <div class={`m-slide m-slide--back m-slide--b${k}`} aria-hidden="true"><em></em></div>)}
+                    {labels.mkt.slideHs.map((h, k) => (
+                      <div class={`m-slide m-slide--front m-slide--f${k}`}>
+                        <span class="m-kick">{String(k + 1).padStart(2, '0')} · {labels.mkt!.slides[k]}</span>
+                        <b>{h}</b>
+                        <div class="m-bars" aria-hidden="true">{[40, 55, 72, 96].map((v, n) => <i class={n === k ? 'on' : ''} style={`--h:${v}%`}></i>)}</div>
+                        <span class="m-logo m-logo--s">talio</span>
+                      </div>
+                    ))}
                   </div>
-                  <ol class="m-arc">{labels.mkt.slides.map((sl, k) => <li class={k === 0 ? 'on' : ''}>{sl}</li>)}</ol>
+                  <div class="m-nav">
+                    <button type="button" class="m-arrow" data-mx-step="-1" aria-label={labels.mkt.prev}>←</button>
+                    <ol class="m-arc">{labels.mkt.slides.map((sl, k) => <li><button type="button" data-mx-set="slide" data-mx-val={k} aria-pressed={k === 0 ? 'true' : 'false'}><span>{String(k + 1).padStart(2, '0')}</span>{sl}</button></li>)}</ol>
+                    <button type="button" class="m-arrow" data-mx-step="1" aria-label={labels.mkt.next}>→</button>
+                  </div>
+                </div>
+              )}
+
+              {s.key === 'rollout' && labels.mkt && (
+                <div class="m-roll" data-mx data-ba="after" data-mx-start="before">
+                  <div class="m-ctl" role="group" aria-label={labels.mkt.brandLbl}>
+                    <span class="m-ctl-l">{labels.mkt.brandLbl}</span>
+                    <button type="button" class="m-chip" data-mx-set="ba" data-mx-val="before" aria-pressed="false">{labels.mkt.before}</button>
+                    <button type="button" class="m-chip" data-mx-set="ba" data-mx-val="after" aria-pressed="true">{labels.mkt.after}</button>
+                  </div>
+                  <div class="m-wall" aria-hidden="true">
+                    <div class="m-as m-as--web" style="--d:0ms"><span class="m-as-l">{labels.mkt.assets[0]}</span><div class="m-as-in"><i class="lg"></i><em></em><em class="s"></em><u></u></div></div>
+                    <div class="m-as m-as--li" style="--d:90ms"><span class="m-as-l">{labels.mkt.assets[1]}</span><div class="m-as-in"><i class="lg"></i><em></em></div></div>
+                    <div class="m-as m-as--sig" style="--d:180ms"><span class="m-as-l">{labels.mkt.assets[2]}</span><div class="m-as-in"><em></em><em class="s"></em><i class="lg"></i></div></div>
+                    <div class="m-as m-as--deck" style="--d:270ms"><span class="m-as-l">{labels.mkt.assets[3]}</span><div class="m-as-in"><em></em><em class="s"></em><i class="lg"></i></div></div>
+                    <div class="m-as m-as--roll" style="--d:360ms"><span class="m-as-l">{labels.mkt.assets[4]}</span><div class="m-as-in"><i class="lg"></i><em></em><em class="s"></em><u></u></div></div>
+                  </div>
                 </div>
               )}
             </div>
@@ -333,6 +380,34 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
     )}
   </div>
 </div>
+
+<script is:inline>
+  // Clickable pictures (look 'campaign'). A button with data-mx-set="name" data-mx-val="v" sets
+  // data-name="v" on its picture ([data-mx]) and marks itself pressed; data-mx-step="1" or "-1"
+  // moves data-slide through data-mx-count slides; arrow keys do the same when the deck has focus.
+  // data-mx-start sets the state shown first when JavaScript runs (without it the finished state shows).
+  document.querySelectorAll('[data-mx]').forEach(function (root) {
+    function set(name, val) {
+      root.setAttribute('data-' + name, val);
+      root.querySelectorAll('[data-mx-set="' + name + '"]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mx-val') === String(val) ? 'true' : 'false'); });
+    }
+    var start = root.getAttribute('data-mx-start');
+    if (start) set('ba', start);
+    root.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b || !root.contains(b)) return;
+      if (b.hasAttribute('data-mx-set')) set(b.getAttribute('data-mx-set'), b.getAttribute('data-mx-val'));
+      if (b.hasAttribute('data-mx-step')) {
+        var n = +root.getAttribute('data-mx-count'), cur = +root.getAttribute('data-slide');
+        set('slide', (cur + +b.getAttribute('data-mx-step') + n) % n);
+      }
+    });
+    if (root.hasAttribute('data-mx-count')) root.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var n = +root.getAttribute('data-mx-count'), cur = +root.getAttribute('data-slide');
+      set('slide', (cur + (e.key === 'ArrowRight' ? 1 : -1) + n) % n); e.preventDefault();
+    });
+  });
+</script>
 
 <style>
   .sd { --wf: color-mix(in srgb, var(--kd-blue-1) 14%, transparent); }
@@ -630,26 +705,47 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
   .m-kick { font-size: clamp(9px, 1.9cqi, 12px); font-weight: var(--kd-weight-medium); letter-spacing: .08em; text-transform: uppercase; opacity: .65; }
   .m-logo { font-size: clamp(22px, 7cqi, 44px); font-weight: var(--kd-weight-logo); letter-spacing: -.02em; line-height: 1; }
 
-  /* map: competitors crowd one corner, you take the empty one */
-  .m-map { display: grid; gap: 4cqi; }
-  .m-plot { position: relative; aspect-ratio: 2 / 1; margin: 0 6cqi; background:
+  /* controls inside the pictures: small chips, navy when chosen */
+  .m-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .m-ctl-l { margin-right: 4px; font-size: clamp(9px, 1.8cqi, 12px); font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; opacity: .7; }
+  .m-chip, .m-arrow, .m-arc button, .m-swb { font: inherit; color: inherit; cursor: pointer; }
+  .m-chip { padding: 4px 10px; border: 1.5px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); font-size: clamp(10px, 2cqi, 13px); font-weight: var(--kd-weight-medium); transition: background-color .2s ease, color .2s ease; }
+  .m-chip small { font-size: .85em; opacity: .8; }
+  .m-chip[aria-pressed="true"] { background: var(--kd-blue-1); color: var(--kd-white); }
+  .m-chip:hover { background: var(--kd-lilac-tint); } .m-chip[aria-pressed="true"]:hover { background: var(--kd-blue-1); }
+  :is(.m-chip, .m-arrow, .m-arc button, .m-swb):focus-visible { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
+  .m-hint { font-size: clamp(9px, 1.8cqi, 12px); font-weight: var(--kd-weight-medium); letter-spacing: .04em; opacity: .65; }
+
+  /* 1 map: pick an option and your dot moves; the statement and the risk follow */
+  .m-map { display: grid; gap: 3cqi; }
+  .m-plot { position: relative; aspect-ratio: 2.6 / 1; margin: 0 6cqi; background:
       linear-gradient(var(--kd-ink), var(--kd-ink)) center / 1.5px 100% no-repeat,
       linear-gradient(var(--kd-ink), var(--kd-ink)) center / 100% 1.5px no-repeat; }
   .m-ax { position: absolute; max-width: 40%; font-size: clamp(8px, 1.9cqi, 12px); font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; line-height: 1.15; }
-  .m-ax--l { left: 0; top: 50%; transform: translate(0, 4px); } .m-ax--r { right: 0; top: 50%; transform: translate(0, 4px); }
+  .m-ax--l { left: 0; top: 50%; transform: translate(0, calc(-100% - 4px)); } .m-ax--r { right: 0; top: 50%; transform: translate(0, 4px); text-align: right; }
   .m-ax--b { left: 50%; bottom: 0; transform: translate(6px, 0); } .m-ax--t { left: 50%; top: 0; transform: translate(6px, 0); }
-  .m-dot { position: absolute; display: grid; place-items: center; width: clamp(18px, 4.6cqi, 28px); aspect-ratio: 1; margin: -2.3cqi 0 0 -2.3cqi; border-radius: 50%; background: var(--kd-beige-3); font-size: clamp(9px, 2cqi, 12px); color: var(--kd-ink-2); }
-  .m-was { position: absolute; left: 30%; top: 66%; width: 48%; height: 2px; border-top: 2px dashed var(--kd-blue-2); transform-origin: left center; transform: rotate(-22deg); }
-  .m-you { position: absolute; left: 78%; top: 20%; display: grid; place-items: center; width: clamp(40px, 11cqi, 64px); aspect-ratio: 1; margin: -5.5cqi 0 0 -5.5cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: clamp(11px, 2.6cqi, 15px); font-weight: var(--kd-weight-medium); box-shadow: 0 0 0 4px var(--kd-blue-1); }
-  .sd .m-stmt { margin: 0; padding: 3cqi; border-left: 4px solid var(--kd-blue-1); background: var(--kd-white); font-size: clamp(13px, 3cqi, 19px); line-height: 1.4; }
+  .m-dot { position: absolute; display: grid; place-items: center; width: clamp(16px, 4cqi, 24px); aspect-ratio: 1; margin: -2cqi 0 0 -2cqi; border-radius: 50%; background: var(--kd-beige-3); font-size: clamp(8px, 1.8cqi, 11px); color: var(--kd-ink-2); }
+  .m-you { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: clamp(34px, 9cqi, 54px); aspect-ratio: 1; margin: -4.5cqi 0 0 -4.5cqi; border-radius: 50%; background: var(--kd-signal-1); color: var(--kd-blue-1); font-size: clamp(10px, 2.4cqi, 14px); font-weight: var(--kd-weight-medium); box-shadow: 0 0 0 4px var(--kd-blue-1); transition: left .6s cubic-bezier(.3, .7, .3, 1), top .6s cubic-bezier(.3, .7, .3, 1); }
+  .m-map[data-opt="a"] { --x: 27%; --y: 74%; } .m-map[data-opt="b"] { --x: 78%; --y: 28%; } .m-map[data-opt="c"] { --x: 30%; --y: 24%; }
+  .m-opt-out { display: none; gap: 1.6cqi; }
+  .m-map[data-opt="a"] .m-opt-out--a, .m-map[data-opt="b"] .m-opt-out--b, .m-map[data-opt="c"] .m-opt-out--c { display: grid; }
+  .sd .m-stmt { margin: 0; padding: 2.6cqi 3cqi; border-left: 4px solid var(--kd-blue-1); background: var(--kd-white); font-size: clamp(12px, 2.8cqi, 18px); line-height: 1.4; }
+  .m-risk { font-size: clamp(10px, 2cqi, 13px); font-weight: var(--kd-weight-medium); }
+  .m-map[data-opt="b"] .m-risk { color: var(--kd-blue-2); }
 
-  /* message house and voice card */
-  .m-msg { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 4cqi; align-items: center; }
+  /* 2 message house: Before shows the buzzwords, After the clear message */
+  .m-msg { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3cqi 4cqi; align-items: center; }
+  .m-msg > .m-ctl { grid-column: 1 / -1; }
   .m-house { display: grid; gap: 1.4cqi; }
-  .m-roof { display: grid; place-items: center; padding: 6cqi 3cqi 2.4cqi; background: var(--kd-blue-1); color: var(--kd-white); clip-path: polygon(50% 0, 100% 42%, 100% 100%, 0 100%, 0 42%); text-align: center; font-size: clamp(12px, 2.8cqi, 17px); font-weight: var(--kd-weight-medium); line-height: 1.2; }
+  .m-roof { display: grid; place-items: center; padding: 6cqi 3cqi 2.4cqi; background: var(--kd-blue-1); color: var(--kd-white); clip-path: polygon(50% 0, 100% 42%, 100% 100%, 0 100%, 0 42%); text-align: center; font-size: clamp(12px, 2.8cqi, 17px); font-weight: var(--kd-weight-medium); line-height: 1.2; transition: background-color .3s ease; }
   .m-pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4cqi; }
-  .m-pillars span { display: grid; place-items: center; min-height: 15cqi; padding: 1.6cqi; background: var(--kd-white); border: 1.5px solid var(--kd-blue-1); font-size: clamp(10px, 2.1cqi, 13px); line-height: 1.25; text-align: center; hyphens: auto; overflow-wrap: anywhere; }
-  .m-base { padding: 1.8cqi; background: var(--kd-signal-1); color: var(--kd-blue-1); text-align: center; font-size: clamp(10px, 2cqi, 13px); font-weight: var(--kd-weight-medium); }
+  .m-pillars span { display: grid; place-items: center; min-height: 14cqi; padding: 1.6cqi; background: var(--kd-white); border: 1.5px solid var(--kd-blue-1); font-size: clamp(10px, 2.1cqi, 13px); line-height: 1.25; text-align: center; hyphens: auto; overflow-wrap: anywhere; }
+  .m-pillars b { font-weight: var(--kd-weight-regular); }
+  .m-base { padding: 1.8cqi; background: var(--kd-signal-1); color: var(--kd-blue-1); text-align: center; font-size: clamp(10px, 2cqi, 13px); font-weight: var(--kd-weight-medium); transition: background-color .3s ease; }
+  .m-msg[data-ba="after"] .m-b, .m-msg[data-ba="before"] .m-a { display: none; }
+  .m-msg[data-ba="before"] .m-roof { background: var(--kd-ink-2); }
+  .m-msg[data-ba="before"] .m-base { background: var(--kd-beige-3); color: var(--kd-ink-2); }
+  .m-msg[data-ba="before"] .m-pillars span { border-color: var(--kd-beige-3); color: var(--kd-ink-2); }
   .m-voice { display: grid; gap: 2.4cqi; }
   .m-voice > div { padding: 2.6cqi; background: var(--kd-white); border-radius: var(--kd-radius); }
   .m-say { box-shadow: inset 4px 0 0 var(--kd-blue-2); transform: rotate(1.2deg); }
@@ -658,47 +754,101 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
   .sd .m-voice p { margin: 0; font-size: clamp(12px, 2.6cqi, 16px); line-height: 1.3; }
   .m-dont p { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--kd-ink) 50%, transparent); }
 
-  /* brand guide spread */
+  /* 3 brand guide: tap a colour, the post and the card take it on */
+  .m-id { display: grid; gap: 2cqi; }
+  .m-id[data-acc="0"] { --acc: var(--kd-ink); --acc-fg: var(--kd-white); }
+  .m-id[data-acc="1"] { --acc: var(--kd-blue-2); --acc-fg: var(--kd-white); }
+  .m-id[data-acc="2"] { --acc: var(--kd-lilac); --acc-fg: var(--kd-blue-1); }
+  .m-id[data-acc="3"] { --acc: var(--kd-signal-1); --acc-fg: var(--kd-blue-1); }
   .m-book { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-radius: var(--kd-radius); overflow: hidden; box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .5); }
-  .m-page { display: flex; flex-direction: column; gap: 3cqi; padding: 4cqi; min-height: 46cqi; }
+  .m-page { display: flex; flex-direction: column; gap: 3cqi; padding: 4cqi; min-height: 44cqi; }
   .m-page--l { background: var(--kd-blue-1); color: var(--kd-white); box-shadow: inset -14px 0 18px -14px rgba(0, 0, 0, .5); }
   .m-page--l .m-logo { flex: 1; display: grid; place-items: center; color: var(--kd-signal-1); }
   .m-page--r { background: var(--kd-white); box-shadow: inset 14px 0 18px -14px rgba(26, 1, 117, .25); }
-  .m-sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2cqi; }
-  .m-sw span { display: grid; gap: .8cqi; font-size: clamp(8px, 1.7cqi, 11px); }
-  .m-sw i { aspect-ratio: 1; border-radius: 3px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .25); }
-  .m-sw span:nth-child(1) i { background: var(--kd-ink); } .m-sw span:nth-child(2) i { background: var(--kd-blue-2); }
-  .m-sw span:nth-child(3) i { background: var(--kd-lilac); } .m-sw span:nth-child(4) i { background: var(--kd-signal-1); }
-  .m-aa { font-size: clamp(36px, 12cqi, 72px); line-height: .9; font-weight: var(--kd-weight-medium); }
+  .m-sw { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2cqi; }
+  .m-swb { display: grid; gap: .8cqi; padding: 0; border: 0; background: none; text-align: left; font-size: clamp(8px, 1.7cqi, 11px); }
+  .m-swb i { aspect-ratio: 1; border-radius: 3px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .25); transition: box-shadow .2s ease, transform .2s ease; }
+  .m-swb:hover i { transform: translateY(-2px); }
+  .m-swb[aria-pressed="true"] i { box-shadow: 0 0 0 2px var(--kd-blue-1), 0 0 0 4px var(--kd-white); }
+  .m-swb:nth-child(1) i { background: var(--kd-ink); } .m-swb:nth-child(2) i { background: var(--kd-blue-2); }
+  .m-swb:nth-child(3) i { background: var(--kd-lilac); } .m-swb:nth-child(4) i { background: var(--kd-signal-1); }
+  .m-aa { font-size: clamp(32px, 11cqi, 66px); line-height: .9; font-weight: var(--kd-weight-medium); }
   .m-apply { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2cqi; align-items: end; }
-  .m-post { display: grid; gap: 1.6cqi; aspect-ratio: 1; padding: 2.4cqi; background: var(--kd-signal-1); color: var(--kd-blue-1); transform: rotate(-3deg); }
+  .m-post { display: grid; gap: 1.6cqi; aspect-ratio: 1; padding: 2.4cqi; background: var(--acc); color: var(--acc-fg); transform: rotate(-3deg); transition: background-color .35s ease, color .35s ease; }
   .m-post span, .m-card span { font-size: clamp(9px, 2cqi, 12px); font-weight: var(--kd-weight-logo); }
   .m-post b { align-self: end; font-size: clamp(11px, 2.8cqi, 17px); line-height: 1.1; font-weight: var(--kd-weight-medium); }
-  .m-card { display: grid; gap: 1cqi; aspect-ratio: 1.6; padding: 2cqi; background: var(--kd-blue-1); color: var(--kd-white); transform: rotate(4deg); }
+  .m-card { display: grid; gap: 1cqi; aspect-ratio: 1.6; padding: 2cqi; background: var(--kd-blue-1); color: var(--acc); transform: rotate(4deg); box-shadow: inset 0 -5px 0 var(--acc); transition: color .35s ease, box-shadow .35s ease; }
+  .m-id[data-acc="0"] .m-card { color: var(--kd-white); box-shadow: inset 0 -5px 0 var(--kd-white); }
   .sd-canvas .m-card em { height: 4px; background: rgba(255, 255, 255, .3); }
 
-  /* sales deck: a fan of slides and the story arc */
-  .m-deck { display: grid; gap: 5cqi; }
+  /* 4 sales deck: flip through the slides */
+  .m-deck { display: grid; gap: 4cqi; }
   .m-fan { position: relative; aspect-ratio: 16 / 7.4; margin: 0 6cqi; }
   .m-slide { position: absolute; inset: 0; border-radius: var(--kd-radius); box-shadow: 0 14px 30px -18px rgba(26, 1, 117, .55); }
-  .m-slide--back { display: flex; align-items: flex-start; padding: 3cqi 4cqi; background: var(--kd-white); border: 1px solid var(--kd-beige-3); font-size: clamp(9px, 1.9cqi, 12px); font-weight: var(--kd-weight-medium); }
+  .m-slide--back { display: flex; align-items: flex-start; padding: 3cqi 4cqi; background: var(--kd-white); border: 1px solid var(--kd-beige-3); }
   .sd-canvas .m-slide--back em { width: 30%; }
   .m-slide--b0 { transform: translate(7cqi, -4cqi) rotate(5deg); }
   .m-slide--b1 { transform: translate(3.5cqi, -2cqi) rotate(2.5deg); }
-  .m-slide--b2 { transform: translate(0, 0) rotate(0); }
-  .m-slide--front { display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: auto 1fr auto; column-gap: 4cqi; padding: 3.6cqi 4cqi; background: var(--kd-blue-1); color: var(--kd-white); transform: rotate(-2deg); }
+  .m-slide--front { display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: auto 1fr auto; column-gap: 4cqi; padding: 3.6cqi 4cqi; background: var(--kd-blue-1); color: var(--kd-white); transform: rotate(-2deg); opacity: 0; visibility: hidden; transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
+  .m-deck[data-slide="0"] .m-slide--f0, .m-deck[data-slide="1"] .m-slide--f1, .m-deck[data-slide="2"] .m-slide--f2, .m-deck[data-slide="3"] .m-slide--f3 { opacity: 1; visibility: visible; transition: opacity .35s ease, transform .35s ease; }
   .m-slide--front .m-kick { grid-column: 1 / -1; color: var(--kd-signal-1); opacity: 1; }
-  .m-slide--front b { align-self: center; font-size: clamp(14px, 4.2cqi, 26px); line-height: 1.1; font-weight: var(--kd-weight-medium); }
+  .m-slide--front b { align-self: center; font-size: clamp(13px, 4cqi, 25px); line-height: 1.1; font-weight: var(--kd-weight-medium); }
   .m-bars { grid-row: 2 / 4; grid-column: 2; display: flex; align-items: flex-end; gap: 1.6cqi; border-bottom: 1.5px solid rgba(255, 255, 255, .4); }
   .m-bars i { flex: 1; height: var(--h); border-radius: 2px 2px 0 0; background: rgba(255, 255, 255, .25); }
   .m-bars i.on { background: var(--kd-signal-1); }
   .m-logo--s { font-size: clamp(11px, 2.4cqi, 15px); color: var(--kd-white); }
-  .m-arc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); counter-reset: arc; }
-  .m-arc li { position: relative; padding-top: 3cqi; font-size: clamp(10px, 2cqi, 13px); font-weight: var(--kd-weight-medium); counter-increment: arc; }
-  .m-arc li::before { content: counter(arc, decimal-leading-zero); position: absolute; top: 0; left: 0; font-size: .85em; opacity: .55; }
-  .m-arc li::after { content: ''; position: absolute; top: 1.2cqi; left: 6cqi; right: 1cqi; height: 1.5px; background: var(--kd-beige-3); }
-  .m-arc li.on::after { background: var(--kd-blue-1); }
-  @media (max-width: 560px) { .m-msg { grid-template-columns: 1fr; } .m-arc { grid-template-columns: 1fr 1fr; row-gap: 3cqi; } }
+  .m-nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 2cqi; }
+  .m-arrow { display: grid; place-items: center; width: 32px; height: 32px; border: 1.5px solid var(--kd-blue-1); border-radius: var(--kd-radius); background: var(--kd-white); font-size: 15px; }
+  .m-arrow:hover { background: var(--kd-blue-1); color: var(--kd-white); }
+  .m-arc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4cqi; }
+  .m-arc button { display: grid; gap: 2px; width: 100%; padding: 1.2cqi 0 0; border: 0; border-top: 2px solid var(--kd-beige-3); background: none; text-align: left; font-size: clamp(9px, 1.9cqi, 12px); font-weight: var(--kd-weight-medium); line-height: 1.2; }
+  .m-arc button span { font-size: .85em; opacity: .55; }
+  .m-arc button[aria-pressed="true"] { border-top-color: var(--kd-blue-1); }
+
+  /* 5 rollout: five assets from five different companies, until the brand is switched on */
+  .m-roll { display: grid; gap: 3cqi; }
+  .m-wall { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "web web roll" "li li roll" "sig deck roll"; gap: 2.4cqi; }
+  .m-as { position: relative; display: grid; gap: .8cqi; align-content: start; transition: transform .45s cubic-bezier(.3, .7, .3, 1) var(--d); }
+  .m-as--web { grid-area: web; } .m-as--li { grid-area: li; } .m-as--sig { grid-area: sig; } .m-as--deck { grid-area: deck; } .m-as--roll { grid-area: roll; }
+  .m-as-l { font-size: clamp(8px, 1.7cqi, 11px); font-weight: var(--kd-weight-medium); letter-spacing: .06em; text-transform: uppercase; opacity: .65; }
+  .m-as-in { display: flex; flex-direction: column; gap: 1.2cqi; padding: 2cqi; border-radius: var(--kd-radius); background: var(--kd-blue-1); color: var(--kd-white); box-shadow: 0 10px 22px -14px rgba(26, 1, 117, .6); transition: background-color .45s ease var(--d), color .45s ease var(--d), border-radius .45s ease var(--d); }
+  .m-as--roll .m-as-in { min-height: 100%; justify-content: space-between; }
+  .m-as--roll { grid-template-rows: auto 1fr; }
+  .m-as--li .m-as-in { flex-direction: row; align-items: center; gap: 3cqi; }
+  .m-as--sig .m-as-in, .m-as--deck .m-as-in { min-height: 14cqi; }
+  .sd-canvas .m-as-in em { width: 80%; height: 5px; background: rgba(255, 255, 255, .35); transition: background-color .45s ease var(--d); }
+  .sd-canvas .m-as-in em.s { width: 55%; }
+  .sd-canvas .m-as-in u { width: 40%; height: 3cqi; background: var(--kd-signal-1); transition: background-color .45s ease var(--d), border-radius .45s ease var(--d); }
+  .m-as-in .lg { align-self: flex-start; font-style: normal; font-size: clamp(10px, 2.4cqi, 15px); font-weight: var(--kd-weight-logo); color: var(--kd-signal-1); }
+  .m-as-in .lg::after { content: 'talio'; }
+  /* before: each asset from a different company */
+  .m-roll[data-ba="before"] .m-as:nth-child(odd) { transform: rotate(-2.5deg); }
+  .m-roll[data-ba="before"] .m-as:nth-child(even) { transform: rotate(2deg) translateY(4px); }
+  .m-roll[data-ba="before"] .m-as--web .m-as-in { background: var(--kd-beige-3); color: var(--kd-ink-2); }
+  .m-roll[data-ba="before"] .m-as--li .m-as-in { background: var(--kd-lilac); color: var(--kd-ink); border-radius: 14px; }
+  .m-roll[data-ba="before"] .m-as--sig .m-as-in { background: var(--kd-white); color: var(--kd-ink-2); }
+  .m-roll[data-ba="before"] .m-as--deck .m-as-in { background: var(--kd-blue-3); }
+  .m-roll[data-ba="before"] .m-as--roll .m-as-in { background: var(--kd-ink); }
+  .m-roll[data-ba="before"] .m-as-in em { background: color-mix(in srgb, var(--kd-ink) 22%, transparent); }
+  .m-roll[data-ba="before"] .m-as--roll .m-as-in em, .m-roll[data-ba="before"] .m-as--deck .m-as-in em { background: rgba(255, 255, 255, .3); }
+  .m-roll[data-ba="before"] .m-as-in u { background: var(--kd-blue-2); border-radius: 12px; }
+  .m-roll[data-ba="before"] .m-as-in .lg { color: inherit; padding: 0 1cqi; border: 1.5px dashed currentColor; border-radius: 3px; font-weight: var(--kd-weight-regular); font-size: clamp(8px, 1.8cqi, 11px); letter-spacing: .1em; }
+  .m-roll[data-ba="before"] .m-as-in .lg::after { content: 'LOGO'; }
+  .m-roll[data-ba="before"] .m-as--li .m-as-in .lg::after { content: 'Logo'; }
+  .m-roll[data-ba="before"] .m-as--deck .m-as-in .lg::after { content: 'logo v2'; }
+
+  @media (max-width: 560px) {
+    .m-msg { grid-template-columns: 1fr; }
+    .m-plot { aspect-ratio: 2 / 1; }
+    .m-fan { aspect-ratio: 16 / 10; }
+    .m-slide--front { grid-template-columns: 1fr; }
+    .m-slide--front .m-bars { display: none; }
+    .m-slide--front b { font-size: 15px; }
+    .m-arc button { font-size: 0; } .m-arc button span { font-size: 11px; opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .m-you, .m-as, .m-as-in, .m-slide--front, .m-post, .m-card, .m-roof, .m-base { transition: none !important; }
+  }
 
   /* phones: pictures stack tighter */
   @media (max-width: 560px) {

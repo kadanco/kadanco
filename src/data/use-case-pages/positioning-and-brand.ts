@@ -1,11 +1,12 @@
 // src/data/use-case-pages/positioning-and-brand.ts
+// Route cards ("Your options") removed 2026-10-26, owner decision: the homepage comparison covers them.
 // Positioning and Brand, rebuilt 2026-10-26 as the first page in the Marketing department style
 // (owner choice: editorial typography plus a campaign wall of finished pieces, navy hero with
 // lime accents, small tilts on pinned pieces). Same template as Product Design and Website
-// Production: hero, self-check, route cards, four detailed steps, measures, ways to work.
+// Production: hero, self-check, five detailed steps (clickable pictures), measures, ways to work.
 //   Hero: a billboard with a generic message gets a sharp one pasted over it (HeroPasteup.astro).
 //   Self-check: buzzword bingo (SelfCheck kind 'bingo'). Measures: press clippings (MeasuresPress.astro).
-//   Steps (StepsDetail look 'campaign'): competitor map, message house, brand book, sales deck.
+//   Steps (StepsDetail look 'campaign', clickable): competitor map, message house, brand book, sales deck, rollout wall.
 // Earlier content from the design files (clear offer, brand design) kept where it fits.
 // Audit buttons go to /marketing-audit/. German mirrored, for Maria to review.
 import type { UseCasePage } from './types';
@@ -51,26 +52,9 @@ export const positioningAndBrand: UseCasePage = {
         many: { title: 'Bingo. This is costing you.', body: 'Together these make buyers work out your value on their own. Most of them will not.' },
       },
     },
-    comparison: {
-      eyebrow: 'Your options',
-      h2a: 'Most Brand Projects Stop Halfway.',
-      h2b: 'The Message Never Reaches Sales.',
-      lead: 'A clear offer needs three things: sharp positioning, a brand that carries it, and a rollout across site, deck and sales. Most routes stop after one.',
-      cols: ['Positioning', 'Brand & design', 'Rollout'],
-      solution: 'Solution',
-      rows: [
-        { route: 'Branding agency', why: 'A striking identity, built on a message nobody tested with buyers.', marks: ['part', 'has', 'part'] },
-        { route: 'Positioning consultant', why: 'Sharp workshops and a slide deck, then the work is yours.', marks: ['has', 'gap', 'gap'] },
-        { route: 'Freelance copywriter', why: 'Better words on the site, while the deck and the pitch stay the same.', marks: ['part', 'gap', 'part'] },
-        { route: 'The founder does it', why: 'The best feel for the product, and no time to write it all down.', marks: ['part', 'gap', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: 'One team finds the positioning, designs the brand and rolls it out across your site, deck and sales story.' },
-      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
-      cap: 'Each route covers a part. We run all three.',
-    },
     deliverables: {
       eyebrow: 'What you get',
-      h2a: 'Four Steps From Feature List To Clear Offer.',
+      h2a: 'Five Steps From Feature List To Clear Offer.',
       h2b: 'Every Step Ships Something Real.',
       lede: 'Run by the operators who scope them. Each step ends with a guide, a design or a story your team uses from day one.',
       layout: 'steps',
@@ -95,6 +79,11 @@ export const positioningAndBrand: UseCasePage = {
           doing: ['Build the narrative from problem to proof', 'Design the sales deck in the new brand', 'Write a comparison page and a one-pager', 'Train the team on the new pitch'],
           points: ['A sales narrative', 'A sales deck in the new brand', 'A comparison page and a one-pager', 'A pitch session with your team'],
           you: 'Your sales team for one training session.' },
+        { key: 'rollout', label: 'Rollout', when: 'Weeks 6 to 8', title: 'The brand, everywhere at once',
+          body: 'We put the new brand on every place buyers meet you, hand over templates and an asset library, and show your team how to keep it consistent.',
+          doing: ['Update the website, LinkedIn pages and email signatures', 'Build templates for decks, one-pagers and social posts', 'Set up an asset library with every logo and file', 'Run a session with your team on using the brand'],
+          points: ['The brand live on site, social and email', 'Templates for decks, one-pagers and posts', 'An organised asset library', 'A team session and a short how-to'],
+          you: 'Access to your website, social accounts and shared drive.' },
       ],
       cta: { h3: 'Start With An Audit.', body: 'A free positioning audit shows where your message, your brand and your sales story pull apart.', button: 'Get A Free Positioning Audit' },
     },
@@ -181,26 +170,9 @@ export const positioningAndBrand: UseCasePage = {
         many: { title: 'Bingo. Das kostet Sie.', body: 'Zusammen lassen diese Punkte Käufer Ihren Wert selbst herausfinden. Die meisten tun es nicht.' },
       },
     },
-    comparison: {
-      eyebrow: 'Ihre Optionen',
-      h2a: 'Die meisten Markenprojekte enden auf halbem Weg.',
-      h2b: 'Die Botschaft erreicht den Vertrieb nie.',
-      lead: 'Ein klares Angebot braucht drei Dinge: eine scharfe Positionierung, eine Marke, die sie trägt, und den Rollout auf Website, Deck und Vertrieb. Die meisten Wege enden nach dem ersten.',
-      cols: ['Positionierung', 'Marke & Design', 'Rollout'],
-      solution: 'Lösung',
-      rows: [
-        { route: 'Branding-Agentur', why: 'Eine starke Identität, gebaut auf einer Botschaft, die niemand mit Käufern getestet hat.', marks: ['part', 'has', 'part'] },
-        { route: 'Positionierungsberater', why: 'Gute Workshops und ein Foliensatz, danach liegt die Arbeit bei Ihnen.', marks: ['has', 'gap', 'gap'] },
-        { route: 'Freier Texter', why: 'Bessere Worte auf der Website, Deck und Pitch bleiben, wie sie sind.', marks: ['part', 'gap', 'part'] },
-        { route: 'Der Gründer macht es', why: 'Das beste Gespür für das Produkt und keine Zeit, alles aufzuschreiben.', marks: ['part', 'gap', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Ein Team findet die Positionierung, gestaltet die Marke und bringt sie auf Website, Deck und in die Vertriebsstory.' },
-      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
-      cap: 'Jeder Weg deckt einen Teil ab. Wir übernehmen alle drei.',
-    },
     deliverables: {
       eyebrow: 'Was Sie bekommen',
-      h2a: 'Vier Schritte von der Feature-Liste zum klaren Angebot.',
+      h2a: 'Fünf Schritte von der Feature-Liste zum klaren Angebot.',
       h2b: 'Jeder Schritt liefert etwas Echtes.',
       lede: 'Umgesetzt von den Machern, die sie planen. Jeder Schritt endet mit einem Leitfaden, einem Design oder einer Geschichte, die Ihr Team ab dem ersten Tag nutzt.',
       layout: 'steps',
@@ -225,6 +197,11 @@ export const positioningAndBrand: UseCasePage = {
           doing: ['Die Erzählung vom Problem bis zum Beleg aufbauen', 'Das Vertriebsdeck in der neuen Marke gestalten', 'Eine Vergleichsseite und einen One-Pager schreiben', 'Das Team auf den neuen Pitch schulen'],
           points: ['Eine Vertriebserzählung', 'Ein Vertriebsdeck in der neuen Marke', 'Eine Vergleichsseite und ein One-Pager', 'Ein Pitch-Training mit Ihrem Team'],
           you: 'Ihr Vertriebsteam für eine Schulung.' },
+        { key: 'rollout', label: 'Rollout', when: 'Woche 6 bis 8', title: 'Die Marke, überall auf einmal',
+          body: 'Wir bringen die neue Marke an jeden Ort, an dem Käufer Ihnen begegnen, übergeben Vorlagen und eine Asset-Bibliothek und zeigen Ihrem Team, wie es sie einheitlich hält.',
+          doing: ['Website, LinkedIn-Seiten und E-Mail-Signaturen aktualisieren', 'Vorlagen für Decks, One-Pager und Social Posts bauen', 'Eine Asset-Bibliothek mit allen Logos und Dateien anlegen', 'Eine Schulung mit Ihrem Team zur Nutzung der Marke'],
+          points: ['Die Marke live auf Website, Social Media und in E-Mails', 'Vorlagen für Decks, One-Pager und Posts', 'Eine geordnete Asset-Bibliothek', 'Eine Teamschulung und eine kurze Anleitung'],
+          you: 'Zugang zu Website, Social-Media-Konten und gemeinsamem Laufwerk.' },
       ],
       cta: { h3: 'Starten Sie mit einem Audit.', body: 'Ein kostenloses Positionierungs-Audit zeigt, wo Botschaft, Marke und Vertriebsstory auseinanderlaufen.', button: 'Kostenloses Positionierungs-Audit' },
     },

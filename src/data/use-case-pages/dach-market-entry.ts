@@ -1,4 +1,5 @@
 // src/data/use-case-pages/dach-market-entry.ts
+// Route cards ("Your options") removed 2026-10-26, owner decision: the homepage comparison covers them.
 // Content: design/261021_Kadanco_Use_Cases/use-case-dach-market-entry.html,
 // plus three sections kept from the previous page (route comparison, native
 // operator, first 90 days), owner decision 2026-10-21. "X, not Y" lines from
@@ -30,23 +31,6 @@ export const dachMarketEntry: UseCasePage = {
       lede: 'Translating the website is only the start. DACH buyers expect native German, local proof and a sales process that fits how they buy.',
       problem: 'Your assets are in English, your pipeline depends on the founder, and every attempt to reach German buyers stalls because nobody owns it day to day. Hiring a local team takes months you do not have.',
       solve: 'We build and run your German-language presence ourselves: positioning, website, content and outbound, all in native German, so the market gets stronger every week without adding headcount.',
-    },
-    comparison: {
-      eyebrow: 'Why DACH entry stalls',
-      h2a: 'Going In Is Easy.',
-      h2b: 'Landing Is Hard.',
-      lead: 'Most B2B companies enter DACH one of these ways, and most leak in the same places: in German, in execution, or in who owns the pipeline.',
-      cols: ['In German', 'Execution', 'Ownership'],
-      solution: 'Solution',
-      rows: [
-        { route: 'Run it in English', why: 'Cheap and fast, but German buyers quietly pick the local vendor.', marks: ['gap', 'part', 'gap'] },
-        { route: 'Translation agency', why: 'You get words without a presence or a pipeline anyone owns.', marks: ['part', 'gap', 'gap'] },
-        { route: 'German marketing hire', why: 'In-language and experienced, but slow to ramp and one person deep.', marks: ['has', 'part', 'part'] },
-        { route: 'Freelancers', why: 'Each runs a slice; positioning, content and follow-up never add up.', marks: ['part', 'part', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Native German, run end to end and owned by the operators who do the work.' },
-      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
-      cap: 'No single route covers all three. That is exactly what we run.',
     },
     inside: {
       eyebrow: "What's inside",
@@ -120,23 +104,6 @@ export const dachMarketEntry: UseCasePage = {
       lede: 'Die Website zu übersetzen ist nur der Anfang. Käufer in DACH erwarten muttersprachliches Deutsch, lokale Referenzen und einen Vertriebsprozess, der zu ihrer Art zu kaufen passt.',
       problem: 'Ihre Inhalte sind auf Englisch, Ihre Pipeline hängt am Gründer, und jeder Versuch, deutsche Käufer zu erreichen, stockt, weil sich niemand täglich darum kümmert. Ein lokales Team aufzubauen dauert Monate, die Sie nicht haben.',
       solve: 'Wir bauen und betreiben Ihre deutschsprachige Präsenz selbst: Positionierung, Website, Content und Outbound, alles in muttersprachlichem Deutsch, damit der Markt jede Woche stärker wird, ohne zusätzliches Personal.',
-    },
-    comparison: {
-      eyebrow: 'Warum der DACH-Eintritt stockt',
-      h2a: 'Hineingehen ist leicht.',
-      h2b: 'Ankommen ist schwer.',
-      lead: 'Die meisten B2B-Unternehmen gehen auf eine dieser Arten nach DACH, und die meisten verlieren an denselben Stellen: bei der Sprache, bei der Umsetzung oder bei der Verantwortung für die Pipeline.',
-      cols: ['Auf Deutsch', 'Umsetzung', 'Verantwortung'],
-      solution: 'Lösung',
-      rows: [
-        { route: 'Auf Englisch betreiben', why: 'Günstig und schnell, aber deutsche Käufer wählen still den lokalen Anbieter.', marks: ['gap', 'part', 'gap'] },
-        { route: 'Übersetzungsagentur', why: 'Sie bekommen Wörter, aber keine Präsenz und keine Pipeline, die jemand verantwortet.', marks: ['part', 'gap', 'gap'] },
-        { route: 'Deutsche Marketing-Einstellung', why: 'Sprachlich und fachlich stark, aber lange Einarbeitung und nur eine Person tief.', marks: ['has', 'part', 'part'] },
-        { route: 'Freelancer', why: 'Jeder macht einen Teil, Positionierung, Content und Follow-up ergeben nie ein Ganzes.', marks: ['part', 'part', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Muttersprachlich, von Anfang bis Ende umgesetzt und verantwortet von den Machern, die die Arbeit machen.' },
-      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
-      cap: 'Kein einzelner Weg deckt alle drei ab. Genau das betreiben wir.',
     },
     inside: {
       eyebrow: 'Was dazugehört',

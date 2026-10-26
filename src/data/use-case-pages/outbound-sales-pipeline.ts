@@ -1,4 +1,5 @@
 // src/data/use-case-pages/outbound-sales-pipeline.ts
+// Route cards ("Your options") removed 2026-10-26, owner decision: the homepage comparison covers them.
 // Outbound Sales Pipeline (formerly Pipeline Off The Founder). Content from
 // design/261021_Kadanco_Use_Cases/use-case-pipeline-off-founder.html (process,
 // outbound engine, handoff and enablement), plus a systems step (CRM, data,
@@ -31,23 +32,6 @@ export const outboundSalesPipeline: UseCasePage = {
       lede: 'The founder could sell, and nobody else could. Growth was limited to the hours the founder could spend on calls.',
       problem: "No repeatable process, no outbound engine, a CRM nobody trusts, and the know-how locked in the founder's head. Pipeline stopped the moment the founder got pulled into the product or a fundraise.",
       solve: 'We turn how the founder sells into a documented process, build the systems and the outbound engine around it, and enable the team, so meetings get booked and deals move without the founder in every thread.',
-    },
-    comparison: {
-      eyebrow: 'Why outbound stalls',
-      h2a: 'Everyone Wants More Meetings.',
-      h2b: 'Few Routes Deliver Them.',
-      lead: 'Most teams try one of these routes. Each one leaks somewhere: in the message, in consistency, or in who owns the pipeline.',
-      cols: ['Message', 'Consistency', 'Ownership'],
-      solution: 'Solution',
-      rows: [
-        { route: 'Founder keeps selling', why: 'The best message in the company, and only a few hours a week to use it.', marks: ['has', 'gap', 'part'] },
-        { route: 'First SDR hire', why: 'Months to ramp, and alone without a process to follow.', marks: ['gap', 'part', 'part'] },
-        { route: 'Lead gen agency', why: 'Volume on a template, with meetings that rarely fit.', marks: ['gap', 'has', 'gap'] },
-        { route: 'A new sales tool', why: 'Sequences and data, and still nobody to run them.', marks: ['gap', 'part', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: "The founder's message, run every week on proper systems by the operators who built it." },
-      legend: { has: 'Covered', part: 'Partial', gap: 'Gap' },
-      cap: 'No single route covers all three. That is what we run.',
     },
     inside: {
       eyebrow: "What's inside",
@@ -134,23 +118,6 @@ export const outboundSalesPipeline: UseCasePage = {
       lede: 'Die Gründer konnten verkaufen, sonst niemand. Das Wachstum war auf die Stunden begrenzt, die sie in Gesprächen verbringen konnten.',
       problem: 'Kein wiederholbarer Prozess, keine Outbound-Maschine, ein CRM, dem niemand traut, und das Wissen im Kopf der Gründer. Die Pipeline stand still, sobald die Gründer ins Produkt oder in eine Finanzierungsrunde gezogen wurden.',
       solve: 'Wir machen aus der Art, wie die Gründer verkaufen, einen dokumentierten Prozess, bauen Systeme und Outbound darum herum und befähigen das Team, damit Termine gebucht werden und Deals vorankommen, ohne dass die Gründer überall dabei sind.',
-    },
-    comparison: {
-      eyebrow: 'Warum Outbound stockt',
-      h2a: 'Alle wollen mehr Termine.',
-      h2b: 'Wenige Wege liefern sie.',
-      lead: 'Die meisten Teams versuchen einen dieser Wege. Jeder leckt irgendwo: bei der Botschaft, bei der Beständigkeit oder dabei, wem die Pipeline gehört.',
-      cols: ['Botschaft', 'Beständigkeit', 'Verantwortung'],
-      solution: 'Lösung',
-      rows: [
-        { route: 'Gründer verkaufen weiter', why: 'Die beste Botschaft im Unternehmen und nur wenige Stunden pro Woche, um sie zu nutzen.', marks: ['has', 'gap', 'part'] },
-        { route: 'Erste SDR-Einstellung', why: 'Monate Einarbeitung und allein, ohne Prozess, dem man folgen kann.', marks: ['gap', 'part', 'part'] },
-        { route: 'Leadgen-Agentur', why: 'Volumen nach Vorlage, mit Terminen, die selten passen.', marks: ['gap', 'has', 'gap'] },
-        { route: 'Ein neues Sales-Tool', why: 'Sequenzen und Daten, und immer noch niemand, der sie betreibt.', marks: ['gap', 'part', 'gap'] },
-      ],
-      kad: { route: 'KADANCO', why: 'Die Botschaft der Gründer, jede Woche auf sauberen Systemen betrieben, von den Machern, die sie aufgebaut haben.' },
-      legend: { has: 'Abgedeckt', part: 'Teilweise', gap: 'Lücke' },
-      cap: 'Kein einzelner Weg deckt alle drei ab. Genau das setzen wir um.',
     },
     inside: {
       eyebrow: 'Was dazugehört',

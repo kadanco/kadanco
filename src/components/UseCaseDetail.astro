@@ -212,12 +212,20 @@ const ui = {
                   web: { url: 'ihrefirma.de', positioning: 'Positionierung', risk: 'Risiko', voice: ['Klar', 'Direkt', 'Kompetent'], message: 'Botschaft', pages: ['Start', 'Produkt', 'Preise', 'Über uns'],
                     keyword: 'Keyword', question: 'Käuferfrage', devices: ['Desktop', 'Tablet', 'Handy'], cms: 'CMS', publish: 'Veröffentlichen', live: 'Live',
                     checks: ['Responsiv', 'Sicher', 'CRM verbunden'], query: 'website für b2b software', ai: 'KI-Antwort', speed: 'Ladezeit' },
-                  mkt: { axes: ['Allgemein', 'Spezialisiert', 'Selbst machen', 'Erledigt für Sie'], you: 'Sie',
-                    statement: ['Für ', 'Teams ohne Personalabteilung', ' ist Talio die ', 'Recruiting-Software', ', die ', 'das Angebot an einem Nachmittag verschickt', '.'],
-                    promise: 'Einstellen ohne Personalabteilung', pillars: ['In Minuten ausgeschrieben', 'Sortiert ohne Tabellen', 'Angebote, die unterschrieben werden'], proof: 'Kundenstimmen · Live-Demo · DSGVO',
+                  mkt: { axes: ['Allgemein', 'Spezialisiert', 'Selbst machen', 'Erledigt für Sie'], you: 'Sie', pickLbl: 'Positionierung wählen', ours: 'unsere Wahl',
+                    options: [
+                      { k: 'a', name: 'Am günstigsten', risk: 'Risiko hoch: Jeder kann Sie im Preis unterbieten.', statement: ['Für ', 'kleine Teams mit wenig Budget', ' ist Talio das ', 'günstigste Recruiting-Tool', ', das ', 'weniger kostet als eine Stellenanzeige', '.'] },
+                      { k: 'b', name: 'Ohne Personalabteilung', risk: 'Risiko niedrig: Diesen Platz besetzt sonst niemand.', statement: ['Für ', 'Teams ohne Personalabteilung', ' ist Talio die ', 'Recruiting-Software', ', die ', 'das Angebot an einem Nachmittag verschickt', '.'] },
+                      { k: 'c', name: 'All-in-One-Suite', risk: 'Risiko hoch: Große HR-Suiten besetzen diesen Platz schon.', statement: ['Für ', 'wachsende Unternehmen', ' ist Talio die ', 'All-in-One-HR-Suite', ' für ', 'Recruiting, Lohn und Urlaub', '.'] },
+                    ],
+                    before: 'Vorher', after: 'Nachher', promise: 'Einstellen ohne Personalabteilung', pillars: ['In Minuten ausgeschrieben', 'Sortiert ohne Tabellen', 'Angebote, die unterschrieben werden'], proof: 'Kundenstimmen · Live-Demo · DSGVO',
+                    beforePromise: 'Die KI-gestützte End-to-End-Recruiting-Plattform', beforePillars: ['Innovativ', 'Skalierbar', 'Best-in-Class'], beforeProof: 'Vertraut von Branchenführern',
                     say: 'Wir sagen', dont: 'Wir sagen nicht', sayEx: 'Senden Sie das Angebot noch heute.', dontEx: 'Heben Sie End-to-End-Synergien.',
-                    guide: 'Markenleitfaden', colours: ['Ink', 'Blau', 'Lila', 'Lime'], type: 'Schrift', post: 'Einstellen ohne HR.',
-                    slides: ['Das Problem', 'Was sich geändert hat', 'So funktioniert es', 'Belege'], slideH: 'Jede Einstellung kostet einen Gründer eine Woche.' } }
+                    guide: 'Markenleitfaden', colours: ['Ink', 'Blau', 'Lila', 'Lime'], colourLbl: 'Tippen Sie auf eine Farbe', type: 'Schrift', post: 'Einstellen ohne HR.',
+                    slides: ['Das Problem', 'Was sich geändert hat', 'So funktioniert es', 'Belege'],
+                    slideHs: ['Jede Einstellung kostet einen Gründer eine Woche.', 'Kleine Teams stellen heute ein wie große.', 'Ausschreiben, sortieren, Angebot. An einem Nachmittag.', 'Teams wie Ihres stellen schon so ein.'],
+                    prev: 'Vorherige Folie', next: 'Nächste Folie',
+                    assets: ['Website', 'LinkedIn', 'E-Mail-Signatur', 'Vertriebsdeck', 'Roll-up'], brandLbl: 'Die Marke' } }
               : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:',
                   report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
                   states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
@@ -225,12 +233,20 @@ const ui = {
                   web: { url: 'yourcompany.com', positioning: 'Positioning', risk: 'Risk', voice: ['Clear', 'Direct', 'Expert'], message: 'Message', pages: ['Home', 'Product', 'Pricing', 'About'],
                     keyword: 'Keyword', question: 'Buyer question', devices: ['Desktop', 'Tablet', 'Phone'], cms: 'CMS', publish: 'Publish', live: 'Live',
                     checks: ['Responsive', 'Secure', 'CRM connected'], query: 'website for b2b software', ai: 'AI answer', speed: 'Load time' },
-                  mkt: { axes: ['Generic', 'Specialist', 'Do it yourself', 'Done for you'], you: 'You',
-                    statement: ['For ', 'teams without an HR department', ', Talio is the ', 'hiring software', ' that ', 'sends the offer in one afternoon', '.'],
-                    promise: 'Hiring without an HR department', pillars: ['Posted in minutes', 'Sorted without spreadsheets', 'Offers that get signed'], proof: 'Customer stories · Live demo · GDPR',
+                  mkt: { axes: ['Generic', 'Specialist', 'Do it yourself', 'Done for you'], you: 'You', pickLbl: 'Pick a positioning', ours: 'our pick',
+                    options: [
+                      { k: 'a', name: 'Cheapest', risk: 'Risk: high. Anyone can undercut you on price.', statement: ['For ', 'small teams on a budget', ', Talio is the ', 'cheapest hiring tool', ' that ', 'costs less than one job ad', '.'] },
+                      { k: 'b', name: 'No HR team needed', risk: 'Risk: low. Nobody else holds this spot.', statement: ['For ', 'teams without an HR department', ', Talio is the ', 'hiring software', ' that ', 'sends the offer in one afternoon', '.'] },
+                      { k: 'c', name: 'All-in-one suite', risk: 'Risk: high. Large HR suites already own this spot.', statement: ['For ', 'growing companies', ', Talio is the ', 'all-in-one HR suite', ' for ', 'hiring, payroll and leave', '.'] },
+                    ],
+                    before: 'Before', after: 'After', promise: 'Hiring without an HR department', pillars: ['Posted in minutes', 'Sorted without spreadsheets', 'Offers that get signed'], proof: 'Customer stories · Live demo · GDPR',
+                    beforePromise: 'The AI-powered, end-to-end hiring platform', beforePillars: ['Innovative', 'Scalable', 'Best-in-class'], beforeProof: 'Trusted by industry leaders',
                     say: 'We say', dont: "We don't say", sayEx: 'Send the offer today.', dontEx: 'Unlock end-to-end synergies.',
-                    guide: 'Brand guide', colours: ['Ink', 'Blue', 'Lilac', 'Lime'], type: 'Type', post: 'Hiring without HR.',
-                    slides: ['The problem', 'What changed', 'How it works', 'Proof'], slideH: 'Every Hire Costs A Founder A Week.' } }} />
+                    guide: 'Brand guide', colours: ['Ink', 'Blue', 'Lilac', 'Lime'], colourLbl: 'Tap a colour', type: 'Type', post: 'Hiring without HR.',
+                    slides: ['The problem', 'What changed', 'How it works', 'Proof'],
+                    slideHs: ['Every Hire Costs A Founder A Week.', 'Small Teams Now Hire Like Big Ones.', 'Post, Sort, Offer. In One Afternoon.', 'Teams Like Yours Already Hire This Way.'],
+                    prev: 'Previous slide', next: 'Next slide',
+                    assets: ['Website', 'LinkedIn', 'Email signature', 'Sales deck', 'Roll-up'], brandLbl: 'The brand' } }} />
           : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>
@@ -496,8 +512,6 @@ const ui = {
   /* dark mode: light text on a lime highlighter is unreadable, so the words turn lime instead */
   @media (prefers-color-scheme: dark) { :global(:root:not([data-mode="light"])) .ucd--marketing .ucd-sec h2 em { background: none; color: var(--kd-signal-1); } }
   :global(:root[data-mode="dark"]) .ucd--marketing .ucd-sec h2 em { background: none; color: var(--kd-signal-1); }
-  .ucd--marketing .ucd-eyebrow { color: var(--kd-fg); display: inline-flex; align-items: center; gap: 10px; }
-  .ucd--marketing .ucd-eyebrow::before { content: ''; width: 28px; height: 2px; background: currentColor; }
 
   .ucd { background: var(--kd-bg); color: var(--kd-fg); }
   .ucd h1, .ucd h2, .ucd h3 { margin: 0; font-weight: var(--kd-weight-medium); letter-spacing: .06px; text-wrap: balance; }

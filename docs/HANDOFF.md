@@ -39,7 +39,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
   - Own form /website-audit/ (Plunk event `website-audit-submitted`).
 - **Marketing style set; Positioning and Brand rebuilt in it** (EN and DE; German for Maria), waiting for owner review:
   - Navy hero with halftone and lime accents (no lime grounds), headline highlighter, pinned paper pieces with lime tape and small tilts. Example company "Talio".
-  - Hero `HeroPasteup.astro` (billboard paste-up), buzzword bingo self-check, route cards, four campaign-style steps, press clippings that turn over (`MeasuresPress.astro`), ways to work.
+  - Hero `HeroPasteup.astro` (billboard paste-up), buzzword bingo self-check, five campaign-style steps with clickable pictures (Rollout added), press clippings that turn over (`MeasuresPress.astro`), ways to work.
 - **Use case visibility** (`show` in `src/data/use-cases.ts`):
   - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
   - Footer only: DACH Market Entry, Event Lead Generation.
@@ -65,6 +65,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-26 (evening): Route cards removed from all use case pages; eyebrow rule removed; Positioning and Brand gets a fifth step (Rollout) and clickable step pictures.
 - 2026-10-26 (late afternoon): Marketing style chosen (editorial plus campaign wall, navy hero, small tilts); Positioning and Brand rebuilt as the first Marketing page.
 - 2026-10-26 (afternoon): Website Production rebuilt on the Product Design template (research: oratory.co, fletchpmm.com, loveatfirsttry.io, website topics only); hero that assembles itself; /website-audit/ form.
 - 2026-10-24 to 26: Component round on the homepage (comparison, compliance, CTA, footer, Who We Are, tags, photos, card layout); responsive rules and pass on all pages; hero rule; use case visibility; Product Design rebuilt as the template; review fixed the CTA/modal bug; contact modal replaced by four full-screen form pages.

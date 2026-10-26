@@ -33,7 +33,7 @@ export interface UseCasePageText {
   // what you get: tabs (DeliverableTabs.astro) or, with layout 'steps', one tall row per step with its own
   // picture and full detail (StepsDetail.astro). key picks the picture.
   deliverables?: { eyebrow: string; h2a: string; h2b: string; lede: string; layout?: 'tabs' | 'steps';
-    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story'; label: string; title: string; body: string; points: string[];
+    tabs: { key: 'audit' | 'screens' | 'prototype' | 'system' | 'code' | 'brand' | 'concept' | 'design' | 'develop' | 'optimise' | 'map' | 'message' | 'identity' | 'story' | 'rollout'; label: string; title: string; body: string; points: string[];
       when?: string; doing?: string[]; you?: string }[];
     cta?: { h3: string; body: string; button: string } };
   // what we measure: the measures only, no invented numbers
