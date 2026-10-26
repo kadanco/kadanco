@@ -17,7 +17,31 @@ export async function onRequestPost(context) {
       return json({ ok: true });
     }
 
-    // 3. Validate inputs
+    // 3. Audit intakes (the full-screen forms, e.g. /ux-audit/) send a brief.
+    //    They post { type, email, name, answers, brief }; `type` is the intake id.
+    const INTAKES = ['ux-audit'];
+    if (data && INTAKES.includes(data.type)) {
+      const email = String(data.email || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return json({ ok: false, error: 'Please add a valid email.' }, 422);
+      }
+      const apiKey = env.PLUNK_API_KEY ? String(env.PLUNK_API_KEY).trim() : '';
+      if (!apiKey) return json({ ok: false, error: 'The form service is not configured yet.' }, 400);
+      // keep the payload small and flat: strings only, capped in length
+      const answers = {};
+      for (const [k, v] of Object.entries(data.answers || {}).slice(0, 40)) {
+        answers[String(k).slice(0, 40)] = (Array.isArray(v) ? v.join(', ') : String(v ?? '')).slice(0, 2000);
+      }
+      const res = await fetch('https://next-api.useplunk.com/v1/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({ event: `${data.type}-submitted`, email, data: { ...answers, brief: String(data.brief || '').slice(0, 8000) } }),
+      });
+      if (!res.ok) return json({ ok: false, error: 'We could not deliver your brief just now. Please try again.' }, 400);
+      return json({ ok: true });
+    }
+
+    // 4. Validate inputs (contact modal)
     const name = String(data.name || '').trim();
     const email = String(data.email || '').trim();
     const company = String(data.company || '').trim();
@@ -29,14 +53,14 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: 'Please add your name and a valid email.' }, 422);
     }
 
-    // 4. Ensure API Key exists and strip hidden spaces/newlines
+    // 5. Ensure API Key exists and strip hidden spaces/newlines
     const apiKey = env.PLUNK_API_KEY ? String(env.PLUNK_API_KEY).trim() : '';
     
     if (!apiKey) {
       return json({ ok: false, error: 'Newsletter service is not configured yet.' }, 400);
     }
 
-    // 5. Construct the Plunk Track Payload
+    // 6. Construct the Plunk Track Payload
     const plunkPayload = {
       event: 'contact-form-submitted',
       email: email,
@@ -48,7 +72,7 @@ export async function onRequestPost(context) {
       }
     };
 
-    // 6. Send the lead to Plunk's NEW v2 API server
+    // 7. Send the lead to Plunk's NEW v2 API server
     const res = await fetch('https://next-api.useplunk.com/v1/track', {
       method: 'POST',
       headers: {

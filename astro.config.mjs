@@ -14,6 +14,7 @@ import { translatedRoutes } from './src/i18n/ui';
 const LOCALE_URL = /^https:\/\/kadanco\.com\/(de)(\/.*)?$/;
 function inSitemap(page) {
   if (INTERNAL_PAGES.some((r) => page.replace(/\/$/, '').endsWith(r.pattern))) return false; // never list internal pages
+  if (/\/(de\/)?ux-audit\/?$/.test(page)) return false; // audit intake forms are noindex
   const m = page.match(LOCALE_URL);
   if (!m) return true; // English URL
   const routes = translatedRoutes[m[1]];

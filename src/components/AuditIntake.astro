@@ -1,0 +1,277 @@
+---
+// src/components/AuditIntake.astro
+// Full-screen audit intake (design/Forms & CTAs/, the UX audit intake), rebuilt in
+// the Kadanco brand: Fira Sans 400/500, brand tokens, 5px radius, 45px controls.
+// Intro, one question at a time with a progress bar, a review screen, then the
+// brief is sent to /api/contact (type = intake id) and a thank-you screen shows.
+// Answers are kept as a draft in this browser (localStorage) so a visitor can
+// resume; the draft is cleared after sending. Keyboard: Enter moves on,
+// Cmd/Ctrl + Enter in long answers. Content comes from src/data/intakes.ts.
+// Rendered on a `bare` Layout page (no nav or footer).
+import type { Intake } from '../data/intakes';
+import { asLocale, localizedHref } from '../i18n/utils';
+
+interface Props { intake: Intake }
+const { intake } = Astro.props;
+const locale = asLocale(Astro.currentLocale);
+const t = intake[locale] ?? intake.en;
+const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t };
+---
+<div class="ai" data-ai>
+  <div class="ai-progress"><div class="ai-progress-fill" data-ai-bar></div></div>
+  <header class="ai-top">
+    <a href={config.home} class="ai-logo" aria-label="Kadanco"><img src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" width="120" height="28" /></a>
+    <div class="ai-counter" data-ai-counter hidden></div>
+  </header>
+  <main class="ai-stage"><div class="ai-wrap" data-ai-wrap aria-live="polite"></div></main>
+  <footer class="ai-foot" data-ai-foot hidden>
+    <button type="button" class="btn btn-primary" data-ai-ok>{t.ok}</button>
+    <span class="ai-enter">{t.enter} <kbd>Enter ↵</kbd></span>
+    <div class="ai-steppers">
+      <button type="button" class="ai-step" data-ai-prev aria-label={t.prev}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6" /></svg></button>
+      <button type="button" class="ai-step" data-ai-next aria-label={t.next}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+    </div>
+  </footer>
+  <div class="ai-toast" data-ai-toast role="status" aria-live="polite"></div>
+  <script type="application/json" data-ai-config set:html={JSON.stringify(config)}></script>
+</div>
+
+<style>
+  .ai { --ai-line: var(--kd-beige-3); --ai-muted: var(--kd-ink-2); position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--kd-beige-1); color: var(--kd-ink); font-family: var(--kd-font-sans); }
+  .ai-progress { flex: none; height: 4px; }
+  .ai-progress-fill { height: 100%; width: 0; background: var(--kd-blue-2); transition: width .5s cubic-bezier(.2, .7, .2, 1); }
+  .ai-top { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 40px); }
+  .ai-logo img { display: block; height: 26px; width: auto; }
+  .ai-counter { font-size: 14px; color: var(--ai-muted); font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
+  .ai-counter[hidden] { display: none; }
+  .ai-stage { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; }
+  .ai-wrap { width: 100%; max-width: 680px; margin: auto; padding: clamp(20px, 5vw, 40px) clamp(20px, 5vw, 40px) clamp(28px, 6vw, 56px); }
+
+  .ai :global(.ai-panel) { animation: ai-rise .32s cubic-bezier(.2, .75, .2, 1) both; }
+  @keyframes ai-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .ai :global(.ai-panel) { animation: none; } .ai-progress-fill { transition: none; } }
+
+  .ai :global(.ai-eyebrow) { display: inline-flex; align-self: flex-start; padding: 4px 12px; margin-bottom: 20px; border-radius: var(--kd-radius); border: 1.5px solid var(--kd-blue-2); color: var(--kd-blue-2); font-size: 13px; font-weight: var(--kd-weight-medium); letter-spacing: .04em; text-transform: uppercase; }
+  .ai :global(.ai-display) { margin: 0 0 20px; font-size: clamp(40px, 6vw, 64px); line-height: 1.05; font-weight: var(--kd-weight-medium); letter-spacing: -.01em; }
+  .ai :global(.ai-display em) { font-style: normal; color: var(--kd-blue-2); }
+  .ai :global(.ai-lead) { margin: 0 0 32px; max-width: 48ch; font-size: 19px; line-height: 1.5; color: var(--ai-muted); }
+  .ai :global(.ai-actions) { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .ai :global(.ai-meta) { color: var(--ai-muted); font-size: 15px; }
+
+  .ai :global(.ai-qnum) { display: block; margin-bottom: 12px; color: var(--kd-blue-2); font-size: 14px; font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
+  .ai :global(.ai-qtitle) { margin: 0 0 12px; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weight: var(--kd-weight-medium); text-wrap: balance; }
+  .ai :global(.ai-opt) { margin-left: 10px; font-size: 15px; font-weight: var(--kd-weight-regular); color: var(--ai-muted); vertical-align: middle; }
+  .ai :global(.ai-help) { margin: 0 0 28px; max-width: 54ch; font-size: 17px; line-height: 1.5; color: var(--ai-muted); }
+
+  .ai :global(.ai-field input), .ai :global(.ai-field textarea) { width: 100%; padding: 6px 2px 12px; border: 0; border-bottom: 2px solid var(--kd-beige-3); background: transparent; color: var(--kd-ink); font: inherit; font-size: clamp(20px, 2.4vw, 26px); font-weight: var(--kd-weight-medium); line-height: 1.4; outline: none; resize: none; border-radius: 0; }
+  .ai :global(.ai-field textarea) { min-height: 2.4em; overflow: hidden; }
+  .ai :global(.ai-field input::placeholder), .ai :global(.ai-field textarea::placeholder) { color: var(--ai-muted); opacity: .6; font-weight: var(--kd-weight-regular); }
+  .ai :global(.ai-field input:focus), .ai :global(.ai-field textarea:focus) { border-bottom-color: var(--kd-blue-2); }
+
+  .ai :global(.ai-choices) { display: flex; flex-direction: column; gap: 10px; }
+  .ai :global(.ai-choice) { display: flex; align-items: center; gap: 16px; width: 100%; min-height: var(--kd-control-h); padding: 14px 18px; border: 2px solid var(--ai-line); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color .15s ease, background-color .15s ease; }
+  .ai :global(.ai-choice:hover) { border-color: color-mix(in srgb, var(--kd-blue-2) 50%, var(--ai-line)); }
+  .ai :global(.ai-choice:focus-visible) { outline: 2px solid var(--kd-blue-2); outline-offset: 2px; }
+  .ai :global(.ai-choice.sel) { border-color: var(--kd-blue-2); background: color-mix(in srgb, var(--kd-blue-2) 6%, var(--kd-white)); }
+  .ai :global(.ai-choice-body) { flex: 1; min-width: 0; }
+  .ai :global(.ai-choice-label) { display: block; font-size: 18px; font-weight: var(--kd-weight-medium); }
+  .ai :global(.ai-choice-desc) { display: block; margin-top: 3px; font-size: 15px; line-height: 1.4; color: var(--ai-muted); }
+  .ai :global(.ai-mark) { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border: 2px solid var(--kd-beige-3); border-radius: var(--kd-radius); transition: background-color .15s ease, border-color .15s ease; }
+  .ai :global(.ai-choice[data-pick="single"] .ai-mark) { border-radius: 50%; }
+  .ai :global(.ai-choice.sel .ai-mark) { background: var(--kd-blue-2); border-color: var(--kd-blue-2); }
+  .ai :global(.ai-mark svg) { width: 14px; height: 14px; color: var(--kd-white); opacity: 0; }
+  .ai :global(.ai-choice.sel .ai-mark svg) { opacity: 1; }
+
+  .ai :global(.ai-note) { min-height: 22px; margin-top: 12px; font-size: 15px; font-weight: var(--kd-weight-medium); color: var(--kd-blue-2); opacity: 0; transition: opacity .15s ease; }
+  .ai :global(.ai-note.show) { opacity: 1; }
+
+  .ai-foot { flex: none; display: flex; align-items: center; gap: 16px; padding: 14px clamp(20px, 5vw, 40px) 20px; border-top: 1px solid var(--ai-line); background: var(--kd-beige-1); }
+  .ai-foot[hidden] { display: none; }
+  .ai-enter { font-size: 14px; color: var(--ai-muted); }
+  .ai-enter kbd { padding: 1px 7px; border: 1px solid var(--kd-beige-3); border-bottom-width: 2px; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; font-size: 13px; font-weight: var(--kd-weight-medium); }
+  .ai-steppers { margin-left: auto; display: flex; gap: 8px; }
+  .ai-step { display: grid; place-items: center; width: var(--kd-control-h); height: var(--kd-control-h); border: 2px solid var(--kd-beige-3); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); cursor: pointer; }
+  .ai-step:hover { border-color: var(--kd-blue-2); }
+  .ai-step:disabled { opacity: .35; cursor: not-allowed; }
+  .ai-step svg { width: 18px; height: 18px; }
+  @media (max-width: 560px) { .ai-enter { display: none; } }
+
+  .ai :global(.ai-brief) { margin: 4px 0 24px; padding: clamp(18px, 4vw, 28px); border-radius: var(--kd-radius); border: 1px solid var(--ai-line); background: var(--kd-white); font-size: 16px; line-height: 1.55; }
+  .ai :global(.ai-brief dl) { margin: 0; display: grid; grid-template-columns: minmax(120px, 170px) 1fr; gap: 6px 20px; }
+  .ai :global(.ai-brief dt) { color: var(--ai-muted); }
+  .ai :global(.ai-brief dd) { margin: 0; font-weight: var(--kd-weight-medium); white-space: pre-wrap; overflow-wrap: anywhere; }
+  .ai :global(.ai-brief dd.empty) { color: var(--ai-muted); font-weight: var(--kd-weight-regular); }
+  @media (max-width: 560px) { .ai :global(.ai-brief dl) { grid-template-columns: 1fr; gap: 2px 0; } .ai :global(.ai-brief dd) { margin-bottom: 10px; } }
+  .ai :global(.ai-error) { margin: 14px 0 0; font-size: 15px; color: var(--kd-signal-2); font-weight: var(--kd-weight-medium); }
+  .ai :global(.ai-hp) { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* outlined secondary button for this light page (the site's .btn-ghost is for dark grounds) */
+  .ai :global(.ai-btn-line) { background: transparent; border-color: var(--kd-blue-1); color: var(--kd-blue-1); }
+  .ai :global(.ai-btn-line:hover) { background: var(--kd-blue-1); color: var(--kd-white); }
+  .ai-toast { position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px); padding: 11px 18px; border-radius: var(--kd-radius); background: var(--kd-ink); color: var(--kd-white); font-size: 15px; font-weight: var(--kd-weight-medium); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+  .ai-toast.show { opacity: 1; transform: translate(-50%, 0); }
+</style>
+
+<script is:inline>
+  (function () {
+    var root = document.querySelector('[data-ai]');
+    if (!root) return;
+    var cfg = JSON.parse(root.querySelector('[data-ai-config]').textContent);
+    var t = cfg.t, Q = t.questions, TOTAL = Q.length;
+    var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>';
+    var wrap = root.querySelector('[data-ai-wrap]'), foot = root.querySelector('[data-ai-foot]'), counter = root.querySelector('[data-ai-counter]');
+    var bar = root.querySelector('[data-ai-bar]'), prevBtn = root.querySelector('[data-ai-prev]'), toastEl = root.querySelector('[data-ai-toast]');
+    var state = { answers: {}, idx: -1 }, saved = null, toastT;
+
+    try { saved = JSON.parse(localStorage.getItem(cfg.key) || 'null'); if (!saved || !saved.answers || !Object.keys(saved.answers).length) saved = null; } catch (e) {}
+    function persist() { try { localStorage.setItem(cfg.key, JSON.stringify({ answers: state.answers, idx: state.idx })); } catch (e) {} }
+    function clearDraft() { try { localStorage.removeItem(cfg.key); } catch (e) {} saved = null; }
+    function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+    function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove('show'); }, 2200); }
+
+    function render() {
+      bar.style.width = (state.idx < 0 ? 0 : state.idx >= TOTAL ? 100 : Math.round(state.idx / TOTAL * 100)) + '%';
+      if (state.idx < 0) return intro();
+      if (state.idx >= TOTAL) return review();
+      question(Q[state.idx]);
+    }
+
+    function intro() {
+      foot.hidden = true; counter.hidden = true;
+      wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.eyebrow) + '</span>'
+        + '<h1 class="ai-display">' + esc(t.h1a) + ' <em>' + esc(t.h1b) + '</em></h1>'
+        + '<p class="ai-lead">' + esc(t.lead) + '</p><div class="ai-actions">'
+        + '<button type="button" class="btn btn-cta btn-lg" data-start>' + esc(t.start) + '</button>'
+        + (saved ? '<button type="button" class="btn ai-btn-line btn-lg" data-resume>' + esc(t.resume) + '</button>' : '')
+        + '<span class="ai-meta">' + esc(t.time) + '</span></div></div>';
+      wrap.querySelector('[data-start]').onclick = function () { state.answers = {}; go(0); };
+      var r = wrap.querySelector('[data-resume]');
+      if (r) r.onclick = function () { state.answers = Object.assign({}, saved.answers); go(Math.min(saved.idx || 0, TOTAL)); };
+    }
+
+    function question(q) {
+      foot.hidden = false; counter.hidden = false;
+      counter.textContent = (state.idx + 1) + ' ' + t.of + ' ' + TOTAL;
+      prevBtn.disabled = false;
+      var val = state.answers[q.id];
+      var h = '<div class="ai-panel"><span class="ai-qnum">' + esc(t.question) + ' ' + (state.idx + 1) + '</span>'
+        + '<h2 class="ai-qtitle" id="ai-q">' + esc(q.title) + (q.required ? '' : '<span class="ai-opt">' + esc(t.optional) + '</span>') + '</h2>'
+        + (q.help ? '<p class="ai-help">' + esc(q.help) + '</p>' : '');
+      if (q.type === 'single' || q.type === 'multi') {
+        h += '<div class="ai-choices" role="group" aria-labelledby="ai-q">';
+        q.options.forEach(function (o) {
+          var sel = q.type === 'multi' ? (Array.isArray(val) && val.indexOf(o.v) > -1) : val === o.v;
+          h += '<button type="button" class="ai-choice' + (sel ? ' sel' : '') + '" data-pick="' + q.type + '" data-v="' + esc(o.v) + '" aria-pressed="' + sel + '">'
+            + '<span class="ai-choice-body"><span class="ai-choice-label">' + esc(o.v) + '</span>' + (o.d ? '<span class="ai-choice-desc">' + esc(o.d) + '</span>' : '') + '</span>'
+            + '<span class="ai-mark">' + CHECK + '</span></button>';
+        });
+        h += '</div>';
+      } else {
+        var v = val != null ? esc(val) : '', ph = esc(q.placeholder || '');
+        var type = q.type === 'email' ? 'type="email" inputmode="email" autocomplete="email"' : q.type === 'url' ? 'type="url" inputmode="url"' : 'type="text"';
+        h += '<div class="ai-field">' + (q.type === 'long'
+          ? '<textarea id="ai-inp" rows="1" aria-labelledby="ai-q" placeholder="' + ph + '">' + v + '</textarea>'
+          : '<input id="ai-inp" ' + type + ' aria-labelledby="ai-q" placeholder="' + ph + '" value="' + v + '">') + '</div>';
+      }
+      h += '<div class="ai-note" data-note aria-live="polite"></div></div>';
+      wrap.innerHTML = h;
+
+      var inp = wrap.querySelector('#ai-inp');
+      if (inp) {
+        if (inp.tagName === 'TEXTAREA') { grow(inp); inp.addEventListener('input', function () { grow(inp); }); }
+        setTimeout(function () { inp.focus(); var L = inp.value.length; try { inp.setSelectionRange(L, L); } catch (e) {} }, 40);
+      }
+      wrap.querySelectorAll('.ai-choice').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var v = b.getAttribute('data-v');
+          if (q.type === 'multi') {
+            var cur = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
+            var i = cur.indexOf(v);
+            if (i > -1) cur.splice(i, 1); else cur.push(v);
+            b.classList.toggle('sel', i < 0); b.setAttribute('aria-pressed', i < 0);
+            state.answers[q.id] = cur; note(''); persist();
+          } else {
+            state.answers[q.id] = v;
+            wrap.querySelectorAll('.ai-choice').forEach(function (o) { o.classList.toggle('sel', o === b); o.setAttribute('aria-pressed', o === b); });
+            note(''); persist(); setTimeout(next, 260);
+          }
+        });
+      });
+      var first = wrap.querySelector('.ai-choice'); if (first && !inp) first.focus();
+    }
+
+    function grow(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 340) + 'px'; }
+    function note(m) { var n = wrap.querySelector('[data-note]'); if (n) { n.textContent = m; n.classList.toggle('show', !!m); } }
+    function capture() { var q = Q[state.idx], inp = wrap.querySelector('#ai-inp'); if (q && inp) { state.answers[q.id] = inp.value.trim(); persist(); } }
+    function validate() {
+      var q = Q[state.idx], v = state.answers[q.id];
+      var emailOk = function (x) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x); };
+      if (!q.required) { if (q.type === 'email' && v && !emailOk(v)) { note(t.errors.email); return false; } return true; }
+      if (q.type === 'multi') { if (!Array.isArray(v) || !v.length) { note(t.errors.pick); return false; } return true; }
+      if (q.type === 'single') { if (!v) { note(t.errors.pickOne); return false; } return true; }
+      if (!v) { note(t.errors.add.replace('{x}', q.missing || '')); return false; }
+      if (q.type === 'email' && !emailOk(v)) { note(t.errors.email); return false; }
+      if (q.type === 'url' && !/\..+/.test(v)) { note(t.errors.url); return false; }
+      return true;
+    }
+    function next() { if (state.idx >= 0 && state.idx < TOTAL) { capture(); if (!validate()) return; } go(state.idx + 1); }
+    function prev() { if (state.idx >= 0) { capture(); go(state.idx - 1); } }
+    function go(i) { state.idx = Math.max(-1, Math.min(i, TOTAL)); persist(); render(); var s = root.querySelector('.ai-stage'); if (s) s.scrollTop = 0; }
+    root.querySelector('[data-ai-ok]').onclick = next;
+    root.querySelector('[data-ai-next]').onclick = next;
+    prevBtn.onclick = prev;
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' || state.idx < 0 || state.idx >= TOTAL) return;
+      if (e.target && e.target.tagName === 'TEXTAREA') { if (e.metaKey || e.ctrlKey) { e.preventDefault(); next(); } return; }
+      if (e.target && e.target.classList && e.target.classList.contains('ai-choice')) return; // Enter on a choice clicks it
+      e.preventDefault(); next();
+    });
+
+    function show(a) { return Array.isArray(a) ? a.join(', ') : (a || ''); }
+    function briefText() {
+      return ['Kadanco: ' + t.eyebrow, ''].concat(Q.map(function (q) { return q.label + ': ' + (show(state.answers[q.id]) || '-'); })).join('\n');
+    }
+
+    function review() {
+      foot.hidden = true; counter.hidden = true;
+      var dl = Q.map(function (q) { var v = show(state.answers[q.id]); return '<dt>' + esc(q.label) + '</dt><dd class="' + (v ? '' : 'empty') + '">' + (v ? esc(v) : '-') + '</dd>'; }).join('');
+      wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.review.eyebrow) + '</span>'
+        + '<h1 class="ai-display">' + esc(t.review.h1) + '</h1><p class="ai-lead">' + esc(t.review.lead) + '</p>'
+        + '<div class="ai-brief"><dl>' + dl + '</dl></div>'
+        + '<label class="ai-hp" aria-hidden="true">Company URL<input type="text" tabindex="-1" autocomplete="off" data-hp></label>'
+        + '<div class="ai-actions"><button type="button" class="btn btn-cta btn-lg" data-send>' + esc(t.review.send) + '</button>'
+        + '<button type="button" class="btn ai-btn-line btn-lg" data-copy>' + esc(t.review.copy) + '</button>'
+        + '<button type="button" class="btn ai-btn-line" data-restart>' + esc(t.review.restart) + '</button></div>'
+        + '<p class="ai-error" data-err hidden></p></div>';
+      wrap.querySelector('[data-copy]').onclick = function () { copy(briefText()); };
+      wrap.querySelector('[data-restart]').onclick = function () { state.answers = {}; clearDraft(); go(-1); };
+      wrap.querySelector('[data-send]').onclick = send;
+      wrap.querySelector('[data-send]').focus();
+    }
+
+    function send() {
+      var btn = wrap.querySelector('[data-send]'), err = wrap.querySelector('[data-err]'), label = btn.textContent;
+      btn.disabled = true; btn.textContent = t.review.sending; err.hidden = true;
+      fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ type: cfg.id, email: state.answers.email, name: state.answers.name, answers: state.answers, brief: briefText(), _gotcha: wrap.querySelector('[data-hp]').value }) })
+        .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) { if (!res.ok || !out.ok) throw new Error(); }); })
+        .then(function () { clearDraft(); done(); })
+        .catch(function () { err.textContent = t.review.failed; err.hidden = false; btn.disabled = false; btn.textContent = label; });
+    }
+
+    function done() {
+      bar.style.width = '100%';
+      wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.done.eyebrow) + '</span>'
+        + '<h1 class="ai-display">' + esc(t.done.h1) + '</h1><p class="ai-lead">' + esc(t.done.lead) + '</p>'
+        + '<div class="ai-actions"><a class="btn btn-primary btn-lg" href="' + esc(cfg.home) + '">' + esc(t.done.back) + '</a></div></div>';
+    }
+
+    function copy(txt) {
+      var ok = function () { toast(t.review.copied); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fallback); else fallback();
+      function fallback() { try { var ta = document.createElement('textarea'); ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); ok(); } catch (e) {} }
+    }
+
+    render();
+  })();
+</script>

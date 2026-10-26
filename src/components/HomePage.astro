@@ -25,6 +25,7 @@ import HomeComparison from './HomeComparison.astro';
 import HomeSteps from './HomeSteps.astro';
 import { useCases } from '../data/use-cases';
 import { asLocale, localizedHref } from '../i18n/utils';
+import { auditHref } from '../data/intakes';
 
 const locale = asLocale(Astro.currentLocale);
 
@@ -135,7 +136,7 @@ const logos = [
       </div>
       <div class="home-offers">
         {c.cards.map((card) => (
-          <a class={`home-card home-card--${card.tone}`} id={card.id} href="#contact" data-open-modal>
+          <a class={`home-card home-card--${card.tone}`} id={card.id} href={auditHref[card.id as 'product'] ? localizedHref(locale, auditHref[card.id as 'product']!) : '#contact'} data-open-modal={auditHref[card.id as 'product'] ? undefined : ''}>
             <ServiceBoard id={card.id as 'product' | 'marketing' | 'sales'} width={128} />
             <span class="home-lbl">{card.label}</span>
             <h3>{card.title}</h3>

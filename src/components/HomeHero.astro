@@ -15,16 +15,14 @@ const copy = {
     h1b: 'Start Buying Execution.',
     // a line break (\n) starts a new line in the intro
     lead: 'Kadanco is Execution as a Service: senior operators with decades of field experience who plan and run your product, marketing and sales. Nothing gets delegated to juniors. Up and running within two weeks.',
-    cta: 'Get A Free Audit',
-    offersLink: 'Book a Strategy Call',
+    offersLink: 'Book A Strategy Call',
   },
   de: {
     eyebrow: 'End to End Go To Market',
     h1a: 'Schluss mit Beratung.',
     h1b: 'Kaufen Sie Umsetzung.',
     lead: 'Kadanco ist Execution as a Service: Macher mit jahrzehntelanger Praxiserfahrung, die Ihr Produkt, Ihr Marketing und Ihren Vertrieb planen und umsetzen. Nichts wird an Junioren delegiert. Innerhalb von zwei Wochen startklar.',
-    cta: 'Kostenloses Audit anfordern',
-    offersLink: 'Zu den Angeboten',
+    offersLink: 'Strategiegespräch buchen',
   },
 };
 
@@ -39,8 +37,8 @@ const hasVisual = Astro.slots.has('visual');
       {/* hyphenated words (hand-offs) never break at the hyphen: non-breaking hyphen */}
       <p>{c.lead.split('\n').map((line, i) => <>{i > 0 && <br />}{line.replace(/(\w)-(\w)/g, '$1\u2011$2')}</>)}</p>
       <div class="home-hero-actions">
-        <a href="#contact" class="btn btn-lime btn-lg" data-open-modal>{c.cta}</a>
-        <a href="#contact" class="btn btn-ghost btn-lg" data-open-modal>{c.offersLink}</a>
+        {/* one button: no generic audit CTA (owner, 2026-10-26); department audits live on their pages */}
+        <a href="#contact" class="btn btn-lime btn-lg" data-open-modal>{c.offersLink}</a>
       </div>
     </div>
     {hasVisual && <div class="home-hero-visual"><slot name="visual" /></div>}

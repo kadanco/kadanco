@@ -1,0 +1,10 @@
+---
+// /ux-audit/: the Product department audit intake (full screen, no nav or footer)
+import Layout from '../layouts/Layout.astro';
+import AuditIntake from '../components/AuditIntake.astro';
+import { uxAudit } from '../data/intakes';
+const t = uxAudit.en;
+---
+<Layout title={t.meta.title} description={t.meta.description} bare noindex>
+  <AuditIntake intake={uxAudit} />
+</Layout>

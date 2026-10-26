@@ -19,6 +19,7 @@ import StepsScene from './StepsScene.astro';
 import SelfCheck from './SelfCheck.astro';
 import DeliverableTabs from './DeliverableTabs.astro';
 import HeroMorph from './HeroMorph.astro';
+import { auditHref } from '../data/intakes';
 import MeasuresDash from './MeasuresDash.astro';
 import StepsDetail from './StepsDetail.astro';
 import type { UseCasePage, Mark } from '../data/use-case-pages/types';
@@ -37,6 +38,8 @@ const SCENES = ['web', 'slider', 'fan', 'map', 'board', 'calendar', 'sequence', 
 const scene = SCENES.find((k) => k === page.stepsLayout);
 // route card marks: check, half, cross
 const MARK_PATH: Record<Mark, string> = { has: 'M5 12.5l4.5 4.5L19 7.5', part: 'M6 12h12', gap: 'M7 7l10 10M17 7L7 17' };
+// the department's audit intake page (Product: /ux-audit/); without one, audit buttons open the contact modal
+const audit = auditHref[page.dept] ? localizedHref(locale, auditHref[page.dept]!) : undefined;
 const sec = (name: string) => (light.indexOf(name) % 2 ? 'ucd-sec ucd-sec--alt' : 'ucd-sec');
 const ui = {
   en: { problem: 'The problem', solve: 'What we do', uiHint: 'Hover a part of the screen', sceneHint: 'Hover the picture or a step to see how it works.' },
@@ -51,7 +54,7 @@ const ui = {
         <h1>{c.h1a} <em>{c.h1b}</em></h1>
         <p>{c.lead}</p>
         <div class="ucd-hero-actions">
-          <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.ctaPrimary}</a>
+          {audit ? <a href={audit} class="btn btn-lg ucd-btn">{c.ctaPrimary}</a> : <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.ctaPrimary}</a>}
           {c.ctaSecondaryHref
             ? <a href={c.ctaSecondaryHref} class="btn btn-lg ucd-btn-ghost">{c.ctaSecondary}</a>
             : <a href="#contact" class="btn btn-lg ucd-btn-ghost" data-open-modal>{c.ctaSecondary}</a>}
@@ -192,7 +195,7 @@ const ui = {
           <p class="ucd-lede">{c.deliverables.lede}</p>
         </div>
         {c.deliverables.layout === 'steps'
-          ? <StepsDetail steps={c.deliverables.tabs} cta={c.deliverables.cta} labels={locale === 'de'
+          ? <StepsDetail steps={c.deliverables.tabs} cta={c.deliverables.cta} ctaHref={audit} labels={locale === 'de'
               ? { step: 'Schritt', doing: 'Was wir tun', get: 'Was Sie bekommen', you: 'Von Ihnen:',
                   report: 'UX-Audit', impact: ['Hoch', 'Mittel', 'Niedrig'], drop: 'Größter Abbruch', test: 'Test 5 von 6 bestanden',
                   states: ['Standard', 'Lädt', 'Leer', 'Fehler'], tokens: 'Tokens', components: 'Komponenten', doLbl: 'So', dontLbl: 'Nicht so',
@@ -425,7 +428,7 @@ const ui = {
     <div class="container">
       <h2>{c.cta.h2a} <em>{c.cta.h2b}</em></h2>
       <p>{c.cta.lead}</p>
-      <div class="ucd-cta-actions"><a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.cta.button}</a></div>
+      <div class="ucd-cta-actions">{audit ? <a href={audit} class="btn btn-lg ucd-btn">{c.cta.button}</a> : <a href="#contact" class="btn btn-lg ucd-btn" data-open-modal>{c.cta.button}</a>}</div>
     </div>
   </section>
 </main>
