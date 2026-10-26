@@ -229,11 +229,14 @@ const ui = {
                     slideHs: ['Jede Einstellung kostet einen Gründer eine Woche.', 'Kleine Teams stellen heute ein wie große.', 'Ausschreiben, sortieren, Angebot. An einem Nachmittag.', 'Teams wie Ihres stellen schon so ein.'],
                     prev: 'Vorherige Folie', next: 'Nächste Folie',
                     assets: ['Website', 'LinkedIn', 'E-Mail-Signatur', 'Vertriebsdeck', 'Roll-up'], brandLbl: 'Die Marke' },
-                  cnt: { notes: 'Interview-Notizen', quotes: ['„HR-Software ist für HR-Abteilungen gebaut.“', '„Wir verschicken das Angebot am selben Nachmittag.“'], argsLbl: 'Argumente, die Ihnen gehören', args: ['Kleine Teams stellen anders ein', 'HR-Software ist für HR gebaut', 'Ein Angebot an einem Nachmittag'],
-                    days: ['Mo', 'Di', 'Mi', 'Do', 'Fr'], kinds: ['Post', 'Artikel', 'Post'], author: 'Gründerin · Talio', post: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', approved: 'Freigegeben',
-                    guide: 'Leitfaden', articleH: 'Einstellen ohne Personalabteilung', url: 'ihrefirma.de', ai: 'KI-Antwort', aiText: 'Kleine Teams können ohne Personalabteilung einstellen, wenn …',
-                    deckH: 'Einstellen ohne HR.', onePager: 'One-Pager', opH: 'Talio für kleine Teams', caseStudy: 'Case Study', quote: 'Wir haben drei Stellen ohne HR besetzt.',
-                    chain: ['Post', 'Outbound-Nachricht', 'Termin gebucht', 'Deal gewonnen'], crm: 'CRM: Quelle erfasst' } }
+                  cnt: { notes: 'Interview-Notizen', quotes: ['„Die meisten unserer Kunden hatten nie eine HR-Person.“', '„HR-Software ist für HR-Abteilungen gebaut.“', '„Wir verschicken das Angebot am selben Nachmittag.“'], argsLbl: 'Argumente, die Ihnen gehören', args: ['Kleine Teams stellen anders ein', 'HR-Software ist für HR gebaut', 'Ein Angebot an einem Nachmittag'],
+                    becomes: 'Daraus wird', hooks: ['Post: Kleine Teams stellen nicht ein wie große. Sie sollten es auch nicht versuchen.', 'Artikel: Warum HR-Software kleine Teams ausbremst', 'Deck: Vom Gespräch zum Angebot an einem Nachmittag'],
+                    days: ['Mo', 'Di', 'Mi', 'Do', 'Fr'], kinds: ['Post', 'Artikel', 'Post'], author: 'Gründerin · Talio',
+                    posts: ['Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', 'Neuer Leitfaden: Einstellen ohne Personalabteilung. Der Link steht im Kommentar.', 'Unsere beste Einstellung kam aus einem Gespräch von 20 Minuten. Hier ist das Format.'], approved: 'Freigegeben',
+                    guide: 'Leitfaden', articleH: 'Einstellen ohne Personalabteilung', url: 'ihrefirma.de', search: 'Suche', ai: 'KI-Antwort', aiText: 'Kleine Teams können ohne Personalabteilung einstellen, wenn sie …', others: ['wettbewerber-a.de', 'wettbewerber-b.de'],
+                    deck: 'Deck', deckH: 'Einstellen ohne HR.', onePager: 'One-Pager', opH: 'Talio für kleine Teams', caseStudy: 'Case Study', quote: 'Wir haben drei Stellen ohne HR besetzt.',
+                    chain: ['Post', 'Outbound-Nachricht', 'Termin gebucht', 'Deal gewonnen'],
+                    chainText: ['Der Post der Gründerin erreicht eine Käuferin bei einem Ziel-Account.', 'Outbound fasst nach, solange sie sich an den Post erinnert.', 'Ein Erstgespräch, das mit „Ich habe Ihren Post gelesen“ beginnt.', 'Der Deal schließt, und das CRM zeigt den Post, mit dem alles anfing.'], crm: 'CRM: Quelle erfasst' } }
               : { step: 'Step', doing: 'What we do', get: 'What you get', you: 'From you:',
                   report: 'UX audit', impact: ['High', 'Medium', 'Low'], drop: 'Biggest drop', test: 'Test 5 of 6 passed',
                   states: ['Default', 'Loading', 'Empty', 'Error'], tokens: 'Tokens', components: 'Components', doLbl: 'Do', dontLbl: "Don't",
@@ -255,11 +258,14 @@ const ui = {
                     slideHs: ['Every Hire Costs A Founder A Week.', 'Small Teams Now Hire Like Big Ones.', 'Post, Sort, Offer. In One Afternoon.', 'Teams Like Yours Already Hire This Way.'],
                     prev: 'Previous slide', next: 'Next slide',
                     assets: ['Website', 'LinkedIn', 'Email signature', 'Sales deck', 'Roll-up'], brandLbl: 'The brand' },
-                  cnt: { notes: 'Interview notes', quotes: ['"HR software is built for HR departments."', '"We send the offer the same afternoon."'], argsLbl: 'Arguments you own', args: ['Small teams hire differently', 'HR software is built for HR', 'An offer in one afternoon'],
-                    days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], kinds: ['Post', 'Article', 'Post'], author: 'Founder · Talio', post: 'Small teams do not need an HR department to hire well. Here is how we do it.', approved: 'Approved',
-                    guide: 'Guide', articleH: 'How To Hire Without An HR Department', url: 'yourcompany.com', ai: 'AI answer', aiText: 'Small teams can hire without an HR department if they …',
-                    deckH: 'Hiring Without HR.', onePager: 'One-pager', opH: 'Talio for small teams', caseStudy: 'Case study', quote: 'We filled three roles without an HR team.',
-                    chain: ['Post', 'Outbound message', 'Meeting booked', 'Deal won'], crm: 'CRM: source tracked' } }} />
+                  cnt: { notes: 'Interview notes', quotes: ['"Most of our customers have never had an HR person."', '"HR software is built for HR departments."', '"We send the offer the same afternoon."'], argsLbl: 'Arguments you own', args: ['Small teams hire differently', 'HR software is built for HR', 'An offer in one afternoon'],
+                    becomes: 'It becomes', hooks: ["Post: Small teams don't hire like big ones. They shouldn't try to.", 'Article: Why HR software slows small teams down', 'Deck: From interview to offer in one afternoon'],
+                    days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], kinds: ['Post', 'Article', 'Post'], author: 'Founder · Talio',
+                    posts: ['Small teams do not need an HR department to hire well. Here is how we do it.', 'New guide: how to hire without an HR department. Link in the comments.', 'Our best hire came from a 20-minute call. Here is the format.'], approved: 'Approved',
+                    guide: 'Guide', articleH: 'How To Hire Without An HR Department', url: 'yourcompany.com', search: 'Search', ai: 'AI answer', aiText: 'Small teams can hire without an HR department if they …', others: ['competitor-a.com', 'competitor-b.com'],
+                    deck: 'Deck', deckH: 'Hiring Without HR.', onePager: 'One-pager', opH: 'Talio for small teams', caseStudy: 'Case study', quote: 'We filled three roles without an HR team.',
+                    chain: ['Post', 'Outbound message', 'Meeting booked', 'Deal won'],
+                    chainText: ["The founder's post reaches a buyer at a target account.", 'Outbound follows up while they still remember the post.', 'A first call that starts with "I read your post".', 'The deal closes, and the CRM shows the post that started it.'], crm: 'CRM: source tracked' } }} />
           : <DeliverableTabs tabs={c.deliverables.tabs} id={`${page.id}-dt`} />}
       </div>
     </section>

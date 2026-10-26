@@ -5,8 +5,7 @@
 // GEO articles, sales decks and one-pagers, warmed outbound, CRM tracking) kept where it fits.
 //   Hero: one founder insight fans out into a post, an article, a deck slide and a one-pager (HeroFanout.astro).
 //   Self-check: a LinkedIn feed that goes stale with every tick (SelfCheck kind 'feed').
-//   Steps (StepsDetail look 'campaign', static pictures; clickable ones stay on Positioning and Brand
-//   for now, owner): voice and angle, LinkedIn, articles, sales material, distribution and tracking.
+//   Steps (StepsDetail look 'campaign', clickable pictures, owner 2026-10-26): voice and angle, LinkedIn, articles, sales material, distribution and tracking.
 //   Five steps because they fit this page (owner: no fixed number). Measures: press clippings.
 // Example company "Talio" as on Positioning and Brand. Audit buttons go to /marketing-audit/.
 // German mirrored, for Maria to review.
