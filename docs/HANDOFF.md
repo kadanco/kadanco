@@ -2,55 +2,62 @@
 
 Start a new chat with: "Read docs/HANDOFF.md". Claude updates this file at the end of every work session (rule in `CLAUDE.md`), so it always shows where we stopped.
 
-Last updated: 23 October 2026, 15:30 (Germany time)
+Last updated: 26 October 2026, 13:25 (Germany time)
 
 ## Read first
 
-1. `CLAUDE.md`: brand rules, house rules, working style and the full decision log. It is the long-term record; this file is the short "where are we now".
-2. `docs/masterplan.md`: group-wide plan (decisions D1 to D39), when copy or positioning is involved.
+1. `CLAUDE.md`: brand rules, house rules, responsive rules, working style and the full decision log. It is the long-term record; this file is the short "where are we now".
+2. `docs/OPEN-TASKS-20261024-1053.md`: everything still open, including what waits on the owner.
+3. `docs/masterplan.md`: group-wide plan (decisions D1 to D39), when copy or positioning is involved (voice rules D29).
 
 ## Working setup
 
 - Repo: `/Users/karansharma/Coding/kadanco-website`. Work branch `october-update`; `main` deploys to kadanco.com.
 - Push `october-update` to get a Cloudflare preview (staging). Internal pages (/styleguide, /icons, /components) only exist locally and on staging.
+- Before handing over commands, run both `npm run build` and `KADANCO_STAGING=1 npm run build` (staging builds the internal pages; a local build skips them).
 - Never add a Co-Authored-By or any Claude line to commit messages.
-- Keep out of commits: the owner's `package.json` and `package-lock.json` changes (`@fontsource/fira-sans`), `design/261020_Kadanco_Website_with-detail-page/`, `design/Klarna example/`, `_local/`.
+- The owner commits and pushes. Claude leaves changes in the working tree and gives short one-line commands (long lines break when pasted).
+- Keep out of commits: the owner's `package.json` and `package-lock.json` changes (`@fontsource/fira-sans`), `design/261020_Kadanco_Website_with-detail-page/`, `design/Klarna example/`, `concepts/`, `_local/`.
 - Do not use the images in `design/Sample images - Do not use them directly/` on the site (no licence).
-- The owner commits and pushes. Claude leaves changes in the working tree and gives the commands.
+- Visual checks: Playwright with the local Chrome (`/Applications/Google Chrome.app`), against `npx astro preview --port 4329`. Wait for `domcontentloaded`, not `networkidle` (the cookie banner never settles).
 
 ## Current state
 
-Latest commit on `october-update`: `0acc939` Contextual step scenes for all use cases, breadcrumbs removed sitewide. Working tree clean apart from the files listed above.
+Latest commit on `october-update`: `b8fc4f9` All CTAs lead to form pages. Commit and push the doc updates from this session before starting (see the end of the last chat).
 
-- Services: Product Design & Development, Digital Marketing & Branding, Sales Support & Systems (DE: Produktdesign & Entwicklung, Digitales Marketing & Branding, Vertriebsunterstützung & Systeme).
-- 9 use cases, one go-to-market team, each led by one department and tagged with all it involves (`src/data/use-cases.ts`):
-  - Product: Product Design, Website Production, Software Modernisation
-  - Marketing: DACH Market Entry, Content Production, Positioning and Brand
-  - Sales: Outbound Sales Pipeline, Event Lead Generation, Account-Based Marketing
-- All 9 have detail pages in EN and DE: `src/components/UseCaseDetail.astro` with content in `src/data/use-case-pages/*.ts`.
-- The "What's inside" steps are a contextual scene per page (`stepsLayout`): Product Design uses `StepsProductUI.astro`; the other eight use `StepsScene.astro` (web, slider, fan, map, board, calendar, sequence, org). The layouts `stack`, `expand` and `bento` stay available.
-- Old use case URLs redirect with 301s in `public/_redirects`.
-- Breadcrumbs removed sitewide.
-- Homepage: hero intro "Kadanco is Execution as a Service: ...", department cards with photo on the left.
+- **Homepage: done** (owner sign-off 2026-10-26).
+- **Product Design: done.** It is the template for the other use case pages:
+  - Product department style: wireframes and UI only.
+  - Hero: before/after slider (`HeroMorph.astro`).
+  - Self-check with worsening wireframe and revenue/cost bars (`SelfCheck.astro`).
+  - "What you get" as five tall steps with equal-size pictures (`StepsDetail.astro`).
+  - "What we measure" as a wireframe analytics app with hover/tap explanations (`MeasuresDash.astro`).
+  - Ways to work; FAQ. Situation, first 90 days and success stories removed.
+- **Use case visibility** (`show` in `src/data/use-cases.ts`):
+  - Nav and homepage cards: Product Design, Website Production, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline.
+  - Footer only: DACH Market Entry, Event Lead Generation.
+  - Hidden: Software Modernisation and the /use-cases/ overview (files prefixed with `_`).
+- **Forms:** no modal. Every CTA links to a full-screen form page (`AuditIntake.astro`, content in `src/data/intakes.ts`, EN and DE, noindex):
+  - /strategy-call/ (Plunk event `contact-form-submitted`)
+  - /ux-audit/ (Product), /marketing-audit/, /pipeline-audit/ (Sales), each with its own `*-submitted` event.
+- **Department styles** (owner decision): Product = wireframes and UI; Marketing = bold PR and agency style; Sales = dashboards and graphs.
+- **Hero rule:** on laptops and up every use case hero fits the first screen with the CTAs visible; headline about 50 characters (German 60), lead 160 to 200.
 
-## Waiting on the owner
+## Waiting on the owner (top items; full list in the open tasks file)
 
-- Review the drafted pages: Software Modernisation and Account-Based Marketing (no design files existed).
-- Confirm claims on the pages: Maria writes front-end code and pairs with client developers; back-end changes only where needed; cold calling and phone outreach; Meta ads and direct mail; native German in every Sales FAQ; "six to ten people" on ABM; "Months" as a Software Modernisation outcome.
-- Which CMS platforms we build on, and a typical website launch time (Website Production FAQ).
-- Maria: review all German use case text and the German scene labels.
-- Brand: lime is used as a large ground on Marketing heroes and active step panels; the brand rules say never. Switch to a light lime tint?
-- Photos for the homepage department cards (owner picks from Unsplash, uploads to R2, then we point the cards at the R2 URLs) and real photos for the step image slots.
+- Plunk: notifications for `ux-audit-submitted`, `marketing-audit-submitted`, `pipeline-audit-submitted` (before launch).
+- Review the drafted Marketing and Pipeline audit questions.
+- Copy fixes from the review: self-check item 6, "get shortened", "Lets Talk", too-long page titles, Product Design meta description.
 
 ## Next up
 
-1. Act on the owner's answers above.
-2. Optional: look into the `/de` route warning in the build (it existed before October 22).
-3. From `CLAUDE.md` "Next": colour pass on the remaining pages, the 3 category (service) pages, glossary department filter, remaining wireframe pages, self-hosted fonts (GDPR), security and GDPR review before launch.
-4. Google Sheet rows 82 and later may be missing the word "as" (an old export bug); check before reusing them.
+1. Website Production on the Product Design template (Product style).
+2. Marketing pages (bold PR and agency style): Content Production, Positioning and Brand; then DACH.
+3. Sales pages (dashboards and graphs): Account-Based Marketing, Outbound Sales Pipeline; then Event Lead Generation.
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-24 to 26: Component round on the homepage (comparison, compliance, CTA, footer, Who We Are, tags, photos, card layout); responsive rules and pass on all pages; hero rule; use case visibility; Product Design rebuilt as the template; review fixed the CTA/modal bug; contact modal replaced by four full-screen form pages.
 - 2026-10-23: Contextual step scenes for all use cases; breadcrumbs removed; handoff file created.
 - 2026-10-22: Services renamed; 9 use cases with tags, new URLs and redirects; all 9 detail pages written (EN and DE); step layouts (stack, Klarna expand row, bento, product UI).
 - 2026-10-21: Homepage use cases as three department cards with photos; DACH page rebuilt on the new template.

@@ -15,8 +15,8 @@ Read this first in every session. Update the "Status" and "Decision log" section
 
 - Astro 7, static output, plain HTML and CSS, no UI framework. Node 22 (`.nvmrc`).
 - Hosting: Cloudflare Pages. Push to `main` deploys automatically (build `npm run build`, output `dist`).
-- GitHub: `kadanco/kadanco`. Branch `main`. Old unmerged branches: `homepage-v2` (June), `cloudflare/workers-autoconfig`.
-- Contact form: `functions/api/contact.js` (Cloudflare Pages Function) sends to Plunk. Secret `PLUNK_API_KEY`.
+- GitHub: `kadanco/kadanco`. Branch `main` (live). Work branch `october-update` (staging previews on push).
+- Forms: four full-screen form pages (strategy call, UX, marketing and pipeline audits) post to `functions/api/contact.js` (Cloudflare Pages Function), which sends to Plunk. Secret `PLUNK_API_KEY`. There is no contact modal any more.
 - Analytics: GTM `GTM-MF44PR8H` + CookieYes consent, wired in `src/layouts/Layout.astro`.
 - Brand assets (logos, photos, OG image): R2 bucket at https://assets.kadanco.com.
 - Motion: Anime.js from `public/vendor/anime.umd.min.js`.
@@ -32,15 +32,17 @@ Internal pages (local and staging only, never on kadanco.com): http://localhost:
 ## Repo map
 
 ```
-src/layouts/Layout.astro    head, nav, footer, modal, global scripts, consent
-src/components/             Nav, Footer, ContactModal, ComparisonMatrix,
-                            UseCaseSpotlight, CadenceTimeline
-src/pages/                  index, imprint, privacy-policy, glossary, use-cases (9 detail pages)
+src/layouts/Layout.astro    head, nav, footer, global scripts, consent (`bare` = no nav/footer, for the forms)
+src/components/             Nav, Footer, HomePage + Home*/Live* sections, DeptStack, UseCaseDetail (use case
+                            template) + SelfCheck, StepsDetail, MeasuresDash, HeroMorph, AuditIntake (forms)
+src/pages/                  index, imprint, privacy-policy, glossary, use-cases (8 built; _ prefix = hidden),
+                            strategy-call, ux-audit, marketing-audit, pipeline-audit
 src/pages/de/               German versions
 src/i18n/ui.ts              UI strings + translatedRoutes (controls DE sitemap/links)
 src/data/glossary.json      251 glossary terms
 src/data/use-case-pages/    one content file per use case detail page (EN and DE), rendered by src/components/UseCaseDetail.astro
-src/data/use-cases.ts       all 9 use cases (EN and DE) with department tags, read by the homepage, nav, footer and /use-cases/
+src/data/use-cases.ts       all use cases (EN and DE) with department tags and `show` (nav / footer / hidden)
+src/data/intakes.ts         the four forms' questions (EN and DE), `auditHref` per department, `callHref`
 src/data/menus.ts           link groups (Services, Use Cases, Resources) shared by nav and footer
 src/styles/tokens.css       brand tokens (--kd-*), the single source for all brand values
 src/styles/global.css       shared components, maps working names onto tokens.css
@@ -110,32 +112,15 @@ Every page must work from 360px to 1600px wide. Check at 360, 390, 768, 1024, 12
 - Deliver changes as files for the Downloads folder (usually a git patch), applied with `git am`.
 - New files get a timestamp: `NAME-YYYYMMDD-HHMM` (Germany time). Exception: files whose name a tool requires (`CLAUDE.md`, `README.md`, Astro pages, configs).
 
-## Status (17 October 2026)
+## Status (26 October 2026)
 
-Done:
-- October design files added to `design/`.
-- Sitewide style rules applied: 5px radius, 45px controls, weights 400/500, outlined labels.
-- Missing `.dev.vars.example` added, em dash removed.
-- `src/styles/tokens.css` added from the style guide; `global.css` reads from it.
-- Dev-only style guide at `/styleguide`.
-- Unused font weights (600, 700, 900) removed from the Google Fonts request.
-- Homepage rebuilt to `design/02_pages/Kadanco_Home-20261015-0850.html` (EN and DE) in `src/components/HomePage.astro`. Old homepage backed up locally in `_local/accessdach/` for accessdach.com.
-- Nav: original look (transparent, blur, white or ink text by the ground under it, logo swap, lime Let's Talk). Four items: Services, Use Cases and Resources as dropdowns, plus About; then EN / DE, one light/dark toggle icon, CTA. Footer on ink.
-- Dark mode: theme role tokens (`--kd-bg`, `--kd-fg`, ...) in `tokens.css`. Only pages with `themeable` on `<Layout>` (the homepage) show the switch; all others stay light.
-- Buttons: `.btn-primary` is blue, `.btn-cta` orange, `.btn-lime` for CTAs on dark grounds (hero, nav, CTA bands, older pages' heroes).
-- Hero: text in `src/components/HomeHero.astro`, visual in `src/components/HomeHeroVisual.astro`: three isometric boards as slices, read top to bottom: 01 Product (app screen), 02 Marketing (content), 03 Sales (pipeline bars lying flat) in the style of the Conversion rebuild hero illustration, with the labels printed on each slice's top face and no legend.
-- Use cases: all 7 in `src/data/use-cases.ts` (4 with detail pages, 3 case studies from the category designs, shown as problem and approach without the invented numbers). Homepage shows all 7; new overview page `/use-cases/` and `/de/use-cases/` with a department filter (wireframe 8). Footer links "All use cases".
-- Homepage copy cleaned of the banned words and patterns in masterplan D29 (motions, compounds, system of action, "X, not Y").
+Done and signed off by the owner:
+- Homepage (EN and DE): hero, comparison, services, department cards, Who We Are, How We Work, FAQ, compliance, closing CTA. Responsive from 360 to 1600px.
+- Product Design use case page: the template for the other use case pages (department style, hero rule, self-check, detailed "What you get" steps, measures dashboard, ways to work).
+- Forms: every CTA links to a full-screen form page (strategy call or the department's audit). No modal.
+- Use case visibility: six in nav and homepage, DACH and Event Lead Generation in the footer only, Software Modernisation and /use-cases/ hidden.
 
-Next, in order:
-1. Homepage content: owner feedback round on the whole page. Offer cards open the contact modal until the category pages exist.
-2. Colour pass on the remaining pages: beige grounds, dark mode support.
-3. 3 category pages: Product Design, Product Marketing, Sales.
-4. Done 2026-10-22: all 9 use cases have detail pages on `UseCaseDetail.astro` (EN and DE). Open: owner and Maria review of copy, real photos for the step image slots.
-5. Glossary: add department filter.
-6. Remaining pages from the 12-page wireframe.
-7. Real photos (about 25 placeholders), replace invented metrics and quotes, working CTAs.
-8. Security and GDPR review, then launch.
+Next: Website Production, then the Marketing and Sales use case pages in their department styles. The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
 
 ## Open questions
 
