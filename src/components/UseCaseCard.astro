@@ -23,8 +23,8 @@ const locale = asLocale(Astro.currentLocale);
 const t = uc[locale] ?? uc.en;
 
 const ui = {
-  en: { product: 'Product', marketing: 'Marketing', sales: 'Sales', page: 'Full use case', talk: 'Talk to us about this', own: 'What you get', problem: 'The problem', approach: 'What we do' },
-  de: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb', page: 'Zum Use Case', talk: 'Sprechen Sie uns darauf an', own: 'Was Sie bekommen', problem: 'Das Problem', approach: 'Was wir tun' },
+  en: { product: 'Product', marketing: 'Marketing', sales: 'Sales', page: 'Full use case', talk: 'Book A Strategy Call', own: 'What you get', problem: 'The problem', approach: 'What we do' },
+  de: { product: 'Produkt', marketing: 'Marketing', sales: 'Vertrieb', page: 'Zum Use Case', talk: 'Strategiegespräch buchen', own: 'Was Sie bekommen', problem: 'Das Problem', approach: 'Was wir tun' },
 }[locale];
 
 const hasPage = uc.kind === 'page' && uc.href;

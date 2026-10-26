@@ -101,8 +101,8 @@ export const positioningAndBrand: UseCasePage = {
       h2a: 'Two Ways To Start.',
       h2b: 'Message First, Or The Full Brand.',
       options: [
-        { tag: 'Sprint', title: 'Positioning sprint', length: 'About 3 weeks', body: 'A fixed sprint that finds your positioning and writes the message, ready for your site, deck and sales.', points: ['Customer and competitor research', 'Positioning options, ranked by risk', 'Positioning statement and message house', 'Voice guide and headline copy', 'A workshop to roll it out'], cta: 'Book A Sprint Call' },
-        { tag: 'Full brand', title: 'Positioning and brand', length: '6 to 8 weeks', body: 'Everything in the sprint, plus the visual identity and the sales story, rolled out across your site, deck and social.', points: ['Everything in the positioning sprint', 'Logo, colours, type and image style', 'Brand guidelines and templates', 'Sales narrative and deck', 'Rollout across site, deck and social'], cta: 'Book A Discovery Call' },
+        { tag: 'Sprint', title: 'Positioning sprint', length: 'About 3 weeks', body: 'A fixed sprint that finds your positioning and writes the message, ready for your site, deck and sales.', points: ['Customer and competitor research', 'Positioning options, ranked by risk', 'Positioning statement and message house', 'Voice guide and headline copy', 'A workshop to roll it out'], cta: 'Book A Strategy Call' },
+        { tag: 'Full brand', title: 'Positioning and brand', length: '6 to 8 weeks', body: 'Everything in the sprint, plus the visual identity and the sales story, rolled out across your site, deck and social.', points: ['Everything in the positioning sprint', 'Logo, colours, type and image style', 'Brand guidelines and templates', 'Sales narrative and deck', 'Rollout across site, deck and social'], cta: 'Book A Strategy Call' },
       ],
     },
     operator: {
@@ -215,8 +215,8 @@ export const positioningAndBrand: UseCasePage = {
       h2a: 'Zwei Wege zum Start.',
       h2b: 'Erst die Botschaft oder gleich die ganze Marke.',
       options: [
-        { tag: 'Sprint', title: 'Positionierungs-Sprint', length: 'Etwa 3 Wochen', body: 'Ein fester Sprint, der Ihre Positionierung findet und die Botschaft schreibt, bereit für Website, Deck und Vertrieb.', points: ['Kunden- und Wettbewerbsanalyse', 'Positionierungsoptionen, nach Risiko geordnet', 'Positionierung und Message House', 'Tonalitäts-Leitfaden und Headlines', 'Ein Workshop für den Rollout'], cta: 'Sprint besprechen' },
-        { tag: 'Ganze Marke', title: 'Positionierung und Marke', length: '6 bis 8 Wochen', body: 'Alles aus dem Sprint, dazu die visuelle Identität und die Vertriebsstory, ausgerollt auf Website, Deck und Social Media.', points: ['Alles aus dem Positionierungs-Sprint', 'Logo, Farben, Schrift und Bildsprache', 'Markenrichtlinien und Vorlagen', 'Vertriebserzählung und Deck', 'Rollout auf Website, Deck und Social Media'], cta: 'Erstgespräch buchen' },
+        { tag: 'Sprint', title: 'Positionierungs-Sprint', length: 'Etwa 3 Wochen', body: 'Ein fester Sprint, der Ihre Positionierung findet und die Botschaft schreibt, bereit für Website, Deck und Vertrieb.', points: ['Kunden- und Wettbewerbsanalyse', 'Positionierungsoptionen, nach Risiko geordnet', 'Positionierung und Message House', 'Tonalitäts-Leitfaden und Headlines', 'Ein Workshop für den Rollout'], cta: 'Strategiegespräch buchen' },
+        { tag: 'Ganze Marke', title: 'Positionierung und Marke', length: '6 bis 8 Wochen', body: 'Alles aus dem Sprint, dazu die visuelle Identität und die Vertriebsstory, ausgerollt auf Website, Deck und Social Media.', points: ['Alles aus dem Positionierungs-Sprint', 'Logo, Farben, Schrift und Bildsprache', 'Markenrichtlinien und Vorlagen', 'Vertriebserzählung und Deck', 'Rollout auf Website, Deck und Social Media'], cta: 'Strategiegespräch buchen' },
       ],
     },
     operator: {

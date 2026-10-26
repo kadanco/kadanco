@@ -97,8 +97,8 @@ export const productDesign: UseCasePage = {
       h2a: 'Two Ways To Start.',
       h2b: 'Pick Your Pace.',
       options: [
-        { tag: 'Sprint', title: 'First-run sprint', length: '4, 8 or 12 weeks', body: 'A fixed sprint that fixes the first run and lays the foundation of your design system.', points: ['UX audit and a ranked list of fixes', 'A tested prototype of every onboarding screen', 'The first components of your design system', 'Workshops with your team', 'Handover to your developers'], cta: 'Book A Sprint Call' },
-        { tag: 'Ongoing', title: 'Product partnership', length: 'Quarterly, ongoing', body: 'Senior product operators inside your team, designing, shipping and measuring release after release.', points: ['Part of your product team', 'Ongoing design of the user journey', 'A roadmap of tests, run and measured', 'A design system that grows with every release'], cta: 'Book A Discovery Call' },
+        { tag: 'Sprint', title: 'First-run sprint', length: '4, 8 or 12 weeks', body: 'A fixed sprint that fixes the first run and lays the foundation of your design system.', points: ['UX audit and a ranked list of fixes', 'A tested prototype of every onboarding screen', 'The first components of your design system', 'Workshops with your team', 'Handover to your developers'], cta: 'Book A Strategy Call' },
+        { tag: 'Ongoing', title: 'Product partnership', length: 'Quarterly, ongoing', body: 'Senior product operators inside your team, designing, shipping and measuring release after release.', points: ['Part of your product team', 'Ongoing design of the user journey', 'A roadmap of tests, run and measured', 'A design system that grows with every release'], cta: 'Book A Strategy Call' },
       ],
     },
     operator: {
@@ -211,8 +211,8 @@ export const productDesign: UseCasePage = {
       h2a: 'Zwei Wege zum Start.',
       h2b: 'Sie wählen das Tempo.',
       options: [
-        { tag: 'Sprint', title: 'Einstiegs-Sprint', length: '4, 8 oder 12 Wochen', body: 'Ein fester Sprint, der den Einstieg verbessert und das Fundament Ihres Designsystems legt.', points: ['UX-Audit und priorisierte Maßnahmen', 'Ein getesteter Prototyp jedes Onboarding-Screens', 'Die ersten Komponenten Ihres Designsystems', 'Workshops mit Ihrem Team', 'Übergabe an Ihre Entwickler'], cta: 'Sprint besprechen' },
-        { tag: 'Laufend', title: 'Produkt-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Produkt-Macher in Ihrem Team, die Release für Release gestalten, ausliefern und messen.', points: ['Teil Ihres Produktteams', 'Laufende Gestaltung der Nutzerwege', 'Eine Roadmap aus Tests, umgesetzt und gemessen', 'Ein Designsystem, das mit jedem Release wächst'], cta: 'Erstgespräch buchen' },
+        { tag: 'Sprint', title: 'Einstiegs-Sprint', length: '4, 8 oder 12 Wochen', body: 'Ein fester Sprint, der den Einstieg verbessert und das Fundament Ihres Designsystems legt.', points: ['UX-Audit und priorisierte Maßnahmen', 'Ein getesteter Prototyp jedes Onboarding-Screens', 'Die ersten Komponenten Ihres Designsystems', 'Workshops mit Ihrem Team', 'Übergabe an Ihre Entwickler'], cta: 'Strategiegespräch buchen' },
+        { tag: 'Laufend', title: 'Produkt-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Produkt-Macher in Ihrem Team, die Release für Release gestalten, ausliefern und messen.', points: ['Teil Ihres Produktteams', 'Laufende Gestaltung der Nutzerwege', 'Eine Roadmap aus Tests, umgesetzt und gemessen', 'Ein Designsystem, das mit jedem Release wächst'], cta: 'Strategiegespräch buchen' },
       ],
     },
     operator: {

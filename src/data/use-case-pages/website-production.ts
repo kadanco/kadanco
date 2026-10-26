@@ -102,8 +102,8 @@ export const websiteProduction: UseCasePage = {
       h2a: 'Two Ways To Start.',
       h2b: 'Pick Your Pace.',
       options: [
-        { tag: 'Sprint', title: 'Website sprint', length: 'Homepage in 4 weeks, full site in 6 to 8', body: 'A fixed project from brand to launch: positioning, copy, design, build and the search and AI setup.', points: ['Positioning and message guide', 'Copy and wireframes for every page', 'Design and custom images', 'Build on a CMS, with training', 'SEO, AEO and GEO setup at launch'], cta: 'Book A Sprint Call' },
-        { tag: 'Ongoing', title: 'Website partnership', length: 'Quarterly, ongoing', body: 'Senior operators who keep the site growing after launch: new pages, content for search and AI answers, and tests that lift conversion.', points: ['New pages and landing pages', 'Content for SEO, AEO and GEO', 'Conversion tests, run and measured', 'Hosting, updates and security'], cta: 'Book A Discovery Call' },
+        { tag: 'Sprint', title: 'Website sprint', length: 'Homepage in 4 weeks, full site in 6 to 8', body: 'A fixed project from brand to launch: positioning, copy, design, build and the search and AI setup.', points: ['Positioning and message guide', 'Copy and wireframes for every page', 'Design and custom images', 'Build on a CMS, with training', 'SEO, AEO and GEO setup at launch'], cta: 'Book A Strategy Call' },
+        { tag: 'Ongoing', title: 'Website partnership', length: 'Quarterly, ongoing', body: 'Senior operators who keep the site growing after launch: new pages, content for search and AI answers, and tests that lift conversion.', points: ['New pages and landing pages', 'Content for SEO, AEO and GEO', 'Conversion tests, run and measured', 'Hosting, updates and security'], cta: 'Book A Strategy Call' },
       ],
     },
     operator: {
@@ -217,8 +217,8 @@ export const websiteProduction: UseCasePage = {
       h2a: 'Zwei Wege zum Start.',
       h2b: 'Sie wählen das Tempo.',
       options: [
-        { tag: 'Sprint', title: 'Website-Sprint', length: 'Startseite in 4 Wochen, ganze Website in 6 bis 8', body: 'Ein festes Projekt von der Marke bis zum Launch: Positionierung, Texte, Design, Umsetzung und die Einrichtung für Suche und KI.', points: ['Leitfaden für Positionierung und Botschaft', 'Texte und Wireframes für jede Seite', 'Design und eigene Bilder', 'Umsetzung auf einem CMS, mit Schulung', 'SEO, AEO und GEO zum Launch'], cta: 'Sprint besprechen' },
-        { tag: 'Laufend', title: 'Website-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Macher, die die Website nach dem Launch weiterentwickeln: neue Seiten, Inhalte für Suche und KI-Antworten und Tests, die die Conversion steigern.', points: ['Neue Seiten und Landingpages', 'Inhalte für SEO, AEO und GEO', 'Conversion-Tests, umgesetzt und gemessen', 'Hosting, Updates und Sicherheit'], cta: 'Erstgespräch buchen' },
+        { tag: 'Sprint', title: 'Website-Sprint', length: 'Startseite in 4 Wochen, ganze Website in 6 bis 8', body: 'Ein festes Projekt von der Marke bis zum Launch: Positionierung, Texte, Design, Umsetzung und die Einrichtung für Suche und KI.', points: ['Leitfaden für Positionierung und Botschaft', 'Texte und Wireframes für jede Seite', 'Design und eigene Bilder', 'Umsetzung auf einem CMS, mit Schulung', 'SEO, AEO und GEO zum Launch'], cta: 'Strategiegespräch buchen' },
+        { tag: 'Laufend', title: 'Website-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Macher, die die Website nach dem Launch weiterentwickeln: neue Seiten, Inhalte für Suche und KI-Antworten und Tests, die die Conversion steigern.', points: ['Neue Seiten und Landingpages', 'Inhalte für SEO, AEO und GEO', 'Conversion-Tests, umgesetzt und gemessen', 'Hosting, Updates und Sicherheit'], cta: 'Strategiegespräch buchen' },
       ],
     },
     operator: {
