@@ -13,6 +13,9 @@
 // side panel beside every screen gives a reason to keep going: what you get (intro), why we
 // ask, an insight, an operator quote, how we work or the career logos (questions), and what
 // happens next (review). Content in src/data/form-coach.ts. On phones the panel sits below.
+// 2026-10-27 (owner): optional questions get a Skip button next to OK (clears the answer and
+// moves on), and a Cancel button in the top bar leaves the form at any point (back to the page
+// the visitor came from, else the homepage). The draft stays saved, so Resume still works.
 import type { Intake } from '../data/intakes';
 import { coach, coachUi, careerLogos, faces } from '../data/form-coach';
 import { asLocale, localizedHref } from '../i18n/utils';
@@ -23,17 +26,22 @@ const locale = asLocale(Astro.currentLocale);
 const t = intake[locale] ?? intake.en;
 const theme = intake.id === 'strategy-call' ? 'call' : intake.dept;
 const cc = coach[intake.id]?.[locale] ?? coach[intake.id]?.en;
+const nav = { en: { skip: 'Skip', cancel: 'Cancel', cancelLabel: 'Cancel and leave the form. Your answers stay saved.' }, de: { skip: 'Überspringen', cancel: 'Abbrechen', cancelLabel: 'Abbrechen und das Formular verlassen. Ihre Antworten bleiben gespeichert.' } }[locale];
 const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t, coach: cc, ui: coachUi[locale], logos: careerLogos, faces };
 ---
 <div class={`ai ai--${theme}`} data-ai>
   <div class="ai-progress"><div class="ai-progress-fill" data-ai-bar></div></div>
   <header class="ai-top">
     <a href={config.home} class="ai-logo" aria-label="Kadanco"><img src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" width="120" height="28" /></a>
-    <div class="ai-counter" data-ai-counter hidden></div>
+    <div class="ai-top-right">
+      <div class="ai-counter" data-ai-counter hidden></div>
+      <a href={config.home} class="ai-cancel" data-ai-cancel aria-label={nav.cancelLabel}><span aria-hidden="true">×</span> {nav.cancel}</a>
+    </div>
   </header>
   <main class="ai-stage"><div class="ai-body"><div class="ai-wrap" data-ai-wrap aria-live="polite"></div><aside class="ai-coach" data-ai-coach></aside></div></main>
   <footer class="ai-foot" data-ai-foot hidden>
     <button type="button" class="btn btn-primary" data-ai-ok>{t.ok}</button>
+    <button type="button" class="btn ai-btn-line ai-skip" data-ai-skip hidden>{nav.skip}</button>
     <span class="ai-enter">{t.enter} <kbd>Enter ↵</kbd></span>
     <div class="ai-steppers">
       <button type="button" class="ai-step" data-ai-prev aria-label={t.prev}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6" /></svg></button>
@@ -50,6 +58,13 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai-progress-fill { height: 100%; width: 0; background: var(--ai-acc); transition: width .5s cubic-bezier(.2, .7, .2, 1); }
   .ai-top { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 40px); }
   .ai-logo img { display: block; height: 26px; width: auto; }
+  .ai-top-right { display: flex; align-items: center; gap: 18px; }
+  .ai-cancel { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1.5px solid var(--ai-line); border-radius: var(--kd-radius); color: var(--kd-ink); font-size: 14px; font-weight: var(--kd-weight-medium); text-decoration: none; transition: border-color .15s ease; }
+  .ai-cancel span { font-size: 18px; line-height: 1; }
+  .ai-cancel:hover { border-color: var(--ai-acc); }
+  .ai-cancel:focus-visible { outline: 2px solid var(--ai-acc); outline-offset: 2px; }
+  .ai-cancel[hidden] { display: none; }
+  .ai-skip[hidden] { display: none; }
   .ai-counter { font-size: 14px; color: var(--ai-muted); font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
   .ai-counter[hidden] { display: none; }
   .ai-stage { flex: 1 1 auto; min-height: 0; overflow-y: auto; display: flex; }
@@ -191,6 +206,13 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     var bar = root.querySelector('[data-ai-bar]'), prevBtn = root.querySelector('[data-ai-prev]'), toastEl = root.querySelector('[data-ai-toast]');
     var state = { answers: {}, idx: -1 }, saved = null, toastT;
     var coachEl = root.querySelector('[data-ai-coach]'), C = cfg.coach, U = cfg.ui;
+    var skipBtn = root.querySelector('[data-ai-skip]'), cancelEl = root.querySelector('[data-ai-cancel]');
+    // Cancel: back to the page the visitor came from on this site, else the homepage (the draft stays saved)
+    cancelEl.addEventListener('click', function (e) {
+      var ref = document.referrer;
+      if (ref && ref.indexOf(location.origin) === 0 && ref !== location.href && history.length > 1) { e.preventDefault(); persist(); history.back(); }
+      else persist();
+    });
 
     try { saved = JSON.parse(localStorage.getItem(cfg.key) || 'null'); if (!saved || !saved.answers || !Object.keys(saved.answers).length) saved = null; } catch (e) {}
     function persist() { try { localStorage.setItem(cfg.key, JSON.stringify({ answers: state.answers, idx: state.idx })); } catch (e) {} }
@@ -249,6 +271,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
 
     function question(q) {
       foot.hidden = false; counter.hidden = false;
+      skipBtn.hidden = !!q.required;
       counter.textContent = (state.idx + 1) + ' ' + t.of + ' ' + TOTAL;
       prevBtn.disabled = false;
       var val = state.answers[q.id];
@@ -316,6 +339,8 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     function prev() { if (state.idx >= 0) { capture(); go(state.idx - 1); } }
     function go(i) { state.idx = Math.max(-1, Math.min(i, TOTAL)); persist(); render(); var s = root.querySelector('.ai-stage'); if (s) s.scrollTop = 0; }
     root.querySelector('[data-ai-ok]').onclick = next;
+    // Skip (optional questions only): clear the answer and move on without checking it
+    skipBtn.onclick = function () { var q = Q[state.idx]; if (!q || q.required) return; state.answers[q.id] = q.type === 'multi' ? [] : ''; persist(); go(state.idx + 1); };
     root.querySelector('[data-ai-next]').onclick = next;
     prevBtn.onclick = prev;
     document.addEventListener('keydown', function (e) {
@@ -359,6 +384,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
 
     function done() {
       bar.style.width = '100%';
+      cancelEl.hidden = true; // sent: nothing left to cancel
       if (coachEl) coachEl.innerHTML = '<div class="ai-cc">' + card(U.kinds.facts, '<ul><li>' + esc(C.next.items[1]) + '</li></ul>' + facesRow()) + '</div>';
       wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.done.eyebrow) + '</span>'
         + '<h1 class="ai-display">' + esc(t.done.h1) + '</h1><p class="ai-lead">' + esc(t.done.lead) + '</p>'
