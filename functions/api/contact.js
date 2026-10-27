@@ -21,7 +21,8 @@ export async function onRequestPost(context) {
     //     the modal's Plunk event and fields, so existing Plunk workflows keep working.
     if (data && data.type === 'strategy-call') {
       const a = data.answers || {};
-      data = { name: a.name, email: a.email || data.email, company: a.company, website: a.website, goal: a.goal };
+      // "Write a message instead" sends only a message, an email and maybe a name
+      data = { name: a.name || 'Not provided', email: a.email || data.email, company: a.company, website: a.website, goal: a.goal || a.message };
     }
 
     // 3. Audit intakes (the full-screen forms, e.g. /ux-audit/) send a brief.

@@ -68,7 +68,7 @@ Latest commit on `october-update`: `4206e18` Docs: handoff, status and open task
 
 ## Session log (newest first, keep about 5)
 
-- 2026-10-27: Site released to main (owner). Plunk set up by the owner with the emails in `docs/PLUNK-EMAILS-20261027-1315.md`. Forms gained Skip (optional questions) and Cancel.
+- 2026-10-27: Site released to main (owner). Plunk set up by the owner with the emails in `docs/PLUNK-EMAILS-20261027-1315.md`. Forms gained Skip and a close ×; after Maria's review the buttons sit under the question (aligned right), every question but the email can be skipped, and "Write a message instead" sends a short message.
 - 2026-10-26 (late night): Sales style set; Account-Based Marketing and Outbound Sales Pipeline rebuilt (dashboard heroes, pipeline self-checks, clickable dashboard steps, Sales measures).
 - 2026-10-26 (night): Layout jumps removed sitewide; forms themed by department with a coaching side panel (why we ask, insights, draft operator quotes, facts, career logos).
 - 2026-10-26 (evening, 5): Content Production step pictures made clickable.

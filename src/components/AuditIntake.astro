@@ -13,9 +13,12 @@
 // side panel beside every screen gives a reason to keep going: what you get (intro), why we
 // ask, an insight, an operator quote, how we work or the career logos (questions), and what
 // happens next (review). Content in src/data/form-coach.ts. On phones the panel sits below.
-// 2026-10-27 (owner): optional questions get a Skip button next to OK (clears the answer and
-// moves on), and a Cancel button in the top bar leaves the form at any point (back to the page
-// the visitor came from, else the homepage). The draft stays saved, so Resume still works.
+// 2026-10-27 (owner, then Maria's review): the buttons sit right under the question, aligned
+// right (Skip and OK; Back on the left). Every question except the email can be skipped (the
+// answer is cleared and the review shows "-"). "Write a message instead" (intro and every
+// question) opens a short screen: message, email, optional name, Send. A close button (×) top
+// right leaves the form at any point: back to the page the visitor came from on this site, else
+// the homepage. The draft stays saved, so Resume still works.
 import type { Intake } from '../data/intakes';
 import { coach, coachUi, careerLogos, faces } from '../data/form-coach';
 import { asLocale, localizedHref } from '../i18n/utils';
@@ -26,8 +29,13 @@ const locale = asLocale(Astro.currentLocale);
 const t = intake[locale] ?? intake.en;
 const theme = intake.id === 'strategy-call' ? 'call' : intake.dept;
 const cc = coach[intake.id]?.[locale] ?? coach[intake.id]?.en;
-const nav = { en: { skip: 'Skip', cancel: 'Cancel', cancelLabel: 'Cancel and leave the form. Your answers stay saved.' }, de: { skip: 'Überspringen', cancel: 'Abbrechen', cancelLabel: 'Abbrechen und das Formular verlassen. Ihre Antworten bleiben gespeichert.' } }[locale];
-const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t, coach: cc, ui: coachUi[locale], logos: careerLogos, faces };
+const nav = {
+  en: { skip: 'Skip', back: 'Back', close: 'Close form', msgLink: 'Write a message instead',
+        msg: { h1a: 'Write Us', h1b: 'A Message.', lead: 'Skip the questions. Tell us what you need in your own words, and we reply within one working day.', message: 'Your message', placeholder: 'What are you trying to solve?', email: 'Your email', name: 'Your name', optional: 'optional', send: 'Send Message', backToQ: 'Back to the questions', missing: 'Add a message to continue.' } },
+  de: { skip: 'Überspringen', back: 'Zurück', close: 'Formular schließen', msgLink: 'Lieber eine Nachricht schreiben',
+        msg: { h1a: 'Schreiben Sie uns', h1b: 'eine Nachricht.', lead: 'Ohne Fragebogen: Sagen Sie uns in Ihren Worten, was Sie brauchen. Wir antworten innerhalb eines Werktags.', message: 'Ihre Nachricht', placeholder: 'Was möchten Sie lösen?', email: 'Ihre E-Mail-Adresse', name: 'Ihr Name', optional: 'optional', send: 'Nachricht senden', backToQ: 'Zurück zum Fragebogen', missing: 'Bitte schreiben Sie eine Nachricht.' } },
+}[locale];
+const config = { id: intake.id, key: intake.storageKey, home: localizedHref(locale, '/'), t, nav, coach: cc, ui: coachUi[locale], logos: careerLogos, faces };
 ---
 <div class={`ai ai--${theme}`} data-ai>
   <div class="ai-progress"><div class="ai-progress-fill" data-ai-bar></div></div>
@@ -35,19 +43,24 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     <a href={config.home} class="ai-logo" aria-label="Kadanco"><img src="https://assets.kadanco.com/logo/wordmark-dark.svg" alt="Kadanco" width="120" height="28" /></a>
     <div class="ai-top-right">
       <div class="ai-counter" data-ai-counter hidden></div>
-      <a href={config.home} class="ai-cancel" data-ai-cancel aria-label={nav.cancelLabel}><span aria-hidden="true">×</span> {nav.cancel}</a>
+      <a href={config.home} class="ai-close" data-ai-cancel aria-label={nav.close} title={nav.close}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></a>
     </div>
   </header>
-  <main class="ai-stage"><div class="ai-body"><div class="ai-wrap" data-ai-wrap aria-live="polite"></div><aside class="ai-coach" data-ai-coach></aside></div></main>
-  <footer class="ai-foot" data-ai-foot hidden>
-    <button type="button" class="btn btn-primary" data-ai-ok>{t.ok}</button>
-    <button type="button" class="btn ai-btn-line ai-skip" data-ai-skip hidden>{nav.skip}</button>
-    <span class="ai-enter">{t.enter} <kbd>Enter ↵</kbd></span>
-    <div class="ai-steppers">
-      <button type="button" class="ai-step" data-ai-prev aria-label={t.prev}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6" /></svg></button>
-      <button type="button" class="ai-step" data-ai-next aria-label={t.next}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+  <main class="ai-stage"><div class="ai-body">
+    <div class="ai-main">
+      <div class="ai-wrap" data-ai-wrap aria-live="polite"></div>
+      <div class="ai-foot" data-ai-foot hidden>
+        <button type="button" class="ai-back" data-ai-prev><span aria-hidden="true">←</span> {nav.back}</button>
+        <button type="button" class="ai-msglink" data-ai-msglink>{nav.msgLink}</button>
+        <div class="ai-foot-right">
+          <span class="ai-enter">{t.enter} <kbd>Enter ↵</kbd></span>
+          <button type="button" class="btn ai-btn-line ai-skip" data-ai-skip hidden>{nav.skip}</button>
+          <button type="button" class="btn btn-primary" data-ai-ok>{t.ok} <span aria-hidden="true">→</span></button>
+        </div>
+      </div>
     </div>
-  </footer>
+    <aside class="ai-coach" data-ai-coach></aside>
+  </div></main>
   <div class="ai-toast" data-ai-toast role="status" aria-live="polite"></div>
   <script type="application/json" data-ai-config set:html={JSON.stringify(config)}></script>
 </div>
@@ -59,11 +72,12 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai-top { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(20px, 5vw, 40px); }
   .ai-logo img { display: block; height: 26px; width: auto; }
   .ai-top-right { display: flex; align-items: center; gap: 18px; }
-  .ai-cancel { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1.5px solid var(--ai-line); border-radius: var(--kd-radius); color: var(--kd-ink); font-size: 14px; font-weight: var(--kd-weight-medium); text-decoration: none; transition: border-color .15s ease; }
-  .ai-cancel span { font-size: 18px; line-height: 1; }
-  .ai-cancel:hover { border-color: var(--ai-acc); }
-  .ai-cancel:focus-visible { outline: 2px solid var(--ai-acc); outline-offset: 2px; }
-  .ai-cancel[hidden] { display: none; }
+  /* close: a plain × top right, on every screen until the brief is sent */
+  .ai-close { display: grid; place-items: center; width: var(--kd-control-h); height: var(--kd-control-h); border: 2px solid var(--ai-line); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); transition: border-color .15s ease; }
+  .ai-close svg { width: 20px; height: 20px; }
+  .ai-close:hover { border-color: var(--ai-acc); }
+  .ai-close:focus-visible { outline: 2px solid var(--ai-acc); outline-offset: 2px; }
+  .ai-close[hidden] { display: none; }
   .ai-skip[hidden] { display: none; }
   .ai-counter { font-size: 14px; color: var(--ai-muted); font-weight: var(--kd-weight-medium); font-variant-numeric: tabular-nums; }
   .ai-counter[hidden] { display: none; }
@@ -111,15 +125,24 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
   .ai :global(.ai-note) { min-height: 22px; margin-top: 12px; font-size: 15px; font-weight: var(--kd-weight-medium); color: var(--ai-acc); opacity: 0; transition: opacity .15s ease; }
   .ai :global(.ai-note.show) { opacity: 1; }
 
-  .ai-foot { flex: none; display: flex; align-items: center; gap: 16px; padding: 14px clamp(20px, 5vw, 40px) 20px; border-top: 1px solid var(--ai-line); background: var(--kd-beige-1); }
+  /* the buttons sit right under the question, aligned right with the form (Maria, 2026-10-27) */
+  .ai-main { display: grid; gap: 8px; align-content: center; min-width: 0; }
+  .ai-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; width: 100%; max-width: 680px; margin-top: 4px; padding-top: 20px; border-top: 1px solid var(--ai-line); }
   .ai-foot[hidden] { display: none; }
+  .ai-foot-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .ai-back, .ai :global(.ai-msglink) { padding: 6px 2px; border: 0; background: none; color: var(--ai-muted); font: inherit; font-size: 15px; font-weight: var(--kd-weight-medium); cursor: pointer; }
+  .ai-back:hover, .ai :global(.ai-msglink:hover) { color: var(--ai-acc); }
+  .ai :global(.ai-msglink) { text-decoration: underline; text-underline-offset: 3px; }
+  .ai-back:focus-visible, .ai :global(.ai-msglink:focus-visible) { outline: 2px solid var(--ai-acc); outline-offset: 2px; }
   .ai-enter { font-size: 14px; color: var(--ai-muted); }
   .ai-enter kbd { padding: 1px 7px; border: 1px solid var(--kd-beige-3); border-bottom-width: 2px; border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; font-size: 13px; font-weight: var(--kd-weight-medium); }
-  .ai-steppers { margin-left: auto; display: flex; gap: 8px; }
-  .ai-step { display: grid; place-items: center; width: var(--kd-control-h); height: var(--kd-control-h); border: 2px solid var(--kd-beige-3); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); cursor: pointer; }
-  .ai-step:hover { border-color: var(--ai-acc); }
-  .ai-step:disabled { opacity: .35; cursor: not-allowed; }
-  .ai-step svg { width: 18px; height: 18px; }
+  @media (max-width: 560px) { .ai-foot-right { width: 100%; justify-content: flex-end; } }
+  .ai :global(.ai-msglink-intro) { margin-top: 20px; }
+  .ai :global(.ai-mfield) { display: grid; gap: 6px; margin-bottom: 22px; }
+  .ai :global(.ai-mfield span) { font-size: 14px; font-weight: var(--kd-weight-medium); color: var(--ai-muted); }
+  .ai :global(.ai-mfield input), .ai :global(.ai-mfield textarea) { width: 100%; padding: 12px 14px; border: 2px solid var(--ai-line); border-radius: var(--kd-radius); background: var(--kd-white); color: var(--kd-ink); font: inherit; font-size: 18px; line-height: 1.4; outline: none; resize: vertical; }
+  .ai :global(.ai-mfield textarea) { min-height: 140px; }
+  .ai :global(.ai-mfield input:focus), .ai :global(.ai-mfield textarea:focus) { border-color: var(--ai-acc); }
   @media (max-width: 560px) { .ai-enter { display: none; } }
 
   .ai :global(.ai-brief) { margin: 4px 0 24px; padding: clamp(18px, 4vw, 28px); border-radius: var(--kd-radius); border: 1px solid var(--ai-line); background: var(--kd-white); font-size: 16px; line-height: 1.55; }
@@ -206,7 +229,8 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     var bar = root.querySelector('[data-ai-bar]'), prevBtn = root.querySelector('[data-ai-prev]'), toastEl = root.querySelector('[data-ai-toast]');
     var state = { answers: {}, idx: -1 }, saved = null, toastT;
     var coachEl = root.querySelector('[data-ai-coach]'), C = cfg.coach, U = cfg.ui;
-    var skipBtn = root.querySelector('[data-ai-skip]'), cancelEl = root.querySelector('[data-ai-cancel]');
+    var skipBtn = root.querySelector('[data-ai-skip]'), cancelEl = root.querySelector('[data-ai-cancel]'), N = cfg.nav;
+    root.querySelector('[data-ai-msglink]').onclick = function () { capture(); message(); };
     // Cancel: back to the page the visitor came from on this site, else the homepage (the draft stays saved)
     cancelEl.addEventListener('click', function (e) {
       var ref = document.referrer;
@@ -263,7 +287,9 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
         + '<p class="ai-lead">' + esc(t.lead) + '</p><div class="ai-actions">'
         + '<button type="button" class="btn btn-cta btn-lg" data-start>' + esc(t.start) + '</button>'
         + (saved ? '<button type="button" class="btn ai-btn-line btn-lg" data-resume>' + esc(t.resume) + '</button>' : '')
-        + '<span class="ai-meta">' + esc(t.time) + '</span></div></div>';
+        + '<span class="ai-meta">' + esc(t.time) + '</span></div>'
+        + '<button type="button" class="ai-msglink ai-msglink-intro" data-msg>' + esc(N.msgLink) + '</button></div>';
+      wrap.querySelector('[data-msg]').onclick = message;
       wrap.querySelector('[data-start]').onclick = function () { state.answers = {}; go(0); };
       var r = wrap.querySelector('[data-resume]');
       if (r) r.onclick = function () { state.answers = Object.assign({}, saved.answers); go(Math.min(saved.idx || 0, TOTAL)); };
@@ -271,7 +297,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
 
     function question(q) {
       foot.hidden = false; counter.hidden = false;
-      skipBtn.hidden = !!q.required;
+      skipBtn.hidden = q.type === 'email'; // every question can be skipped except the address we reply to
       counter.textContent = (state.idx + 1) + ' ' + t.of + ' ' + TOTAL;
       prevBtn.disabled = false;
       var val = state.answers[q.id];
@@ -340,8 +366,7 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
     function go(i) { state.idx = Math.max(-1, Math.min(i, TOTAL)); persist(); render(); var s = root.querySelector('.ai-stage'); if (s) s.scrollTop = 0; }
     root.querySelector('[data-ai-ok]').onclick = next;
     // Skip (optional questions only): clear the answer and move on without checking it
-    skipBtn.onclick = function () { var q = Q[state.idx]; if (!q || q.required) return; state.answers[q.id] = q.type === 'multi' ? [] : ''; persist(); go(state.idx + 1); };
-    root.querySelector('[data-ai-next]').onclick = next;
+    skipBtn.onclick = function () { var q = Q[state.idx]; if (!q || q.type === 'email') return; state.answers[q.id] = q.type === 'multi' ? [] : ''; persist(); go(state.idx + 1); };
     prevBtn.onclick = prev;
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Enter' || state.idx < 0 || state.idx >= TOTAL) return;
@@ -370,6 +395,38 @@ const config = { id: intake.id, key: intake.storageKey, home: localizedHref(loca
       wrap.querySelector('[data-restart]').onclick = function () { state.answers = {}; clearDraft(); go(-1); };
       wrap.querySelector('[data-send]').onclick = send;
       wrap.querySelector('[data-send]').focus();
+    }
+
+    // "Write a message instead": message, email and an optional name, sent straight away
+    function message() {
+      foot.hidden = true; counter.hidden = true; bar.style.width = '0%';
+      if (coachEl && C) coachEl.innerHTML = '<div class="ai-cc">' + card(C.next.title, '<ol>' + C.next.items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' + facesRow()) + '</div>';
+      var a = state.answers;
+      wrap.innerHTML = '<div class="ai-panel"><span class="ai-eyebrow">' + esc(t.eyebrow) + '</span>'
+        + '<h1 class="ai-display">' + esc(N.msg.h1a) + ' <em>' + esc(N.msg.h1b) + '</em></h1>'
+        + '<p class="ai-lead">' + esc(N.msg.lead) + '</p>'
+        + '<label class="ai-mfield"><span>' + esc(N.msg.message) + '</span><textarea id="ai-m-msg" placeholder="' + esc(N.msg.placeholder) + '"></textarea></label>'
+        + '<label class="ai-mfield"><span>' + esc(N.msg.email) + '</span><input id="ai-m-email" type="email" inputmode="email" autocomplete="email" value="' + esc(a.email || '') + '"></label>'
+        + '<label class="ai-mfield"><span>' + esc(N.msg.name) + ' (' + esc(N.msg.optional) + ')</span><input id="ai-m-name" type="text" autocomplete="name"></label>'
+        + '<label class="ai-hp" aria-hidden="true">Company URL<input type="text" tabindex="-1" autocomplete="off" data-hp></label>'
+        + '<div class="ai-actions"><button type="button" class="btn btn-cta btn-lg" data-send>' + esc(N.msg.send) + '</button>'
+        + '<button type="button" class="btn ai-btn-line btn-lg" data-backq>' + esc(N.msg.backToQ) + '</button></div>'
+        + '<p class="ai-error" data-err hidden></p></div>';
+      var ta = wrap.querySelector('#ai-m-msg'); setTimeout(function () { ta.focus(); }, 40);
+      wrap.querySelector('[data-backq]').onclick = function () { go(Math.max(state.idx, -1)); };
+      wrap.querySelector('[data-send]').onclick = function () {
+        var msg = ta.value.trim(), email = wrap.querySelector('#ai-m-email').value.trim(), name = wrap.querySelector('#ai-m-name').value.trim();
+        var err = wrap.querySelector('[data-err]'), btn = this, label = btn.textContent;
+        if (!msg) { err.textContent = N.msg.missing; err.hidden = false; return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = t.errors.email; err.hidden = false; return; }
+        btn.disabled = true; btn.textContent = t.review.sending; err.hidden = true;
+        var brief = ['Kadanco: ' + t.eyebrow, 'Message only (questions skipped)', '', 'Name: ' + (name || '-'), 'Contact: ' + email, '', msg].join('\n');
+        fetch('/api/contact', { method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ type: cfg.id, email: email, name: name, answers: { mode: 'message', message: msg, name: name, email: email }, brief: brief, _gotcha: wrap.querySelector('[data-hp]').value }) })
+          .then(function (res) { return res.json().catch(function () { return {}; }).then(function (out) { if (!res.ok || !out.ok) throw new Error(); }); })
+          .then(function () { clearDraft(); done(); })
+          .catch(function () { err.textContent = t.review.failed; err.hidden = false; btn.disabled = false; btn.textContent = label; });
+      };
     }
 
     function send() {
