@@ -15,8 +15,8 @@ Read this first in every session. Update the "Status" and "Decision log" section
 
 - Astro 7, static output, plain HTML and CSS, no UI framework. Node 22 (`.nvmrc`).
 - Hosting: Cloudflare Pages. Push to `main` deploys automatically (build `npm run build`, output `dist`).
-- GitHub: `kadanco/kadanco`. Branch `main` (live). Work branch `october-update` (staging previews on push).
-- Forms: five full-screen form pages (strategy call, UX, website, marketing and pipeline audits) post to `functions/api/contact.js` (Cloudflare Pages Function), which sends to Plunk. Secret `PLUNK_API_KEY`. There is no contact modal any more.
+- GitHub: `kadanco/kadanco`. Branch `main` (live). Each round of work gets its own branch from `main` (staging previews on push). `october-update` was released on 2026-10-27; the next round starts in a new branch (see `docs/HANDOFF.md`).
+- Forms: five full-screen form pages (strategy call, UX, website, marketing and pipeline audits; themed by department, with a coaching side panel, Skip, "Write a message instead" and a close ×) post to `functions/api/contact.js` (Cloudflare Pages Function), which sends to Plunk. Secret `PLUNK_API_KEY`. There is no contact modal any more.
 - Analytics: GTM `GTM-MF44PR8H` + CookieYes consent, wired in `src/layouts/Layout.astro`.
 - Brand assets (logos, photos, OG image): R2 bucket at https://assets.kadanco.com.
 - Motion: Anime.js from `public/vendor/anime.umd.min.js`.
@@ -116,25 +116,19 @@ Every page must work from 360px to 1600px wide. Check at 360, 390, 768, 1024, 12
 - Deliver changes as files for the Downloads folder (usually a git patch), applied with `git am`.
 - New files get a timestamp: `NAME-YYYYMMDD-HHMM` (Germany time). Exception: files whose name a tool requires (`CLAUDE.md`, `README.md`, Astro pages, configs).
 
-## Status (26 October 2026)
+## Status (27 October 2026)
 
-Done and signed off by the owner:
-- Homepage (EN and DE): hero, comparison, services, department cards, Who We Are, How We Work, FAQ, compliance, closing CTA. Responsive from 360 to 1600px.
-- Product Design use case page: the template for the other use case pages (department style, hero rule, self-check, detailed "What you get" steps, measures dashboard, ways to work).
-- Forms: every CTA links to a full-screen form page (strategy call or the department's audit). No modal.
-- Use case visibility: six in nav and homepage, DACH and Event Lead Generation in the footer only, Software Modernisation and /use-cases/ hidden.
+Live on kadanco.com since 2026-10-27 (`main` = `473b427`, the whole `october-update` round):
+- Homepage (EN and DE), signed off.
+- Six rebuilt use case pages in their department styles (EN and DE): Product Design and Website Production (Product: wireframes and UI), Positioning and Brand and Content Production (Marketing: editorial and campaign wall), Account-Based Marketing and Outbound Sales Pipeline (Sales: dashboards with example figures). Owner sign-off on these is still open.
+- Five full-screen forms (strategy call and four audits) with Plunk alerts and confirmations.
+- DACH Market Entry and Event Lead Generation are still on the old layout (footer only). Software Modernisation and /use-cases/ are hidden.
 
-Built, waiting for owner review:
-- Website Production (EN and DE), rebuilt on the Product Design template on 2026-10-26, with its own /website-audit/ form.
-- Positioning and Brand (EN and DE), the first page in the Marketing style, 2026-10-26.
-- Content Production (EN and DE) in the Marketing style, 2026-10-26.
-- Account-Based Marketing and Outbound Sales Pipeline (EN and DE) in the Sales style, 2026-10-26.
-
-Next: DACH Market Entry (Marketing style) and Event Lead Generation (Sales style), when the owner picks them up again. The full list, including what waits on the owner, is in `docs/OPEN-TASKS-20261024-1053.md`; where we stopped is in `docs/HANDOFF.md`.
+Next: a new branch for the next round. Where we stopped and what waits on the owner: `docs/HANDOFF.md` and `docs/OPEN-TASKS-20261024-1053.md`.
 
 ## Open questions
 
-- Fonts still load from Google Fonts. Self-host before launch (GDPR).
+- Fonts still load from Google Fonts on the live site. Self-host next (GDPR).
 - Everything else that is open lives in `docs/OPEN-TASKS-20261024-1053.md`.
 
 ## Decision log
@@ -259,3 +253,4 @@ Next: DACH Market Entry (Marketing style) and Event Lead Generation (Sales style
 - 2026-10-26: Outbound Sales Pipeline rebuilt in the Sales style (EN and DE): hero `HeroSequence.astro` (a sequence runs, a reply becomes a booked meeting, weekly meetings rise), self-check as a pipeline dashboard (`checkVisual: 'pipe'`), five clickable steps (process stages with the founder's line, CRM stages with their fields, sequence days with each touch, objections with handbook answers, week and month dashboard), Sales measures, ways to work: outbound launch (about 6 weeks) or outbound programme. FAQ keeps "work starts within two weeks"; first outbound goes live in week three.
 - 2026-10-27: Forms (owner): optional questions have a Skip button next to OK (clears the answer and moves on; the review shows "-"), and every screen except the thank-you has a Cancel button in the top bar that leaves the form, back to the page the visitor came from on this site or else the homepage. The draft stays saved, so Resume works on return.
 - 2026-10-27: Forms after Maria's review: the buttons sit right under the question, aligned right (Skip, OK; Back and "Write a message instead" on the left). Every question can be skipped except the email. "Write a message instead" (intro and every question) opens a short screen: message, email, optional name, Send; it posts to the same Plunk event with `mode: message` and `message` in the data (the strategy call puts the message in `goal`). The close button is a plain × top right (replaces "× Cancel").
+- 2026-10-27: `october-update` released to `main` (kadanco.com). The next round of work happens in a new branch from `main` (owner).
