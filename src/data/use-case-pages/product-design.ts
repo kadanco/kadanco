@@ -132,7 +132,7 @@ export const productDesign: UseCasePage = {
   de: {
     meta: {
       title: 'Machen Sie Ihr Produkt sofort verständlich und bringen Sie Nutzer schneller zum Aha-Moment | Kadanco',
-      description: 'Produktdesign für Software-Teams: UX und Onboarding, UI-Design, ein Designsystem mit Komponentenbibliothek als zentrale Quelle und eine saubere Übergabe ans Frontend. Umgesetzt von erfahrenen Machern.',
+      description: 'Produktdesign für Software-Teams: UX und Onboarding, UI-Design, ein Designsystem mit Komponentenbibliothek als zentrale Quelle und eine saubere Übergabe ans Frontend. Umgesetzt von erfahrenen Gründern.',
     },
     crumb: 'Produktdesign',
     dept: 'Ihr Produkt, sofort verstanden',
@@ -146,7 +146,7 @@ export const productDesign: UseCasePage = {
       eyebrow: 'Wo stehen Sie?',
       h2a: 'Bleiben Ihre neuen Nutzer hängen?',
       h2b: 'Was hält Sie davon ab, es zu lösen?',
-      lede: 'Haken Sie ab, was Ihnen bekannt vorkommt.',
+      lede: 'Kreuzen Sie alles an, was Ihnen bekannt vorkommt.',
       items: [
         { text: 'Die meisten neuen Nutzer kommen nach der ersten Sitzung nicht wieder.', risk: 'Die meisten bezahlten Anmeldungen gehen am ersten Tag und zahlen nie.' },
         { text: 'Testphasen werden erst nach einem Vertriebsgespräch oder einer Demo zu Kunden.', risk: 'Jeder neue Kunde kostet Stunden im Vertrieb, und kleine Deals schließen nie.' },
@@ -156,13 +156,13 @@ export const productDesign: UseCasePage = {
         { text: 'Es gibt keine zentrale Quelle für Ihr Designsystem, also baut jedes Team denselben Button anders.', risk: 'Design und Code laufen auseinander, und jeder Sprint zahlt dafür.' },
       ],
       levels: ['Sieht gesund aus.', 'Ein Leck im Einstieg.', 'Nutzer beginnen abzuspringen.', 'Wachstum wird teuer.', 'Das Produkt bremst den Vertrieb.', 'Die meisten neuen Nutzer sehen den Wert nie.', 'Jeder neue Nutzer kostet mehr, als er bringt.'],
-      hint: 'Haken Sie an, was Ihnen bekannt vorkommt, um zu sehen, was es kostet.',
+      hint: 'Kreuzen Sie alles an, was Ihnen bekannt vorkommt, um zu sehen, wie viel es kostet.',
     },
     deliverables: {
       eyebrow: 'Was Sie bekommen',
       h2a: 'Fünf Schritte vom ersten Klick bis zum fertigen Code.',
       h2b: 'Jeder endet mit Arbeit, die Ihnen bleibt.',
-      lede: 'Umgesetzt von den Machern, die sie planen. Jeder Schritt liefert Dateien, Prototypen oder Code, mit denen Ihr Team weiterarbeitet.',
+      lede: 'Umgesetzt von den Gründern, die sie planen. Jeder Schritt liefert Dateien, Prototypen oder Code, mit denen Ihr Team weiterarbeitet.',
       layout: 'steps',
       tabs: [
         { key: 'audit', label: 'UX-Audit', when: 'Woche 1 bis 2', title: 'Wo Nutzer aufhören und was zuerst zu tun ist',
@@ -212,7 +212,7 @@ export const productDesign: UseCasePage = {
       h2b: 'Sie wählen das Tempo.',
       options: [
         { tag: 'Sprint', title: 'Einstiegs-Sprint', length: '4, 8 oder 12 Wochen', body: 'Ein fester Sprint, der den Einstieg verbessert und das Fundament Ihres Designsystems legt.', points: ['UX-Audit und priorisierte Maßnahmen', 'Ein getesteter Prototyp jedes Onboarding-Screens', 'Die ersten Komponenten Ihres Designsystems', 'Workshops mit Ihrem Team', 'Übergabe an Ihre Entwickler'], cta: 'Strategiegespräch buchen' },
-        { tag: 'Laufend', title: 'Produkt-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Produkt-Macher in Ihrem Team, die Release für Release gestalten, ausliefern und messen.', points: ['Teil Ihres Produktteams', 'Laufende Gestaltung der Nutzerwege', 'Eine Roadmap aus Tests, umgesetzt und gemessen', 'Ein Designsystem, das mit jedem Release wächst'], cta: 'Strategiegespräch buchen' },
+        { tag: 'Laufend', title: 'Produkt-Partnerschaft', length: 'Quartalsweise, laufend', body: 'Erfahrene Produkt-Gründer in Ihrem Team, die Release für Release gestalten, ausliefern und messen.', points: ['Teil Ihres Produktteams', 'Laufende Gestaltung der Nutzerwege', 'Eine Roadmap aus Tests, umgesetzt und gemessen', 'Ein Designsystem, das mit jedem Release wächst'], cta: 'Strategiegespräch buchen' },
       ],
     },
     operator: {
@@ -220,7 +220,7 @@ export const productDesign: UseCasePage = {
       h2a: 'Design und Engineering',
       h2b: 'in einem Kopf.',
       body: 'Maria ist Senior Product Engineer und Design Director. Sie gestaltet Abläufe und Screens, baut das Designsystem und integriert es mit Ihren Entwicklern, damit zwischen Design und Code nichts verloren geht. Karan sorgt dafür, dass der Einstieg dieselbe Geschichte erzählt wie Ihr Marketing und Vertrieb.',
-      link: 'Die Macher kennenlernen',
+      link: 'Die Gründer kennenlernen',
     },
     faq: {
       eyebrow: 'FAQ',
@@ -231,7 +231,7 @@ export const productDesign: UseCasePage = {
         { q: 'Wir haben schon ein Designsystem. Arbeiten Sie damit?', a: 'Ja. Wir bauen auf dem auf, was funktioniert, schließen Lücken und dokumentieren es, damit Ihr Team es wirklich nutzt.' },
         { q: 'Passt das zu unserer bestehenden Marke?', a: 'Wenn Sie eine haben, bauen wir darauf auf. Wenn sie in verschiedene Richtungen zieht, ziehen wir sie zusammen, damit Marke, Produkt und Website dasselbe sagen.' },
         { q: 'Wann ist der neue Einstieg live?', a: 'Die Arbeit startet innerhalb von zwei Wochen nach dem Kickoff. Danach arbeiten wir in Zyklen, messen Absprünge und verbessern mit jedem Release.' },
-        { q: 'Wer macht die Designarbeit?', a: 'Die Macher, die Ihr Mandat planen, gestalten und liefern es auch. Keine Übergabe an ein Junior-Team.' },
+        { q: 'Wer macht die Designarbeit?', a: 'Die Gründer, die Ihr Mandat planen, gestalten und liefern es auch. Keine Übergabe an ein Junior-Team.' },
         { q: 'Arbeiten Sie nur mit SaaS?', a: 'Nein. Wir arbeiten an Softwareprodukten allgemein, auch an Kundenportalen und internen Tools.' },
         { q: 'Was brauchen Sie von uns?', a: 'Zugang zum Produkt und zu den Nutzungsdaten, ein paar Nutzer für Gespräche und einen Ansprechpartner in der Entwicklung für die Übergabe.' },
       ],
