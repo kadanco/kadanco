@@ -116,7 +116,7 @@ Every page must work from 360px to 1600px wide. Check at 360, 390, 768, 1024, 12
 - Deliver changes as files for the Downloads folder (usually a git patch), applied with `git am`.
 - New files get a timestamp: `NAME-YYYYMMDD-HHMM` (Germany time). Exception: files whose name a tool requires (`CLAUDE.md`, `README.md`, Astro pages, configs).
 
-## Status (27 October 2026)
+## Status (28 October 2026)
 
 Live on kadanco.com since 2026-10-27 (`main` = `473b427`, the whole `october-update` round):
 - Homepage (EN and DE), signed off.
@@ -124,7 +124,7 @@ Live on kadanco.com since 2026-10-27 (`main` = `473b427`, the whole `october-upd
 - Five full-screen forms (strategy call and four audits) with Plunk alerts and confirmations.
 - DACH Market Entry and Event Lead Generation are still on the old layout (footer only). Software Modernisation and /use-cases/ are hidden.
 
-Next: a new branch for the next round. Where we stopped and what waits on the owner: `docs/HANDOFF.md` and `docs/OPEN-TASKS-20261024-1053.md`.
+Working on `november-update`: Maria's German for the five rebuilt use case pages is applied (not yet committed). Where we stopped and what waits on the owner: `docs/HANDOFF.md` and `docs/OPEN-TASKS-20261024-1053.md`.
 
 ## Open questions
 
@@ -254,3 +254,4 @@ Next: a new branch for the next round. Where we stopped and what waits on the ow
 - 2026-10-27: Forms (owner): optional questions have a Skip button next to OK (clears the answer and moves on; the review shows "-"), and every screen except the thank-you has a Cancel button in the top bar that leaves the form, back to the page the visitor came from on this site or else the homepage. The draft stays saved, so Resume works on return.
 - 2026-10-27: Forms after Maria's review: the buttons sit right under the question, aligned right (Skip, OK; Back and "Write a message instead" on the left). Every question can be skipped except the email. "Write a message instead" (intro and every question) opens a short screen: message, email, optional name, Send; it posts to the same Plunk event with `mode: message` and `message` in the data (the strategy call puts the message in `goal`). The close button is a plain × top right (replaces "× Cancel").
 - 2026-10-27: `october-update` released to `main` (kadanco.com). The next round of work happens in a new branch from `main` (owner).
+- 2026-10-28: Round `november-update`. Maria's approved German (Sie column of `design/261028_KADANCO_Website_DE_IN_PROGRESS/KADANCO-Use-Cases-DE.xlsx`) applied to Product Design, Content Production, Positioning and Brand, Account-Based Marketing and Outbound Sales Pipeline. German only; the sheet's English column is not used (owner). German house terms from the sheet's Content Library: Gründer (not Macher), Fachleute (not Operator), Beitrag/Beiträge (not Post), Kundenkonto (not Account), Beschaffungsabteilung (buying centre), Stufe (tier), Deals, "Von Ihnen:"; English kept for CRM, SEO, UX, Deck, Pipeline and similar. The site stays on Sie; the du version waits for a site-wide decision.

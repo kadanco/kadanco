@@ -2,7 +2,7 @@
 
 Start a new chat with: "Read docs/HANDOFF.md". Claude updates this file at the end of every work session (rule in `CLAUDE.md`), so it always shows where we stopped.
 
-Last updated: 27 October 2026, 14:13 (Germany time)
+Last updated: 28 October 2026, 14:41 (Germany time)
 
 ## Read first
 
@@ -12,16 +12,15 @@ Last updated: 27 October 2026, 14:13 (Germany time)
 
 ## Where we stopped
 
-- **The `october-update` round is finished and live.** Released to kadanco.com on 27 October 2026. `main` and `october-update` both point at `473b427` ("Forms: buttons under the question, skip any question, write a message instead, close ×").
-- **The next round of updates happens in a new branch from `main`** (owner decision). Agree the name at the start of the next chat (for example `november-update`), then:
-  ```bash
-  git checkout main
-  git pull origin main
-  git checkout -b november-update
-  git push -u origin november-update
-  ```
-  Pushing the new branch gives a Cloudflare staging preview. Release later with a fast-forward merge into `main`, the same way as on 27 October (commands below).
-- `october-update` can stay as it is or be deleted once the new branch exists (`git branch -d october-update` and `git push origin --delete october-update`); ask the owner.
+- **Round in progress on branch `november-update`** (from `main` at `47d7ba9`; `main` = live = `473b427` plus the handoff doc). Release later with a fast-forward merge into `main`, the same way as on 27 October (commands below). `october-update` can be deleted; ask the owner.
+- **Maria's approved German is applied (working tree, not committed yet).** Source: `design/261028_KADANCO_Website_DE_IN_PROGRESS/KADANCO-Use-Cases-DE.xlsx`, the Sie column ("deploy"). Only German changed; English untouched (owner).
+  - Done: Product Design, Content Production, Positioning and Brand, Account-Based Marketing, Outbound Sales Pipeline (page data in `src/data/use-case-pages/`, picture labels in `UseCaseDetail.astro` and `HeroAccounts.astro`).
+  - Terms from the sheet's "Content Library" also applied on those five pages where the sheet has no row (meta text, step labels, self-check headings, picture labels): Macher → Gründer, Post → Beitrag, Account → Kundenkonto, Buying Center → Beschaffungsabteilung, "Kreuzen Sie alles an, was Ihnen bekannt vorkommt.", measures note "Beispieldaten, die ausschließlich zu Veranschaulichungszwecken dienen." and hint "Bewegen Sie den Mauszeiger über eine Kachel ...".
+  - Kept as the sheet has it: "Plays" (ABM step 3, ways to work) and "Termine mit Buying Centern" (ABM measure); "Erfahrene Produkt-Gründer" (Product Design ways to work; the sheet notes it may become "Gründer"). Ask Maria.
+  - ABM hero table: the column "Beschaffungsabteilung" breaks at a soft hyphen so it fits.
+  - Checked: no sideways overflow at 360 to 1600 on the five German pages; laptop heroes 736px; all three builds pass.
+- **Not covered by the sheets, still with the old terms (Macher, Account, Post, "Haken Sie an"):** homepage (`HomeHero`, `HomePage` FAQ, `LiveFounders`), Website Production, DACH Market Entry, Event Lead Generation, Software Modernisation (hidden), `use-cases.ts` (ABM card), `form-coach.ts`, `intakes.ts`. The homepage German in `KADANCO-Sie-Review.xlsx` is a full rewrite with status "Offen" and no corrections, so it is not applied.
+- Sie/du: the site stays on Sie. The sheet's du column is kept for later; the site-wide choice is still open in the sheet.
 
 ## Working setup
 
@@ -68,12 +67,16 @@ Rollback if a release breaks: Cloudflare Pages, Deployments, previous deployment
 
 ## Next up
 
-1. Self-host the fonts (GDPR; the live site still loads Google Fonts) and update the privacy policy (form drafts kept in the browser, answers sent to Plunk).
-2. Owner and Maria feedback on the live pages and forms.
-3. Later: DACH Market Entry (Marketing style) and Event Lead Generation (Sales style).
+1. Commit the German update, push `november-update`, check staging.
+2. Homepage German: wait for Maria's corrections in the Sie review sheet; decide the "Gründer und Macher" headline (the sheet suggests "Gründer, die für Sie umsetzen.").
+3. Same terms on Website Production, DACH, Event, forms and use case cards once Maria has reviewed them.
+4. Self-host the fonts (GDPR; the live site still loads Google Fonts) and update the privacy policy (form drafts kept in the browser, answers sent to Plunk).
+5. Owner and Maria feedback on the live pages and forms.
+6. Later: DACH Market Entry (Marketing style) and Event Lead Generation (Sales style).
 
 ## Session log (newest first, keep about 5)
 
+- 2026-10-28: Branch `november-update`. Maria's approved German (Sie) applied to the five rebuilt use case pages, German only, with the sheet's terms; homepage review still open.
 - 2026-10-27: Released to kadanco.com (`473b427`). Plunk set up by the owner (`docs/PLUNK-EMAILS-20261027-1315.md`). Forms: Skip and close ×, then Maria's review (buttons under the question aligned right, skip any question but the email, "Write a message instead"). Next round in a new branch.
 - 2026-10-26 (late night): Sales style; Account-Based Marketing and Outbound Sales Pipeline rebuilt.
 - 2026-10-26 (night): Layout jumps removed sitewide; forms themed by department with a coaching side panel.
