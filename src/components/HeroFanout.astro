@@ -16,14 +16,14 @@ const { label } = Astro.props;
 const locale = asLocale(Astro.currentLocale);
 const t = {
   en: { interview: 'Founder interview', quote: 'Small teams do not need an HR department to hire well.',
-        author: 'Founder · Talio', post: 'Small teams do not need an HR department to hire well. Here is how we do it.', repost: 'Repost',
+        author: 'Founder · Plovra', post: 'Small teams do not need an HR department to hire well. Here is how we do it.', repost: 'Repost',
         guide: 'Guide', article: 'How To Hire Without An HR Department', search: '↑ Search', ai: '✦ AI answer',
-        slide: 'Hiring Without HR.', onepager: 'One-pager', opH: 'Talio for small teams', opCta: 'Book a demo',
+        slide: 'Hiring Without HR.', onepager: 'One-pager', opH: 'Plovra for small teams', opCta: 'Book a demo',
         cap: 'Example: one interview, four pieces.' },
   de: { interview: 'Gründer-Interview', quote: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen.',
-        author: 'Gründerin · Talio', post: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', repost: 'Teilen',
+        author: 'Gründerin · Plovra', post: 'Kleine Teams brauchen keine Personalabteilung, um gut einzustellen. So machen wir es.', repost: 'Teilen',
         guide: 'Leitfaden', article: 'Einstellen ohne Personalabteilung', search: '↑ Suche', ai: '✦ KI-Antwort',
-        slide: 'Einstellen ohne HR.', onepager: 'One-Pager', opH: 'Talio für kleine Teams', opCta: 'Demo buchen',
+        slide: 'Einstellen ohne HR.', onepager: 'One-Pager', opH: 'Plovra für kleine Teams', opCta: 'Demo buchen',
         cap: 'Beispiel: ein Interview, vier Stücke.' },
 }[locale];
 ---
@@ -42,7 +42,7 @@ const t = {
     </div>
     <div class="hf-piece hf-slide" style="--i:2" aria-hidden="true">
       <b><mark>{t.slide}</mark></b>
-      <span class="hf-logo">talio</span>
+      <span class="hf-logo">plovra</span>
     </div>
     <div class="hf-piece hf-one" style="--i:3" aria-hidden="true">
       <span class="hf-kick">{t.onepager}</span>

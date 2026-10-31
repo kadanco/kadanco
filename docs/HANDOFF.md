@@ -61,7 +61,7 @@ Rollback if a release breaks: Cloudflare Pages, Deployments, previous deployment
 - **Homepage** (EN and DE), signed off.
 - **Use case pages** rebuilt on one template (`UseCaseDetail.astro`, data in `src/data/use-case-pages/`): hero, self-check (picture, six-step heading, one risk line), detailed steps with pictures (`StepsDetail.astro`), what we measure, ways to work, who does the work, FAQ, CTA. No route cards ("Your options") on use case pages.
   - **Product** style (wireframes and UI, blue hero): Product Design (`HeroMorph` slider), Website Production (`HeroBuild`, five stages Branded to Optimised, own /website-audit/).
-  - **Marketing** style (editorial plus campaign wall, navy hero with lime accents, small tilts): Positioning and Brand (`HeroPasteup`, buzzword bingo, five clickable steps incl. Rollout, press clippings), Content Production (`HeroFanout`, stale LinkedIn feed, five clickable steps, press clippings). Example company "Talio".
+  - **Marketing** style (editorial plus campaign wall, navy hero with lime accents, small tilts): Positioning and Brand (`HeroPasteup`, buzzword bingo, five clickable steps incl. Rollout, press clippings), Content Production (`HeroFanout`, stale LinkedIn feed, five clickable steps, press clippings). Example company "Plovra".
   - **Sales** style (dashboards and graphs, lilac hero, example figures tagged "Example data"): Account-Based Marketing (`HeroAccounts`, pipeline board, five clickable dashboard steps), Outbound Sales Pipeline (`HeroSequence`, pipeline dashboard, five clickable steps). Measures as a Sales dashboard.
   - **Old layout, footer only:** DACH Market Entry, Event Lead Generation. **Hidden:** Software Modernisation, /use-cases/.
 - **Forms** (`AuditIntake.astro`, questions in `src/data/intakes.ts`, side panel in `src/data/form-coach.ts`): /strategy-call/, /ux-audit/, /website-audit/, /marketing-audit/, /pipeline-audit/ (EN and DE).
@@ -74,7 +74,7 @@ Rollback if a release breaks: Cloudflare Pages, Deployments, previous deployment
 
 - Sign-off on the six rebuilt use case pages and the forms, including the claims (timelines, week tags, "From you" lines, CMS list, example figures).
 - Approve the eight draft operator quotes in the form side panel and the facts "The audit is free", "You keep the findings", "We reply within one working day".
-- Check that "Talio" is not a real company in our market.
+- Example company renamed from "Talio" (real HR company) to the invented "Plovra".
 - Maria: review all German text (pages, pictures, forms, Plunk confirmations).
 - Client testimonials, when available (slot ready in the form side panel).
 

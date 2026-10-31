@@ -345,7 +345,7 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                   <div class="m-book">
                     <div class="m-page m-page--l">
                       <span class="m-kick">{labels.mkt.guide} · 01</span>
-                      <span class="m-logo">talio</span>
+                      <span class="m-logo">plovra</span>
                       <div class="m-sw" role="group" aria-label={labels.mkt.colourLbl}>
                         {labels.mkt.colours.map((c, k) => <button type="button" class="m-swb" data-mx-set="acc" data-mx-val={k} aria-pressed={k === 3 ? 'true' : 'false'}><i></i>{c}</button>)}
                       </div>
@@ -354,8 +354,8 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                       <span class="m-kick">{labels.mkt.type}</span>
                       <span class="m-aa">Aa</span>
                       <div class="m-apply" aria-hidden="true">
-                        <div class="m-post"><span>talio</span><b>{labels.mkt.post}</b></div>
-                        <div class="m-card"><span>talio</span><em></em><em class="s"></em></div>
+                        <div class="m-post"><span>plovra</span><b>{labels.mkt.post}</b></div>
+                        <div class="m-card"><span>plovra</span><em></em><em class="s"></em></div>
                       </div>
                     </div>
                   </div>
@@ -372,7 +372,7 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                         <span class="m-kick">{String(k + 1).padStart(2, '0')} · {labels.mkt!.slides[k]}</span>
                         <b>{h}</b>
                         <div class="m-bars" aria-hidden="true">{[40, 55, 72, 96].map((v, n) => <i class={n === k ? 'on' : ''} style={`--h:${v}%`}></i>)}</div>
-                        <span class="m-logo m-logo--s">talio</span>
+                        <span class="m-logo m-logo--s">plovra</span>
                       </div>
                     ))}
                   </div>
@@ -458,7 +458,7 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
                     {[labels.cnt.deck, labels.cnt.onePager, labels.cnt.caseStudy].map((l, k) => <button type="button" class="m-chip" data-mx-set="front" data-mx-val={k} aria-pressed={k === 0 ? 'true' : 'false'}>{l}</button>)}
                   </div>
                   <div class="c-pile" aria-hidden="true">
-                    <div class="c-slide c-pc c-pc--0"><b><mark>{labels.cnt.deckH}</mark></b><span class="m-logo m-logo--s">talio</span></div>
+                    <div class="c-slide c-pc c-pc--0"><b><mark>{labels.cnt.deckH}</mark></b><span class="m-logo m-logo--s">plovra</span></div>
                     <div class="c-one c-pc c-pc--1"><span class="m-kick">{labels.cnt.onePager}</span><b>{labels.cnt.opH}</b><ul><li></li><li></li><li></li></ul></div>
                     <div class="c-case c-pc c-pc--2"><span class="m-kick">{labels.cnt.caseStudy}</span><p>“{labels.cnt.quote}”</p><em class="s"></em></div>
                   </div>
@@ -1057,7 +1057,7 @@ const { steps, labels, cta, ctaHref, look = 'product' } = Astro.props;
   .sd-canvas .m-as-in u { width: 40%; height: 3cqi; background: var(--kd-signal-1); transition: background-color .45s ease var(--d), border-radius .45s ease var(--d); }
   /* the logo has one fixed height in both states (dashed placeholder and wordmark), so nothing moves */
   .m-as-in .lg { align-self: flex-start; display: inline-flex; align-items: center; height: clamp(14px, 3.4cqi, 20px); padding: 0 1cqi; border: 1.5px solid transparent; border-radius: 3px; font-style: normal; font-size: clamp(10px, 2.4cqi, 15px); font-weight: var(--kd-weight-logo); color: var(--kd-signal-1); }
-  .m-as-in .lg::after { content: 'talio'; }
+  .m-as-in .lg::after { content: 'plovra'; }
   /* before: each asset from a different company */
   .m-roll[data-ba="before"] .m-as:nth-child(odd) { transform: rotate(-2.5deg); }
   .m-roll[data-ba="before"] .m-as:nth-child(even) { transform: rotate(2deg) translateY(4px); }

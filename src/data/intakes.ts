@@ -42,7 +42,7 @@ export const uxAudit: Intake = {
     review: { eyebrow: 'Brief ready', h1: "That's Everything.", lead: 'Here is your audit brief. Send it to us and we confirm the scope and suggest times by email.', send: 'Send Brief', sending: 'Sending…', copy: 'Copy brief', copied: 'Brief copied', restart: 'Start over', failed: 'We could not send it just now. Please try again or email hello@kadanco.com.' },
     done: { eyebrow: 'Brief sent', h1: 'Thank You.', lead: 'We have your brief and reply within one working day to confirm the scope and suggest times.', back: 'Back to the website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Audit', title: 'What should we call this audit?', help: 'A short name, usually your product or site.', placeholder: 'e.g. Talio website', required: true, missing: 'a name' },
+      { id: 'name', type: 'text', label: 'Audit', title: 'What should we call this audit?', help: 'A short name, usually your product or site.', placeholder: 'e.g. Plovra website', required: true, missing: 'a name' },
       { id: 'url', type: 'url', label: 'URL', title: 'Where does it live?', help: 'The main URL we should start from.', placeholder: 'https://', required: true, missing: 'the URL' },
       { id: 'surfaces', type: 'multi', label: 'Surfaces', title: 'Which surfaces are in scope?', help: 'Pick each one you want audited. With more than one, a finding is worded the same across all of them.', required: true,
         options: [{ v: 'Website' }, { v: 'Web app' }, { v: 'Mobile app' }] },
@@ -75,7 +75,7 @@ export const uxAudit: Intake = {
     review: { eyebrow: 'Briefing fertig', h1: 'Das war alles.', lead: 'Hier ist Ihr Audit-Briefing. Senden Sie es uns, und wir bestätigen Umfang und Termine per E-Mail.', send: 'Briefing senden', sending: 'Wird gesendet…', copy: 'Briefing kopieren', copied: 'Briefing kopiert', restart: 'Neu beginnen', failed: 'Das hat gerade nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an hello@kadanco.com.' },
     done: { eyebrow: 'Briefing gesendet', h1: 'Vielen Dank.', lead: 'Wir haben Ihr Briefing und melden uns innerhalb eines Werktags, um Umfang und Termine abzustimmen.', back: 'Zurück zur Website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Audit', title: 'Wie soll das Audit heißen?', help: 'Ein kurzer Name, meist Ihr Produkt oder Ihre Website.', placeholder: 'z. B. Talio Website', required: true, missing: 'einen Namen' },
+      { id: 'name', type: 'text', label: 'Audit', title: 'Wie soll das Audit heißen?', help: 'Ein kurzer Name, meist Ihr Produkt oder Ihre Website.', placeholder: 'z. B. Plovra Website', required: true, missing: 'einen Namen' },
       { id: 'url', type: 'url', label: 'URL', title: 'Wo finden wir es?', help: 'Die Haupt-URL, mit der wir beginnen.', placeholder: 'https://', required: true, missing: 'die URL' },
       { id: 'surfaces', type: 'multi', label: 'Bereiche', title: 'Welche Bereiche gehören dazu?', help: 'Wählen Sie alles, was geprüft werden soll. Bei mehreren Bereichen formulieren wir jeden Befund überall gleich.', required: true,
         options: [{ v: 'Website' }, { v: 'Web-App' }, { v: 'Mobile App' }] },
@@ -116,7 +116,7 @@ export const marketingAudit: Intake = {
     review: { eyebrow: 'Brief ready', h1: "That's Everything.", lead: 'Here is your audit brief. Send it to us and we confirm the scope and suggest times by email.', send: 'Send Brief', sending: 'Sending…', copy: 'Copy brief', copied: 'Brief copied', restart: 'Start over', failed: 'We could not send it just now. Please try again or email hello@kadanco.com.' },
     done: { eyebrow: 'Brief sent', h1: 'Thank You.', lead: 'We have your brief and reply within one working day to confirm the scope and suggest times.', back: 'Back to the website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Company', title: 'Which company or product is this for?', placeholder: 'e.g. Talio', required: true, missing: 'a name' },
+      { id: 'name', type: 'text', label: 'Company', title: 'Which company or product is this for?', placeholder: 'e.g. Plovra', required: true, missing: 'a name' },
       { id: 'url', type: 'url', label: 'Website', title: 'Where can we see it?', help: 'Your website. We start there.', placeholder: 'https://', required: true, missing: 'the URL' },
       { id: 'focus', type: 'multi', label: 'In scope', title: 'What should we look at?', help: 'Pick everything you want in the audit.', required: true,
         options: [{ v: 'Positioning and messaging' }, { v: 'Brand identity' }, { v: 'Website' }, { v: 'Content and LinkedIn' }, { v: 'SEO and GEO' }, { v: 'Sales decks and one-pagers' }] },
@@ -141,7 +141,7 @@ export const marketingAudit: Intake = {
     review: { eyebrow: 'Briefing fertig', h1: 'Das war alles.', lead: 'Hier ist Ihr Audit-Briefing. Senden Sie es uns, und wir bestätigen Umfang und Termine per E-Mail.', send: 'Briefing senden', sending: 'Wird gesendet…', copy: 'Briefing kopieren', copied: 'Briefing kopiert', restart: 'Neu beginnen', failed: 'Das hat gerade nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an hello@kadanco.com.' },
     done: { eyebrow: 'Briefing gesendet', h1: 'Vielen Dank.', lead: 'Wir haben Ihr Briefing und melden uns innerhalb eines Werktags, um Umfang und Termine abzustimmen.', back: 'Zurück zur Website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen oder Produkt ist das?', placeholder: 'z. B. Talio', required: true, missing: 'einen Namen' },
+      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen oder Produkt ist das?', placeholder: 'z. B. Plovra', required: true, missing: 'einen Namen' },
       { id: 'url', type: 'url', label: 'Website', title: 'Wo finden wir es?', help: 'Ihre Website. Dort beginnen wir.', placeholder: 'https://', required: true, missing: 'die URL' },
       { id: 'focus', type: 'multi', label: 'Umfang', title: 'Was sollen wir prüfen?', help: 'Wählen Sie alles, was ins Audit gehört.', required: true,
         options: [{ v: 'Positionierung und Botschaft' }, { v: 'Markenidentität' }, { v: 'Website' }, { v: 'Content und LinkedIn' }, { v: 'SEO und GEO' }, { v: 'Sales-Decks und One-Pager' }] },
@@ -174,7 +174,7 @@ export const websiteAudit: Intake = {
     review: { eyebrow: 'Brief ready', h1: "That's Everything.", lead: 'Here is your audit brief. Send it to us and we confirm the scope and suggest times by email.', send: 'Send Brief', sending: 'Sending…', copy: 'Copy brief', copied: 'Brief copied', restart: 'Start over', failed: 'We could not send it just now. Please try again or email hello@kadanco.com.' },
     done: { eyebrow: 'Brief sent', h1: 'Thank You.', lead: 'We have your brief and reply within one working day to confirm the scope and suggest times.', back: 'Back to the website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Company', title: 'Which company is this for?', placeholder: 'e.g. Talio', required: true, missing: 'a name' },
+      { id: 'name', type: 'text', label: 'Company', title: 'Which company is this for?', placeholder: 'e.g. Plovra', required: true, missing: 'a name' },
       { id: 'url', type: 'url', label: 'Website', title: 'Where is your current website?', help: 'No site yet? Add the domain you plan to use.', placeholder: 'https://', required: true, missing: 'the URL' },
       { id: 'project', type: 'single', label: 'Project', title: 'What do you have in mind?', required: true,
         options: [{ v: 'A new website from scratch' }, { v: 'A redesign of our current site' }, { v: 'A new homepage first' }, { v: 'Not sure yet', d: 'Tell us what you see.' }] },
@@ -201,7 +201,7 @@ export const websiteAudit: Intake = {
     review: { eyebrow: 'Briefing fertig', h1: 'Das war alles.', lead: 'Hier ist Ihr Audit-Briefing. Senden Sie es uns, und wir bestätigen Umfang und Termine per E-Mail.', send: 'Briefing senden', sending: 'Wird gesendet…', copy: 'Briefing kopieren', copied: 'Briefing kopiert', restart: 'Neu beginnen', failed: 'Das hat gerade nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an hello@kadanco.com.' },
     done: { eyebrow: 'Briefing gesendet', h1: 'Vielen Dank.', lead: 'Wir haben Ihr Briefing und melden uns innerhalb eines Werktags, um Umfang und Termine abzustimmen.', back: 'Zurück zur Website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen ist das?', placeholder: 'z. B. Talio', required: true, missing: 'einen Namen' },
+      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen ist das?', placeholder: 'z. B. Plovra', required: true, missing: 'einen Namen' },
       { id: 'url', type: 'url', label: 'Website', title: 'Wo finden wir Ihre aktuelle Website?', help: 'Noch keine Website? Geben Sie die geplante Domain an.', placeholder: 'https://', required: true, missing: 'die URL' },
       { id: 'project', type: 'single', label: 'Projekt', title: 'Was haben Sie vor?', required: true,
         options: [{ v: 'Eine neue Website von Grund auf' }, { v: 'Ein Redesign der aktuellen Website' }, { v: 'Zuerst eine neue Startseite' }, { v: 'Noch unklar', d: 'Sagen Sie uns, was Sie sehen.' }] },
@@ -236,7 +236,7 @@ export const pipelineAudit: Intake = {
     review: { eyebrow: 'Brief ready', h1: "That's Everything.", lead: 'Here is your audit brief. Send it to us and we confirm the scope and suggest times by email.', send: 'Send Brief', sending: 'Sending…', copy: 'Copy brief', copied: 'Brief copied', restart: 'Start over', failed: 'We could not send it just now. Please try again or email hello@kadanco.com.' },
     done: { eyebrow: 'Brief sent', h1: 'Thank You.', lead: 'We have your brief and reply within one working day to confirm the scope and suggest times.', back: 'Back to the website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Company', title: 'Which company is this for?', placeholder: 'e.g. Talio', required: true, missing: 'a name' },
+      { id: 'name', type: 'text', label: 'Company', title: 'Which company is this for?', placeholder: 'e.g. Plovra', required: true, missing: 'a name' },
       { id: 'url', type: 'url', label: 'Website', title: 'What is your website?', placeholder: 'https://', required: true, missing: 'the URL' },
       { id: 'offer', type: 'long', label: 'Offer and buyers', title: 'What do you sell, and to whom?', help: 'Your offer and the companies that buy it.', placeholder: 'e.g. Scheduling software for clinics with 5 to 50 doctors', required: true, missing: 'your offer' },
       { id: 'deal', type: 'single', label: 'Deal size', title: 'What is a typical first-year deal worth?', required: true,
@@ -262,7 +262,7 @@ export const pipelineAudit: Intake = {
     review: { eyebrow: 'Briefing fertig', h1: 'Das war alles.', lead: 'Hier ist Ihr Audit-Briefing. Senden Sie es uns, und wir bestätigen Umfang und Termine per E-Mail.', send: 'Briefing senden', sending: 'Wird gesendet…', copy: 'Briefing kopieren', copied: 'Briefing kopiert', restart: 'Neu beginnen', failed: 'Das hat gerade nicht geklappt. Bitte versuchen Sie es erneut oder schreiben Sie an hello@kadanco.com.' },
     done: { eyebrow: 'Briefing gesendet', h1: 'Vielen Dank.', lead: 'Wir haben Ihr Briefing und melden uns innerhalb eines Werktags, um Umfang und Termine abzustimmen.', back: 'Zurück zur Website' },
     questions: [
-      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen ist das?', placeholder: 'z. B. Talio', required: true, missing: 'einen Namen' },
+      { id: 'name', type: 'text', label: 'Unternehmen', title: 'Für welches Unternehmen ist das?', placeholder: 'z. B. Plovra', required: true, missing: 'einen Namen' },
       { id: 'url', type: 'url', label: 'Website', title: 'Wie lautet Ihre Website?', placeholder: 'https://', required: true, missing: 'die URL' },
       { id: 'offer', type: 'long', label: 'Angebot und Käufer', title: 'Was verkaufen Sie, und an wen?', help: 'Ihr Angebot und die Unternehmen, die es kaufen.', placeholder: 'z. B. Terminsoftware für Praxen mit 5 bis 50 Ärzten', required: true, missing: 'Ihr Angebot' },
       { id: 'deal', type: 'single', label: 'Auftragsgröße', title: 'Was ist ein typischer Abschluss im ersten Jahr wert?', required: true,
