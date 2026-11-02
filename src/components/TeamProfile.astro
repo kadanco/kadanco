@@ -1,0 +1,248 @@
+---
+// src/components/TeamProfile.astro
+//
+// One team member's page (/team/<slug>/, /de/team/<slug>/), the target of the
+// QR codes on the business cards. Navy hero with photo, title, bio and CTAs,
+// then a career timeline (newest first) and education. Content in
+// src/data/team.ts. Public links only: never render email or phone here.
+import Layout from '../layouts/Layout.astro';
+import { team, type Person, type Lang } from '../data/team';
+import { asLocale, localizeUrl } from '../i18n/utils';
+
+interface Props { person: Person }
+const { person: p } = Astro.props;
+const lang: Lang = asLocale(Astro.currentLocale) === 'de' ? 'de' : 'en';
+
+const MONTHS = {
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  de: ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sept.', 'Okt.', 'Nov.', 'Dez.'],
+};
+const fmt = (d: string) => {
+  const [y, m] = d.split('-');
+  return m ? `${MONTHS[lang][Number(m) - 1]} ${y}` : y;
+};
+
+const c = {
+  en: {
+    eyebrow: 'Kadanco Team',
+    cta: 'Book A Strategy Call',
+    now: 'Present',
+    expEyebrow: 'Timeline',
+    expH: 'Experience',
+    eduH: 'Education',
+    linksH: `Find ${p.first} Online`,
+    also: 'Also at Kadanco',
+    metaTitle: `${p.name}, ${p.title.en} | Kadanco`,
+    metaDesc: `${p.name}, ${p.title.en} at Kadanco in Berlin. Career timeline, education and LinkedIn profile.`,
+    nowTag: 'Now',
+  },
+  de: {
+    eyebrow: 'Kadanco Team',
+    cta: 'Strategiegespräch buchen',
+    now: 'heute',
+    expEyebrow: 'Werdegang',
+    expH: 'Berufserfahrung',
+    eduH: 'Ausbildung',
+    linksH: `${p.first} online`,
+    also: 'Ebenfalls bei Kadanco',
+    metaTitle: `${p.name}, ${p.title.de} | Kadanco`,
+    metaDesc: `${p.name}, ${p.title.de} bei Kadanco in Berlin. Werdegang, Ausbildung und LinkedIn-Profil.`,
+    nowTag: 'Aktuell',
+  },
+}[lang];
+
+const others = team.filter((o) => o.slug !== p.slug);
+const linkedin = p.links.find((l) => l.label === 'LinkedIn');
+
+// Structured data for search engines. Deliberately no email or telephone.
+const pageUrl = new URL(localizeUrl(lang, `/team/${p.slug}/`), Astro.site).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: pageUrl,
+  mainEntity: {
+    '@type': 'Person',
+    name: p.name,
+    jobTitle: p.title[lang],
+    image: p.photo,
+    url: pageUrl,
+    worksFor: { '@type': 'Organization', name: 'Kadanco', url: 'https://kadanco.com/' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Berlin', addressCountry: 'DE' },
+    sameAs: p.links.map((l) => l.url),
+    alumniOf: p.education.map((e) => ({ '@type': 'EducationalOrganization', name: e.school })),
+  },
+};
+---
+<Layout title={c.metaTitle} description={c.metaDesc}>
+  <main class="team-page">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <section class="tp-hero band-deep" data-theme="dark">
+      <div class="container tp-hero-grid">
+        <img class="tp-photo" src={p.photo} alt={p.name} width="240" height="240" />
+        <div class="tp-intro">
+          <span class="eyebrow tp-eyebrow">{c.eyebrow}</span>
+          <h1>{p.name}</h1>
+          <p class="tp-title">{p.title[lang]}</p>
+          <p class="tp-bio">{p.bio[lang]}</p>
+          <div class="tp-ctas">
+            <a class="btn btn-lime" href={localizeUrl(lang, '/strategy-call/')}>{c.cta}</a>
+            {linkedin && (
+              <a class="btn btn-ghost" href={linkedin.url} target="_blank" rel="noopener me">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3v-11Zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.65 4.77 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4v-11Z"/></svg>
+                LinkedIn
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tp-body" data-theme="light">
+      <div class="container tp-cols">
+        <div class="tp-main">
+          <span class="eyebrow">{c.expEyebrow}</span>
+          <h2>{c.expH}</h2>
+          <ol class="tl">
+            {p.career.map((stop) => {
+              const first = stop.roles[stop.roles.length - 1];
+              const latest = stop.roles[0];
+              const ongoing = !latest.end;
+              return (
+                <li class:list={['tl-item', { 'is-now': ongoing }]}>
+                  <div class="tl-when">
+                    {(() => {
+                      const from = first.start.slice(0, 4);
+                      const to = ongoing ? c.now : latest.end!.slice(0, 4);
+                      return from === to ? from : `${from} – ${to}`;
+                    })()}
+                  </div>
+                  <div class="tl-card">
+                    <h3>
+                      {stop.url ? <a href={stop.url} target="_blank" rel="noopener">{stop.org}</a> : stop.org}
+                      {ongoing && <span class="tl-tag">{c.nowTag}</span>}
+                    </h3>
+                    {stop.orgNote && <p class="tl-note">{stop.orgNote[lang]}</p>}
+                    <ol class:list={['tl-roles', { multi: stop.roles.length > 1 }]}>
+                      {stop.roles.map((r) => (
+                        <li>
+                          <p class="tl-role">{r.title[lang]}</p>
+                          <p class="tl-dates">{fmt(r.start)} – {r.end ? fmt(r.end) : c.now}</p>
+                          {r.text && <p class="tl-text">{r.text[lang]}</p>}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+
+          <h2 class="tp-h2-edu">{c.eduH}</h2>
+          <ol class="tl tl-edu">
+            {p.education.map((e) => (
+              <li class="tl-item">
+                <div class="tl-when">{e.start} – {e.end}</div>
+                <div class="tl-card">
+                  <h3>{e.school}</h3>
+                  <p class="tl-role">{e.degree[lang]}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <aside class="tp-side">
+          <div class="tp-box">
+            <h2 class="tp-side-h">{c.linksH}</h2>
+            <ul class="tp-links">
+              {p.links.map((l) => (
+                <li><a href={l.url} target="_blank" rel="noopener me">{l.label} <span aria-hidden="true">→</span></a></li>
+              ))}
+            </ul>
+          </div>
+          {others.map((o) => (
+            <a class="tp-box tp-other" href={localizeUrl(lang, `/team/${o.slug}/`)}>
+              <img src={o.photo} alt="" width="56" height="56" loading="lazy" />
+              <span>
+                <span class="tp-other-label">{c.also}</span>
+                <span class="tp-other-name">{o.name}</span>
+                <span class="tp-other-title">{o.title[lang]}</span>
+              </span>
+            </a>
+          ))}
+        </aside>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .tp-hero { padding: 140px 0 72px; }
+  .tp-hero-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 56px; align-items: center; }
+  .tp-photo { width: 240px; height: 240px; object-fit: cover; border-radius: var(--kd-radius); border: 2px solid var(--kd-signal-1); }
+  .tp-eyebrow { color: var(--kd-lilac); }
+  .tp-hero h1 { color: var(--kd-white); margin: 0; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.1; font-weight: 500; }
+  .tp-title { color: var(--kd-signal-1); font-size: 1.2rem; font-weight: 500; margin: 8px 0 18px; }
+  .tp-bio { color: rgba(255, 255, 255, 0.82); max-width: 640px; margin: 0 0 28px; }
+  .tp-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .tp-body { background: var(--kd-white); padding: var(--pad) 0; }
+  .tp-cols { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; }
+  .tp-main h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 500; margin: 0 0 32px; color: var(--kd-ink); }
+  .tp-main .tp-h2-edu { margin-top: 64px; }
+
+  /* timeline: years left, line with dots, card right */
+  .tl { list-style: none; margin: 0; padding: 0; position: relative; }
+  .tl::before { content: ''; position: absolute; left: 132px; top: 8px; bottom: 8px; width: 2px; background: var(--kd-beige-3); }
+  .tl-item { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 44px; position: relative; padding-bottom: 32px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before { content: ''; position: absolute; left: 126px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--kd-white); border: 2px solid var(--kd-blue-2); }
+  .tl-item.is-now::before { background: var(--kd-signal-1); border-color: var(--kd-blue-1); }
+  .tl-when { font-size: 0.92rem; font-weight: 500; color: var(--kd-blue-2); text-align: right; padding-top: 2px; white-space: nowrap; }
+  .tl-card { background: var(--kd-beige-1); border-radius: var(--kd-radius); padding: 20px 24px; }
+  .tl-card h3 { font-size: 1.15rem; font-weight: 500; margin: 0; color: var(--kd-ink); display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .tl-card h3 a { color: inherit; text-decoration: underline; text-decoration-color: var(--kd-lilac); text-underline-offset: 3px; }
+  .tl-tag { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; background: var(--kd-signal-1); color: var(--kd-blue-1); padding: 3px 8px; border-radius: var(--kd-radius); }
+  .tl-note { font-size: 0.92rem; color: var(--muted); margin: 2px 0 0; }
+  .tl-roles { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 14px; }
+  .tl-roles.multi > li { padding-left: 16px; border-left: 2px solid var(--kd-lilac); }
+  .tl-role { font-weight: 500; margin: 0; color: var(--kd-blue-1); }
+  .tl-edu .tl-role { margin-top: 4px; font-weight: 400; color: var(--kd-ink); }
+  .tl-dates { font-size: 0.88rem; color: var(--muted); margin: 0; }
+  .tl-text { margin: 6px 0 0; font-size: 0.98rem; line-height: 1.6; }
+
+  /* side column */
+  .tp-side { position: sticky; top: 104px; display: grid; gap: 16px; }
+  .tp-box { display: block; background: var(--kd-beige-1); border-radius: var(--kd-radius); padding: 22px 24px; }
+  .tp-side-h { font-size: 1.05rem; font-weight: 500; margin: 0 0 10px; color: var(--kd-ink); }
+  .tp-links { list-style: none; margin: 0; padding: 0; }
+  .tp-links a { font-size: 1.15rem; font-weight: 500; color: var(--kd-blue-2); text-decoration: none; }
+  .tp-links a:hover, .tp-links a:focus-visible { text-decoration: underline; }
+  .tp-other { display: flex; gap: 14px; align-items: center; text-decoration: none; color: var(--kd-ink); border: 2px solid transparent; transition: border-color 0.15s ease; }
+  .tp-other:hover, .tp-other:focus-visible { border-color: var(--kd-blue-2); }
+  .tp-other img { width: 56px; height: 56px; border-radius: var(--kd-radius); object-fit: cover; flex: none; }
+  .tp-other > span { display: grid; }
+  .tp-other-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .tp-other-name { font-weight: 500; }
+  .tp-other-title { font-size: 0.9rem; color: var(--kd-blue-2); }
+
+  @media (max-width: 980px) {
+    .tp-cols { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+    .tp-side { position: static; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  }
+  @media (max-width: 880px) {
+    .tp-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .tp-photo { width: 160px; height: 160px; }
+  }
+  @media (max-width: 560px) {
+    .tp-hero { padding: 112px 0 56px; }
+    .tp-ctas .btn { width: 100%; }
+    /* line on the left, years above each card */
+    .tl::before { left: 6px; }
+    .tl-item { grid-template-columns: minmax(0, 1fr); gap: 6px; padding-left: 30px; padding-bottom: 24px; }
+    .tl-item::before { left: 0; top: 4px; }
+    .tl-when { text-align: left; }
+    .tl-card { padding: 16px 18px; }
+  }
+</style>

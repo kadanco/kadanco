@@ -17,3 +17,8 @@
 /use-cases/             /                  302
 /de/use-cases           /de/               302
 /de/use-cases/          /de/               302
+# no team overview page; /team/ goes to Who We Are on the homepage (team pages: 2026-11-02)
+/team              /#about      302
+/team/             /#about      302
+/de/team           /de/#about   302
+/de/team/          /de/#about   302

@@ -2,7 +2,7 @@
 
 Start a new chat with: "Read docs/HANDOFF.md". Claude updates this file at the end of every work session (rule in `CLAUDE.md`), so it always shows where we stopped.
 
-Last updated: 28 October 2026, 18:15 (Germany time)
+Last updated: 2 November 2026 (Germany time)
 
 ## Read first
 
@@ -89,6 +89,8 @@ Rollback if a release breaks: Cloudflare Pages, Deployments, previous deployment
 7. Later: DACH Market Entry (Marketing style) and Event Lead Generation (Sales style).
 
 ## Session log (newest first, keep about 5)
+
+- 2026-11-02: Team profile pages for the business card QR codes (/team/karan/, /team/maria/, EN and DE), built and released on `main` the same day (owner). Waiting on Maria: review the German on both pages.
 
 - 2026-10-28: Branch `november-update`. Maria's approved German (Sie) applied to the five rebuilt use case pages, German only, with the sheet's terms (`8ac6055` plus uncommitted page files). Then three CSVs for Maria: site-wide term list, homepage proposal, Product Design proposal. Next chat starts when Maria's term list is back.
 - 2026-10-27: Released to kadanco.com (`473b427`). Plunk set up by the owner (`docs/PLUNK-EMAILS-20261027-1315.md`). Forms: Skip and close ×, then Maria's review (buttons under the question aligned right, skip any question but the email, "Write a message instead"). Next round in a new branch.

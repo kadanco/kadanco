@@ -1,0 +1,11 @@
+---
+// Team profile pages; the business card QR codes point here (never rename slugs).
+import TeamProfile from '../../../components/TeamProfile.astro';
+import { team } from '../../../data/team';
+
+export function getStaticPaths() {
+  return team.map((person) => ({ params: { slug: person.slug }, props: { person } }));
+}
+const { person } = Astro.props;
+---
+<TeamProfile person={person} />

@@ -44,6 +44,8 @@ export const translatedRoutes: Partial<Record<Locale, string[]>> = {
     '/use-cases/account-based-marketing',
     '/privacy-policy',
     '/imprint',
+    '/team/karan',
+    '/team/maria',
   ],
 };
 
